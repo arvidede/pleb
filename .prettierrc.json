@@ -1,0 +1,31 @@
+{
+    "plugins": [
+        "prettier-plugin-organize-imports"
+    ],
+    "semi": false,
+    "tabWidth": 4,
+    "useTabs": false,
+    "rules": {
+        "no-unused-vars": "err",
+        "no-empty-function": "err"
+    },
+    "overrides": [
+        {
+            "files": [
+                "*.json"
+            ],
+            "options": {
+                "tabWidth": 2
+            }
+        },
+        {
+            "files": [
+                "*.css",
+                "*.scss"
+            ],
+            "options": {
+                "tabWidth": 2
+            }
+        }
+    ]
+}
