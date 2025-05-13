@@ -1,0 +1,57 @@
+{
+    "name": "pleb",
+    "version": "1.0.0",
+    "description": "A simple SSG library.",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "bin": {
+        "pleb": "dist/cli.js"
+    },
+    "scripts": {
+        "build": "./scripts/build.sh",
+        "lint": "bunx eslint \"src/**/*.{ts,tsx}\"",
+        "lint:fix": "bunx eslint \"src/**/*.{ts,tsx}\" --fix",
+        "dev": "bun run src/cli.ts dev",
+        "start": "bun run dist/cli.js"
+    },
+    "keywords": [
+        "ssg",
+        "static site generator",
+        "react",
+        "typescript",
+        "bun"
+    ],
+    "author": "Your Name",
+    "license": "MIT",
+    "dependencies": {
+        "autoprefixer": "^10.4.21",
+        "cssnano": "^7.0.7",
+        "postcss": "^8.5.3",
+        "postcss-import": "^16.1.0",
+        "postcss-url": "^10.1.3",
+        "react": "^19.1.0",
+        "react-dom": "^19.1.0",
+        "bun-types": "^1.2.13"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.26.0",
+        "@types/postcss-import": "^14.0.3",
+        "@types/postcss-url": "^10.0.4",
+        "@types/react": "^19.1.3",
+        "@types/react-dom": "^19.1.3",
+        "@typescript-eslint/eslint-plugin": "^8.32.1",
+        "@typescript-eslint/parser": "^8.32.1",
+        "eslint": "^9.26.0",
+        "eslint-plugin-react": "^7.37.5",
+        "eslint-plugin-react-hooks": "^5.2.0",
+        "globals": "^16.1.0",
+        "postcss-inline-base64": "^7.3.1",
+        "prettier": "^3.5.3",
+        "prettier-plugin-organize-imports": "^4.1.0",
+        "typescript": "^5.8.3"
+    },
+    "peerDependencies": {
+        "react": "^19.1.0",
+        "react-dom": "^19.1.0"
+    }
+}
