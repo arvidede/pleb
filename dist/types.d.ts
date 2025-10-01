@@ -1,4 +1,6 @@
 import { ReactNode } from "react";
+import { Graph, Thing, WithContext } from "schema-dts";
+export type LinkedData = WithContext<Thing> | Graph;
 export interface UserConfig {
     projectRoot: string;
     port: number;

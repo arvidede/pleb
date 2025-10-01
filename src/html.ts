@@ -1,35 +1,19 @@
 import React from "react"
 import ReactDOMServer from "react-dom/server"
 import { LanguageProvider } from "./i18n"
-import { Metadata, PageProps, Script, ScriptTag, Translations } from "./types"
+import {
+    LinkedData,
+    Metadata,
+    PageProps,
+    Script,
+    ScriptTag,
+    Translations,
+} from "./types"
 
 export async function loadHtmlTemplate(templatePath: string): Promise<string> {
     const htmlTemplateFile = Bun.file(templatePath)
     const htmlTemplateString: string = (await htmlTemplateFile.text()).trim()
     return htmlTemplateString
-}
-
-export interface PageExports {
-    metadata: Metadata
-    script?: Script
-}
-
-interface PageModuleExports {
-    generateMetadata?: (content: Translations) => Metadata
-    script?: Script
-}
-
-export function extractPageExports(
-    pageModule: PageModuleExports,
-    content: Translations,
-): PageExports {
-    const metadata: Metadata = pageModule.generateMetadata
-        ? pageModule.generateMetadata(content) || { title: "", description: "" }
-        : { title: "", description: "" }
-    return {
-        metadata,
-        script: pageModule.script,
-    }
 }
 
 export function renderReactComponentToString(
@@ -53,6 +37,7 @@ export interface HtmlTemplateData {
     pageContent: string
     scripts?: Script
     metadata?: Metadata
+    linkedData?: LinkedData | null
     translations: Translations
 }
 
@@ -71,6 +56,10 @@ export function populateHtmlTemplate(
 
     if (data.metadata) {
         html = renderMetadata(html, data.metadata)
+    }
+
+    if (data.linkedData) {
+        html = renderLinkedData(html, data.linkedData)
     }
 
     html = processHtmlLinks(html, data.locale, data.defaultLocale)
@@ -178,6 +167,15 @@ export function renderMetadata(html: string, metadata: Metadata): string {
         .replace("{{twitter:card}}", metadata.twitter?.card || "")
 
     return html
+}
+
+export function renderLinkedData(html: string, linkedData: LinkedData): string {
+    const linkedDataTag = `
+    <script type="application/ld+json">
+        ${JSON.stringify(linkedData)}
+    </script>
+    `
+    return html.replace("</head>", `${linkedDataTag}</head>`)
 }
 
 export function processHtmlLinks(

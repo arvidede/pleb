@@ -2,7 +2,7 @@
   "version": 3,
   "sources": ["../src/index.ts"],
   "sourcesContent": [
-    "export { default as React } from \"react\"\nexport { LanguageContext, LanguageProvider, useLanguage } from \"./i18n\"\nexport {\n    LocaleInfo,\n    Metadata,\n    PageProps,\n    Script,\n    ScriptTag,\n    Translations,\n    UserConfig,\n} from \"./types\"\n"
+    "export { default as React } from \"react\"\nexport { LanguageContext, LanguageProvider, useLanguage } from \"./i18n\"\nexport {\n    LinkedData,\n    LocaleInfo,\n    Metadata,\n    PageProps,\n    Script,\n    ScriptTag,\n    Translations,\n    UserConfig,\n} from \"./types\"\n"
   ],
   "mappings": ";;;;;;;;;;AAAA;",
   "debugId": "C425B9A22971F18464756E2164756E21",

@@ -109570,13 +109570,6 @@ async function loadHtmlTemplate(templatePath) {
   const htmlTemplateString = (await htmlTemplateFile.text()).trim();
   return htmlTemplateString;
 }
-function extractPageExports(pageModule, content) {
-  const metadata = pageModule.generateMetadata ? pageModule.generateMetadata(content) || { title: "", description: "" } : { title: "", description: "" };
-  return {
-    metadata,
-    script: pageModule.script
-  };
-}
 function renderReactComponentToString(PageComponent, translations) {
   return import_server.default.renderToStaticMarkup(import_react.default.createElement(LanguageProvider, {
     t: translations,
@@ -109588,6 +109581,9 @@ function populateHtmlTemplate(template, data) {
   html = renderScripts(html, data.scripts);
   if (data.metadata) {
     html = renderMetadata(html, data.metadata);
+  }
+  if (data.linkedData) {
+    html = renderLinkedData(html, data.linkedData);
   }
   html = processHtmlLinks(html, data.locale, data.defaultLocale);
   html = renderTranslations(html, data.translations);
@@ -109652,6 +109648,14 @@ function renderScripts(html, script) {
 function renderMetadata(html, metadata) {
   html = html.replace("{{title}}", metadata.title || "").replace("{{description}}", metadata.description || "").replace("{{og:title}}", metadata.og?.title || metadata.title || "").replace("{{og:description}}", metadata.og?.description || metadata.description || "").replace("{{og:type}}", metadata.og?.type || "website").replace("{{og:url}}", metadata.og?.url || "").replace("{{og:image}}", metadata.og?.image || "").replace("{{twitter:title}}", metadata.twitter?.title || metadata.title || "").replace("{{twitter:description}}", metadata.twitter?.description || metadata.description || "").replace("{{twitter:image}}", metadata.twitter?.image || "").replace("{{twitter:card}}", metadata.twitter?.card || "");
   return html;
+}
+function renderLinkedData(html, linkedData) {
+  const linkedDataTag = `
+    <script type="application/ld+json">
+        ${JSON.stringify(linkedData)}
+    </script>
+    `;
+  return html.replace("</head>", `${linkedDataTag}</head>`);
 }
 function processHtmlLinks(html, locale, defaultLocale) {
   const internalLinkRegex = /(<a\s+[^>]*href=["'])(\/[^"']*)(["'][^>]*>)/g;
@@ -109766,6 +109770,15 @@ async function processCSS(config, cssFilePaths = []) {
   }
   return combinedCss;
 }
+function extractPageExports(pageModule, content) {
+  const metadata = pageModule.generateMetadata ? pageModule.generateMetadata(content) || { title: "", description: "" } : { title: "", description: "" };
+  const linkedData = pageModule.generateLinkedData ? pageModule.generateLinkedData(content) : null;
+  return {
+    metadata,
+    script: pageModule.script,
+    linkedData
+  };
+}
 async function renderPage(config, pageModuleBaseDir, pageRelativePath, locale, isDevMode, passedHtmlTemplateString) {
   const htmlTemplateString = passedHtmlTemplateString ?? await loadHtmlTemplate(config.templatePath);
   let pageModule;
@@ -109776,7 +109789,11 @@ async function renderPage(config, pageModuleBaseDir, pageRelativePath, locale, i
     throw error;
   }
   const translations = getTranslations(config, locale);
-  const { metadata, script: pageScript } = await extractPageExports(pageModule, translations);
+  const {
+    metadata,
+    script: pageScript,
+    linkedData
+  } = await extractPageExports(pageModule, translations);
   const pageSpecificCssPaths = determinePageSpecificCssPaths(config, pageRelativePath);
   const inlinedCSS = await processCSS(config, pageSpecificCssPaths);
   const pageContentHtml = renderReactComponentToString(pageModule.default, translations);
@@ -109789,7 +109806,8 @@ async function renderPage(config, pageModuleBaseDir, pageRelativePath, locale, i
     pageContent: pageContentHtml,
     scripts: pageScript,
     metadata,
-    translations
+    translations,
+    linkedData
   });
   if (isDevMode) {
     html = injectDevModeSseScript(html);
@@ -110295,5 +110313,5 @@ async function runCli() {
 }
 runCli();
 
-//# debugId=30DC9D8EB924ED8864756E2164756E21
+//# debugId=F9605173568085E164756E2164756E21
 //# sourceMappingURL=cli.js.map

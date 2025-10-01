@@ -5,18 +5,31 @@ import postcss from "postcss"
 import postcssImport from "postcss-import"
 import postcssURL from "postcss-url"
 import {
-    extractPageExports,
     injectDevModeSseScript,
     loadHtmlTemplate,
     populateHtmlTemplate,
     renderReactComponentToString,
 } from "./html"
 import { getTranslations } from "./i18n"
-import { Metadata, PageProps, Script, Translations, UserConfig } from "./types"
+import {
+    LinkedData,
+    Metadata,
+    PageProps,
+    Script,
+    Translations,
+    UserConfig,
+} from "./types"
 
 interface PageModule {
     default: React.ComponentType<PageProps>
     generateMetadata?: (content: Translations) => Metadata
+    generateLinkedData?: (content: Translations) => LinkedData
+    script?: Script
+}
+
+export interface PageExports {
+    metadata: Metadata
+    linkedData: LinkedData | null
     script?: Script
 }
 
@@ -111,6 +124,24 @@ export async function processCSS(
     return combinedCss
 }
 
+export function extractPageExports(
+    pageModule: PageModule,
+    content: Translations,
+): PageExports {
+    const metadata: Metadata = pageModule.generateMetadata
+        ? pageModule.generateMetadata(content) || { title: "", description: "" }
+        : { title: "", description: "" }
+
+    const linkedData = pageModule.generateLinkedData
+        ? pageModule.generateLinkedData(content)
+        : null
+    return {
+        metadata,
+        script: pageModule.script,
+        linkedData,
+    }
+}
+
 export async function renderPage(
     config: UserConfig,
     pageModuleBaseDir: string,
@@ -132,10 +163,11 @@ export async function renderPage(
     }
 
     const translations = getTranslations(config, locale)
-    const { metadata, script: pageScript } = await extractPageExports(
-        pageModule,
-        translations,
-    )
+    const {
+        metadata,
+        script: pageScript,
+        linkedData,
+    } = await extractPageExports(pageModule, translations)
 
     const pageSpecificCssPaths = determinePageSpecificCssPaths(
         config,
@@ -159,6 +191,7 @@ export async function renderPage(
         scripts: pageScript,
         metadata,
         translations,
+        linkedData,
     })
 
     if (isDevMode) {
