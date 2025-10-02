@@ -1,7 +1,41 @@
 import path from "path"
 import { buildSite } from "./build"
 import { startDevServer } from "./dev"
-import { UserConfig } from "./types"
+import { Config, UserConfig } from "./types"
+
+async function getUserConfig(projectRoot: string): Promise<UserConfig> {
+    const possibleFilenames = ["config.ts", "config.js"]
+
+    for (const filename of possibleFilenames) {
+        const configPath = path.join(projectRoot, filename)
+        const configFile = Bun.file(configPath)
+
+        if (await configFile.exists()) {
+            console.log(`Loading configuration from ${configPath}`)
+            try {
+                const configModule = await import(configPath)
+                if (configModule.default) {
+                    return configModule.default
+                }
+                console.error(
+                    `❌ Error: Configuration file "${filename}" was found but does not have a default export.`,
+                )
+                process.exit(1)
+            } catch (error: unknown) {
+                console.error(
+                    `❌ Error loading "${filename}":`,
+                    error instanceof Error ? error.message : error,
+                )
+                process.exit(1)
+            }
+        }
+    }
+
+    console.warn(
+        "⚠️ No config file (config.ts or config.js) found. Using default configuration.",
+    )
+    return {}
+}
 
 async function runCli() {
     const args = process.argv.slice(2)
@@ -14,34 +48,10 @@ async function runCli() {
     }
 
     const userProjectRoot = process.cwd()
-    const configFileName = "config.js"
-    const configPath = path.join(userProjectRoot, configFileName)
 
-    console.log(`Loading configuration from ${configPath}`)
+    const userConfig = await getUserConfig(userProjectRoot)
 
-    let userConfig: Partial<UserConfig> = {}
-    const configFile = Bun.file(configPath)
-    if (await configFile.exists()) {
-        try {
-            const configModule = require(configPath)
-            userConfig = configModule.default
-        } catch (error: unknown) {
-            console.error(
-                `❌ Error loading "${configFileName}" from ${configPath}:`,
-                error instanceof Error ? error.message : error,
-            )
-            console.error(
-                `Please ensure your "${configFileName}" file is correctly formatted and exports a default configuration object.`,
-            )
-            process.exit(1)
-        }
-    } else {
-        console.warn(
-            `"${configFileName}" not found in project root. Using default configuration.`,
-        )
-    }
-
-    const defaultConfig: UserConfig = {
+    const defaultConfig: Config = {
         projectRoot: userProjectRoot,
         port: 3000,
         appDir: "./app",
@@ -56,7 +66,7 @@ async function runCli() {
         baseUrl: "http://localhost:3000",
     }
 
-    const mergedConfig: UserConfig = {
+    const mergedConfig: Config = {
         ...defaultConfig,
         ...userConfig,
         projectRoot: userProjectRoot,

@@ -2,7 +2,7 @@ import { promises, watch } from "fs"
 import path from "path"
 import { getLocales } from "./i18n"
 import { renderPage } from "./render"
-import { LocaleInfo, UserConfig } from "./types"
+import { Config, LocaleInfo } from "./types"
 
 export function handleSSE(
     req: Request,
@@ -52,7 +52,7 @@ export function handleSSE(
 
 export async function handleRequest(
     req: Request,
-    config: UserConfig,
+    config: Config,
     locales: string[],
     defaultLocale: string,
     pagesDir: string,
@@ -175,7 +175,7 @@ export async function handleRequest(
 }
 
 export function startFileWatcher(
-    config: UserConfig,
+    config: Config,
     sseClients: Set<{ controller: ReadableStreamDefaultController<unknown> }>,
     initialLocaleData: {
         locales: string[]
@@ -284,7 +284,7 @@ export function startFileWatcher(
     }
 }
 
-export async function startDevServer(config: UserConfig): Promise<void> {
+export async function startDevServer(config: Config): Promise<void> {
     const localeInfos = getLocales(config)
     const locales: string[] = localeInfos.map((info) => info.code)
     const defaultLocaleInfo = localeInfos.find((info) => info.isDefault)

@@ -7,12 +7,12 @@ import postcssURL from "postcss-url"
 import { populateHtmlTemplate, renderReactComponentToString } from "./html"
 import { getTranslations } from "./i18n"
 import {
+    Config,
     LinkedData,
     Metadata,
     PageProps,
     Script,
     Translations,
-    UserConfig,
 } from "./types"
 
 interface PageModule {
@@ -45,7 +45,7 @@ async function loadPageModule(
 }
 
 function determinePageSpecificCssPaths(
-    config: UserConfig,
+    config: Config,
     pageRelativePath: string,
 ): string[] {
     const paths: string[] = []
@@ -62,7 +62,7 @@ function determinePageSpecificCssPaths(
 }
 
 function determineOutputFilePath(
-    config: UserConfig,
+    config: Config,
     pageRelativePath: string,
     locale: string,
 ): string {
@@ -86,7 +86,7 @@ function determineOutputFilePath(
 }
 
 export async function processCSS(
-    config: UserConfig,
+    config: Config,
     cssFilePaths: string[] = [],
 ): Promise<string> {
     let combinedCss = ""
@@ -138,7 +138,7 @@ export function extractPageExports(
 }
 
 export async function renderPage(
-    config: UserConfig,
+    config: Config,
     pageModuleBaseDir: string,
     pageRelativePath: string,
     locale: string,
@@ -193,7 +193,7 @@ export async function renderPage(
 }
 
 export async function buildPage(
-    config: UserConfig,
+    config: Config,
     compiledPagesDir: string,
     pageRelativePath: string,
     locale: string,

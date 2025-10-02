@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { Graph, Thing, WithContext } from "schema-dts";
 export type LinkedData = WithContext<Thing> | Graph;
-export interface UserConfig {
+export interface Config {
     projectRoot: string;
     port: number;
     appDir: string;
@@ -15,6 +15,7 @@ export interface UserConfig {
     defaultLocale: string;
     baseUrl: string;
 }
+export type UserConfig = Partial<Config>;
 export interface Translations extends Record<string, string> {
 }
 export interface Metadata {

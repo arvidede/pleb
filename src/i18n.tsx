@@ -2,11 +2,11 @@ import fs from "fs"
 import path from "path"
 import { createContext, useContext } from "react"
 import {
+    Config,
     LanguageContextType,
     LanguageProviderProps,
     LocaleInfo,
     Translations,
-    UserConfig,
 } from "./types"
 
 const DEFAULT_CONTEXT: LanguageContextType = {
@@ -34,7 +34,7 @@ export function LanguageProvider({ t, children }: LanguageProviderProps) {
     )
 }
 
-export function getLocales(config: UserConfig): LocaleInfo[] {
+export function getLocales(config: Config): LocaleInfo[] {
     const localesDir = config.localesDir
     if (!fs.existsSync(localesDir)) {
         console.warn(
@@ -92,10 +92,7 @@ export function getLocales(config: UserConfig): LocaleInfo[] {
     return localeInfos
 }
 
-export function getTranslations(
-    config: UserConfig,
-    locale: string,
-): Translations {
+export function getTranslations(config: Config, locale: string): Translations {
     const localesDir = config.localesDir
     const contentPath = path.join(localesDir, `${locale}.json`)
     if (!fs.existsSync(contentPath)) {

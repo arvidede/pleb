@@ -2,14 +2,14 @@ import { promises as fsPromises } from "fs"
 import path from "path"
 import { getLocales } from "./i18n"
 import { buildPage } from "./render"
-import { UserConfig } from "./types"
+import { Config } from "./types"
 import {
     generateSitemap,
     getAllTsxFiles,
     processPublicDirectory,
 } from "./utils"
 
-export async function prepareBuildDirectory(config: UserConfig): Promise<void> {
+export async function prepareBuildDirectory(config: Config): Promise<void> {
     const buildDir = config.outDir
     console.log(`🗑️ Cleaning build directory: ${buildDir}`)
     if (await Bun.file(buildDir).exists()) {
@@ -19,7 +19,7 @@ export async function prepareBuildDirectory(config: UserConfig): Promise<void> {
 }
 
 export async function buildLocalizedPages(
-    config: UserConfig,
+    config: Config,
     pagesDir: string,
     allPages: string[],
     locales: string[],
@@ -35,9 +35,7 @@ export async function buildLocalizedPages(
     console.log("✅ Pages built.")
 }
 
-export async function performPostBuildActions(
-    config: UserConfig,
-): Promise<void> {
+export async function performPostBuildActions(config: Config): Promise<void> {
     console.log("📦 Processing and copying public assets...")
     await processPublicDirectory(config)
     console.log("✅ Public assets processed.")
@@ -48,7 +46,7 @@ export async function performPostBuildActions(
     console.log("✅ Sitemap generated.")
 }
 
-export async function buildSite(config: UserConfig): Promise<void> {
+export async function buildSite(config: Config): Promise<void> {
     const startTime = performance.now()
     const pagesDir = config.pagesDir
 

@@ -110345,6 +110345,29 @@ async function startDevServer(config) {
 }
 
 // src/cli.ts
+async function getUserConfig(projectRoot) {
+  const possibleFilenames = ["config.ts", "config.js"];
+  for (const filename of possibleFilenames) {
+    const configPath = path5.join(projectRoot, filename);
+    const configFile = Bun.file(configPath);
+    if (await configFile.exists()) {
+      console.log(`Loading configuration from ${configPath}`);
+      try {
+        const configModule = await import(configPath);
+        if (configModule.default) {
+          return configModule.default;
+        }
+        console.error(`\u274C Error: Configuration file "${filename}" was found but does not have a default export.`);
+        process.exit(1);
+      } catch (error) {
+        console.error(`\u274C Error loading "${filename}":`, error instanceof Error ? error.message : error);
+        process.exit(1);
+      }
+    }
+  }
+  console.warn("\u26A0\uFE0F No config file (config.ts or config.js) found. Using default configuration.");
+  return {};
+}
 async function runCli() {
   const args = process.argv.slice(2);
   const command = args[0];
@@ -110354,23 +110377,7 @@ async function runCli() {
     process.exit(1);
   }
   const userProjectRoot = process.cwd();
-  const configFileName = "config.js";
-  const configPath = path5.join(userProjectRoot, configFileName);
-  console.log(`Loading configuration from ${configPath}`);
-  let userConfig = {};
-  const configFile = Bun.file(configPath);
-  if (await configFile.exists()) {
-    try {
-      const configModule = __require(configPath);
-      userConfig = configModule.default;
-    } catch (error) {
-      console.error(`\u274C Error loading "${configFileName}" from ${configPath}:`, error instanceof Error ? error.message : error);
-      console.error(`Please ensure your "${configFileName}" file is correctly formatted and exports a default configuration object.`);
-      process.exit(1);
-    }
-  } else {
-    console.warn(`"${configFileName}" not found in project root. Using default configuration.`);
-  }
+  const userConfig = await getUserConfig(userProjectRoot);
   const defaultConfig = {
     projectRoot: userProjectRoot,
     port: 3000,
@@ -110425,5 +110432,5 @@ async function runCli() {
 }
 runCli();
 
-//# debugId=74F8CFFA6BF31FF864756E2164756E21
+//# debugId=0F359291711226E364756E2164756E21
 //# sourceMappingURL=cli.js.map
