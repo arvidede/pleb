@@ -1,6 +1,5 @@
 import { promises as fsPromises } from "fs"
 import path from "path"
-import { loadHtmlTemplate } from "./html"
 import { getLocales } from "./i18n"
 import { buildPage } from "./render"
 import { UserConfig } from "./types"
@@ -24,20 +23,13 @@ export async function buildLocalizedPages(
     pagesDir: string,
     allPages: string[],
     locales: string[],
-    htmlTemplateString: string,
 ): Promise<void> {
     console.log("🏗️ Building pages...")
     for (const locale of locales) {
         console.log(`  - Building for locale: ${locale}`)
         for (const pageFilePath of allPages) {
             const pageRelativePath = path.relative(pagesDir, pageFilePath)
-            await buildPage(
-                config,
-                pagesDir,
-                pageRelativePath,
-                locale,
-                htmlTemplateString,
-            )
+            await buildPage(config, pagesDir, pageRelativePath, locale, locales)
         }
     }
     console.log("✅ Pages built.")
@@ -82,15 +74,7 @@ export async function buildSite(config: UserConfig): Promise<void> {
         `📄 Found ${allPages.length} pages and ${locales.length} locales.`,
     )
 
-    const htmlTemplateString = await loadHtmlTemplate(config.templatePath)
-
-    await buildLocalizedPages(
-        config,
-        pagesDir,
-        allPages,
-        locales,
-        htmlTemplateString,
-    )
+    await buildLocalizedPages(config, pagesDir, allPages, locales)
 
     await performPostBuildActions(config)
 

@@ -137,6 +137,7 @@ export async function handleRequest(
             pagesDir,
             path.relative(pagesDir, pageFilePath),
             locale,
+            locales,
             true,
         )
         return new Response(html, {

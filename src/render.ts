@@ -4,12 +4,7 @@ import path from "path"
 import postcss from "postcss"
 import postcssImport from "postcss-import"
 import postcssURL from "postcss-url"
-import {
-    injectDevModeSseScript,
-    loadHtmlTemplate,
-    populateHtmlTemplate,
-    renderReactComponentToString,
-} from "./html"
+import { populateHtmlTemplate, renderReactComponentToString } from "./html"
 import { getTranslations } from "./i18n"
 import {
     LinkedData,
@@ -147,12 +142,9 @@ export async function renderPage(
     pageModuleBaseDir: string,
     pageRelativePath: string,
     locale: string,
+    locales: string[],
     isDevMode: boolean,
-    passedHtmlTemplateString?: string,
 ): Promise<string> {
-    const htmlTemplateString =
-        passedHtmlTemplateString ??
-        (await loadHtmlTemplate(config.templatePath))
     let pageModule: PageModule
     try {
         pageModule = await loadPageModule(pageModuleBaseDir, pageRelativePath)
@@ -163,11 +155,10 @@ export async function renderPage(
     }
 
     const translations = getTranslations(config, locale)
-    const {
-        metadata,
-        script: pageScript,
-        linkedData,
-    } = await extractPageExports(pageModule, translations)
+    const { metadata, script, linkedData } = await extractPageExports(
+        pageModule,
+        translations,
+    )
 
     const pageSpecificCssPaths = determinePageSpecificCssPaths(
         config,
@@ -181,22 +172,22 @@ export async function renderPage(
         translations,
     )
 
-    let html = populateHtmlTemplate(htmlTemplateString, {
+    let html = await populateHtmlTemplate({
+        templatePath: config.templatePath,
         locale,
+        locales,
         defaultLocale: config.defaultLocale,
+        baseUrl: config.baseUrl,
         title: metadata.title,
         description: metadata.description,
         css: inlinedCSS,
         pageContent: pageContentHtml,
-        scripts: pageScript,
+        scripts: script,
         metadata,
         translations,
         linkedData,
+        dev: isDevMode,
     })
-
-    if (isDevMode) {
-        html = injectDevModeSseScript(html)
-    }
 
     return html
 }
@@ -206,7 +197,7 @@ export async function buildPage(
     compiledPagesDir: string,
     pageRelativePath: string,
     locale: string,
-    htmlTemplateString: string,
+    locales: string[],
 ): Promise<void> {
     const outputPath = determineOutputFilePath(config, pageRelativePath, locale)
 
@@ -215,8 +206,8 @@ export async function buildPage(
         compiledPagesDir,
         pageRelativePath,
         locale,
+        locales,
         false,
-        htmlTemplateString,
     )
     await Bun.write(outputPath, html)
 }

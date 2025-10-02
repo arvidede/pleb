@@ -12,6 +12,6 @@ export interface PageExports {
 }
 export declare function processCSS(config: UserConfig, cssFilePaths?: string[]): Promise<string>;
 export declare function extractPageExports(pageModule: PageModule, content: Translations): PageExports;
-export declare function renderPage(config: UserConfig, pageModuleBaseDir: string, pageRelativePath: string, locale: string, isDevMode: boolean, passedHtmlTemplateString?: string): Promise<string>;
-export declare function buildPage(config: UserConfig, compiledPagesDir: string, pageRelativePath: string, locale: string, htmlTemplateString: string): Promise<void>;
+export declare function renderPage(config: UserConfig, pageModuleBaseDir: string, pageRelativePath: string, locale: string, locales: string[], isDevMode: boolean): Promise<string>;
+export declare function buildPage(config: UserConfig, compiledPagesDir: string, pageRelativePath: string, locale: string, locales: string[]): Promise<void>;
 export {};

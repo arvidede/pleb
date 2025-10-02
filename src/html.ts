@@ -12,8 +12,15 @@ import {
 
 export async function loadHtmlTemplate(templatePath: string): Promise<string> {
     const htmlTemplateFile = Bun.file(templatePath)
-    const htmlTemplateString: string = (await htmlTemplateFile.text()).trim()
-    return htmlTemplateString
+    if (await htmlTemplateFile.exists()) {
+        return (await htmlTemplateFile.text()).trim()
+    }
+
+    console.warn(
+        `No template found at ${templatePath}, using default template.`,
+    )
+
+    return Bun.file("./constants/template.html").text()
 }
 
 export function renderReactComponentToString(
@@ -29,8 +36,11 @@ export function renderReactComponentToString(
 }
 
 export interface HtmlTemplateData {
+    templatePath: string
     locale: string
+    locales: string[]
     defaultLocale: string
+    baseUrl: string
     title: string
     description: string
     css: string
@@ -39,20 +49,26 @@ export interface HtmlTemplateData {
     metadata?: Metadata
     linkedData?: LinkedData | null
     translations: Translations
+    dev: boolean
 }
 
-export function populateHtmlTemplate(
-    template: string,
+export async function populateHtmlTemplate(
     data: HtmlTemplateData,
-): string {
-    let html = template
-        .replace(/{{\s*locale\s*}}/g, data.locale)
-        .replace(/{{\s*title\s*}}/g, data.title || "")
-        .replace(/{{\s*description\s*}}/g, data.description || "")
-        .replace(/{{\s*css\s*}}/g, data.css || "")
-        .replace(/{{\s*pageContent\s*}}/g, data.pageContent || "")
+): Promise<string> {
+    let html = await loadHtmlTemplate(data.templatePath)
 
+    html = renderLocale(
+        html,
+        data.locale,
+        data.locales,
+        data.defaultLocale,
+        data.baseUrl,
+    )
+    html = renderTitle(html, data.title)
+    html = renderDescription(html, data.description)
+    html = renderStyles(html, data.css)
     html = renderScripts(html, data.scripts)
+    html = renderContent(html, data.pageContent)
 
     if (data.metadata) {
         html = renderMetadata(html, data.metadata)
@@ -66,10 +82,46 @@ export function populateHtmlTemplate(
 
     html = renderTranslations(html, data.translations)
 
+    if (data.dev) {
+        html = renderDevModeSseScript(html)
+    }
+
     return html
 }
 
-export function injectDevModeSseScript(html: string): string {
+function insertInHead(html: string, tag: string, last = true) {
+    if (last) {
+        return html.replace("<head>", `<head>${tag}`)
+    }
+
+    return html.replace("</head>", `${tag}</head>`)
+}
+
+function insertInBody(html: string, tag: string, last = true) {
+    if (last) {
+        return html.replace("</body>", `${tag}</body>`)
+    }
+
+    return html.replace("<body>", `<body>${tag}`)
+}
+
+function createMetaTag(attributes: {
+    property?: string
+    name?: string
+    content?: string
+}) {
+    let tag = "<meta "
+    for (const [key, value] of Object.entries(attributes)) {
+        if (value) {
+            tag += `${key}="${value}" `
+        }
+    }
+    tag += "/>"
+
+    return tag
+}
+
+function renderDevModeSseScript(html: string): string {
     const sseClientScript = `
         <script>
             const es = new EventSource('/pleb-dev-events');
@@ -85,8 +137,60 @@ export function injectDevModeSseScript(html: string): string {
             };
         </script>
     `
-    return html.replace("</body>", `${sseClientScript}</body>`)
+    return insertInBody(html, sseClientScript)
 }
+
+function renderLocale(
+    html: string,
+    locale: string,
+    locales: string[],
+    defaultLocale: string,
+    baseUrl: string,
+) {
+    html = html.replace("<html>", `<html lang="${locale}">`)
+
+    for (const lang of locales) {
+        if (lang === locale) {
+            continue
+        }
+        const href = lang === defaultLocale ? baseUrl : `${baseUrl}/${lang}`
+        const linkTag = `<link rel="alternate" hreflang="${lang}" href="${href}" />`
+        html = insertInHead(html, linkTag)
+    }
+
+    const linkTag = `<link rel="alternate" hreflang="x-default" href="${baseUrl}" />`
+    html = insertInHead(html, linkTag)
+
+    return html
+}
+
+function renderTitle(html: string, title: string) {
+    const titleTag = `<title>${title}</title>`
+    return insertInHead(html, titleTag, false)
+}
+
+function renderDescription(html: string, description: string) {
+    const descriptionTag = createMetaTag({
+        property: "description",
+        content: description,
+    })
+
+    return insertInHead(html, descriptionTag)
+}
+
+function renderContent(html: string, content: string) {
+    return insertInBody(html, content)
+}
+
+function renderStyles(html: string, css: string) {
+    const styleTag = `
+    <style>
+        ${css}
+    </style>
+    `
+    return insertInHead(html, styleTag)
+}
+
 function renderTranslations(html: string, translations: Translations): string {
     const translationScript = `<script id="__APP_TRANSLATIONS__" type="application/json">${JSON.stringify(
         translations,
@@ -95,7 +199,7 @@ function renderTranslations(html: string, translations: Translations): string {
     return html.replace("</head>", `${translationScript}</head>`)
 }
 
-export function generateScriptTagString(scriptObject: ScriptTag): string {
+function createScriptTag(scriptObject: ScriptTag): string {
     let attributes = ""
     let textContent = ""
 
@@ -123,62 +227,83 @@ export function generateScriptTagString(scriptObject: ScriptTag): string {
     }
 }
 
-export function renderScripts(html: string, script?: Script): string {
-    if (script) {
-        html = html
-            .replace(
-                "{{scriptBefore}}",
-                script.before?.map(generateScriptTagString).join("\n") || "",
-            )
-            .replace(
-                "{{scriptAfter}}",
-                script.after?.map(generateScriptTagString).join("\n") || "",
-            )
-    } else {
-        html = html
-            .replace("{{scriptBefore}}", "")
-            .replace("{{scriptAfter}}", "")
+function renderScripts(html: string, script?: Script): string {
+    if (!script) {
+        return html
+    }
+
+    if (script.before) {
+        for (const scriptTag of script.before) {
+            html = insertInHead(html, createScriptTag(scriptTag))
+        }
+    }
+
+    if (script.after) {
+        for (const scriptTag of script.after) {
+            html = insertInBody(html, createScriptTag(scriptTag))
+        }
     }
 
     return html
 }
 
-export function renderMetadata(html: string, metadata: Metadata): string {
-    html = html
-        .replace("{{title}}", metadata.title || "")
-        .replace("{{description}}", metadata.description || "")
-        .replace("{{og:title}}", metadata.og?.title || metadata.title || "")
-        .replace(
-            "{{og:description}}",
-            metadata.og?.description || metadata.description || "",
-        )
-        .replace("{{og:type}}", metadata.og?.type || "website")
-        .replace("{{og:url}}", metadata.og?.url || "")
-        .replace("{{og:image}}", metadata.og?.image || "")
-        .replace(
-            "{{twitter:title}}",
-            metadata.twitter?.title || metadata.title || "",
-        )
-        .replace(
-            "{{twitter:description}}",
-            metadata.twitter?.description || metadata.description || "",
-        )
-        .replace("{{twitter:image}}", metadata.twitter?.image || "")
-        .replace("{{twitter:card}}", metadata.twitter?.card || "")
+function renderMetadata(html: string, metadata: Metadata): string {
+    const tagDefinitions = [
+        {
+            property: "og:title",
+            content: metadata.og?.title || metadata.title,
+        },
+        {
+            property: "og:description",
+            content: metadata.og?.description || metadata.description,
+        },
+        {
+            property: "og:type",
+            content: metadata.og?.type || "website",
+        },
+        {
+            property: "og:url",
+            content: metadata.og?.url,
+        },
+        {
+            property: "og:image",
+            content: metadata.og?.image,
+        },
+        {
+            name: "twitter:title",
+            content: metadata.twitter?.title || metadata.title,
+        },
+        {
+            name: "twitter:description",
+            content: metadata.twitter?.description || metadata.description,
+        },
+        {
+            name: "twitter:card",
+            content: metadata.twitter?.card,
+        },
+        {
+            name: "twitter:image",
+            content: metadata.twitter?.image,
+        },
+    ]
+
+    for (const tagDefinition of tagDefinitions) {
+        html = insertInHead(html, createMetaTag(tagDefinition))
+    }
 
     return html
 }
 
-export function renderLinkedData(html: string, linkedData: LinkedData): string {
+function renderLinkedData(html: string, linkedData: LinkedData): string {
     const linkedDataTag = `
     <script type="application/ld+json">
         ${JSON.stringify(linkedData)}
     </script>
     `
-    return html.replace("</head>", `${linkedDataTag}</head>`)
+    return insertInHead(html, linkedDataTag)
 }
 
-export function processHtmlLinks(
+function processHtmlLinks(
     html: string,
     locale: string,
     defaultLocale: string,
