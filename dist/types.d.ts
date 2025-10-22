@@ -6,6 +6,8 @@ export interface Config {
     port: number;
     appDir: string;
     outDir: string;
+    buildDir: string;
+    imgDir: string;
     pagesDir: string;
     localesDir: string;
     stylesDir: string;
@@ -16,7 +18,7 @@ export interface Config {
     locales: string[];
     baseUrl: string;
 }
-export type UserConfig = Partial<Config>;
+export type UserConfig = Partial<Omit<Config, "buildDir" | "imgDir">>;
 export interface Translations extends Record<string, string> {
 }
 export interface Metadata {

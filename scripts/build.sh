@@ -5,7 +5,7 @@ echo "🗑️ Cleaning previous build..."
 rm -rf ./dist
 
 echo "Building server-side and library bundles (target: bun)..."
-NODE_ENV=production bun build ./src/index.ts ./src/cli.ts \
+NODE_ENV=production bun build ./src/index.ts ./src/cli.ts ./src/image/Image.tsx \
     --outdir ./dist \
     --external postcss-url \
     --target bun \

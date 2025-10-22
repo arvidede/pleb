@@ -1,58 +1,5 @@
-import path from "path"
 import { buildSite } from "./build"
 import { startDevServer } from "./dev"
-import { Config, UserConfig } from "./types"
-
-async function getUserConfig(projectRoot: string): Promise<UserConfig> {
-    const possibleFilenames = ["config.ts", "config.js"]
-
-    for (const filename of possibleFilenames) {
-        const configPath = path.join(projectRoot, filename)
-        const configFile = Bun.file(configPath)
-
-        if (await configFile.exists()) {
-            console.log(`Loading configuration from ${configPath}`)
-            try {
-                const configModule = await import(configPath)
-                if (configModule.default) {
-                    return configModule.default
-                }
-                console.error(
-                    `❌ Error: Configuration file "${filename}" was found but does not have a default export.`,
-                )
-                process.exit(1)
-            } catch (error: unknown) {
-                console.error(
-                    `❌ Error loading "${filename}":`,
-                    error instanceof Error ? error.message : error,
-                )
-                process.exit(1)
-            }
-        }
-    }
-
-    console.warn(
-        "⚠️ No config file (config.ts or config.js) found. Using default configuration.",
-    )
-    return {}
-}
-
-function verifyLocaleConfig(config: Config) {
-    if (!config.defaultLocale) {
-        console.error(`❌ Missing defaultLocale in config"`)
-        process.exit(1)
-    }
-
-    if (!config.locales || !config.locales.length) {
-        console.error(`❌ Missing locales in config"`)
-        process.exit(1)
-    }
-
-    if (!config.locales.includes(config.defaultLocale)) {
-        console.error(`❌ Default locale not in locales"`)
-        process.exit(1)
-    }
-}
 
 async function runCli() {
     const args = process.argv.slice(2)
@@ -64,69 +11,16 @@ async function runCli() {
         process.exit(1)
     }
 
-    const userProjectRoot = process.cwd()
-
-    const userConfig = await getUserConfig(userProjectRoot)
-
-    const defaultConfig: Config = {
-        projectRoot: userProjectRoot,
-        port: 3000,
-        appDir: "./app",
-        outDir: "./out",
-        pagesDir: "./app/pages",
-        localesDir: "./app/locales",
-        stylesDir: "./app/styles",
-        publicDir: "./app/public",
-        templatePath: "./app/template.html",
-        cssFilePath: "./app/styles/main.css",
-        defaultLocale: "en",
-        locales: ["en"],
-        baseUrl: "http://localhost:3000",
-    }
-
-    const mergedConfig: Config = {
-        ...defaultConfig,
-        ...userConfig,
-        projectRoot: userProjectRoot,
-    }
-
-    mergedConfig.appDir = path.resolve(userProjectRoot, mergedConfig.appDir)
-    mergedConfig.outDir = path.resolve(userProjectRoot, mergedConfig.outDir)
-
-    mergedConfig.pagesDir = path.resolve(userProjectRoot, mergedConfig.pagesDir)
-    mergedConfig.localesDir = path.resolve(
-        userProjectRoot,
-        mergedConfig.localesDir,
-    )
-    mergedConfig.stylesDir = path.resolve(
-        userProjectRoot,
-        mergedConfig.stylesDir,
-    )
-    mergedConfig.publicDir = path.resolve(
-        userProjectRoot,
-        mergedConfig.publicDir,
-    )
-    mergedConfig.templatePath = path.resolve(
-        userProjectRoot,
-        mergedConfig.templatePath,
-    )
-    mergedConfig.cssFilePath = path.resolve(
-        userProjectRoot,
-        mergedConfig.cssFilePath,
-    )
-
-    verifyLocaleConfig(mergedConfig)
-
     switch (command) {
         case "dev":
             console.log("Starting development server...")
 
-            await startDevServer(mergedConfig)
+            await startDevServer()
             break
         case "build":
             console.log("Running build...")
 
-            await buildSite(mergedConfig)
+            await buildSite()
             break
         default:
             console.error(`Unknown command: ${command}`)

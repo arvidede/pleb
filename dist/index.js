@@ -2,10 +2,12 @@
 import {
   LanguageContext,
   LanguageProvider,
-  __toESM,
-  require_react,
   useLanguage
-} from "./index-h0cg77qx.js";
+} from "./index-8nt7n0d7.js";
+import {
+  __toESM,
+  require_react
+} from "./index-gnp5a539.js";
 
 // src/index.ts
 var import_react = __toESM(require_react(), 1);
@@ -18,5 +20,5 @@ export {
   LanguageContext
 };
 
-//# debugId=C425B9A22971F18464756E2164756E21
+//# debugId=66251B2A3447604564756E2164756E21
 //# sourceMappingURL=index.js.map

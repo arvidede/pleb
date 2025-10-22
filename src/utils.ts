@@ -2,13 +2,13 @@ import fs from "fs/promises"
 import { dirname } from "node:path"
 import { fileURLToPath } from "node:url"
 import path from "path"
-import { Config } from "./types"
+import config from "./config"
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
 export const getDirname = () => __dirname
 
-export async function processPublicDirectory(config: Config): Promise<void> {
+export async function processPublicDirectory(): Promise<void> {
     const publicDir = config.publicDir
     const buildDir = config.outDir
 
@@ -145,7 +145,7 @@ async function findHtmlFiles(directory: string): Promise<string[]> {
     }
 }
 
-export async function generateSitemap(config: Config): Promise<string> {
+export async function generateSitemap(): Promise<string> {
     let sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n'
     sitemap += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 

@@ -1,5 +1,5 @@
-import { Config, LanguageContextType, LanguageProviderProps, Translations } from "./types";
+import { LanguageContextType, LanguageProviderProps, Translations } from "./types";
 export declare const LanguageContext: import("react").Context<LanguageContextType>;
 export declare function useLanguage(): LanguageContextType;
 export declare function LanguageProvider({ t, children }: LanguageProviderProps): import("react/jsx-runtime").JSX.Element;
-export declare function getTranslations(config: Config, locale: string): Translations;
+export declare function getTranslations(locale: string): Translations;

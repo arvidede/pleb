@@ -1,14 +1,20 @@
 // @bun
 import {
   LanguageProvider,
+  getTranslations
+} from "./index-8nt7n0d7.js";
+import {
+  registry_default
+} from "./index-75bwv6rr.js";
+import {
   __commonJS,
   __esm,
   __export,
   __require,
   __toESM,
-  getTranslations,
+  config_default,
   require_react
-} from "./index-h0cg77qx.js";
+} from "./index-gnp5a539.js";
 
 // node_modules/baseline-browser-mapping/dist/index.cjs
 var require_dist = __commonJS((exports) => {
@@ -109554,11 +109560,8 @@ var require_server_bun = __commonJS((exports) => {
   exports.renderToStaticMarkup = l.renderToStaticMarkup;
 });
 
-// src/cli.ts
-import path5 from "path";
-
 // src/build.ts
-import { promises as fsPromises } from "fs";
+import fs2 from "fs/promises";
 import path3 from "path";
 
 // src/render.ts
@@ -109615,9 +109618,9 @@ function renderReactComponentToString(PageComponent, translations) {
     children: import_react.default.createElement(PageComponent, { t: translations })
   }));
 }
-async function populateHtmlTemplate(config, data) {
-  let html = await loadHtmlTemplate(config.templatePath);
-  html = renderLocale(html, data.locale, config.locales, config.defaultLocale, config.baseUrl);
+async function populateHtmlTemplate(data) {
+  let html = await loadHtmlTemplate(config_default.templatePath);
+  html = renderLocale(html, data.locale, config_default.locales, config_default.defaultLocale, config_default.baseUrl);
   html = renderTitle(html, data.title);
   html = renderDescription(html, data.description);
   html = renderStyles(html, data.css);
@@ -109629,7 +109632,7 @@ async function populateHtmlTemplate(config, data) {
   if (data.linkedData) {
     html = renderLinkedData(html, data.linkedData);
   }
-  html = processHtmlLinks(html, data.locale, config.defaultLocale);
+  html = processHtmlLinks(html, data.locale, config_default.defaultLocale);
   html = renderTranslations(html, data.translations);
   if (data.dev) {
     html = renderDevModeSseScript(html);
@@ -109860,18 +109863,18 @@ async function loadPageModule(baseDir, relativePath) {
   const pageModule = await import(modulePath);
   return pageModule;
 }
-function determinePageSpecificCssPaths(config, pageRelativePath) {
+function determinePageSpecificCssPaths(pageRelativePath) {
   const paths = [];
   if (pageRelativePath.endsWith(".tsx")) {
     const pageCssFileName = pageRelativePath.replace(/\.tsx$/, ".css");
-    const specificPageCssPath = path.join(config.stylesDir, "pages", pageCssFileName);
+    const specificPageCssPath = path.join(config_default.stylesDir, "pages", pageCssFileName);
     paths.push(specificPageCssPath);
   }
   return paths;
 }
-function determineOutputFilePath(config, pageRelativePath, locale) {
-  const buildDir = config.outDir;
-  const defaultLocale = config.defaultLocale;
+function determineOutputFilePath(pageRelativePath, locale) {
+  const buildDir = config_default.outDir;
+  const defaultLocale = config_default.defaultLocale;
   const pageName = path.basename(pageRelativePath).replace(/\.(tsx|ts)$/, "");
   const dirName = path.dirname(pageRelativePath);
   let outputSubDir = dirName === "." ? "" : dirName;
@@ -109884,9 +109887,9 @@ function determineOutputFilePath(config, pageRelativePath, locale) {
   }
   return path.join(finalOutputDir, "index.html");
 }
-async function processCSS(config, cssFilePaths = []) {
+async function processCSS(cssFilePaths = []) {
   let combinedCss = "";
-  const allCssPaths = [config.cssFilePath, ...cssFilePaths];
+  const allCssPaths = [config_default.cssFilePath, ...cssFilePaths];
   for (const cssFilePath of allCssPaths) {
     const file = Bun.file(cssFilePath);
     if (await file.exists()) {
@@ -109903,7 +109906,7 @@ async function processCSS(config, cssFilePaths = []) {
         console.error(`Error processing CSS file ${cssFilePath}:`, error instanceof Error ? error.message : error);
       }
     } else {
-      if (cssFilePath !== config.cssFilePath) {
+      if (cssFilePath !== config_default.cssFilePath) {
         console.warn(`CSS file not found at ${cssFilePath}. Skipping.`);
       }
     }
@@ -109919,20 +109922,20 @@ function extractPageExports(pageModule, content) {
     linkedData
   };
 }
-async function renderPage(config, pageRelativePath, locale, isDevMode) {
+async function renderPage(pageRelativePath, locale, isDevMode) {
   let pageModule;
   try {
-    pageModule = await loadPageModule(config.pagesDir, pageRelativePath);
+    pageModule = await loadPageModule(config_default.pagesDir, pageRelativePath);
   } catch (error) {
     console.error(error);
     throw error;
   }
-  const translations = getTranslations(config, locale);
+  const translations = getTranslations(locale);
   const { metadata, script, linkedData } = await extractPageExports(pageModule, translations);
-  const pageSpecificCssPaths = determinePageSpecificCssPaths(config, pageRelativePath);
-  const inlinedCSS = await processCSS(config, pageSpecificCssPaths);
+  const pageSpecificCssPaths = determinePageSpecificCssPaths(pageRelativePath);
+  const inlinedCSS = await processCSS(pageSpecificCssPaths);
   const pageContentHtml = renderReactComponentToString(pageModule.default, translations);
-  let html = await populateHtmlTemplate(config, {
+  let html = await populateHtmlTemplate({
     locale,
     title: metadata.title,
     description: metadata.description,
@@ -109946,10 +109949,10 @@ async function renderPage(config, pageRelativePath, locale, isDevMode) {
   });
   return html;
 }
-async function buildPage(config, locale, pageFilePath) {
-  const pageRelativePath = path.relative(config.pagesDir, pageFilePath);
-  const outputPath = determineOutputFilePath(config, pageRelativePath, locale);
-  const html = await renderPage(config, pageRelativePath, locale, false);
+async function buildPage(locale, pageFilePath) {
+  const pageRelativePath = path.relative(config_default.pagesDir, pageFilePath);
+  const outputPath = determineOutputFilePath(pageRelativePath, locale);
+  const html = await renderPage(pageRelativePath, locale, false);
   await Bun.write(outputPath, html);
 }
 
@@ -109959,9 +109962,9 @@ import { dirname } from "path";
 import { fileURLToPath } from "url";
 import path2 from "path";
 var __dirname2 = dirname(fileURLToPath(import.meta.url));
-async function processPublicDirectory(config) {
-  const publicDir = config.publicDir;
-  const buildDir = config.outDir;
+async function processPublicDirectory() {
+  const publicDir = config_default.publicDir;
+  const buildDir = config_default.outDir;
   try {
     await fs.access(publicDir);
   } catch {
@@ -110063,15 +110066,15 @@ async function findHtmlFiles(directory) {
     throw err;
   }
 }
-async function generateSitemap(config) {
+async function generateSitemap() {
   let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 `;
   sitemap += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 `;
-  const pages = await findHtmlFiles(config.outDir);
+  const pages = await findHtmlFiles(config_default.outDir);
   for (const page of pages) {
     const urlPath = page === "index" ? "/" : `/${page}/`;
-    const fullUrl = `${config.baseUrl}${urlPath}`;
+    const fullUrl = `${config_default.baseUrl}${urlPath}`;
     sitemap += `  <url>
 `;
     sitemap += `    <loc>${fullUrl}</loc>
@@ -110084,48 +110087,49 @@ async function generateSitemap(config) {
 }
 
 // src/build.ts
-async function prepareBuildDirectory(config) {
-  const buildDir = config.outDir;
+async function prepareBuildDirectory() {
+  const buildDir = config_default.outDir;
   console.log(`\uD83D\uDDD1\uFE0F Cleaning build directory: ${buildDir}`);
   if (await Bun.file(buildDir).exists()) {
-    await fsPromises.rm(buildDir, { recursive: true });
+    await fs2.rm(buildDir, { recursive: true });
   }
-  await fsPromises.mkdir(buildDir, { recursive: true });
+  await fs2.mkdir(buildDir, { recursive: true });
 }
-async function buildLocalizedPages(config) {
-  const pages = await getAllTsxFiles(config.pagesDir);
+async function buildLocalizedPages() {
+  const pages = await getAllTsxFiles(config_default.pagesDir);
   if (pages.length === 0) {
     console.warn("\u26A0\uFE0F No pages (.tsx files) found in the pages directory. Building an empty site.");
   }
-  console.log(`\uD83D\uDCC4 Found ${pages.length} pages and ${config.locales.length} locales.`);
+  console.log(`\uD83D\uDCC4 Found ${pages.length} pages and ${config_default.locales.length} locales.`);
   console.log("\uD83C\uDFD7\uFE0F Building pages...");
-  for (const locale of config.locales) {
+  for (const locale of config_default.locales) {
     console.log(`  - Building for locale: ${locale}`);
     for (const page of pages) {
-      await buildPage(config, locale, page);
+      await buildPage(locale, page);
     }
   }
   console.log("\u2705 Pages built.");
 }
-async function performPostBuildActions(config) {
+async function performPostBuildActions() {
   console.log("\uD83D\uDCE6 Processing and copying public assets...");
-  await processPublicDirectory(config);
+  await processPublicDirectory();
   console.log("\u2705 Public assets processed.");
   console.log("\uD83D\uDDFA\uFE0F Generating sitemap...");
-  const sitemapXml = await generateSitemap(config);
-  await Bun.write(path3.join(config.outDir, "sitemap.xml"), sitemapXml);
+  const sitemapXml = await generateSitemap();
+  await Bun.write(path3.join(config_default.outDir, "sitemap.xml"), sitemapXml);
   console.log("\u2705 Sitemap generated.");
+  await registry_default.processImages();
 }
-async function buildSite(config) {
+async function buildSite() {
   const startTime = performance.now();
   console.log("\uD83D\uDE80 Starting build...");
-  await prepareBuildDirectory(config);
-  if (config.locales.length === 0) {
+  await prepareBuildDirectory();
+  if (config_default.locales.length === 0) {
     console.error("\u274C No locales found. Build aborted.");
     process.exit(1);
   }
-  await buildLocalizedPages(config);
-  await performPostBuildActions(config);
+  await buildLocalizedPages();
+  await performPostBuildActions();
   const endTime = performance.now();
   const duration = ((endTime - startTime) / 1000).toFixed(2);
   console.log(`\u23F1\uFE0F Total build time: ${duration}s`);
@@ -110133,7 +110137,7 @@ async function buildSite(config) {
 }
 
 // src/dev.ts
-import { existsSync, promises, watch } from "fs";
+import { cpSync, existsSync, mkdirSync, promises, watch } from "fs";
 import path4 from "path";
 
 // src/response.ts
@@ -110229,20 +110233,20 @@ function parsePageRequest(publicPath, locales, defaultLocale) {
     locale: defaultLocale
   };
 }
-function findPageModule(pagePath, config) {
-  const directPagePath = path4.join(config.pagesDir, `${pagePath}.tsx`);
+function findPageModule(pagePath) {
+  const directPagePath = path4.join(config_default.pagesDir, `${pagePath}.tsx`);
   if (existsSync(directPagePath)) {
     return directPagePath;
   }
-  const indexPagePath = path4.join(config.pagesDir, pagePath, "index.tsx");
+  const indexPagePath = path4.join(config_default.pagesDir, pagePath, "index.tsx");
   if (existsSync(indexPagePath)) {
     return indexPagePath;
   }
   return null;
 }
-async function renderPageResponse(pageModulePath, config, locale) {
+async function renderPageResponse(pageModulePath, locale) {
   try {
-    const html2 = await renderPage(config, path4.relative(config.pagesDir, pageModulePath), locale, true);
+    const html2 = await renderPage(path4.relative(config_default.pagesDir, pageModulePath), locale, true);
     return html(html2);
   } catch (error) {
     return html(renderError(error), {
@@ -110250,23 +110254,23 @@ async function renderPageResponse(pageModulePath, config, locale) {
     });
   }
 }
-async function handleRequest(req, config) {
+async function handleRequest(req) {
   const url = new URL(req.url);
   const requestPath = url.pathname.substring(1);
-  const publicFileResponse = await tryServeFile(path4.join(config.publicDir, requestPath));
+  const publicFileResponse = await tryServeFile(path4.join(config_default.outDir, requestPath));
   if (publicFileResponse) {
     return publicFileResponse;
   }
-  const { pagePath, locale } = parsePageRequest(requestPath, config.locales, config.defaultLocale);
-  const pageModulePath = findPageModule(pagePath, config);
+  const { pagePath, locale } = parsePageRequest(requestPath, config_default.locales, config_default.defaultLocale);
+  const pageModulePath = findPageModule(pagePath);
   if (pageModulePath) {
-    return await renderPageResponse(pageModulePath, config, locale);
+    return await renderPageResponse(pageModulePath, locale);
   }
   return new Response("Page not found", { status: 404 });
 }
-function reloadCache(config) {
+function reloadCache() {
   Object.keys(__require.cache).forEach((key) => {
-    if (key.startsWith(config.appDir)) {
+    if (key.startsWith(config_default.appDir)) {
       delete __require.cache[key];
     }
   });
@@ -110287,15 +110291,15 @@ function broadcastReload(sseClients) {
     }
   }
 }
-function startFileWatcher(config, sseClients) {
-  const localesDir = config.localesDir;
-  const configJsPath = path4.join(config.projectRoot, "config.js");
-  const configTsPath = path4.join(config.projectRoot, "config.ts");
+function startFileWatcher(sseClients) {
+  const localesDir = config_default.localesDir;
+  const configJsPath = path4.join(config_default.projectRoot, "config.js");
+  const configTsPath = path4.join(config_default.projectRoot, "config.ts");
   const configPath = existsSync(configJsPath) ? configJsPath : configTsPath;
   function watchHandler(eventType, filename) {
     if (filename) {
       console.log(`File changed: ${filename}. Type: ${eventType}`);
-      reloadCache(config);
+      reloadCache();
       const fullPath = path4.resolve(filename);
       if (fullPath.startsWith(localesDir) || fullPath === path4.resolve(configPath)) {
         console.log("Config updated, re-fetching locales on server...");
@@ -110304,31 +110308,38 @@ function startFileWatcher(config, sseClients) {
     }
   }
   try {
-    watch(config.appDir, { recursive: true }, watchHandler);
-  } catch (e) {
-    console.error(`Failed to watch ${config.appDir}:`, e);
-  }
-  try {
-    watch(config.publicDir, { recursive: true }, (eventType, filename) => {
-      if (filename) {
-        console.log(`Public file changed: ${filename}. Type: ${eventType}. Client should refresh.`);
-      }
-    });
-  } catch (e) {
-    console.error(`Failed to watch ${config.publicDir}:`, e);
-  }
-  try {
     watch(configPath, watchHandler);
   } catch (e) {
     console.error(`Failed to watch ${configPath}:`, e);
   }
+  try {
+    watch(config_default.appDir, { recursive: true }, watchHandler);
+  } catch (e) {
+    console.error(`Failed to watch ${config_default.appDir}:`, e);
+  }
+  try {
+    watch(config_default.publicDir, { recursive: true }, copyPublicFiles);
+  } catch (e) {
+    console.error(`Failed to watch ${config_default.publicDir}:`, e);
+  }
 }
-async function startDevServer(config) {
+function copyPublicFiles() {
+  try {
+    if (!existsSync(config_default.outDir)) {
+      mkdirSync(config_default.outDir, { recursive: true });
+    }
+    cpSync(config_default.publicDir, config_default.outDir, { recursive: true });
+  } catch (error) {
+    console.error(`\u274C Error copying directory: ${error instanceof Error ? error.message : error}`);
+  }
+}
+async function startDevServer() {
   const sseClients = new Set;
-  console.log(`\uD83D\uDE80 Starting server on port ${config.port}...`);
+  copyPublicFiles();
+  console.log(`\uD83D\uDE80 Starting server on port ${config_default.port}...`);
   Bun.serve({
     development: true,
-    port: config.port,
+    port: config_default.port,
     idleTimeout: 255,
     async fetch(req) {
       console.log(`${req.method} ${req.url}`);
@@ -110336,57 +110347,22 @@ async function startDevServer(config) {
       if (url.pathname === "/pleb-dev-events") {
         return handleSSE(req, sseClients);
       }
-      return handleRequest(req, config);
+      const response = await handleRequest(req);
+      await registry_default.processImages();
+      return response;
     },
     error(error) {
       console.error("Server error:", error);
       return new Response("Internal Server Error", { status: 500 });
     }
   });
-  console.log(`Server is listening on http://localhost:${config.port}`);
-  console.log(`\uD83C\uDF10 Available locales: ${config.locales.join(", ")}`);
+  console.log(`Server is listening on http://localhost:${config_default.port}`);
+  console.log(`\uD83C\uDF10 Available locales: ${config_default.locales.join(", ")}`);
   console.log("\uD83D\uDC40 Watching for file changes...");
-  startFileWatcher(config, sseClients);
+  startFileWatcher(sseClients);
 }
 
 // src/cli.ts
-async function getUserConfig(projectRoot) {
-  const possibleFilenames = ["config.ts", "config.js"];
-  for (const filename of possibleFilenames) {
-    const configPath = path5.join(projectRoot, filename);
-    const configFile = Bun.file(configPath);
-    if (await configFile.exists()) {
-      console.log(`Loading configuration from ${configPath}`);
-      try {
-        const configModule = await import(configPath);
-        if (configModule.default) {
-          return configModule.default;
-        }
-        console.error(`\u274C Error: Configuration file "${filename}" was found but does not have a default export.`);
-        process.exit(1);
-      } catch (error) {
-        console.error(`\u274C Error loading "${filename}":`, error instanceof Error ? error.message : error);
-        process.exit(1);
-      }
-    }
-  }
-  console.warn("\u26A0\uFE0F No config file (config.ts or config.js) found. Using default configuration.");
-  return {};
-}
-function verifyLocaleConfig(config) {
-  if (!config.defaultLocale) {
-    console.error(`\u274C Missing defaultLocale in config"`);
-    process.exit(1);
-  }
-  if (!config.locales || !config.locales.length) {
-    console.error(`\u274C Missing locales in config"`);
-    process.exit(1);
-  }
-  if (!config.locales.includes(config.defaultLocale)) {
-    console.error(`\u274C Default locale not in locales"`);
-    process.exit(1);
-  }
-}
 async function runCli() {
   const args = process.argv.slice(2);
   const command = args[0];
@@ -110395,45 +110371,14 @@ async function runCli() {
     console.error("Commands: dev, build");
     process.exit(1);
   }
-  const userProjectRoot = process.cwd();
-  const userConfig = await getUserConfig(userProjectRoot);
-  const defaultConfig = {
-    projectRoot: userProjectRoot,
-    port: 3000,
-    appDir: "./app",
-    outDir: "./out",
-    pagesDir: "./app/pages",
-    localesDir: "./app/locales",
-    stylesDir: "./app/styles",
-    publicDir: "./app/public",
-    templatePath: "./app/template.html",
-    cssFilePath: "./app/styles/main.css",
-    defaultLocale: "en",
-    locales: ["en"],
-    baseUrl: "http://localhost:3000"
-  };
-  const mergedConfig = {
-    ...defaultConfig,
-    ...userConfig,
-    projectRoot: userProjectRoot
-  };
-  mergedConfig.appDir = path5.resolve(userProjectRoot, mergedConfig.appDir);
-  mergedConfig.outDir = path5.resolve(userProjectRoot, mergedConfig.outDir);
-  mergedConfig.pagesDir = path5.resolve(userProjectRoot, mergedConfig.pagesDir);
-  mergedConfig.localesDir = path5.resolve(userProjectRoot, mergedConfig.localesDir);
-  mergedConfig.stylesDir = path5.resolve(userProjectRoot, mergedConfig.stylesDir);
-  mergedConfig.publicDir = path5.resolve(userProjectRoot, mergedConfig.publicDir);
-  mergedConfig.templatePath = path5.resolve(userProjectRoot, mergedConfig.templatePath);
-  mergedConfig.cssFilePath = path5.resolve(userProjectRoot, mergedConfig.cssFilePath);
-  verifyLocaleConfig(mergedConfig);
   switch (command) {
     case "dev":
       console.log("Starting development server...");
-      await startDevServer(mergedConfig);
+      await startDevServer();
       break;
     case "build":
       console.log("Running build...");
-      await buildSite(mergedConfig);
+      await buildSite();
       break;
     default:
       console.error(`Unknown command: ${command}`);
@@ -110443,5 +110388,5 @@ async function runCli() {
 }
 runCli();
 
-//# debugId=73FFC21D9247695F64756E2164756E21
+//# debugId=FCBEB27063A0DBD264756E2164756E21
 //# sourceMappingURL=cli.js.map

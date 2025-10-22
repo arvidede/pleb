@@ -1,8 +1,8 @@
 import fs from "fs"
 import path from "path"
 import { createContext, useContext } from "react"
+import config from "./config"
 import {
-    Config,
     LanguageContextType,
     LanguageProviderProps,
     Translations,
@@ -33,7 +33,7 @@ export function LanguageProvider({ t, children }: LanguageProviderProps) {
     )
 }
 
-export function getTranslations(config: Config, locale: string): Translations {
+export function getTranslations(locale: string): Translations {
     const localesDir = config.localesDir
     const contentPath = path.join(localesDir, `${locale}.json`)
     if (!fs.existsSync(contentPath)) {

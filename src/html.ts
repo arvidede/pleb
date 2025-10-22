@@ -1,8 +1,8 @@
 import React from "react"
 import ReactDOMServer from "react-dom/server"
+import config from "./config"
 import { LanguageProvider } from "./i18n"
 import {
-    Config,
     LinkedData,
     Metadata,
     PageProps,
@@ -50,7 +50,6 @@ export interface HtmlTemplateData {
 }
 
 export async function populateHtmlTemplate(
-    config: Config,
     data: HtmlTemplateData,
 ): Promise<string> {
     let html = await loadHtmlTemplate(config.templatePath)

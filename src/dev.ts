@@ -1,9 +1,10 @@
-import { existsSync, promises, watch } from "fs"
+import { cpSync, existsSync, mkdirSync, promises, watch } from "fs"
 import path from "path"
+import config from "./config"
 import { renderError } from "./html"
+import imageRegistry from "./image/registry"
 import { renderPage } from "./render"
 import * as response from "./response"
-import { Config } from "./types"
 
 export function handleSSE(
     req: Request,
@@ -103,7 +104,7 @@ function parsePageRequest(
     }
 }
 
-function findPageModule(pagePath: string, config: Config): string | null {
+function findPageModule(pagePath: string): string | null {
     const directPagePath = path.join(config.pagesDir, `${pagePath}.tsx`)
 
     if (existsSync(directPagePath)) {
@@ -121,12 +122,10 @@ function findPageModule(pagePath: string, config: Config): string | null {
 
 async function renderPageResponse(
     pageModulePath: string,
-    config: Config,
     locale: string,
 ): Promise<Response> {
     try {
         const html = await renderPage(
-            config,
             path.relative(config.pagesDir, pageModulePath),
             locale,
             true,
@@ -140,15 +139,12 @@ async function renderPageResponse(
     }
 }
 
-export async function handleRequest(
-    req: Request,
-    config: Config,
-): Promise<Response> {
+export async function handleRequest(req: Request): Promise<Response> {
     const url = new URL(req.url)
     const requestPath = url.pathname.substring(1)
 
     const publicFileResponse = await tryServeFile(
-        path.join(config.publicDir, requestPath),
+        path.join(config.outDir, requestPath),
     )
 
     if (publicFileResponse) {
@@ -161,16 +157,16 @@ export async function handleRequest(
         config.defaultLocale,
     )
 
-    const pageModulePath = findPageModule(pagePath, config)
+    const pageModulePath = findPageModule(pagePath)
 
     if (pageModulePath) {
-        return await renderPageResponse(pageModulePath, config, locale)
+        return await renderPageResponse(pageModulePath, locale)
     }
 
     return new Response("Page not found", { status: 404 })
 }
 
-function reloadCache(config: Config) {
+function reloadCache() {
     Object.keys(require.cache).forEach((key: string) => {
         // Only clear modules that are inside the user's app directory.
         // Crucially, do NOT clear the SSG's own code or anything from node_modules,
@@ -200,7 +196,7 @@ function broadcastReload(sseClients: SSEClients) {
 
 type SSEClients = Set<{ controller: ReadableStreamDefaultController<unknown> }>
 
-export function startFileWatcher(config: Config, sseClients: SSEClients): void {
+export function startFileWatcher(sseClients: SSEClients): void {
     const localesDir = config.localesDir
     const configJsPath = path.join(config.projectRoot, "config.js")
     const configTsPath = path.join(config.projectRoot, "config.ts")
@@ -212,7 +208,7 @@ export function startFileWatcher(config: Config, sseClients: SSEClients): void {
     ) {
         if (filename) {
             console.log(`File changed: ${filename}. Type: ${eventType}`)
-            reloadCache(config)
+            reloadCache()
 
             const fullPath = path.resolve(filename)
 
@@ -229,38 +225,44 @@ export function startFileWatcher(config: Config, sseClients: SSEClients): void {
     }
 
     try {
+        watch(configPath, watchHandler)
+    } catch (e) {
+        console.error(`Failed to watch ${configPath}:`, e)
+    }
+
+    try {
         watch(config.appDir, { recursive: true }, watchHandler)
     } catch (e) {
         console.error(`Failed to watch ${config.appDir}:`, e)
     }
 
     try {
-        watch(
-            config.publicDir,
-            { recursive: true },
-            (eventType: string, filename: string | null | undefined) => {
-                if (filename) {
-                    console.log(
-                        `Public file changed: ${filename}. Type: ${eventType}. Client should refresh.`,
-                    )
-                }
-            },
-        )
+        watch(config.publicDir, { recursive: true }, copyPublicFiles)
     } catch (e) {
         console.error(`Failed to watch ${config.publicDir}:`, e)
     }
+}
 
+function copyPublicFiles() {
     try {
-        watch(configPath, watchHandler)
-    } catch (e) {
-        console.error(`Failed to watch ${configPath}:`, e)
+        if (!existsSync(config.outDir)) {
+            mkdirSync(config.outDir, { recursive: true })
+        }
+
+        cpSync(config.publicDir, config.outDir, { recursive: true })
+    } catch (error: unknown) {
+        console.error(
+            `❌ Error copying directory: ${error instanceof Error ? error.message : error}`,
+        )
     }
 }
 
-export async function startDevServer(config: Config): Promise<void> {
+export async function startDevServer(): Promise<void> {
     const sseClients: Set<{
         controller: ReadableStreamDefaultController<unknown>
     }> = new Set()
+
+    copyPublicFiles()
 
     console.log(`🚀 Starting server on port ${config.port}...`)
 
@@ -276,7 +278,11 @@ export async function startDevServer(config: Config): Promise<void> {
                 return handleSSE(req, sseClients)
             }
 
-            return handleRequest(req, config)
+            const response = await handleRequest(req)
+
+            await imageRegistry.processImages()
+
+            return response
         },
         error(error: Error) {
             console.error("Server error:", error)
@@ -288,5 +294,5 @@ export async function startDevServer(config: Config): Promise<void> {
     console.log(`🌐 Available locales: ${config.locales.join(", ")}`)
     console.log("👀 Watching for file changes...")
 
-    startFileWatcher(config, sseClients)
+    startFileWatcher(sseClients)
 }

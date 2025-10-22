@@ -4,16 +4,10 @@ import path from "path"
 import postcss from "postcss"
 import postcssImport from "postcss-import"
 import postcssURL from "postcss-url"
+import config from "./config"
 import { populateHtmlTemplate, renderReactComponentToString } from "./html"
 import { getTranslations } from "./i18n"
-import {
-    Config,
-    LinkedData,
-    Metadata,
-    PageProps,
-    Script,
-    Translations,
-} from "./types"
+import { LinkedData, Metadata, PageProps, Script, Translations } from "./types"
 
 interface PageModule {
     default: React.ComponentType<PageProps>
@@ -44,10 +38,7 @@ async function loadPageModule(
     return pageModule
 }
 
-function determinePageSpecificCssPaths(
-    config: Config,
-    pageRelativePath: string,
-): string[] {
+function determinePageSpecificCssPaths(pageRelativePath: string): string[] {
     const paths: string[] = []
     if (pageRelativePath.endsWith(".tsx")) {
         const pageCssFileName = pageRelativePath.replace(/\.tsx$/, ".css")
@@ -62,7 +53,6 @@ function determinePageSpecificCssPaths(
 }
 
 function determineOutputFilePath(
-    config: Config,
     pageRelativePath: string,
     locale: string,
 ): string {
@@ -85,10 +75,7 @@ function determineOutputFilePath(
     return path.join(finalOutputDir, "index.html")
 }
 
-export async function processCSS(
-    config: Config,
-    cssFilePaths: string[] = [],
-): Promise<string> {
+export async function processCSS(cssFilePaths: string[] = []): Promise<string> {
     let combinedCss = ""
     const allCssPaths = [config.cssFilePath, ...cssFilePaths]
 
@@ -138,7 +125,6 @@ export function extractPageExports(
 }
 
 export async function renderPage(
-    config: Config,
     pageRelativePath: string,
     locale: string,
     isDevMode: boolean,
@@ -152,25 +138,22 @@ export async function renderPage(
         throw error
     }
 
-    const translations = getTranslations(config, locale)
+    const translations = getTranslations(locale)
     const { metadata, script, linkedData } = await extractPageExports(
         pageModule,
         translations,
     )
 
-    const pageSpecificCssPaths = determinePageSpecificCssPaths(
-        config,
-        pageRelativePath,
-    )
+    const pageSpecificCssPaths = determinePageSpecificCssPaths(pageRelativePath)
 
-    const inlinedCSS = await processCSS(config, pageSpecificCssPaths)
+    const inlinedCSS = await processCSS(pageSpecificCssPaths)
 
     const pageContentHtml = renderReactComponentToString(
         pageModule.default,
         translations,
     )
 
-    let html = await populateHtmlTemplate(config, {
+    let html = await populateHtmlTemplate({
         locale,
         title: metadata.title,
         description: metadata.description,
@@ -187,13 +170,12 @@ export async function renderPage(
 }
 
 export async function buildPage(
-    config: Config,
     locale: string,
     pageFilePath: string,
 ): Promise<void> {
     const pageRelativePath = path.relative(config.pagesDir, pageFilePath)
-    const outputPath = determineOutputFilePath(config, pageRelativePath, locale)
+    const outputPath = determineOutputFilePath(pageRelativePath, locale)
 
-    const html = await renderPage(config, pageRelativePath, locale, false)
+    const html = await renderPage(pageRelativePath, locale, false)
     await Bun.write(outputPath, html)
 }
