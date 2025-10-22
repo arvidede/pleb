@@ -1,4 +1,4 @@
-import { promises as fsPromises } from "fs"
+import fs from "fs/promises"
 import path from "path"
 import { buildPage } from "./render"
 import { Config } from "./types"
@@ -11,10 +11,12 @@ import {
 export async function prepareBuildDirectory(config: Config): Promise<void> {
     const buildDir = config.outDir
     console.log(`🗑️ Cleaning build directory: ${buildDir}`)
+
     if (await Bun.file(buildDir).exists()) {
-        await fsPromises.rm(buildDir, { recursive: true })
+        await fs.rm(buildDir, { recursive: true })
     }
-    await fsPromises.mkdir(buildDir, { recursive: true })
+
+    await fs.mkdir(buildDir, { recursive: true })
 }
 
 export async function buildLocalizedPages(config: Config): Promise<void> {
