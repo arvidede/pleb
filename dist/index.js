@@ -5,7 +5,7 @@ import {
   __toESM,
   require_react,
   useLanguage
-} from "./index-wwbpaxd7.js";
+} from "./index-t790paew.js";
 
 // src/index.ts
 var import_react = __toESM(require_react(), 1);

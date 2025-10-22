@@ -1,3 +1,4 @@
+// @bun
 var __create = Object.create;
 var __getProtoOf = Object.getPrototypeOf;
 var __defProp = Object.defineProperty;
@@ -1559,5 +1560,5 @@ function getTranslations(config, locale) {
 
 export { __toESM, __commonJS, __export, __esm, __require, require_react, LanguageContext, useLanguage, LanguageProvider, getLocales, getTranslations };
 
-//# debugId=B4A0C65BD09F398B64756E2164756E21
-//# sourceMappingURL=index-wwbpaxd7.js.map
+//# debugId=58D2B3CB3292233664756E2164756E21
+//# sourceMappingURL=index-t790paew.js.map

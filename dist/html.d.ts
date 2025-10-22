@@ -19,3 +19,4 @@ export interface HtmlTemplateData {
     dev: boolean;
 }
 export declare function populateHtmlTemplate(data: HtmlTemplateData): Promise<string>;
+export declare function renderError(error: unknown): string;

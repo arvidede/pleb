@@ -179,7 +179,8 @@ function renderDescription(html: string, description: string) {
 }
 
 function renderContent(html: string, content: string) {
-    return insertInBody(html, content)
+    const last = false
+    return insertInBody(html, content, last)
 }
 
 function renderStyles(html: string, css: string) {
@@ -331,4 +332,26 @@ function processHtmlLinks(
     )
 
     return processedHtml
+}
+
+export function renderError(error: unknown) {
+    const e = error instanceof Error ? error : new Error(String(error))
+    return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Error</title>
+        <style>
+            body { font-family: sans-serif; background-color: #f8d7da; color: #721c24; padding: 20px; }
+            h1 { color: #721c24; }
+            pre { background-color: #f5c6cb; padding: 15px; border-radius: 5px; white-space: pre-wrap; word-wrap: break-word; }
+        </style>
+    </head>
+    <body>
+        <h1>Rendering Error</h1>
+        <p>An error occurred while rendering the page:</p>
+        <pre>${e.message}\n\n${e.stack}</pre>
+        <p>Check the console for more details.</p>
+    </body>
+    </html>`
 }

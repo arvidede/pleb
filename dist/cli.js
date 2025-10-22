@@ -9,7 +9,7 @@ import {
   getLocales,
   getTranslations,
   require_react
-} from "./index-wwbpaxd7.js";
+} from "./index-t790paew.js";
 
 // node_modules/baseline-browser-mapping/dist/index.cjs
 var require_dist = __commonJS((exports) => {
@@ -109703,7 +109703,8 @@ function renderDescription(html, description) {
   return insertInHead(html, descriptionTag);
 }
 function renderContent(html, content) {
-  return insertInBody(html, content);
+  const last = false;
+  return insertInBody(html, content, last);
 }
 function renderStyles(html, css) {
   const styleTag = `
@@ -109825,6 +109826,29 @@ function processHtmlLinks(html, locale, defaultLocale) {
     return `${beforeHref}${newHref}${afterHref}`;
   });
   return processedHtml;
+}
+function renderError(error) {
+  const e = error instanceof Error ? error : new Error(String(error));
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Error</title>
+        <style>
+            body { font-family: sans-serif; background-color: #f8d7da; color: #721c24; padding: 20px; }
+            h1 { color: #721c24; }
+            pre { background-color: #f5c6cb; padding: 15px; border-radius: 5px; white-space: pre-wrap; word-wrap: break-word; }
+        </style>
+    </head>
+    <body>
+        <h1>Rendering Error</h1>
+        <p>An error occurred while rendering the page:</p>
+        <pre>${e.message}
+
+${e.stack}</pre>
+        <p>Check the console for more details.</p>
+    </body>
+    </html>`;
 }
 
 // src/render.ts
@@ -110117,8 +110141,23 @@ async function buildSite(config) {
 }
 
 // src/dev.ts
-import { promises, watch } from "fs";
+import { existsSync, promises, watch } from "fs";
 import path4 from "path";
+
+// src/response.ts
+function html(body, init) {
+  const _html = typeof body === "string" ? body : JSON.stringify(body);
+  return new Response(_html, {
+    status: 200,
+    ...init,
+    headers: {
+      ...init?.headers,
+      "Content-Type": "text/html"
+    }
+  });
+}
+
+// src/dev.ts
 function handleSSE(req, sseClients) {
   const stream = new ReadableStream({
     start(controller) {
@@ -110159,121 +110198,116 @@ function handleSSE(req, sseClients) {
     }
   });
 }
-async function handleRequest(req, config, locales, defaultLocale, pagesDir, publicDir) {
-  const url = new URL(req.url);
-  let requestPathname = decodeURIComponent(url.pathname);
-  if (requestPathname.startsWith("/")) {
-    requestPathname = requestPathname.substring(1);
-  }
-  if (requestPathname === "" || requestPathname.endsWith("/")) {
-    requestPathname += "index.html";
-  }
-  const publicFilePath = path4.join(publicDir, requestPathname);
-  const publicFile = Bun.file(publicFilePath);
-  if (await publicFile.exists()) {
-    try {
-      const stat = await promises.stat(publicFilePath);
-      if (stat.isFile()) {
-        return new Response(publicFile);
-      } else if (stat.isDirectory() && publicFilePath.endsWith("index.html")) {
-        return new Response(publicFile);
-      }
-    } catch (e) {
-      console.warn(`Error stating file ${publicFilePath}: ${e}`);
-    }
-  }
-  if (requestPathname.endsWith("/index.html")) {
-    requestPathname = requestPathname.substring(0, requestPathname.length - "/index.html".length) || "index";
-  } else if (requestPathname.endsWith(".html")) {
-    requestPathname = requestPathname.substring(0, requestPathname.length - ".html".length);
-  }
-  let locale = defaultLocale;
-  const pathParts = requestPathname.split("/");
-  if (pathParts.length > 0 && locales.includes(pathParts[0])) {
-    locale = pathParts[0];
-    requestPathname = pathParts.slice(1).join("/") || "index";
-  }
-  const pageFileName = `${requestPathname}.tsx`;
-  let pageFilePath = path4.join(pagesDir, pageFileName);
-  const pageFile = Bun.file(pageFilePath);
-  if (!await pageFile.exists()) {
-    const potentialIndexPagePath = path4.join(pagesDir, requestPathname, "index.tsx");
-    const potentialIndexFile = Bun.file(potentialIndexPagePath);
-    if (await potentialIndexFile.exists()) {
-      pageFilePath = potentialIndexPagePath;
-    } else {
-      const fallbackPublicFilePath = path4.join(publicDir, requestPathname + ".html");
-      const fallbackPublicFile = Bun.file(fallbackPublicFilePath);
-      if (await fallbackPublicFile.exists()) {
-        return new Response(fallbackPublicFile);
-      }
-      return new Response("Page not found", { status: 404 });
-    }
+async function tryServeFile(fullPath) {
+  const file = Bun.file(fullPath);
+  if (!await file.exists()) {
+    return null;
   }
   try {
-    const html = await renderPage(config, pagesDir, path4.relative(pagesDir, pageFilePath), locale, locales, true);
-    return new Response(html, {
-      headers: { "Content-Type": "text/html" }
-    });
+    const stat = await promises.stat(fullPath);
+    if (stat.isFile()) {
+      return new Response(file);
+    }
+    if (stat.isDirectory() && fullPath.endsWith("index.html")) {
+      return new Response(file);
+    }
+  } catch (e) {
+    console.warn(`Error stating file ${fullPath}: ${e}`);
+  }
+  return null;
+}
+function parsePageRequest(publicPath, locales, defaultLocale) {
+  let pagePath = publicPath.replace(".html", "");
+  if (pagePath === "" || pagePath === "/") {
+    return {
+      pagePath: "index",
+      locale: defaultLocale
+    };
+  }
+  const pathParts = pagePath.split("/");
+  const locale = pathParts.shift();
+  if (locale && locales.includes(locale)) {
+    return {
+      pagePath: pathParts.join("/"),
+      locale
+    };
+  }
+  return {
+    pagePath,
+    locale: defaultLocale
+  };
+}
+function findPageModule(pagePath, config) {
+  const directPagePath = path4.join(config.pagesDir, `${pagePath}.tsx`);
+  if (existsSync(directPagePath)) {
+    return directPagePath;
+  }
+  const indexPagePath = path4.join(config.pagesDir, pagePath, "index.tsx");
+  if (existsSync(indexPagePath)) {
+    return indexPagePath;
+  }
+  return null;
+}
+async function renderPageResponse(pageModulePath, config, locale, locales) {
+  try {
+    const html2 = await renderPage(config, config.pagesDir, path4.relative(config.pagesDir, pageModulePath), locale, locales, true);
+    return html(html2);
   } catch (error) {
-    console.error("Error rendering page:", error);
-    const errorMessage = error instanceof Error ? error.message : String(error);
-    const errorStack = error instanceof Error ? error.stack : "";
-    return new Response(`<!DOCTYPE html>
-                    <html>
-                    <head>
-                        <title>Error</title>
-                        <style>
-                            body { font-family: sans-serif; background-color: #f8d7da; color: #721c24; padding: 20px; }
-                            h1 { color: #721c24; }
-                            pre { background-color: #f5c6cb; padding: 15px; border-radius: 5px; white-space: pre-wrap; word-wrap: break-word; }
-                        </style>
-                    </head>
-                    <body>
-                        <h1>Rendering Error</h1>
-                        <p>An error occurred while rendering the page:</p>
-                        <pre>${errorMessage}
-
-${errorStack}</pre>
-                        <p>Check the console for more details.</p>
-                    </body>
-                    </html>`, {
-      status: 500,
-      headers: { "Content-Type": "text/html" }
+    return html(renderError(error), {
+      status: 500
     });
+  }
+}
+async function handleRequest(req, config, locales, defaultLocale) {
+  const url = new URL(req.url);
+  const publicPath = url.pathname.substring(1);
+  console.log({ publicPath });
+  const publicFileResponse = await tryServeFile(path4.join(config.publicDir, publicPath));
+  console.log({ publicFileResponse });
+  if (publicFileResponse) {
+    return publicFileResponse;
+  }
+  const { pagePath, locale } = parsePageRequest(publicPath, locales, defaultLocale);
+  const pageModulePath = findPageModule(pagePath, config);
+  console.log({ pagePath, pageModulePath });
+  if (pageModulePath) {
+    return await renderPageResponse(pageModulePath, config, locale, locales);
+  }
+  return new Response("Page not found", { status: 404 });
+}
+function reloadCache(config) {
+  Object.keys(__require.cache).forEach((key) => {
+    if (key.startsWith(config.appDir)) {
+      delete __require.cache[key];
+    }
+  });
+}
+function broadcastReload(sseClients) {
+  console.log("[Pleb Dev] Broadcasting reload to SSE clients...");
+  for (const client of sseClients) {
+    try {
+      client.controller.enqueue(`data: reload
+
+`);
+    } catch (e) {
+      console.warn("[Pleb Dev] Error sending to SSE client, removing:", e);
+      sseClients.delete(client);
+      try {
+        client.controller.close();
+      } catch {}
+    }
   }
 }
 function startFileWatcher(config, sseClients, initialLocaleData) {
   let { locales, defaultLocale, localeInfos } = initialLocaleData;
   const localesDir = config.localesDir;
-  const configPath = path4.join(config.projectRoot, "config.js");
-  const reloadCache = () => {
-    Object.keys(__require.cache).forEach((key) => {
-      if (key.startsWith(config.appDir)) {
-        delete __require.cache[key];
-      }
-    });
-  };
-  const broadcastReload = () => {
-    console.log("[Pleb Dev] Broadcasting reload to SSE clients...");
-    for (const client of sseClients) {
-      try {
-        client.controller.enqueue(`data: reload
-
-`);
-      } catch (e) {
-        console.warn("[Pleb Dev] Error sending to SSE client, removing:", e);
-        sseClients.delete(client);
-        try {
-          client.controller.close();
-        } catch {}
-      }
-    }
-  };
-  const watchHandler = (eventType, filename) => {
+  const configJsPath = path4.join(config.projectRoot, "config.js");
+  const configTsPath = path4.join(config.projectRoot, "config.ts");
+  const configPath = existsSync(configJsPath) ? configJsPath : configTsPath;
+  function watchHandler(eventType, filename) {
     if (filename) {
       console.log(`File changed: ${filename}. Type: ${eventType}`);
-      reloadCache();
+      reloadCache(config);
       const fullPath = path4.resolve(filename);
       if (fullPath.startsWith(localesDir) || fullPath === path4.resolve(configPath)) {
         console.log("Config or locales updated, re-fetching locales on server...");
@@ -110283,12 +110317,11 @@ function startFileWatcher(config, sseClients, initialLocaleData) {
         defaultLocale = defaultLocaleInfo ? defaultLocaleInfo.code : config.defaultLocale;
         console.log(`Available locales: ${locales.join(", ")}. Default locale: ${defaultLocale}`);
       }
-      broadcastReload();
+      broadcastReload(sseClients);
     }
-  };
+  }
   try {
     watch(config.appDir, { recursive: true }, watchHandler);
-    console.log(`Watching ${config.appDir} for changes.`);
   } catch (e) {
     console.error(`Failed to watch ${config.appDir}:`, e);
   }
@@ -110298,13 +110331,11 @@ function startFileWatcher(config, sseClients, initialLocaleData) {
         console.log(`Public file changed: ${filename}. Type: ${eventType}. Client should refresh.`);
       }
     });
-    console.log(`Watching ${config.publicDir} for changes.`);
   } catch (e) {
     console.error(`Failed to watch ${config.publicDir}:`, e);
   }
   try {
     watch(configPath, watchHandler);
-    console.log(`Watching ${configPath} for changes.`);
   } catch (e) {
     console.error(`Failed to watch ${configPath}:`, e);
   }
@@ -110314,11 +110345,10 @@ async function startDevServer(config) {
   const locales = localeInfos.map((info) => info.code);
   const defaultLocaleInfo = localeInfos.find((info) => info.isDefault);
   const defaultLocale = defaultLocaleInfo ? defaultLocaleInfo.code : config.defaultLocale;
-  const pagesDir = config.pagesDir;
-  const publicDir = config.publicDir;
   const sseClients = new Set;
-  console.log(`\uD83D\uDE80 Starting Bun server on port ${config.port}...`);
+  console.log(`\uD83D\uDE80 Starting server on port ${config.port}...`);
   Bun.serve({
+    development: true,
     port: config.port,
     idleTimeout: 255,
     async fetch(req) {
@@ -110327,16 +110357,16 @@ async function startDevServer(config) {
       if (url.pathname === "/pleb-dev-events") {
         return handleSSE(req, sseClients);
       }
-      return handleRequest(req, config, locales, defaultLocale, pagesDir, publicDir);
+      return handleRequest(req, config, locales, defaultLocale);
     },
     error(error) {
-      console.error("Bun server error:", error);
+      console.error("Server error:", error);
       return new Response("Internal Server Error", { status: 500 });
     }
   });
-  console.log(`Bun server is listening on http://localhost:${config.port}`);
+  console.log(`Server is listening on http://localhost:${config.port}`);
   console.log(`\uD83C\uDF10 Available locales: ${locales.join(", ")}`);
-  console.log("\uD83D\uDC40 Watching for file changes... (Note: Full HMR with Bun.serve is evolving)");
+  console.log("\uD83D\uDC40 Watching for file changes...");
   startFileWatcher(config, sseClients, {
     locales,
     defaultLocale,
@@ -110432,5 +110462,5 @@ async function runCli() {
 }
 runCli();
 
-//# debugId=0F359291711226E364756E2164756E21
+//# debugId=98A1038689265BE564756E2164756E21
 //# sourceMappingURL=cli.js.map
