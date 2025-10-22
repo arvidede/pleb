@@ -170,12 +170,8 @@ export async function renderPage(
         translations,
     )
 
-    let html = await populateHtmlTemplate({
-        templatePath: config.templatePath,
+    let html = await populateHtmlTemplate(config, {
         locale,
-        locales: config.locales,
-        defaultLocale: config.defaultLocale,
-        baseUrl: config.baseUrl,
         title: metadata.title,
         description: metadata.description,
         css: inlinedCSS,

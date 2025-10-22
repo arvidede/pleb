@@ -1,13 +1,9 @@
 import React from "react";
-import { LinkedData, Metadata, PageProps, Script, Translations } from "./types";
+import { Config, LinkedData, Metadata, PageProps, Script, Translations } from "./types";
 export declare function loadHtmlTemplate(templatePath: string): Promise<string>;
 export declare function renderReactComponentToString(PageComponent: React.ComponentType<PageProps>, translations: Translations): string;
 export interface HtmlTemplateData {
-    templatePath: string;
     locale: string;
-    locales: string[];
-    defaultLocale: string;
-    baseUrl: string;
     title: string;
     description: string;
     css: string;
@@ -18,5 +14,5 @@ export interface HtmlTemplateData {
     translations: Translations;
     dev: boolean;
 }
-export declare function populateHtmlTemplate(data: HtmlTemplateData): Promise<string>;
+export declare function populateHtmlTemplate(config: Config, data: HtmlTemplateData): Promise<string>;
 export declare function renderError(error: unknown): string;

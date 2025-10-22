@@ -109615,9 +109615,9 @@ function renderReactComponentToString(PageComponent, translations) {
     children: import_react.default.createElement(PageComponent, { t: translations })
   }));
 }
-async function populateHtmlTemplate(data) {
-  let html = await loadHtmlTemplate(data.templatePath);
-  html = renderLocale(html, data.locale, data.locales, data.defaultLocale, data.baseUrl);
+async function populateHtmlTemplate(config, data) {
+  let html = await loadHtmlTemplate(config.templatePath);
+  html = renderLocale(html, data.locale, config.locales, config.defaultLocale, config.baseUrl);
   html = renderTitle(html, data.title);
   html = renderDescription(html, data.description);
   html = renderStyles(html, data.css);
@@ -109629,7 +109629,7 @@ async function populateHtmlTemplate(data) {
   if (data.linkedData) {
     html = renderLinkedData(html, data.linkedData);
   }
-  html = processHtmlLinks(html, data.locale, data.defaultLocale);
+  html = processHtmlLinks(html, data.locale, config.defaultLocale);
   html = renderTranslations(html, data.translations);
   if (data.dev) {
     html = renderDevModeSseScript(html);
@@ -109932,12 +109932,8 @@ async function renderPage(config, pageRelativePath, locale, isDevMode) {
   const pageSpecificCssPaths = determinePageSpecificCssPaths(config, pageRelativePath);
   const inlinedCSS = await processCSS(config, pageSpecificCssPaths);
   const pageContentHtml = renderReactComponentToString(pageModule.default, translations);
-  let html = await populateHtmlTemplate({
-    templatePath: config.templatePath,
+  let html = await populateHtmlTemplate(config, {
     locale,
-    locales: config.locales,
-    defaultLocale: config.defaultLocale,
-    baseUrl: config.baseUrl,
     title: metadata.title,
     description: metadata.description,
     css: inlinedCSS,
@@ -110377,6 +110373,20 @@ async function getUserConfig(projectRoot) {
   console.warn("\u26A0\uFE0F No config file (config.ts or config.js) found. Using default configuration.");
   return {};
 }
+function verifyLocaleConfig(config) {
+  if (!config.defaultLocale) {
+    console.error(`\u274C Missing defaultLocale in config"`);
+    process.exit(1);
+  }
+  if (!config.locales || !config.locales.length) {
+    console.error(`\u274C Missing locales in config"`);
+    process.exit(1);
+  }
+  if (!config.locales.includes(config.defaultLocale)) {
+    console.error(`\u274C Default locale not in locales"`);
+    process.exit(1);
+  }
+}
 async function runCli() {
   const args = process.argv.slice(2);
   const command = args[0];
@@ -110399,6 +110409,7 @@ async function runCli() {
     templatePath: "./app/template.html",
     cssFilePath: "./app/styles/main.css",
     defaultLocale: "en",
+    locales: ["en"],
     baseUrl: "http://localhost:3000"
   };
   const mergedConfig = {
@@ -110414,16 +110425,7 @@ async function runCli() {
   mergedConfig.publicDir = path5.resolve(userProjectRoot, mergedConfig.publicDir);
   mergedConfig.templatePath = path5.resolve(userProjectRoot, mergedConfig.templatePath);
   mergedConfig.cssFilePath = path5.resolve(userProjectRoot, mergedConfig.cssFilePath);
-  const essentialProps = [
-    "projectRoot",
-    "defaultLocale"
-  ];
-  for (const prop of essentialProps) {
-    if (mergedConfig[prop] === undefined) {
-      console.error(`\u274C Internal Error: Missing essential configuration property after merge: "${prop}"`);
-      process.exit(1);
-    }
-  }
+  verifyLocaleConfig(mergedConfig);
   switch (command) {
     case "dev":
       console.log("Starting development server...");
@@ -110441,5 +110443,5 @@ async function runCli() {
 }
 runCli();
 
-//# debugId=167C6431047286C064756E2164756E21
+//# debugId=73FFC21D9247695F64756E2164756E21
 //# sourceMappingURL=cli.js.map

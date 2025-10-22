@@ -2,6 +2,7 @@ import React from "react"
 import ReactDOMServer from "react-dom/server"
 import { LanguageProvider } from "./i18n"
 import {
+    Config,
     LinkedData,
     Metadata,
     PageProps,
@@ -36,11 +37,7 @@ export function renderReactComponentToString(
 }
 
 export interface HtmlTemplateData {
-    templatePath: string
     locale: string
-    locales: string[]
-    defaultLocale: string
-    baseUrl: string
     title: string
     description: string
     css: string
@@ -53,16 +50,17 @@ export interface HtmlTemplateData {
 }
 
 export async function populateHtmlTemplate(
+    config: Config,
     data: HtmlTemplateData,
 ): Promise<string> {
-    let html = await loadHtmlTemplate(data.templatePath)
+    let html = await loadHtmlTemplate(config.templatePath)
 
     html = renderLocale(
         html,
         data.locale,
-        data.locales,
-        data.defaultLocale,
-        data.baseUrl,
+        config.locales,
+        config.defaultLocale,
+        config.baseUrl,
     )
     html = renderTitle(html, data.title)
     html = renderDescription(html, data.description)
@@ -78,7 +76,7 @@ export async function populateHtmlTemplate(
         html = renderLinkedData(html, data.linkedData)
     }
 
-    html = processHtmlLinks(html, data.locale, data.defaultLocale)
+    html = processHtmlLinks(html, data.locale, config.defaultLocale)
 
     html = renderTranslations(html, data.translations)
 
