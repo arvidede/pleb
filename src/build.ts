@@ -1,6 +1,5 @@
 import { promises as fsPromises } from "fs"
 import path from "path"
-import { getLocales } from "./i18n"
 import { buildPage } from "./render"
 import { Config } from "./types"
 import {
@@ -18,20 +17,26 @@ export async function prepareBuildDirectory(config: Config): Promise<void> {
     await fsPromises.mkdir(buildDir, { recursive: true })
 }
 
-export async function buildLocalizedPages(
-    config: Config,
-    pagesDir: string,
-    allPages: string[],
-    locales: string[],
-): Promise<void> {
+export async function buildLocalizedPages(config: Config): Promise<void> {
+    const pages = await getAllTsxFiles(config.pagesDir)
+    if (pages.length === 0) {
+        console.warn(
+            "⚠️ No pages (.tsx files) found in the pages directory. Building an empty site.",
+        )
+    }
+
+    console.log(
+        `📄 Found ${pages.length} pages and ${config.locales.length} locales.`,
+    )
+
     console.log("🏗️ Building pages...")
-    for (const locale of locales) {
+    for (const locale of config.locales) {
         console.log(`  - Building for locale: ${locale}`)
-        for (const pageFilePath of allPages) {
-            const pageRelativePath = path.relative(pagesDir, pageFilePath)
-            await buildPage(config, pagesDir, pageRelativePath, locale, locales)
+        for (const page of pages) {
+            await buildPage(config, locale, page)
         }
     }
+
     console.log("✅ Pages built.")
 }
 
@@ -48,31 +53,17 @@ export async function performPostBuildActions(config: Config): Promise<void> {
 
 export async function buildSite(config: Config): Promise<void> {
     const startTime = performance.now()
-    const pagesDir = config.pagesDir
 
     console.log("🚀 Starting build...")
 
     await prepareBuildDirectory(config)
 
-    const localeInfos = getLocales(config)
-    const locales = localeInfos.map((info) => info.code)
-    if (locales.length === 0) {
+    if (config.locales.length === 0) {
         console.error("❌ No locales found. Build aborted.")
         process.exit(1)
     }
 
-    const allPages = await getAllTsxFiles(pagesDir)
-    if (allPages.length === 0) {
-        console.warn(
-            "⚠️ No pages (.tsx files) found in the pages directory. Building an empty site.",
-        )
-    }
-
-    console.log(
-        `📄 Found ${allPages.length} pages and ${locales.length} locales.`,
-    )
-
-    await buildLocalizedPages(config, pagesDir, allPages, locales)
+    await buildLocalizedPages(config)
 
     await performPostBuildActions(config)
 

@@ -1,10 +1,9 @@
 import { existsSync, promises, watch } from "fs"
 import path from "path"
 import { renderError } from "./html"
-import { getLocales } from "./i18n"
 import { renderPage } from "./render"
 import * as response from "./response"
-import { Config, LocaleInfo } from "./types"
+import { Config } from "./types"
 
 export function handleSSE(
     req: Request,
@@ -124,15 +123,12 @@ async function renderPageResponse(
     pageModulePath: string,
     config: Config,
     locale: string,
-    locales: string[],
 ): Promise<Response> {
     try {
         const html = await renderPage(
             config,
-            config.pagesDir,
             path.relative(config.pagesDir, pageModulePath),
             locale,
-            locales,
             true,
         )
 
@@ -147,7 +143,6 @@ async function renderPageResponse(
 export async function handleRequest(
     req: Request,
     config: Config,
-    locales: string[],
 ): Promise<Response> {
     const url = new URL(req.url)
     const requestPath = url.pathname.substring(1)
@@ -162,14 +157,14 @@ export async function handleRequest(
 
     const { pagePath, locale } = parsePageRequest(
         requestPath,
-        locales,
+        config.locales,
         config.defaultLocale,
     )
 
     const pageModulePath = findPageModule(pagePath, config)
 
     if (pageModulePath) {
-        return await renderPageResponse(pageModulePath, config, locale, locales)
+        return await renderPageResponse(pageModulePath, config, locale)
     }
 
     return new Response("Page not found", { status: 404 })
@@ -205,16 +200,7 @@ function broadcastReload(sseClients: SSEClients) {
 
 type SSEClients = Set<{ controller: ReadableStreamDefaultController<unknown> }>
 
-export function startFileWatcher(
-    config: Config,
-    sseClients: SSEClients,
-    initialLocaleData: {
-        locales: string[]
-        defaultLocale: string
-        localeInfos: LocaleInfo[]
-    },
-): void {
-    let { locales, defaultLocale, localeInfos } = initialLocaleData
+export function startFileWatcher(config: Config, sseClients: SSEClients): void {
     const localesDir = config.localesDir
     const configJsPath = path.join(config.projectRoot, "config.js")
     const configTsPath = path.join(config.projectRoot, "config.ts")
@@ -234,20 +220,8 @@ export function startFileWatcher(
                 fullPath.startsWith(localesDir) ||
                 fullPath === path.resolve(configPath)
             ) {
-                console.log(
-                    "Config or locales updated, re-fetching locales on server...",
-                )
-                localeInfos = getLocales(config)
-                locales = localeInfos.map((info) => info.code)
-                const defaultLocaleInfo = localeInfos.find(
-                    (info) => info.isDefault,
-                )
-                defaultLocale = defaultLocaleInfo
-                    ? defaultLocaleInfo.code
-                    : config.defaultLocale
-                console.log(
-                    `Available locales: ${locales.join(", ")}. Default locale: ${defaultLocale}`,
-                )
+                console.log("Config updated, re-fetching locales on server...")
+                // TODO: fetch translations
             }
 
             broadcastReload(sseClients)
@@ -284,9 +258,6 @@ export function startFileWatcher(
 }
 
 export async function startDevServer(config: Config): Promise<void> {
-    const localeInfos = getLocales(config)
-    const locales: string[] = localeInfos.map((info) => info.code)
-
     const sseClients: Set<{
         controller: ReadableStreamDefaultController<unknown>
     }> = new Set()
@@ -305,7 +276,7 @@ export async function startDevServer(config: Config): Promise<void> {
                 return handleSSE(req, sseClients)
             }
 
-            return handleRequest(req, config, locales)
+            return handleRequest(req, config)
         },
         error(error: Error) {
             console.error("Server error:", error)
@@ -314,12 +285,8 @@ export async function startDevServer(config: Config): Promise<void> {
     })
 
     console.log(`Server is listening on http://localhost:${config.port}`)
-    console.log(`🌐 Available locales: ${locales.join(", ")}`)
+    console.log(`🌐 Available locales: ${config.locales.join(", ")}`)
     console.log("👀 Watching for file changes...")
 
-    startFileWatcher(config, sseClients, {
-        locales,
-        defaultLocale: config.defaultLocale,
-        localeInfos,
-    })
+    startFileWatcher(config, sseClients)
 }

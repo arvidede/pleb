@@ -15,6 +15,7 @@ export interface Config {
     templatePath: string
     cssFilePath: string
     defaultLocale: string
+    locales: string[]
     baseUrl: string
 }
 

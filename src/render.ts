@@ -139,15 +139,13 @@ export function extractPageExports(
 
 export async function renderPage(
     config: Config,
-    pageModuleBaseDir: string,
     pageRelativePath: string,
     locale: string,
-    locales: string[],
     isDevMode: boolean,
 ): Promise<string> {
     let pageModule: PageModule
     try {
-        pageModule = await loadPageModule(pageModuleBaseDir, pageRelativePath)
+        pageModule = await loadPageModule(config.pagesDir, pageRelativePath)
     } catch (error) {
         console.error(error)
 
@@ -175,7 +173,7 @@ export async function renderPage(
     let html = await populateHtmlTemplate({
         templatePath: config.templatePath,
         locale,
-        locales,
+        locales: config.locales,
         defaultLocale: config.defaultLocale,
         baseUrl: config.baseUrl,
         title: metadata.title,
@@ -194,20 +192,12 @@ export async function renderPage(
 
 export async function buildPage(
     config: Config,
-    compiledPagesDir: string,
-    pageRelativePath: string,
     locale: string,
-    locales: string[],
+    pageFilePath: string,
 ): Promise<void> {
+    const pageRelativePath = path.relative(config.pagesDir, pageFilePath)
     const outputPath = determineOutputFilePath(config, pageRelativePath, locale)
 
-    const html = await renderPage(
-        config,
-        compiledPagesDir,
-        pageRelativePath,
-        locale,
-        locales,
-        false,
-    )
+    const html = await renderPage(config, pageRelativePath, locale, false)
     await Bun.write(outputPath, html)
 }

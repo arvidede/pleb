@@ -37,6 +37,23 @@ async function getUserConfig(projectRoot: string): Promise<UserConfig> {
     return {}
 }
 
+function verifyLocaleConfig(config: Config) {
+    if (!config.defaultLocale) {
+        console.error(`❌ Missing defaultLocale in config"`)
+        process.exit(1)
+    }
+
+    if (!config.locales || !config.locales.length) {
+        console.error(`❌ Missing locales in config"`)
+        process.exit(1)
+    }
+
+    if (!config.locales.includes(config.defaultLocale)) {
+        console.error(`❌ Default locale not in locales"`)
+        process.exit(1)
+    }
+}
+
 async function runCli() {
     const args = process.argv.slice(2)
     const command = args[0]
@@ -63,6 +80,7 @@ async function runCli() {
         templatePath: "./app/template.html",
         cssFilePath: "./app/styles/main.css",
         defaultLocale: "en",
+        locales: ["en"],
         baseUrl: "http://localhost:3000",
     }
 
@@ -97,18 +115,7 @@ async function runCli() {
         mergedConfig.cssFilePath,
     )
 
-    const essentialProps: (keyof UserConfig)[] = [
-        "projectRoot",
-        "defaultLocale",
-    ]
-    for (const prop of essentialProps) {
-        if (mergedConfig[prop] === undefined) {
-            console.error(
-                `❌ Internal Error: Missing essential configuration property after merge: "${prop}"`,
-            )
-            process.exit(1)
-        }
-    }
+    verifyLocaleConfig(mergedConfig)
 
     switch (command) {
         case "dev":

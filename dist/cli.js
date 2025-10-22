@@ -6,10 +6,9 @@ import {
   __export,
   __require,
   __toESM,
-  getLocales,
   getTranslations,
   require_react
-} from "./index-t790paew.js";
+} from "./index-h0cg77qx.js";
 
 // node_modules/baseline-browser-mapping/dist/index.cjs
 var require_dist = __commonJS((exports) => {
@@ -109920,10 +109919,10 @@ function extractPageExports(pageModule, content) {
     linkedData
   };
 }
-async function renderPage(config, pageModuleBaseDir, pageRelativePath, locale, locales, isDevMode) {
+async function renderPage(config, pageRelativePath, locale, isDevMode) {
   let pageModule;
   try {
-    pageModule = await loadPageModule(pageModuleBaseDir, pageRelativePath);
+    pageModule = await loadPageModule(config.pagesDir, pageRelativePath);
   } catch (error) {
     console.error(error);
     throw error;
@@ -109936,7 +109935,7 @@ async function renderPage(config, pageModuleBaseDir, pageRelativePath, locale, l
   let html = await populateHtmlTemplate({
     templatePath: config.templatePath,
     locale,
-    locales,
+    locales: config.locales,
     defaultLocale: config.defaultLocale,
     baseUrl: config.baseUrl,
     title: metadata.title,
@@ -109951,9 +109950,10 @@ async function renderPage(config, pageModuleBaseDir, pageRelativePath, locale, l
   });
   return html;
 }
-async function buildPage(config, compiledPagesDir, pageRelativePath, locale, locales) {
+async function buildPage(config, locale, pageFilePath) {
+  const pageRelativePath = path.relative(config.pagesDir, pageFilePath);
   const outputPath = determineOutputFilePath(config, pageRelativePath, locale);
-  const html = await renderPage(config, compiledPagesDir, pageRelativePath, locale, locales, false);
+  const html = await renderPage(config, pageRelativePath, locale, false);
   await Bun.write(outputPath, html);
 }
 
@@ -110096,13 +110096,17 @@ async function prepareBuildDirectory(config) {
   }
   await fsPromises.mkdir(buildDir, { recursive: true });
 }
-async function buildLocalizedPages(config, pagesDir, allPages, locales) {
+async function buildLocalizedPages(config) {
+  const pages = await getAllTsxFiles(config.pagesDir);
+  if (pages.length === 0) {
+    console.warn("\u26A0\uFE0F No pages (.tsx files) found in the pages directory. Building an empty site.");
+  }
+  console.log(`\uD83D\uDCC4 Found ${pages.length} pages and ${config.locales.length} locales.`);
   console.log("\uD83C\uDFD7\uFE0F Building pages...");
-  for (const locale of locales) {
+  for (const locale of config.locales) {
     console.log(`  - Building for locale: ${locale}`);
-    for (const pageFilePath of allPages) {
-      const pageRelativePath = path3.relative(pagesDir, pageFilePath);
-      await buildPage(config, pagesDir, pageRelativePath, locale, locales);
+    for (const page of pages) {
+      await buildPage(config, locale, page);
     }
   }
   console.log("\u2705 Pages built.");
@@ -110118,21 +110122,13 @@ async function performPostBuildActions(config) {
 }
 async function buildSite(config) {
   const startTime = performance.now();
-  const pagesDir = config.pagesDir;
   console.log("\uD83D\uDE80 Starting build...");
   await prepareBuildDirectory(config);
-  const localeInfos = getLocales(config);
-  const locales = localeInfos.map((info) => info.code);
-  if (locales.length === 0) {
+  if (config.locales.length === 0) {
     console.error("\u274C No locales found. Build aborted.");
     process.exit(1);
   }
-  const allPages = await getAllTsxFiles(pagesDir);
-  if (allPages.length === 0) {
-    console.warn("\u26A0\uFE0F No pages (.tsx files) found in the pages directory. Building an empty site.");
-  }
-  console.log(`\uD83D\uDCC4 Found ${allPages.length} pages and ${locales.length} locales.`);
-  await buildLocalizedPages(config, pagesDir, allPages, locales);
+  await buildLocalizedPages(config);
   await performPostBuildActions(config);
   const endTime = performance.now();
   const duration = ((endTime - startTime) / 1000).toFixed(2);
@@ -110248,9 +110244,9 @@ function findPageModule(pagePath, config) {
   }
   return null;
 }
-async function renderPageResponse(pageModulePath, config, locale, locales) {
+async function renderPageResponse(pageModulePath, config, locale) {
   try {
-    const html2 = await renderPage(config, config.pagesDir, path4.relative(config.pagesDir, pageModulePath), locale, locales, true);
+    const html2 = await renderPage(config, path4.relative(config.pagesDir, pageModulePath), locale, true);
     return html(html2);
   } catch (error) {
     return html(renderError(error), {
@@ -110258,20 +110254,17 @@ async function renderPageResponse(pageModulePath, config, locale, locales) {
     });
   }
 }
-async function handleRequest(req, config, locales, defaultLocale) {
+async function handleRequest(req, config) {
   const url = new URL(req.url);
-  const publicPath = url.pathname.substring(1);
-  console.log({ publicPath });
-  const publicFileResponse = await tryServeFile(path4.join(config.publicDir, publicPath));
-  console.log({ publicFileResponse });
+  const requestPath = url.pathname.substring(1);
+  const publicFileResponse = await tryServeFile(path4.join(config.publicDir, requestPath));
   if (publicFileResponse) {
     return publicFileResponse;
   }
-  const { pagePath, locale } = parsePageRequest(publicPath, locales, defaultLocale);
+  const { pagePath, locale } = parsePageRequest(requestPath, config.locales, config.defaultLocale);
   const pageModulePath = findPageModule(pagePath, config);
-  console.log({ pagePath, pageModulePath });
   if (pageModulePath) {
-    return await renderPageResponse(pageModulePath, config, locale, locales);
+    return await renderPageResponse(pageModulePath, config, locale);
   }
   return new Response("Page not found", { status: 404 });
 }
@@ -110298,8 +110291,7 @@ function broadcastReload(sseClients) {
     }
   }
 }
-function startFileWatcher(config, sseClients, initialLocaleData) {
-  let { locales, defaultLocale, localeInfos } = initialLocaleData;
+function startFileWatcher(config, sseClients) {
   const localesDir = config.localesDir;
   const configJsPath = path4.join(config.projectRoot, "config.js");
   const configTsPath = path4.join(config.projectRoot, "config.ts");
@@ -110310,12 +110302,7 @@ function startFileWatcher(config, sseClients, initialLocaleData) {
       reloadCache(config);
       const fullPath = path4.resolve(filename);
       if (fullPath.startsWith(localesDir) || fullPath === path4.resolve(configPath)) {
-        console.log("Config or locales updated, re-fetching locales on server...");
-        localeInfos = getLocales(config);
-        locales = localeInfos.map((info) => info.code);
-        const defaultLocaleInfo = localeInfos.find((info) => info.isDefault);
-        defaultLocale = defaultLocaleInfo ? defaultLocaleInfo.code : config.defaultLocale;
-        console.log(`Available locales: ${locales.join(", ")}. Default locale: ${defaultLocale}`);
+        console.log("Config updated, re-fetching locales on server...");
       }
       broadcastReload(sseClients);
     }
@@ -110341,10 +110328,6 @@ function startFileWatcher(config, sseClients, initialLocaleData) {
   }
 }
 async function startDevServer(config) {
-  const localeInfos = getLocales(config);
-  const locales = localeInfos.map((info) => info.code);
-  const defaultLocaleInfo = localeInfos.find((info) => info.isDefault);
-  const defaultLocale = defaultLocaleInfo ? defaultLocaleInfo.code : config.defaultLocale;
   const sseClients = new Set;
   console.log(`\uD83D\uDE80 Starting server on port ${config.port}...`);
   Bun.serve({
@@ -110357,7 +110340,7 @@ async function startDevServer(config) {
       if (url.pathname === "/pleb-dev-events") {
         return handleSSE(req, sseClients);
       }
-      return handleRequest(req, config, locales, defaultLocale);
+      return handleRequest(req, config);
     },
     error(error) {
       console.error("Server error:", error);
@@ -110365,13 +110348,9 @@ async function startDevServer(config) {
     }
   });
   console.log(`Server is listening on http://localhost:${config.port}`);
-  console.log(`\uD83C\uDF10 Available locales: ${locales.join(", ")}`);
+  console.log(`\uD83C\uDF10 Available locales: ${config.locales.join(", ")}`);
   console.log("\uD83D\uDC40 Watching for file changes...");
-  startFileWatcher(config, sseClients, {
-    locales,
-    defaultLocale,
-    localeInfos
-  });
+  startFileWatcher(config, sseClients);
 }
 
 // src/cli.ts
@@ -110462,5 +110441,5 @@ async function runCli() {
 }
 runCli();
 
-//# debugId=98A1038689265BE564756E2164756E21
+//# debugId=167C6431047286C064756E2164756E21
 //# sourceMappingURL=cli.js.map

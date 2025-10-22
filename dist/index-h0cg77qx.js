@@ -1509,45 +1509,6 @@ function LanguageProvider({ t, children }) {
     children
   });
 }
-function getLocales(config) {
-  const localesDir = config.localesDir;
-  if (!fs.existsSync(localesDir)) {
-    console.warn(`Locales directory not found at ${localesDir}. Returning empty locales.`);
-    return [];
-  }
-  const localeFiles = fs.readdirSync(localesDir).filter((f) => f.endsWith(".json"));
-  const localeInfos = localeFiles.map((f) => {
-    const localeCode = path.basename(f, ".json");
-    return {
-      code: localeCode,
-      isDefault: localeCode === config.defaultLocale
-    };
-  });
-  if (!localeInfos.some((info) => info.isDefault)) {
-    if (localeInfos.length > 0) {
-      const configDefault = config.defaultLocale;
-      const configDefaultInfo = localeInfos.find((info) => info.code === configDefault);
-      if (configDefaultInfo) {
-        configDefaultInfo.isDefault = true;
-        console.warn(`No locale marked as default in JSON. Using config default "${configDefault}".`);
-      } else {
-        localeInfos[0].isDefault = true;
-        console.warn(`No locale marked as default in JSON and config default "${configDefault}" not found. Using the first locale "${localeInfos[0].code}" as default.`);
-      }
-    } else {
-      console.warn("No locales found. Cannot set a default locale.");
-    }
-  } else if (localeInfos.filter((info) => info.isDefault).length > 1) {
-    console.warn("Multiple locales marked as default in JSON. Using the first one found.");
-    const firstDefaultIndex = localeInfos.findIndex((info) => info.isDefault);
-    localeInfos.forEach((info, index) => {
-      if (index !== firstDefaultIndex) {
-        info.isDefault = false;
-      }
-    });
-  }
-  return localeInfos;
-}
 function getTranslations(config, locale) {
   const localesDir = config.localesDir;
   const contentPath = path.join(localesDir, `${locale}.json`);
@@ -1558,7 +1519,7 @@ function getTranslations(config, locale) {
   return JSON.parse(fs.readFileSync(contentPath, "utf-8"));
 }
 
-export { __toESM, __commonJS, __export, __esm, __require, require_react, LanguageContext, useLanguage, LanguageProvider, getLocales, getTranslations };
+export { __toESM, __commonJS, __export, __esm, __require, require_react, LanguageContext, useLanguage, LanguageProvider, getTranslations };
 
-//# debugId=58D2B3CB3292233664756E2164756E21
-//# sourceMappingURL=index-t790paew.js.map
+//# debugId=0C33C956C7349F3864756E2164756E21
+//# sourceMappingURL=index-h0cg77qx.js.map
