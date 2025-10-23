@@ -10,8 +10,7 @@ NODE_ENV=production bun build ./src/index.ts ./src/cli.ts ./src/image/Image.tsx 
     --external postcss-url \
     --target bun \
     --sourcemap=linked \
-    --env disable \
-    --splitting
+    --env disable
 
 echo "Building client-side bundle (target: browser)..."
 NODE_ENV=production bun build ./src/client/index.ts \
