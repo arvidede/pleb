@@ -1,32 +1,10 @@
 // @bun
-var __create = Object.create;
-var __getProtoOf = Object.getPrototypeOf;
-var __defProp = Object.defineProperty;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __toESM = (mod, isNodeMode, target) => {
-  target = mod != null ? __create(__getProtoOf(mod)) : {};
-  const to = isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target;
-  for (let key of __getOwnPropNames(mod))
-    if (!__hasOwnProp.call(to, key))
-      __defProp(to, key, {
-        get: () => mod[key],
-        enumerable: true
-      });
-  return to;
-};
-var __commonJS = (cb, mod) => () => (mod || cb((mod = { exports: {} }).exports, mod), mod.exports);
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, {
-      get: all[name],
-      enumerable: true,
-      configurable: true,
-      set: (newValue) => all[name] = () => newValue
-    });
-};
-var __esm = (fn, res) => () => (fn && (res = fn(fn = 0)), res);
-var __require = import.meta.require;
+import {
+  __commonJS,
+  __esm,
+  __export,
+  __toESM
+} from "./index-c3pew69r.js";
 
 // node_modules/react/cjs/react.production.js
 var exports_react_production = {};
@@ -1230,22 +1208,22 @@ __export(exports_react_jsx_runtime_production, {
   jsx: () => $jsx,
   Fragment: () => $Fragment2
 });
-function jsxProd(type, config2, maybeKey) {
+function jsxProd(type, config, maybeKey) {
   var key = null;
   maybeKey !== undefined && (key = "" + maybeKey);
-  config2.key !== undefined && (key = "" + config2.key);
-  if ("key" in config2) {
+  config.key !== undefined && (key = "" + config.key);
+  if ("key" in config) {
     maybeKey = {};
-    for (var propName in config2)
-      propName !== "key" && (maybeKey[propName] = config2[propName]);
+    for (var propName in config)
+      propName !== "key" && (maybeKey[propName] = config[propName]);
   } else
-    maybeKey = config2;
-  config2 = maybeKey.ref;
+    maybeKey = config;
+  config = maybeKey.ref;
   return {
     $$typeof: REACT_ELEMENT_TYPE2,
     type,
     key,
-    ref: config2 !== undefined ? config2 : null,
+    ref: config !== undefined ? config : null,
     props: maybeKey
   };
 }
@@ -1344,13 +1322,13 @@ var require_react_jsx_runtime_development = __commonJS((exports) => {
     function UnknownOwner() {
       return Error("react-stack-top-frame");
     }
-    function hasValidKey(config2) {
-      if (hasOwnProperty2.call(config2, "key")) {
-        var getter = Object.getOwnPropertyDescriptor(config2, "key").get;
+    function hasValidKey(config) {
+      if (hasOwnProperty2.call(config, "key")) {
+        var getter = Object.getOwnPropertyDescriptor(config, "key").get;
         if (getter && getter.isReactWarning)
           return false;
       }
-      return config2.key !== undefined;
+      return config.key !== undefined;
     }
     function defineKeyPropWarningGetter(props, displayName) {
       function warnAboutAccessingKey() {
@@ -1409,8 +1387,8 @@ var require_react_jsx_runtime_development = __commonJS((exports) => {
       Object.freeze && (Object.freeze(type.props), Object.freeze(type));
       return type;
     }
-    function jsxDEVImpl(type, config2, maybeKey, isStaticChildren, source, self, debugStack, debugTask) {
-      var children = config2.children;
+    function jsxDEVImpl(type, config, maybeKey, isStaticChildren, source, self, debugStack, debugTask) {
+      var children = config.children;
       if (children !== undefined)
         if (isStaticChildren)
           if (isArrayImpl2(children)) {
@@ -1421,9 +1399,9 @@ var require_react_jsx_runtime_development = __commonJS((exports) => {
             console.error("React.jsx: Static children should always be an array. You are likely explicitly calling React.jsxs or React.jsxDEV. Use the Babel transform instead.");
         else
           validateChildKeys(children);
-      if (hasOwnProperty2.call(config2, "key")) {
+      if (hasOwnProperty2.call(config, "key")) {
         children = getComponentNameFromType(type);
-        var keys = Object.keys(config2).filter(function(k) {
+        var keys = Object.keys(config).filter(function(k) {
           return k !== "key";
         });
         isStaticChildren = 0 < keys.length ? "{key: someKey, " + keys.join(": ..., ") + ": ...}" : "{key: someKey}";
@@ -1436,13 +1414,13 @@ React keys must be passed directly to JSX without using spread:
       }
       children = null;
       maybeKey !== undefined && (checkKeyStringCoercion(maybeKey), children = "" + maybeKey);
-      hasValidKey(config2) && (checkKeyStringCoercion(config2.key), children = "" + config2.key);
-      if ("key" in config2) {
+      hasValidKey(config) && (checkKeyStringCoercion(config.key), children = "" + config.key);
+      if ("key" in config) {
         maybeKey = {};
-        for (var propName in config2)
-          propName !== "key" && (maybeKey[propName] = config2[propName]);
+        for (var propName in config)
+          propName !== "key" && (maybeKey[propName] = config[propName]);
       } else
-        maybeKey = config2;
+        maybeKey = config;
       children && defineKeyPropWarningGetter(maybeKey, typeof type === "function" ? type.displayName || type.name || "Unknown" : type);
       return ReactElement2(type, children, self, source, getOwner(), maybeKey, debugStack, debugTask);
     }
@@ -1465,13 +1443,13 @@ React keys must be passed directly to JSX without using spread:
     var unknownOwnerDebugTask = createTask(getTaskName(UnknownOwner));
     var didWarnAboutKeySpread = {};
     exports.Fragment = REACT_FRAGMENT_TYPE3;
-    exports.jsx = function(type, config2, maybeKey, source, self) {
+    exports.jsx = function(type, config, maybeKey, source, self) {
       var trackActualOwner = 1e4 > ReactSharedInternals2.recentlyCreatedOwnerStacks++;
-      return jsxDEVImpl(type, config2, maybeKey, false, source, self, trackActualOwner ? Error("react-stack-top-frame") : unknownOwnerDebugStack, trackActualOwner ? createTask(getTaskName(type)) : unknownOwnerDebugTask);
+      return jsxDEVImpl(type, config, maybeKey, false, source, self, trackActualOwner ? Error("react-stack-top-frame") : unknownOwnerDebugStack, trackActualOwner ? createTask(getTaskName(type)) : unknownOwnerDebugTask);
     };
-    exports.jsxs = function(type, config2, maybeKey, source, self) {
+    exports.jsxs = function(type, config, maybeKey, source, self) {
       var trackActualOwner = 1e4 > ReactSharedInternals2.recentlyCreatedOwnerStacks++;
-      return jsxDEVImpl(type, config2, maybeKey, true, source, self, trackActualOwner ? Error("react-stack-top-frame") : unknownOwnerDebugStack, trackActualOwner ? createTask(getTaskName(type)) : unknownOwnerDebugTask);
+      return jsxDEVImpl(type, config, maybeKey, true, source, self, trackActualOwner ? Error("react-stack-top-frame") : unknownOwnerDebugStack, trackActualOwner ? createTask(getTaskName(type)) : unknownOwnerDebugTask);
     };
   }();
 });
@@ -1487,87 +1465,7 @@ var require_jsx_runtime = __commonJS((exports, module) => {
   }
 });
 
-// src/config.ts
-import path from "path";
-async function getUserConfig(projectRoot) {
-  const possibleFilenames = ["config.ts", "config.js"];
-  for (const filename of possibleFilenames) {
-    const configPath = path.join(projectRoot, filename);
-    const configFile = Bun.file(configPath);
-    if (await configFile.exists()) {
-      console.log(`Loading configuration from ${configPath}`);
-      try {
-        const configModule = await import(configPath);
-        if (configModule.default) {
-          return configModule.default;
-        }
-        console.error(`\u274C Error: Configuration file "${filename}" was found but does not have a default export.`);
-        process.exit(1);
-      } catch (error) {
-        console.error(`\u274C Error loading "${filename}":`, error instanceof Error ? error.message : error);
-        process.exit(1);
-      }
-    }
-  }
-  console.warn("\u26A0\uFE0F No config file (config.ts or config.js) found. Using default configuration.");
-  return {};
-}
-function verifyLocaleConfig(config) {
-  if (!config.defaultLocale) {
-    console.error(`\u274C Missing defaultLocale in config"`);
-    process.exit(1);
-  }
-  if (!config.locales || !config.locales.length) {
-    console.error(`\u274C Missing locales in config"`);
-    process.exit(1);
-  }
-  if (!config.locales.includes(config.defaultLocale)) {
-    console.error(`\u274C Default locale not in locales"`);
-    process.exit(1);
-  }
-}
-async function loadConfig() {
-  const userProjectRoot = process.cwd();
-  const userConfig = await getUserConfig(userProjectRoot);
-  const defaultConfig = {
-    projectRoot: userProjectRoot,
-    port: 3000,
-    outDir: "./out",
-    buildDir: "/_pleb",
-    imgDir: "/images",
-    appDir: "./app",
-    pagesDir: "/pages",
-    localesDir: "/locales",
-    publicDir: "/public",
-    templatePath: "/template.html",
-    stylesDir: "/styles",
-    cssFilePath: "/main.css",
-    defaultLocale: "en",
-    locales: ["en"],
-    baseUrl: "http://localhost:3000"
-  };
-  const mergedConfig = {
-    ...defaultConfig,
-    ...userConfig,
-    projectRoot: userProjectRoot
-  };
-  mergedConfig.appDir = path.resolve(userProjectRoot, mergedConfig.appDir);
-  mergedConfig.outDir = path.relative(userProjectRoot, mergedConfig.outDir);
-  mergedConfig.imgDir = path.join(mergedConfig.buildDir, mergedConfig.imgDir);
-  mergedConfig.pagesDir = path.join(mergedConfig.appDir, mergedConfig.pagesDir);
-  mergedConfig.localesDir = path.join(mergedConfig.appDir, mergedConfig.localesDir);
-  mergedConfig.stylesDir = path.join(mergedConfig.appDir, mergedConfig.stylesDir);
-  mergedConfig.publicDir = path.join(mergedConfig.appDir, mergedConfig.publicDir);
-  mergedConfig.templatePath = path.join(mergedConfig.appDir, mergedConfig.templatePath);
-  mergedConfig.cssFilePath = path.join(mergedConfig.stylesDir, mergedConfig.cssFilePath);
-  verifyLocaleConfig(mergedConfig);
-  console.log(mergedConfig);
-  return mergedConfig;
-}
-var config = await loadConfig();
-var config_default = config;
+export { require_react, require_jsx_runtime };
 
-export { __toESM, __commonJS, __export, __esm, __require, require_react, config_default, require_jsx_runtime };
-
-//# debugId=390C92E821C0664864756E2164756E21
-//# sourceMappingURL=index-gnp5a539.js.map
+//# debugId=A9DF5EDDE4E0F0EF64756E2164756E21
+//# sourceMappingURL=index-qj5yn1j4.js.map

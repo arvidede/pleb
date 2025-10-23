@@ -6,7 +6,7 @@ import postcssImport from "postcss-import"
 import postcssURL from "postcss-url"
 import config from "./config"
 import { populateHtmlTemplate, renderReactComponentToString } from "./html"
-import { getTranslations } from "./i18n"
+import { getTranslations } from "./i18n/translation"
 import { LinkedData, Metadata, PageProps, Script, Translations } from "./types"
 
 interface PageModule {
@@ -138,7 +138,12 @@ export async function renderPage(
         throw error
     }
 
-    const translations = getTranslations(locale)
+    const translations = await getTranslations(locale)
+
+    if (!translations) {
+        throw new Error(`Could not find translations for locale ${locale}`)
+    }
+
     const { metadata, script, linkedData } = await extractPageExports(
         pageModule,
         translations,

@@ -1,6 +1,6 @@
 import { createElement } from "react"
 import { hydrateRoot } from "react-dom/client"
-import { LanguageProvider } from "../i18n"
+import { LanguageProvider } from "../i18n/context"
 import { Translations } from "../types"
 
 function getTranslationsFromDOM(): Translations {

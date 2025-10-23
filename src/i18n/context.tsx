@@ -1,12 +1,9 @@
-import fs from "fs"
-import path from "path"
 import { createContext, useContext } from "react"
-import config from "./config"
 import {
     LanguageContextType,
     LanguageProviderProps,
     Translations,
-} from "./types"
+} from "../types"
 
 const DEFAULT_CONTEXT: LanguageContextType = {
     t: {} as Translations,
@@ -31,16 +28,4 @@ export function LanguageProvider({ t, children }: LanguageProviderProps) {
             {children}
         </LanguageContext.Provider>
     )
-}
-
-export function getTranslations(locale: string): Translations {
-    const localesDir = config.localesDir
-    const contentPath = path.join(localesDir, `${locale}.json`)
-    if (!fs.existsSync(contentPath)) {
-        console.error(
-            `Locale content not found for locale "${locale}" at ${contentPath}.`,
-        )
-        return {}
-    }
-    return JSON.parse(fs.readFileSync(contentPath, "utf-8"))
 }

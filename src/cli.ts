@@ -1,5 +1,6 @@
 import { buildSite } from "./build"
 import { startDevServer } from "./dev"
+import { translate } from "./i18n/translation"
 
 async function runCli() {
     const args = process.argv.slice(2)
@@ -19,8 +20,13 @@ async function runCli() {
             break
         case "build":
             console.log("Running build...")
+            const forceTranslate = args[1] === "--force-translate"
 
-            await buildSite()
+            await buildSite(forceTranslate)
+            break
+        case "translate":
+            console.log("Running translation...")
+            await translate()
             break
         default:
             console.error(`Unknown command: ${command}`)

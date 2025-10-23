@@ -1,7 +1,7 @@
 import React from "react"
 import ReactDOMServer from "react-dom/server"
 import config from "./config"
-import { LanguageProvider } from "./i18n"
+import { LanguageProvider } from "./i18n/context"
 import {
     LinkedData,
     Metadata,

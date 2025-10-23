@@ -7,8 +7,8 @@ declare class ImageRegistry {
     get images(): string[];
     get hasUnprocessed(): boolean;
     add(src: string): void;
-    private getName;
-    private exists;
+    private getFilePath;
+    private imageProcessed;
     private processImage;
     processImages(): Promise<void>;
 }

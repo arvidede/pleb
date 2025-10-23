@@ -1,20 +1,9192 @@
 // @bun
 import {
-  LanguageProvider,
-  getTranslations
-} from "./index-8nt7n0d7.js";
+  LanguageProvider
+} from "./index-rzv3qmkq.js";
 import {
+  config_default,
   registry_default
-} from "./index-75bwv6rr.js";
+} from "./index-nrxsvcc9.js";
+import {
+  require_react
+} from "./index-qj5yn1j4.js";
 import {
   __commonJS,
   __esm,
   __export,
   __require,
-  __toESM,
-  config_default,
-  require_react
-} from "./index-gnp5a539.js";
+  __toESM
+} from "./index-c3pew69r.js";
+
+// node_modules/extend/index.js
+var require_extend = __commonJS((exports, module) => {
+  var hasOwn = Object.prototype.hasOwnProperty;
+  var toStr = Object.prototype.toString;
+  var defineProperty = Object.defineProperty;
+  var gOPD = Object.getOwnPropertyDescriptor;
+  var isArray = function isArray(arr) {
+    if (typeof Array.isArray === "function") {
+      return Array.isArray(arr);
+    }
+    return toStr.call(arr) === "[object Array]";
+  };
+  var isPlainObject = function isPlainObject(obj) {
+    if (!obj || toStr.call(obj) !== "[object Object]") {
+      return false;
+    }
+    var hasOwnConstructor = hasOwn.call(obj, "constructor");
+    var hasIsPrototypeOf = obj.constructor && obj.constructor.prototype && hasOwn.call(obj.constructor.prototype, "isPrototypeOf");
+    if (obj.constructor && !hasOwnConstructor && !hasIsPrototypeOf) {
+      return false;
+    }
+    var key;
+    for (key in obj) {}
+    return typeof key === "undefined" || hasOwn.call(obj, key);
+  };
+  var setProperty = function setProperty(target, options) {
+    if (defineProperty && options.name === "__proto__") {
+      defineProperty(target, options.name, {
+        enumerable: true,
+        configurable: true,
+        value: options.newValue,
+        writable: true
+      });
+    } else {
+      target[options.name] = options.newValue;
+    }
+  };
+  var getProperty = function getProperty(obj, name) {
+    if (name === "__proto__") {
+      if (!hasOwn.call(obj, name)) {
+        return;
+      } else if (gOPD) {
+        return gOPD(obj, name).value;
+      }
+    }
+    return obj[name];
+  };
+  module.exports = function extend() {
+    var options, name, src, copy, copyIsArray, clone;
+    var target = arguments[0];
+    var i = 1;
+    var length = arguments.length;
+    var deep = false;
+    if (typeof target === "boolean") {
+      deep = target;
+      target = arguments[1] || {};
+      i = 2;
+    }
+    if (target == null || typeof target !== "object" && typeof target !== "function") {
+      target = {};
+    }
+    for (;i < length; ++i) {
+      options = arguments[i];
+      if (options != null) {
+        for (name in options) {
+          src = getProperty(target, name);
+          copy = getProperty(options, name);
+          if (target !== copy) {
+            if (deep && copy && (isPlainObject(copy) || (copyIsArray = isArray(copy)))) {
+              if (copyIsArray) {
+                copyIsArray = false;
+                clone = src && isArray(src) ? src : [];
+              } else {
+                clone = src && isPlainObject(src) ? src : {};
+              }
+              setProperty(target, { name, newValue: extend(deep, clone, copy) });
+            } else if (typeof copy !== "undefined") {
+              setProperty(target, { name, newValue: copy });
+            }
+          }
+        }
+      }
+    }
+    return target;
+  };
+});
+
+// node_modules/gaxios/package.json
+var require_package = __commonJS((exports, module) => {
+  module.exports = {
+    name: "gaxios",
+    version: "7.1.2",
+    description: "A simple common HTTP client specifically for Google APIs and services.",
+    main: "build/cjs/src/index.js",
+    types: "build/cjs/src/index.d.ts",
+    files: [
+      "build/"
+    ],
+    exports: {
+      ".": {
+        import: {
+          types: "./build/esm/src/index.d.ts",
+          default: "./build/esm/src/index.js"
+        },
+        require: {
+          types: "./build/cjs/src/index.d.ts",
+          default: "./build/cjs/src/index.js"
+        }
+      }
+    },
+    scripts: {
+      lint: "gts check --no-inline-config",
+      test: "c8 mocha build/esm/test",
+      "presystem-test": "npm run compile",
+      "system-test": "mocha build/esm/system-test --timeout 80000",
+      compile: "tsc -b ./tsconfig.json ./tsconfig.cjs.json && node utils/enable-esm.mjs",
+      fix: "gts fix",
+      prepare: "npm run compile",
+      pretest: "npm run compile",
+      webpack: "webpack",
+      "prebrowser-test": "npm run compile",
+      "browser-test": "node build/browser-test/browser-test-runner.js",
+      docs: "jsdoc -c .jsdoc.js",
+      "docs-test": "linkinator docs",
+      "predocs-test": "npm run docs",
+      "samples-test": "cd samples/ && npm link ../ && npm test && cd ../",
+      prelint: "cd samples; npm link ../; npm install",
+      clean: "gts clean"
+    },
+    repository: "googleapis/gaxios",
+    keywords: [
+      "google"
+    ],
+    engines: {
+      node: ">=18"
+    },
+    author: "Google, LLC",
+    license: "Apache-2.0",
+    devDependencies: {
+      "@babel/plugin-proposal-private-methods": "^7.18.6",
+      "@types/cors": "^2.8.6",
+      "@types/express": "^5.0.0",
+      "@types/extend": "^3.0.1",
+      "@types/mocha": "^10.0.10",
+      "@types/multiparty": "4.2.1",
+      "@types/mv": "^2.1.0",
+      "@types/ncp": "^2.0.1",
+      "@types/node": "^22.0.0",
+      "@types/sinon": "^17.0.0",
+      "@types/tmp": "0.2.6",
+      assert: "^2.0.0",
+      browserify: "^17.0.0",
+      c8: "^10.0.0",
+      cors: "^2.8.5",
+      express: "^5.0.0",
+      gts: "^6.0.0",
+      "is-docker": "^3.0.0",
+      jsdoc: "^4.0.0",
+      "jsdoc-fresh": "^4.0.0",
+      "jsdoc-region-tag": "^3.0.0",
+      karma: "^6.0.0",
+      "karma-chrome-launcher": "^3.0.0",
+      "karma-coverage": "^2.0.0",
+      "karma-firefox-launcher": "^2.0.0",
+      "karma-mocha": "^2.0.0",
+      "karma-remap-coverage": "^0.1.5",
+      "karma-sourcemap-loader": "^0.4.0",
+      "karma-webpack": "^5.0.1",
+      linkinator: "^6.1.2",
+      mocha: "^11.1.0",
+      multiparty: "^4.2.1",
+      mv: "^2.1.1",
+      ncp: "^2.0.0",
+      nock: "^14.0.0-beta.13",
+      "null-loader": "^4.0.0",
+      "pack-n-play": "^3.0.0",
+      puppeteer: "^24.0.0",
+      sinon: "^21.0.0",
+      "stream-browserify": "^3.0.0",
+      tmp: "0.2.5",
+      "ts-loader": "^9.5.2",
+      typescript: "^5.8.3",
+      webpack: "^5.35.0",
+      "webpack-cli": "^6.0.1"
+    },
+    dependencies: {
+      extend: "^3.0.2",
+      "https-proxy-agent": "^7.0.1",
+      "node-fetch": "^3.3.2"
+    }
+  };
+});
+
+// node_modules/gaxios/build/cjs/src/util.cjs
+var require_util = __commonJS((exports, module) => {
+  var pkg = require_package();
+  module.exports = { pkg };
+});
+
+// node_modules/gaxios/build/cjs/src/common.js
+var require_common = __commonJS((exports) => {
+  var __importDefault = exports && exports.__importDefault || function(mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.GaxiosError = exports.GAXIOS_ERROR_SYMBOL = undefined;
+  exports.defaultErrorRedactor = defaultErrorRedactor;
+  var extend_1 = __importDefault(require_extend());
+  var util_cjs_1 = __importDefault(require_util());
+  var pkg = util_cjs_1.default.pkg;
+  exports.GAXIOS_ERROR_SYMBOL = Symbol.for(`${pkg.name}-gaxios-error`);
+
+  class GaxiosError extends Error {
+    config;
+    response;
+    code;
+    status;
+    error;
+    [exports.GAXIOS_ERROR_SYMBOL] = pkg.version;
+    static [Symbol.hasInstance](instance) {
+      if (instance && typeof instance === "object" && exports.GAXIOS_ERROR_SYMBOL in instance && instance[exports.GAXIOS_ERROR_SYMBOL] === pkg.version) {
+        return true;
+      }
+      return Function.prototype[Symbol.hasInstance].call(GaxiosError, instance);
+    }
+    constructor(message, config, response, cause) {
+      super(message, { cause });
+      this.config = config;
+      this.response = response;
+      this.error = cause instanceof Error ? cause : undefined;
+      this.config = (0, extend_1.default)(true, {}, config);
+      if (this.response) {
+        this.response.config = (0, extend_1.default)(true, {}, this.response.config);
+      }
+      if (this.response) {
+        try {
+          this.response.data = translateData(this.config.responseType, this.response?.bodyUsed ? this.response?.data : undefined);
+        } catch {}
+        this.status = this.response.status;
+      }
+      if (cause instanceof DOMException) {
+        this.code = cause.name;
+      } else if (cause && typeof cause === "object" && "code" in cause && (typeof cause.code === "string" || typeof cause.code === "number")) {
+        this.code = cause.code;
+      }
+    }
+    static extractAPIErrorFromResponse(res, defaultErrorMessage = "The request failed") {
+      let message = defaultErrorMessage;
+      if (typeof res.data === "string") {
+        message = res.data;
+      }
+      if (res.data && typeof res.data === "object" && "error" in res.data && res.data.error && !res.ok) {
+        if (typeof res.data.error === "string") {
+          return {
+            message: res.data.error,
+            code: res.status,
+            status: res.statusText
+          };
+        }
+        if (typeof res.data.error === "object") {
+          message = "message" in res.data.error && typeof res.data.error.message === "string" ? res.data.error.message : message;
+          const status = "status" in res.data.error && typeof res.data.error.status === "string" ? res.data.error.status : res.statusText;
+          const code = "code" in res.data.error && typeof res.data.error.code === "number" ? res.data.error.code : res.status;
+          if ("errors" in res.data.error && Array.isArray(res.data.error.errors)) {
+            const errorMessages = [];
+            for (const e of res.data.error.errors) {
+              if (typeof e === "object" && "message" in e && typeof e.message === "string") {
+                errorMessages.push(e.message);
+              }
+            }
+            return Object.assign({
+              message: errorMessages.join(`
+`) || message,
+              code,
+              status
+            }, res.data.error);
+          }
+          return Object.assign({
+            message,
+            code,
+            status
+          }, res.data.error);
+        }
+      }
+      return {
+        message,
+        code: res.status,
+        status: res.statusText
+      };
+    }
+  }
+  exports.GaxiosError = GaxiosError;
+  function translateData(responseType, data) {
+    switch (responseType) {
+      case "stream":
+        return data;
+      case "json":
+        return JSON.parse(JSON.stringify(data));
+      case "arraybuffer":
+        return JSON.parse(Buffer.from(data).toString("utf8"));
+      case "blob":
+        return JSON.parse(data.text());
+      default:
+        return data;
+    }
+  }
+  function defaultErrorRedactor(data) {
+    const REDACT = "<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.";
+    function redactHeaders(headers) {
+      if (!headers)
+        return;
+      headers.forEach((_, key) => {
+        if (/^authentication$/i.test(key) || /^authorization$/i.test(key) || /secret/i.test(key))
+          headers.set(key, REDACT);
+      });
+    }
+    function redactString(obj, key) {
+      if (typeof obj === "object" && obj !== null && typeof obj[key] === "string") {
+        const text = obj[key];
+        if (/grant_type=/i.test(text) || /assertion=/i.test(text) || /secret/i.test(text)) {
+          obj[key] = REDACT;
+        }
+      }
+    }
+    function redactObject(obj) {
+      if (!obj || typeof obj !== "object") {
+        return;
+      } else if (obj instanceof FormData || obj instanceof URLSearchParams || "forEach" in obj && "set" in obj) {
+        obj.forEach((_, key) => {
+          if (["grant_type", "assertion"].includes(key) || /secret/.test(key)) {
+            obj.set(key, REDACT);
+          }
+        });
+      } else {
+        if ("grant_type" in obj) {
+          obj["grant_type"] = REDACT;
+        }
+        if ("assertion" in obj) {
+          obj["assertion"] = REDACT;
+        }
+        if ("client_secret" in obj) {
+          obj["client_secret"] = REDACT;
+        }
+      }
+    }
+    if (data.config) {
+      redactHeaders(data.config.headers);
+      redactString(data.config, "data");
+      redactObject(data.config.data);
+      redactString(data.config, "body");
+      redactObject(data.config.body);
+      if (data.config.url.searchParams.has("token")) {
+        data.config.url.searchParams.set("token", REDACT);
+      }
+      if (data.config.url.searchParams.has("client_secret")) {
+        data.config.url.searchParams.set("client_secret", REDACT);
+      }
+    }
+    if (data.response) {
+      defaultErrorRedactor({ config: data.response.config });
+      redactHeaders(data.response.headers);
+      if (data.response.bodyUsed) {
+        redactString(data.response, "data");
+        redactObject(data.response.data);
+      }
+    }
+    return data;
+  }
+});
+
+// node_modules/gaxios/build/cjs/src/retry.js
+var require_retry = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.getRetryConfig = getRetryConfig;
+  async function getRetryConfig(err) {
+    let config = getConfig(err);
+    if (!err || !err.config || !config && !err.config.retry) {
+      return { shouldRetry: false };
+    }
+    config = config || {};
+    config.currentRetryAttempt = config.currentRetryAttempt || 0;
+    config.retry = config.retry === undefined || config.retry === null ? 3 : config.retry;
+    config.httpMethodsToRetry = config.httpMethodsToRetry || [
+      "GET",
+      "HEAD",
+      "PUT",
+      "OPTIONS",
+      "DELETE"
+    ];
+    config.noResponseRetries = config.noResponseRetries === undefined || config.noResponseRetries === null ? 2 : config.noResponseRetries;
+    config.retryDelayMultiplier = config.retryDelayMultiplier ? config.retryDelayMultiplier : 2;
+    config.timeOfFirstRequest = config.timeOfFirstRequest ? config.timeOfFirstRequest : Date.now();
+    config.totalTimeout = config.totalTimeout ? config.totalTimeout : Number.MAX_SAFE_INTEGER;
+    config.maxRetryDelay = config.maxRetryDelay ? config.maxRetryDelay : Number.MAX_SAFE_INTEGER;
+    const retryRanges = [
+      [100, 199],
+      [408, 408],
+      [429, 429],
+      [500, 599]
+    ];
+    config.statusCodesToRetry = config.statusCodesToRetry || retryRanges;
+    err.config.retryConfig = config;
+    const shouldRetryFn = config.shouldRetry || shouldRetryRequest;
+    if (!await shouldRetryFn(err)) {
+      return { shouldRetry: false, config: err.config };
+    }
+    const delay = getNextRetryDelay(config);
+    err.config.retryConfig.currentRetryAttempt += 1;
+    const backoff = config.retryBackoff ? config.retryBackoff(err, delay) : new Promise((resolve) => {
+      setTimeout(resolve, delay);
+    });
+    if (config.onRetryAttempt) {
+      await config.onRetryAttempt(err);
+    }
+    await backoff;
+    return { shouldRetry: true, config: err.config };
+  }
+  function shouldRetryRequest(err) {
+    const config = getConfig(err);
+    if (err.config.signal?.aborted && err.code !== "TimeoutError" || err.code === "AbortError") {
+      return false;
+    }
+    if (!config || config.retry === 0) {
+      return false;
+    }
+    if (!err.response && (config.currentRetryAttempt || 0) >= config.noResponseRetries) {
+      return false;
+    }
+    if (!config.httpMethodsToRetry || !config.httpMethodsToRetry.includes(err.config.method?.toUpperCase() || "GET")) {
+      return false;
+    }
+    if (err.response && err.response.status) {
+      let isInRange = false;
+      for (const [min, max] of config.statusCodesToRetry) {
+        const status = err.response.status;
+        if (status >= min && status <= max) {
+          isInRange = true;
+          break;
+        }
+      }
+      if (!isInRange) {
+        return false;
+      }
+    }
+    config.currentRetryAttempt = config.currentRetryAttempt || 0;
+    if (config.currentRetryAttempt >= config.retry) {
+      return false;
+    }
+    return true;
+  }
+  function getConfig(err) {
+    if (err && err.config && err.config.retryConfig) {
+      return err.config.retryConfig;
+    }
+    return;
+  }
+  function getNextRetryDelay(config) {
+    const retryDelay = config.currentRetryAttempt ? 0 : config.retryDelay ?? 100;
+    const calculatedDelay = retryDelay + (Math.pow(config.retryDelayMultiplier, config.currentRetryAttempt) - 1) / 2 * 1000;
+    const maxAllowableDelay = config.totalTimeout - (Date.now() - config.timeOfFirstRequest);
+    return Math.min(calculatedDelay, maxAllowableDelay, config.maxRetryDelay);
+  }
+});
+
+// node_modules/gaxios/build/cjs/src/interceptor.js
+var require_interceptor = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.GaxiosInterceptorManager = undefined;
+
+  class GaxiosInterceptorManager extends Set {
+  }
+  exports.GaxiosInterceptorManager = GaxiosInterceptorManager;
+});
+
+// node_modules/gaxios/build/cjs/src/gaxios.js
+var require_gaxios = __commonJS((exports) => {
+  var __importDefault = exports && exports.__importDefault || function(mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
+  var _a;
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.Gaxios = undefined;
+  var extend_1 = __importDefault(require_extend());
+  var https_1 = __require("https");
+  var common_js_1 = require_common();
+  var retry_js_1 = require_retry();
+  var stream_1 = __require("stream");
+  var interceptor_js_1 = require_interceptor();
+  var randomUUID = async () => globalThis.crypto?.randomUUID() || (await import("crypto")).randomUUID();
+
+  class Gaxios {
+    agentCache = new Map;
+    defaults;
+    interceptors;
+    constructor(defaults) {
+      this.defaults = defaults || {};
+      this.interceptors = {
+        request: new interceptor_js_1.GaxiosInterceptorManager,
+        response: new interceptor_js_1.GaxiosInterceptorManager
+      };
+    }
+    fetch(...args) {
+      const input = args[0];
+      const init = args[1];
+      let url = undefined;
+      const headers = new Headers;
+      if (typeof input === "string") {
+        url = new URL(input);
+      } else if (input instanceof URL) {
+        url = input;
+      } else if (input && input.url) {
+        url = new URL(input.url);
+      }
+      if (input && typeof input === "object" && "headers" in input) {
+        _a.mergeHeaders(headers, input.headers);
+      }
+      if (init) {
+        _a.mergeHeaders(headers, new Headers(init.headers));
+      }
+      if (typeof input === "object" && !(input instanceof URL)) {
+        return this.request({ ...init, ...input, headers, url });
+      } else {
+        return this.request({ ...init, headers, url });
+      }
+    }
+    async request(opts = {}) {
+      let prepared = await this.#prepareRequest(opts);
+      prepared = await this.#applyRequestInterceptors(prepared);
+      return this.#applyResponseInterceptors(this._request(prepared));
+    }
+    async _defaultAdapter(config) {
+      const fetchImpl = config.fetchImplementation || this.defaults.fetchImplementation || await _a.#getFetch();
+      const preparedOpts = { ...config };
+      delete preparedOpts.data;
+      const res = await fetchImpl(config.url, preparedOpts);
+      const data = await this.getResponseData(config, res);
+      if (!Object.getOwnPropertyDescriptor(res, "data")?.configurable) {
+        Object.defineProperties(res, {
+          data: {
+            configurable: true,
+            writable: true,
+            enumerable: true,
+            value: data
+          }
+        });
+      }
+      return Object.assign(res, { config, data });
+    }
+    async _request(opts) {
+      try {
+        let translatedResponse;
+        if (opts.adapter) {
+          translatedResponse = await opts.adapter(opts, this._defaultAdapter.bind(this));
+        } else {
+          translatedResponse = await this._defaultAdapter(opts);
+        }
+        if (!opts.validateStatus(translatedResponse.status)) {
+          if (opts.responseType === "stream") {
+            const response = [];
+            for await (const chunk of translatedResponse.data) {
+              response.push(chunk);
+            }
+            translatedResponse.data = response.toString();
+          }
+          const errorInfo = common_js_1.GaxiosError.extractAPIErrorFromResponse(translatedResponse, `Request failed with status code ${translatedResponse.status}`);
+          throw new common_js_1.GaxiosError(errorInfo?.message, opts, translatedResponse, errorInfo);
+        }
+        return translatedResponse;
+      } catch (e) {
+        let err;
+        if (e instanceof common_js_1.GaxiosError) {
+          err = e;
+        } else if (e instanceof Error) {
+          err = new common_js_1.GaxiosError(e.message, opts, undefined, e);
+        } else {
+          err = new common_js_1.GaxiosError("Unexpected Gaxios Error", opts, undefined, e);
+        }
+        const { shouldRetry, config } = await (0, retry_js_1.getRetryConfig)(err);
+        if (shouldRetry && config) {
+          err.config.retryConfig.currentRetryAttempt = config.retryConfig.currentRetryAttempt;
+          opts.retryConfig = err.config?.retryConfig;
+          this.#appendTimeoutToSignal(opts);
+          return this._request(opts);
+        }
+        if (opts.errorRedactor) {
+          opts.errorRedactor(err);
+        }
+        throw err;
+      }
+    }
+    async getResponseData(opts, res) {
+      if (opts.maxContentLength && res.headers.has("content-length") && opts.maxContentLength < Number.parseInt(res.headers?.get("content-length") || "")) {
+        throw new common_js_1.GaxiosError("Response's `Content-Length` is over the limit.", opts, Object.assign(res, { config: opts }));
+      }
+      switch (opts.responseType) {
+        case "stream":
+          return res.body;
+        case "json":
+          return res.json();
+        case "arraybuffer":
+          return res.arrayBuffer();
+        case "blob":
+          return res.blob();
+        case "text":
+          return res.text();
+        default:
+          return this.getResponseDataFromContentType(res);
+      }
+    }
+    #urlMayUseProxy(url, noProxy = []) {
+      const candidate = new URL(url);
+      const noProxyList = [...noProxy];
+      const noProxyEnvList = (process.env.NO_PROXY ?? process.env.no_proxy)?.split(",") || [];
+      for (const rule of noProxyEnvList) {
+        noProxyList.push(rule.trim());
+      }
+      for (const rule of noProxyList) {
+        if (rule instanceof RegExp) {
+          if (rule.test(candidate.toString())) {
+            return false;
+          }
+        } else if (rule instanceof URL) {
+          if (rule.origin === candidate.origin) {
+            return false;
+          }
+        } else if (rule.startsWith("*.") || rule.startsWith(".")) {
+          const cleanedRule = rule.replace(/^\*\./, ".");
+          if (candidate.hostname.endsWith(cleanedRule)) {
+            return false;
+          }
+        } else if (rule === candidate.origin || rule === candidate.hostname || rule === candidate.href) {
+          return false;
+        }
+      }
+      return true;
+    }
+    async#applyRequestInterceptors(options) {
+      let promiseChain = Promise.resolve(options);
+      for (const interceptor of this.interceptors.request.values()) {
+        if (interceptor) {
+          promiseChain = promiseChain.then(interceptor.resolved, interceptor.rejected);
+        }
+      }
+      return promiseChain;
+    }
+    async#applyResponseInterceptors(response) {
+      let promiseChain = Promise.resolve(response);
+      for (const interceptor of this.interceptors.response.values()) {
+        if (interceptor) {
+          promiseChain = promiseChain.then(interceptor.resolved, interceptor.rejected);
+        }
+      }
+      return promiseChain;
+    }
+    async#prepareRequest(options) {
+      const preparedHeaders = new Headers(this.defaults.headers);
+      _a.mergeHeaders(preparedHeaders, options.headers);
+      const opts = (0, extend_1.default)(true, {}, this.defaults, options);
+      if (!opts.url) {
+        throw new Error("URL is required.");
+      }
+      if (opts.baseURL) {
+        opts.url = new URL(opts.url, opts.baseURL);
+      }
+      opts.url = new URL(opts.url);
+      if (opts.params) {
+        if (opts.paramsSerializer) {
+          let additionalQueryParams = opts.paramsSerializer(opts.params);
+          if (additionalQueryParams.startsWith("?")) {
+            additionalQueryParams = additionalQueryParams.slice(1);
+          }
+          const prefix = opts.url.toString().includes("?") ? "&" : "?";
+          opts.url = opts.url + prefix + additionalQueryParams;
+        } else {
+          const url = opts.url instanceof URL ? opts.url : new URL(opts.url);
+          for (const [key, value] of new URLSearchParams(opts.params)) {
+            url.searchParams.append(key, value);
+          }
+          opts.url = url;
+        }
+      }
+      if (typeof options.maxContentLength === "number") {
+        opts.size = options.maxContentLength;
+      }
+      if (typeof options.maxRedirects === "number") {
+        opts.follow = options.maxRedirects;
+      }
+      const shouldDirectlyPassData = typeof opts.data === "string" || opts.data instanceof ArrayBuffer || opts.data instanceof Blob || globalThis.File && opts.data instanceof File || opts.data instanceof FormData || opts.data instanceof stream_1.Readable || opts.data instanceof ReadableStream || opts.data instanceof String || opts.data instanceof URLSearchParams || ArrayBuffer.isView(opts.data) || ["Blob", "File", "FormData"].includes(opts.data?.constructor?.name || "");
+      if (opts.multipart?.length) {
+        const boundary = await randomUUID();
+        preparedHeaders.set("content-type", `multipart/related; boundary=${boundary}`);
+        opts.body = stream_1.Readable.from(this.getMultipartRequest(opts.multipart, boundary));
+      } else if (shouldDirectlyPassData) {
+        opts.body = opts.data;
+      } else if (typeof opts.data === "object") {
+        if (preparedHeaders.get("Content-Type") === "application/x-www-form-urlencoded") {
+          opts.body = opts.paramsSerializer ? opts.paramsSerializer(opts.data) : new URLSearchParams(opts.data);
+        } else {
+          if (!preparedHeaders.has("content-type")) {
+            preparedHeaders.set("content-type", "application/json");
+          }
+          opts.body = JSON.stringify(opts.data);
+        }
+      } else if (opts.data) {
+        opts.body = opts.data;
+      }
+      opts.validateStatus = opts.validateStatus || this.validateStatus;
+      opts.responseType = opts.responseType || "unknown";
+      if (!preparedHeaders.has("accept") && opts.responseType === "json") {
+        preparedHeaders.set("accept", "application/json");
+      }
+      const proxy = opts.proxy || process?.env?.HTTPS_PROXY || process?.env?.https_proxy || process?.env?.HTTP_PROXY || process?.env?.http_proxy;
+      if (opts.agent) {} else if (proxy && this.#urlMayUseProxy(opts.url, opts.noProxy)) {
+        const HttpsProxyAgent = await _a.#getProxyAgent();
+        if (this.agentCache.has(proxy)) {
+          opts.agent = this.agentCache.get(proxy);
+        } else {
+          opts.agent = new HttpsProxyAgent(proxy, {
+            cert: opts.cert,
+            key: opts.key
+          });
+          this.agentCache.set(proxy, opts.agent);
+        }
+      } else if (opts.cert && opts.key) {
+        if (this.agentCache.has(opts.key)) {
+          opts.agent = this.agentCache.get(opts.key);
+        } else {
+          opts.agent = new https_1.Agent({
+            cert: opts.cert,
+            key: opts.key
+          });
+          this.agentCache.set(opts.key, opts.agent);
+        }
+      }
+      if (typeof opts.errorRedactor !== "function" && opts.errorRedactor !== false) {
+        opts.errorRedactor = common_js_1.defaultErrorRedactor;
+      }
+      if (opts.body && !("duplex" in opts)) {
+        opts.duplex = "half";
+      }
+      this.#appendTimeoutToSignal(opts);
+      return Object.assign(opts, {
+        headers: preparedHeaders,
+        url: opts.url instanceof URL ? opts.url : new URL(opts.url)
+      });
+    }
+    #appendTimeoutToSignal(opts) {
+      if (opts.timeout) {
+        const timeoutSignal = AbortSignal.timeout(opts.timeout);
+        if (opts.signal && !opts.signal.aborted) {
+          opts.signal = AbortSignal.any([opts.signal, timeoutSignal]);
+        } else {
+          opts.signal = timeoutSignal;
+        }
+      }
+    }
+    validateStatus(status) {
+      return status >= 200 && status < 300;
+    }
+    async getResponseDataFromContentType(response) {
+      let contentType = response.headers.get("Content-Type");
+      if (contentType === null) {
+        return response.text();
+      }
+      contentType = contentType.toLowerCase();
+      if (contentType.includes("application/json")) {
+        let data = await response.text();
+        try {
+          data = JSON.parse(data);
+        } catch {}
+        return data;
+      } else if (contentType.match(/^text\//)) {
+        return response.text();
+      } else {
+        return response.blob();
+      }
+    }
+    async* getMultipartRequest(multipartOptions, boundary) {
+      const finale = `--${boundary}--`;
+      for (const currentPart of multipartOptions) {
+        const partContentType = currentPart.headers.get("Content-Type") || "application/octet-stream";
+        const preamble = `--${boundary}\r
+Content-Type: ${partContentType}\r
+\r
+`;
+        yield preamble;
+        if (typeof currentPart.content === "string") {
+          yield currentPart.content;
+        } else {
+          yield* currentPart.content;
+        }
+        yield `\r
+`;
+      }
+      yield finale;
+    }
+    static #proxyAgent;
+    static #fetch;
+    static async#getProxyAgent() {
+      this.#proxyAgent ||= (await import("./index-m95e8jc0.js")).HttpsProxyAgent;
+      return this.#proxyAgent;
+    }
+    static async#getFetch() {
+      const hasWindow = typeof window !== "undefined" && !!window;
+      this.#fetch ||= hasWindow ? window.fetch : (await import("node-fetch")).default;
+      return this.#fetch;
+    }
+    static mergeHeaders(base, ...append) {
+      base = base instanceof Headers ? base : new Headers(base);
+      for (const headers of append) {
+        const add = headers instanceof Headers ? headers : new Headers(headers);
+        add.forEach((value, key) => {
+          key === "set-cookie" ? base.append(key, value) : base.set(key, value);
+        });
+      }
+      return base;
+    }
+  }
+  exports.Gaxios = Gaxios;
+  _a = Gaxios;
+});
+
+// node_modules/gaxios/build/cjs/src/index.js
+var require_src = __commonJS((exports) => {
+  var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    if (k2 === undefined)
+      k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() {
+        return m[k];
+      } };
+    }
+    Object.defineProperty(o, k2, desc);
+  } : function(o, m, k, k2) {
+    if (k2 === undefined)
+      k2 = k;
+    o[k2] = m[k];
+  });
+  var __exportStar = exports && exports.__exportStar || function(m, exports2) {
+    for (var p in m)
+      if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports2, p))
+        __createBinding(exports2, m, p);
+  };
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.instance = exports.Gaxios = exports.GaxiosError = undefined;
+  exports.request = request;
+  var gaxios_js_1 = require_gaxios();
+  Object.defineProperty(exports, "Gaxios", { enumerable: true, get: function() {
+    return gaxios_js_1.Gaxios;
+  } });
+  var common_js_1 = require_common();
+  Object.defineProperty(exports, "GaxiosError", { enumerable: true, get: function() {
+    return common_js_1.GaxiosError;
+  } });
+  __exportStar(require_interceptor(), exports);
+  exports.instance = new gaxios_js_1.Gaxios;
+  async function request(opts) {
+    return exports.instance.request(opts);
+  }
+});
+
+// node_modules/bignumber.js/bignumber.js
+var require_bignumber = __commonJS((exports, module) => {
+  (function(globalObject) {
+    var BigNumber, isNumeric = /^-?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/i, mathceil = Math.ceil, mathfloor = Math.floor, bignumberError = "[BigNumber Error] ", tooManyDigits = bignumberError + "Number primitive has more than 15 significant digits: ", BASE = 100000000000000, LOG_BASE = 14, MAX_SAFE_INTEGER = 9007199254740991, POWS_TEN = [1, 10, 100, 1000, 1e4, 1e5, 1e6, 1e7, 1e8, 1e9, 10000000000, 100000000000, 1000000000000, 10000000000000], SQRT_BASE = 1e7, MAX = 1e9;
+    function clone(configObject) {
+      var div, convertBase, parseNumeric, P = BigNumber2.prototype = { constructor: BigNumber2, toString: null, valueOf: null }, ONE = new BigNumber2(1), DECIMAL_PLACES = 20, ROUNDING_MODE = 4, TO_EXP_NEG = -7, TO_EXP_POS = 21, MIN_EXP = -1e7, MAX_EXP = 1e7, CRYPTO = false, MODULO_MODE = 1, POW_PRECISION = 0, FORMAT = {
+        prefix: "",
+        groupSize: 3,
+        secondaryGroupSize: 0,
+        groupSeparator: ",",
+        decimalSeparator: ".",
+        fractionGroupSize: 0,
+        fractionGroupSeparator: "\xA0",
+        suffix: ""
+      }, ALPHABET = "0123456789abcdefghijklmnopqrstuvwxyz", alphabetHasNormalDecimalDigits = true;
+      function BigNumber2(v, b) {
+        var alphabet, c, caseChanged, e, i, isNum, len, str, x = this;
+        if (!(x instanceof BigNumber2))
+          return new BigNumber2(v, b);
+        if (b == null) {
+          if (v && v._isBigNumber === true) {
+            x.s = v.s;
+            if (!v.c || v.e > MAX_EXP) {
+              x.c = x.e = null;
+            } else if (v.e < MIN_EXP) {
+              x.c = [x.e = 0];
+            } else {
+              x.e = v.e;
+              x.c = v.c.slice();
+            }
+            return;
+          }
+          if ((isNum = typeof v == "number") && v * 0 == 0) {
+            x.s = 1 / v < 0 ? (v = -v, -1) : 1;
+            if (v === ~~v) {
+              for (e = 0, i = v;i >= 10; i /= 10, e++)
+                ;
+              if (e > MAX_EXP) {
+                x.c = x.e = null;
+              } else {
+                x.e = e;
+                x.c = [v];
+              }
+              return;
+            }
+            str = String(v);
+          } else {
+            if (!isNumeric.test(str = String(v)))
+              return parseNumeric(x, str, isNum);
+            x.s = str.charCodeAt(0) == 45 ? (str = str.slice(1), -1) : 1;
+          }
+          if ((e = str.indexOf(".")) > -1)
+            str = str.replace(".", "");
+          if ((i = str.search(/e/i)) > 0) {
+            if (e < 0)
+              e = i;
+            e += +str.slice(i + 1);
+            str = str.substring(0, i);
+          } else if (e < 0) {
+            e = str.length;
+          }
+        } else {
+          intCheck(b, 2, ALPHABET.length, "Base");
+          if (b == 10 && alphabetHasNormalDecimalDigits) {
+            x = new BigNumber2(v);
+            return round(x, DECIMAL_PLACES + x.e + 1, ROUNDING_MODE);
+          }
+          str = String(v);
+          if (isNum = typeof v == "number") {
+            if (v * 0 != 0)
+              return parseNumeric(x, str, isNum, b);
+            x.s = 1 / v < 0 ? (str = str.slice(1), -1) : 1;
+            if (BigNumber2.DEBUG && str.replace(/^0\.0*|\./, "").length > 15) {
+              throw Error(tooManyDigits + v);
+            }
+          } else {
+            x.s = str.charCodeAt(0) === 45 ? (str = str.slice(1), -1) : 1;
+          }
+          alphabet = ALPHABET.slice(0, b);
+          e = i = 0;
+          for (len = str.length;i < len; i++) {
+            if (alphabet.indexOf(c = str.charAt(i)) < 0) {
+              if (c == ".") {
+                if (i > e) {
+                  e = len;
+                  continue;
+                }
+              } else if (!caseChanged) {
+                if (str == str.toUpperCase() && (str = str.toLowerCase()) || str == str.toLowerCase() && (str = str.toUpperCase())) {
+                  caseChanged = true;
+                  i = -1;
+                  e = 0;
+                  continue;
+                }
+              }
+              return parseNumeric(x, String(v), isNum, b);
+            }
+          }
+          isNum = false;
+          str = convertBase(str, b, 10, x.s);
+          if ((e = str.indexOf(".")) > -1)
+            str = str.replace(".", "");
+          else
+            e = str.length;
+        }
+        for (i = 0;str.charCodeAt(i) === 48; i++)
+          ;
+        for (len = str.length;str.charCodeAt(--len) === 48; )
+          ;
+        if (str = str.slice(i, ++len)) {
+          len -= i;
+          if (isNum && BigNumber2.DEBUG && len > 15 && (v > MAX_SAFE_INTEGER || v !== mathfloor(v))) {
+            throw Error(tooManyDigits + x.s * v);
+          }
+          if ((e = e - i - 1) > MAX_EXP) {
+            x.c = x.e = null;
+          } else if (e < MIN_EXP) {
+            x.c = [x.e = 0];
+          } else {
+            x.e = e;
+            x.c = [];
+            i = (e + 1) % LOG_BASE;
+            if (e < 0)
+              i += LOG_BASE;
+            if (i < len) {
+              if (i)
+                x.c.push(+str.slice(0, i));
+              for (len -= LOG_BASE;i < len; ) {
+                x.c.push(+str.slice(i, i += LOG_BASE));
+              }
+              i = LOG_BASE - (str = str.slice(i)).length;
+            } else {
+              i -= len;
+            }
+            for (;i--; str += "0")
+              ;
+            x.c.push(+str);
+          }
+        } else {
+          x.c = [x.e = 0];
+        }
+      }
+      BigNumber2.clone = clone;
+      BigNumber2.ROUND_UP = 0;
+      BigNumber2.ROUND_DOWN = 1;
+      BigNumber2.ROUND_CEIL = 2;
+      BigNumber2.ROUND_FLOOR = 3;
+      BigNumber2.ROUND_HALF_UP = 4;
+      BigNumber2.ROUND_HALF_DOWN = 5;
+      BigNumber2.ROUND_HALF_EVEN = 6;
+      BigNumber2.ROUND_HALF_CEIL = 7;
+      BigNumber2.ROUND_HALF_FLOOR = 8;
+      BigNumber2.EUCLID = 9;
+      BigNumber2.config = BigNumber2.set = function(obj) {
+        var p, v;
+        if (obj != null) {
+          if (typeof obj == "object") {
+            if (obj.hasOwnProperty(p = "DECIMAL_PLACES")) {
+              v = obj[p];
+              intCheck(v, 0, MAX, p);
+              DECIMAL_PLACES = v;
+            }
+            if (obj.hasOwnProperty(p = "ROUNDING_MODE")) {
+              v = obj[p];
+              intCheck(v, 0, 8, p);
+              ROUNDING_MODE = v;
+            }
+            if (obj.hasOwnProperty(p = "EXPONENTIAL_AT")) {
+              v = obj[p];
+              if (v && v.pop) {
+                intCheck(v[0], -MAX, 0, p);
+                intCheck(v[1], 0, MAX, p);
+                TO_EXP_NEG = v[0];
+                TO_EXP_POS = v[1];
+              } else {
+                intCheck(v, -MAX, MAX, p);
+                TO_EXP_NEG = -(TO_EXP_POS = v < 0 ? -v : v);
+              }
+            }
+            if (obj.hasOwnProperty(p = "RANGE")) {
+              v = obj[p];
+              if (v && v.pop) {
+                intCheck(v[0], -MAX, -1, p);
+                intCheck(v[1], 1, MAX, p);
+                MIN_EXP = v[0];
+                MAX_EXP = v[1];
+              } else {
+                intCheck(v, -MAX, MAX, p);
+                if (v) {
+                  MIN_EXP = -(MAX_EXP = v < 0 ? -v : v);
+                } else {
+                  throw Error(bignumberError + p + " cannot be zero: " + v);
+                }
+              }
+            }
+            if (obj.hasOwnProperty(p = "CRYPTO")) {
+              v = obj[p];
+              if (v === !!v) {
+                if (v) {
+                  if (typeof crypto != "undefined" && crypto && (crypto.getRandomValues || crypto.randomBytes)) {
+                    CRYPTO = v;
+                  } else {
+                    CRYPTO = !v;
+                    throw Error(bignumberError + "crypto unavailable");
+                  }
+                } else {
+                  CRYPTO = v;
+                }
+              } else {
+                throw Error(bignumberError + p + " not true or false: " + v);
+              }
+            }
+            if (obj.hasOwnProperty(p = "MODULO_MODE")) {
+              v = obj[p];
+              intCheck(v, 0, 9, p);
+              MODULO_MODE = v;
+            }
+            if (obj.hasOwnProperty(p = "POW_PRECISION")) {
+              v = obj[p];
+              intCheck(v, 0, MAX, p);
+              POW_PRECISION = v;
+            }
+            if (obj.hasOwnProperty(p = "FORMAT")) {
+              v = obj[p];
+              if (typeof v == "object")
+                FORMAT = v;
+              else
+                throw Error(bignumberError + p + " not an object: " + v);
+            }
+            if (obj.hasOwnProperty(p = "ALPHABET")) {
+              v = obj[p];
+              if (typeof v == "string" && !/^.?$|[+\-.\s]|(.).*\1/.test(v)) {
+                alphabetHasNormalDecimalDigits = v.slice(0, 10) == "0123456789";
+                ALPHABET = v;
+              } else {
+                throw Error(bignumberError + p + " invalid: " + v);
+              }
+            }
+          } else {
+            throw Error(bignumberError + "Object expected: " + obj);
+          }
+        }
+        return {
+          DECIMAL_PLACES,
+          ROUNDING_MODE,
+          EXPONENTIAL_AT: [TO_EXP_NEG, TO_EXP_POS],
+          RANGE: [MIN_EXP, MAX_EXP],
+          CRYPTO,
+          MODULO_MODE,
+          POW_PRECISION,
+          FORMAT,
+          ALPHABET
+        };
+      };
+      BigNumber2.isBigNumber = function(v) {
+        if (!v || v._isBigNumber !== true)
+          return false;
+        if (!BigNumber2.DEBUG)
+          return true;
+        var i, n, c = v.c, e = v.e, s = v.s;
+        out:
+          if ({}.toString.call(c) == "[object Array]") {
+            if ((s === 1 || s === -1) && e >= -MAX && e <= MAX && e === mathfloor(e)) {
+              if (c[0] === 0) {
+                if (e === 0 && c.length === 1)
+                  return true;
+                break out;
+              }
+              i = (e + 1) % LOG_BASE;
+              if (i < 1)
+                i += LOG_BASE;
+              if (String(c[0]).length == i) {
+                for (i = 0;i < c.length; i++) {
+                  n = c[i];
+                  if (n < 0 || n >= BASE || n !== mathfloor(n))
+                    break out;
+                }
+                if (n !== 0)
+                  return true;
+              }
+            }
+          } else if (c === null && e === null && (s === null || s === 1 || s === -1)) {
+            return true;
+          }
+        throw Error(bignumberError + "Invalid BigNumber: " + v);
+      };
+      BigNumber2.maximum = BigNumber2.max = function() {
+        return maxOrMin(arguments, -1);
+      };
+      BigNumber2.minimum = BigNumber2.min = function() {
+        return maxOrMin(arguments, 1);
+      };
+      BigNumber2.random = function() {
+        var pow2_53 = 9007199254740992;
+        var random53bitInt = Math.random() * pow2_53 & 2097151 ? function() {
+          return mathfloor(Math.random() * pow2_53);
+        } : function() {
+          return (Math.random() * 1073741824 | 0) * 8388608 + (Math.random() * 8388608 | 0);
+        };
+        return function(dp) {
+          var a, b, e, k, v, i = 0, c = [], rand = new BigNumber2(ONE);
+          if (dp == null)
+            dp = DECIMAL_PLACES;
+          else
+            intCheck(dp, 0, MAX);
+          k = mathceil(dp / LOG_BASE);
+          if (CRYPTO) {
+            if (crypto.getRandomValues) {
+              a = crypto.getRandomValues(new Uint32Array(k *= 2));
+              for (;i < k; ) {
+                v = a[i] * 131072 + (a[i + 1] >>> 11);
+                if (v >= 9000000000000000) {
+                  b = crypto.getRandomValues(new Uint32Array(2));
+                  a[i] = b[0];
+                  a[i + 1] = b[1];
+                } else {
+                  c.push(v % 100000000000000);
+                  i += 2;
+                }
+              }
+              i = k / 2;
+            } else if (crypto.randomBytes) {
+              a = crypto.randomBytes(k *= 7);
+              for (;i < k; ) {
+                v = (a[i] & 31) * 281474976710656 + a[i + 1] * 1099511627776 + a[i + 2] * 4294967296 + a[i + 3] * 16777216 + (a[i + 4] << 16) + (a[i + 5] << 8) + a[i + 6];
+                if (v >= 9000000000000000) {
+                  crypto.randomBytes(7).copy(a, i);
+                } else {
+                  c.push(v % 100000000000000);
+                  i += 7;
+                }
+              }
+              i = k / 7;
+            } else {
+              CRYPTO = false;
+              throw Error(bignumberError + "crypto unavailable");
+            }
+          }
+          if (!CRYPTO) {
+            for (;i < k; ) {
+              v = random53bitInt();
+              if (v < 9000000000000000)
+                c[i++] = v % 100000000000000;
+            }
+          }
+          k = c[--i];
+          dp %= LOG_BASE;
+          if (k && dp) {
+            v = POWS_TEN[LOG_BASE - dp];
+            c[i] = mathfloor(k / v) * v;
+          }
+          for (;c[i] === 0; c.pop(), i--)
+            ;
+          if (i < 0) {
+            c = [e = 0];
+          } else {
+            for (e = -1;c[0] === 0; c.splice(0, 1), e -= LOG_BASE)
+              ;
+            for (i = 1, v = c[0];v >= 10; v /= 10, i++)
+              ;
+            if (i < LOG_BASE)
+              e -= LOG_BASE - i;
+          }
+          rand.e = e;
+          rand.c = c;
+          return rand;
+        };
+      }();
+      BigNumber2.sum = function() {
+        var i = 1, args = arguments, sum = new BigNumber2(args[0]);
+        for (;i < args.length; )
+          sum = sum.plus(args[i++]);
+        return sum;
+      };
+      convertBase = function() {
+        var decimal = "0123456789";
+        function toBaseOut(str, baseIn, baseOut, alphabet) {
+          var j, arr = [0], arrL, i = 0, len = str.length;
+          for (;i < len; ) {
+            for (arrL = arr.length;arrL--; arr[arrL] *= baseIn)
+              ;
+            arr[0] += alphabet.indexOf(str.charAt(i++));
+            for (j = 0;j < arr.length; j++) {
+              if (arr[j] > baseOut - 1) {
+                if (arr[j + 1] == null)
+                  arr[j + 1] = 0;
+                arr[j + 1] += arr[j] / baseOut | 0;
+                arr[j] %= baseOut;
+              }
+            }
+          }
+          return arr.reverse();
+        }
+        return function(str, baseIn, baseOut, sign, callerIsToString) {
+          var alphabet, d, e, k, r, x, xc, y, i = str.indexOf("."), dp = DECIMAL_PLACES, rm = ROUNDING_MODE;
+          if (i >= 0) {
+            k = POW_PRECISION;
+            POW_PRECISION = 0;
+            str = str.replace(".", "");
+            y = new BigNumber2(baseIn);
+            x = y.pow(str.length - i);
+            POW_PRECISION = k;
+            y.c = toBaseOut(toFixedPoint(coeffToString(x.c), x.e, "0"), 10, baseOut, decimal);
+            y.e = y.c.length;
+          }
+          xc = toBaseOut(str, baseIn, baseOut, callerIsToString ? (alphabet = ALPHABET, decimal) : (alphabet = decimal, ALPHABET));
+          e = k = xc.length;
+          for (;xc[--k] == 0; xc.pop())
+            ;
+          if (!xc[0])
+            return alphabet.charAt(0);
+          if (i < 0) {
+            --e;
+          } else {
+            x.c = xc;
+            x.e = e;
+            x.s = sign;
+            x = div(x, y, dp, rm, baseOut);
+            xc = x.c;
+            r = x.r;
+            e = x.e;
+          }
+          d = e + dp + 1;
+          i = xc[d];
+          k = baseOut / 2;
+          r = r || d < 0 || xc[d + 1] != null;
+          r = rm < 4 ? (i != null || r) && (rm == 0 || rm == (x.s < 0 ? 3 : 2)) : i > k || i == k && (rm == 4 || r || rm == 6 && xc[d - 1] & 1 || rm == (x.s < 0 ? 8 : 7));
+          if (d < 1 || !xc[0]) {
+            str = r ? toFixedPoint(alphabet.charAt(1), -dp, alphabet.charAt(0)) : alphabet.charAt(0);
+          } else {
+            xc.length = d;
+            if (r) {
+              for (--baseOut;++xc[--d] > baseOut; ) {
+                xc[d] = 0;
+                if (!d) {
+                  ++e;
+                  xc = [1].concat(xc);
+                }
+              }
+            }
+            for (k = xc.length;!xc[--k]; )
+              ;
+            for (i = 0, str = "";i <= k; str += alphabet.charAt(xc[i++]))
+              ;
+            str = toFixedPoint(str, e, alphabet.charAt(0));
+          }
+          return str;
+        };
+      }();
+      div = function() {
+        function multiply(x, k, base) {
+          var m, temp, xlo, xhi, carry = 0, i = x.length, klo = k % SQRT_BASE, khi = k / SQRT_BASE | 0;
+          for (x = x.slice();i--; ) {
+            xlo = x[i] % SQRT_BASE;
+            xhi = x[i] / SQRT_BASE | 0;
+            m = khi * xlo + xhi * klo;
+            temp = klo * xlo + m % SQRT_BASE * SQRT_BASE + carry;
+            carry = (temp / base | 0) + (m / SQRT_BASE | 0) + khi * xhi;
+            x[i] = temp % base;
+          }
+          if (carry)
+            x = [carry].concat(x);
+          return x;
+        }
+        function compare2(a, b, aL, bL) {
+          var i, cmp;
+          if (aL != bL) {
+            cmp = aL > bL ? 1 : -1;
+          } else {
+            for (i = cmp = 0;i < aL; i++) {
+              if (a[i] != b[i]) {
+                cmp = a[i] > b[i] ? 1 : -1;
+                break;
+              }
+            }
+          }
+          return cmp;
+        }
+        function subtract(a, b, aL, base) {
+          var i = 0;
+          for (;aL--; ) {
+            a[aL] -= i;
+            i = a[aL] < b[aL] ? 1 : 0;
+            a[aL] = i * base + a[aL] - b[aL];
+          }
+          for (;!a[0] && a.length > 1; a.splice(0, 1))
+            ;
+        }
+        return function(x, y, dp, rm, base) {
+          var cmp, e, i, more, n, prod, prodL, q, qc, rem, remL, rem0, xi, xL, yc0, yL, yz, s = x.s == y.s ? 1 : -1, xc = x.c, yc = y.c;
+          if (!xc || !xc[0] || !yc || !yc[0]) {
+            return new BigNumber2(!x.s || !y.s || (xc ? yc && xc[0] == yc[0] : !yc) ? NaN : xc && xc[0] == 0 || !yc ? s * 0 : s / 0);
+          }
+          q = new BigNumber2(s);
+          qc = q.c = [];
+          e = x.e - y.e;
+          s = dp + e + 1;
+          if (!base) {
+            base = BASE;
+            e = bitFloor(x.e / LOG_BASE) - bitFloor(y.e / LOG_BASE);
+            s = s / LOG_BASE | 0;
+          }
+          for (i = 0;yc[i] == (xc[i] || 0); i++)
+            ;
+          if (yc[i] > (xc[i] || 0))
+            e--;
+          if (s < 0) {
+            qc.push(1);
+            more = true;
+          } else {
+            xL = xc.length;
+            yL = yc.length;
+            i = 0;
+            s += 2;
+            n = mathfloor(base / (yc[0] + 1));
+            if (n > 1) {
+              yc = multiply(yc, n, base);
+              xc = multiply(xc, n, base);
+              yL = yc.length;
+              xL = xc.length;
+            }
+            xi = yL;
+            rem = xc.slice(0, yL);
+            remL = rem.length;
+            for (;remL < yL; rem[remL++] = 0)
+              ;
+            yz = yc.slice();
+            yz = [0].concat(yz);
+            yc0 = yc[0];
+            if (yc[1] >= base / 2)
+              yc0++;
+            do {
+              n = 0;
+              cmp = compare2(yc, rem, yL, remL);
+              if (cmp < 0) {
+                rem0 = rem[0];
+                if (yL != remL)
+                  rem0 = rem0 * base + (rem[1] || 0);
+                n = mathfloor(rem0 / yc0);
+                if (n > 1) {
+                  if (n >= base)
+                    n = base - 1;
+                  prod = multiply(yc, n, base);
+                  prodL = prod.length;
+                  remL = rem.length;
+                  while (compare2(prod, rem, prodL, remL) == 1) {
+                    n--;
+                    subtract(prod, yL < prodL ? yz : yc, prodL, base);
+                    prodL = prod.length;
+                    cmp = 1;
+                  }
+                } else {
+                  if (n == 0) {
+                    cmp = n = 1;
+                  }
+                  prod = yc.slice();
+                  prodL = prod.length;
+                }
+                if (prodL < remL)
+                  prod = [0].concat(prod);
+                subtract(rem, prod, remL, base);
+                remL = rem.length;
+                if (cmp == -1) {
+                  while (compare2(yc, rem, yL, remL) < 1) {
+                    n++;
+                    subtract(rem, yL < remL ? yz : yc, remL, base);
+                    remL = rem.length;
+                  }
+                }
+              } else if (cmp === 0) {
+                n++;
+                rem = [0];
+              }
+              qc[i++] = n;
+              if (rem[0]) {
+                rem[remL++] = xc[xi] || 0;
+              } else {
+                rem = [xc[xi]];
+                remL = 1;
+              }
+            } while ((xi++ < xL || rem[0] != null) && s--);
+            more = rem[0] != null;
+            if (!qc[0])
+              qc.splice(0, 1);
+          }
+          if (base == BASE) {
+            for (i = 1, s = qc[0];s >= 10; s /= 10, i++)
+              ;
+            round(q, dp + (q.e = i + e * LOG_BASE - 1) + 1, rm, more);
+          } else {
+            q.e = e;
+            q.r = +more;
+          }
+          return q;
+        };
+      }();
+      function format(n, i, rm, id) {
+        var c0, e, ne, len, str;
+        if (rm == null)
+          rm = ROUNDING_MODE;
+        else
+          intCheck(rm, 0, 8);
+        if (!n.c)
+          return n.toString();
+        c0 = n.c[0];
+        ne = n.e;
+        if (i == null) {
+          str = coeffToString(n.c);
+          str = id == 1 || id == 2 && (ne <= TO_EXP_NEG || ne >= TO_EXP_POS) ? toExponential(str, ne) : toFixedPoint(str, ne, "0");
+        } else {
+          n = round(new BigNumber2(n), i, rm);
+          e = n.e;
+          str = coeffToString(n.c);
+          len = str.length;
+          if (id == 1 || id == 2 && (i <= e || e <= TO_EXP_NEG)) {
+            for (;len < i; str += "0", len++)
+              ;
+            str = toExponential(str, e);
+          } else {
+            i -= ne + (id === 2 && e > ne);
+            str = toFixedPoint(str, e, "0");
+            if (e + 1 > len) {
+              if (--i > 0)
+                for (str += ".";i--; str += "0")
+                  ;
+            } else {
+              i += e - len;
+              if (i > 0) {
+                if (e + 1 == len)
+                  str += ".";
+                for (;i--; str += "0")
+                  ;
+              }
+            }
+          }
+        }
+        return n.s < 0 && c0 ? "-" + str : str;
+      }
+      function maxOrMin(args, n) {
+        var k, y, i = 1, x = new BigNumber2(args[0]);
+        for (;i < args.length; i++) {
+          y = new BigNumber2(args[i]);
+          if (!y.s || (k = compare(x, y)) === n || k === 0 && x.s === n) {
+            x = y;
+          }
+        }
+        return x;
+      }
+      function normalise(n, c, e) {
+        var i = 1, j = c.length;
+        for (;!c[--j]; c.pop())
+          ;
+        for (j = c[0];j >= 10; j /= 10, i++)
+          ;
+        if ((e = i + e * LOG_BASE - 1) > MAX_EXP) {
+          n.c = n.e = null;
+        } else if (e < MIN_EXP) {
+          n.c = [n.e = 0];
+        } else {
+          n.e = e;
+          n.c = c;
+        }
+        return n;
+      }
+      parseNumeric = function() {
+        var basePrefix = /^(-?)0([xbo])(?=\w[\w.]*$)/i, dotAfter = /^([^.]+)\.$/, dotBefore = /^\.([^.]+)$/, isInfinityOrNaN = /^-?(Infinity|NaN)$/, whitespaceOrPlus = /^\s*\+(?=[\w.])|^\s+|\s+$/g;
+        return function(x, str, isNum, b) {
+          var base, s = isNum ? str : str.replace(whitespaceOrPlus, "");
+          if (isInfinityOrNaN.test(s)) {
+            x.s = isNaN(s) ? null : s < 0 ? -1 : 1;
+          } else {
+            if (!isNum) {
+              s = s.replace(basePrefix, function(m, p1, p2) {
+                base = (p2 = p2.toLowerCase()) == "x" ? 16 : p2 == "b" ? 2 : 8;
+                return !b || b == base ? p1 : m;
+              });
+              if (b) {
+                base = b;
+                s = s.replace(dotAfter, "$1").replace(dotBefore, "0.$1");
+              }
+              if (str != s)
+                return new BigNumber2(s, base);
+            }
+            if (BigNumber2.DEBUG) {
+              throw Error(bignumberError + "Not a" + (b ? " base " + b : "") + " number: " + str);
+            }
+            x.s = null;
+          }
+          x.c = x.e = null;
+        };
+      }();
+      function round(x, sd, rm, r) {
+        var d, i, j, k, n, ni, rd, xc = x.c, pows10 = POWS_TEN;
+        if (xc) {
+          out: {
+            for (d = 1, k = xc[0];k >= 10; k /= 10, d++)
+              ;
+            i = sd - d;
+            if (i < 0) {
+              i += LOG_BASE;
+              j = sd;
+              n = xc[ni = 0];
+              rd = mathfloor(n / pows10[d - j - 1] % 10);
+            } else {
+              ni = mathceil((i + 1) / LOG_BASE);
+              if (ni >= xc.length) {
+                if (r) {
+                  for (;xc.length <= ni; xc.push(0))
+                    ;
+                  n = rd = 0;
+                  d = 1;
+                  i %= LOG_BASE;
+                  j = i - LOG_BASE + 1;
+                } else {
+                  break out;
+                }
+              } else {
+                n = k = xc[ni];
+                for (d = 1;k >= 10; k /= 10, d++)
+                  ;
+                i %= LOG_BASE;
+                j = i - LOG_BASE + d;
+                rd = j < 0 ? 0 : mathfloor(n / pows10[d - j - 1] % 10);
+              }
+            }
+            r = r || sd < 0 || xc[ni + 1] != null || (j < 0 ? n : n % pows10[d - j - 1]);
+            r = rm < 4 ? (rd || r) && (rm == 0 || rm == (x.s < 0 ? 3 : 2)) : rd > 5 || rd == 5 && (rm == 4 || r || rm == 6 && (i > 0 ? j > 0 ? n / pows10[d - j] : 0 : xc[ni - 1]) % 10 & 1 || rm == (x.s < 0 ? 8 : 7));
+            if (sd < 1 || !xc[0]) {
+              xc.length = 0;
+              if (r) {
+                sd -= x.e + 1;
+                xc[0] = pows10[(LOG_BASE - sd % LOG_BASE) % LOG_BASE];
+                x.e = -sd || 0;
+              } else {
+                xc[0] = x.e = 0;
+              }
+              return x;
+            }
+            if (i == 0) {
+              xc.length = ni;
+              k = 1;
+              ni--;
+            } else {
+              xc.length = ni + 1;
+              k = pows10[LOG_BASE - i];
+              xc[ni] = j > 0 ? mathfloor(n / pows10[d - j] % pows10[j]) * k : 0;
+            }
+            if (r) {
+              for (;; ) {
+                if (ni == 0) {
+                  for (i = 1, j = xc[0];j >= 10; j /= 10, i++)
+                    ;
+                  j = xc[0] += k;
+                  for (k = 1;j >= 10; j /= 10, k++)
+                    ;
+                  if (i != k) {
+                    x.e++;
+                    if (xc[0] == BASE)
+                      xc[0] = 1;
+                  }
+                  break;
+                } else {
+                  xc[ni] += k;
+                  if (xc[ni] != BASE)
+                    break;
+                  xc[ni--] = 0;
+                  k = 1;
+                }
+              }
+            }
+            for (i = xc.length;xc[--i] === 0; xc.pop())
+              ;
+          }
+          if (x.e > MAX_EXP) {
+            x.c = x.e = null;
+          } else if (x.e < MIN_EXP) {
+            x.c = [x.e = 0];
+          }
+        }
+        return x;
+      }
+      function valueOf(n) {
+        var str, e = n.e;
+        if (e === null)
+          return n.toString();
+        str = coeffToString(n.c);
+        str = e <= TO_EXP_NEG || e >= TO_EXP_POS ? toExponential(str, e) : toFixedPoint(str, e, "0");
+        return n.s < 0 ? "-" + str : str;
+      }
+      P.absoluteValue = P.abs = function() {
+        var x = new BigNumber2(this);
+        if (x.s < 0)
+          x.s = 1;
+        return x;
+      };
+      P.comparedTo = function(y, b) {
+        return compare(this, new BigNumber2(y, b));
+      };
+      P.decimalPlaces = P.dp = function(dp, rm) {
+        var c, n, v, x = this;
+        if (dp != null) {
+          intCheck(dp, 0, MAX);
+          if (rm == null)
+            rm = ROUNDING_MODE;
+          else
+            intCheck(rm, 0, 8);
+          return round(new BigNumber2(x), dp + x.e + 1, rm);
+        }
+        if (!(c = x.c))
+          return null;
+        n = ((v = c.length - 1) - bitFloor(this.e / LOG_BASE)) * LOG_BASE;
+        if (v = c[v])
+          for (;v % 10 == 0; v /= 10, n--)
+            ;
+        if (n < 0)
+          n = 0;
+        return n;
+      };
+      P.dividedBy = P.div = function(y, b) {
+        return div(this, new BigNumber2(y, b), DECIMAL_PLACES, ROUNDING_MODE);
+      };
+      P.dividedToIntegerBy = P.idiv = function(y, b) {
+        return div(this, new BigNumber2(y, b), 0, 1);
+      };
+      P.exponentiatedBy = P.pow = function(n, m) {
+        var half, isModExp, i, k, more, nIsBig, nIsNeg, nIsOdd, y, x = this;
+        n = new BigNumber2(n);
+        if (n.c && !n.isInteger()) {
+          throw Error(bignumberError + "Exponent not an integer: " + valueOf(n));
+        }
+        if (m != null)
+          m = new BigNumber2(m);
+        nIsBig = n.e > 14;
+        if (!x.c || !x.c[0] || x.c[0] == 1 && !x.e && x.c.length == 1 || !n.c || !n.c[0]) {
+          y = new BigNumber2(Math.pow(+valueOf(x), nIsBig ? n.s * (2 - isOdd(n)) : +valueOf(n)));
+          return m ? y.mod(m) : y;
+        }
+        nIsNeg = n.s < 0;
+        if (m) {
+          if (m.c ? !m.c[0] : !m.s)
+            return new BigNumber2(NaN);
+          isModExp = !nIsNeg && x.isInteger() && m.isInteger();
+          if (isModExp)
+            x = x.mod(m);
+        } else if (n.e > 9 && (x.e > 0 || x.e < -1 || (x.e == 0 ? x.c[0] > 1 || nIsBig && x.c[1] >= 240000000 : x.c[0] < 80000000000000 || nIsBig && x.c[0] <= 99999750000000))) {
+          k = x.s < 0 && isOdd(n) ? -0 : 0;
+          if (x.e > -1)
+            k = 1 / k;
+          return new BigNumber2(nIsNeg ? 1 / k : k);
+        } else if (POW_PRECISION) {
+          k = mathceil(POW_PRECISION / LOG_BASE + 2);
+        }
+        if (nIsBig) {
+          half = new BigNumber2(0.5);
+          if (nIsNeg)
+            n.s = 1;
+          nIsOdd = isOdd(n);
+        } else {
+          i = Math.abs(+valueOf(n));
+          nIsOdd = i % 2;
+        }
+        y = new BigNumber2(ONE);
+        for (;; ) {
+          if (nIsOdd) {
+            y = y.times(x);
+            if (!y.c)
+              break;
+            if (k) {
+              if (y.c.length > k)
+                y.c.length = k;
+            } else if (isModExp) {
+              y = y.mod(m);
+            }
+          }
+          if (i) {
+            i = mathfloor(i / 2);
+            if (i === 0)
+              break;
+            nIsOdd = i % 2;
+          } else {
+            n = n.times(half);
+            round(n, n.e + 1, 1);
+            if (n.e > 14) {
+              nIsOdd = isOdd(n);
+            } else {
+              i = +valueOf(n);
+              if (i === 0)
+                break;
+              nIsOdd = i % 2;
+            }
+          }
+          x = x.times(x);
+          if (k) {
+            if (x.c && x.c.length > k)
+              x.c.length = k;
+          } else if (isModExp) {
+            x = x.mod(m);
+          }
+        }
+        if (isModExp)
+          return y;
+        if (nIsNeg)
+          y = ONE.div(y);
+        return m ? y.mod(m) : k ? round(y, POW_PRECISION, ROUNDING_MODE, more) : y;
+      };
+      P.integerValue = function(rm) {
+        var n = new BigNumber2(this);
+        if (rm == null)
+          rm = ROUNDING_MODE;
+        else
+          intCheck(rm, 0, 8);
+        return round(n, n.e + 1, rm);
+      };
+      P.isEqualTo = P.eq = function(y, b) {
+        return compare(this, new BigNumber2(y, b)) === 0;
+      };
+      P.isFinite = function() {
+        return !!this.c;
+      };
+      P.isGreaterThan = P.gt = function(y, b) {
+        return compare(this, new BigNumber2(y, b)) > 0;
+      };
+      P.isGreaterThanOrEqualTo = P.gte = function(y, b) {
+        return (b = compare(this, new BigNumber2(y, b))) === 1 || b === 0;
+      };
+      P.isInteger = function() {
+        return !!this.c && bitFloor(this.e / LOG_BASE) > this.c.length - 2;
+      };
+      P.isLessThan = P.lt = function(y, b) {
+        return compare(this, new BigNumber2(y, b)) < 0;
+      };
+      P.isLessThanOrEqualTo = P.lte = function(y, b) {
+        return (b = compare(this, new BigNumber2(y, b))) === -1 || b === 0;
+      };
+      P.isNaN = function() {
+        return !this.s;
+      };
+      P.isNegative = function() {
+        return this.s < 0;
+      };
+      P.isPositive = function() {
+        return this.s > 0;
+      };
+      P.isZero = function() {
+        return !!this.c && this.c[0] == 0;
+      };
+      P.minus = function(y, b) {
+        var i, j, t, xLTy, x = this, a = x.s;
+        y = new BigNumber2(y, b);
+        b = y.s;
+        if (!a || !b)
+          return new BigNumber2(NaN);
+        if (a != b) {
+          y.s = -b;
+          return x.plus(y);
+        }
+        var xe = x.e / LOG_BASE, ye = y.e / LOG_BASE, xc = x.c, yc = y.c;
+        if (!xe || !ye) {
+          if (!xc || !yc)
+            return xc ? (y.s = -b, y) : new BigNumber2(yc ? x : NaN);
+          if (!xc[0] || !yc[0]) {
+            return yc[0] ? (y.s = -b, y) : new BigNumber2(xc[0] ? x : ROUNDING_MODE == 3 ? -0 : 0);
+          }
+        }
+        xe = bitFloor(xe);
+        ye = bitFloor(ye);
+        xc = xc.slice();
+        if (a = xe - ye) {
+          if (xLTy = a < 0) {
+            a = -a;
+            t = xc;
+          } else {
+            ye = xe;
+            t = yc;
+          }
+          t.reverse();
+          for (b = a;b--; t.push(0))
+            ;
+          t.reverse();
+        } else {
+          j = (xLTy = (a = xc.length) < (b = yc.length)) ? a : b;
+          for (a = b = 0;b < j; b++) {
+            if (xc[b] != yc[b]) {
+              xLTy = xc[b] < yc[b];
+              break;
+            }
+          }
+        }
+        if (xLTy) {
+          t = xc;
+          xc = yc;
+          yc = t;
+          y.s = -y.s;
+        }
+        b = (j = yc.length) - (i = xc.length);
+        if (b > 0)
+          for (;b--; xc[i++] = 0)
+            ;
+        b = BASE - 1;
+        for (;j > a; ) {
+          if (xc[--j] < yc[j]) {
+            for (i = j;i && !xc[--i]; xc[i] = b)
+              ;
+            --xc[i];
+            xc[j] += BASE;
+          }
+          xc[j] -= yc[j];
+        }
+        for (;xc[0] == 0; xc.splice(0, 1), --ye)
+          ;
+        if (!xc[0]) {
+          y.s = ROUNDING_MODE == 3 ? -1 : 1;
+          y.c = [y.e = 0];
+          return y;
+        }
+        return normalise(y, xc, ye);
+      };
+      P.modulo = P.mod = function(y, b) {
+        var q, s, x = this;
+        y = new BigNumber2(y, b);
+        if (!x.c || !y.s || y.c && !y.c[0]) {
+          return new BigNumber2(NaN);
+        } else if (!y.c || x.c && !x.c[0]) {
+          return new BigNumber2(x);
+        }
+        if (MODULO_MODE == 9) {
+          s = y.s;
+          y.s = 1;
+          q = div(x, y, 0, 3);
+          y.s = s;
+          q.s *= s;
+        } else {
+          q = div(x, y, 0, MODULO_MODE);
+        }
+        y = x.minus(q.times(y));
+        if (!y.c[0] && MODULO_MODE == 1)
+          y.s = x.s;
+        return y;
+      };
+      P.multipliedBy = P.times = function(y, b) {
+        var c, e, i, j, k, m, xcL, xlo, xhi, ycL, ylo, yhi, zc, base, sqrtBase, x = this, xc = x.c, yc = (y = new BigNumber2(y, b)).c;
+        if (!xc || !yc || !xc[0] || !yc[0]) {
+          if (!x.s || !y.s || xc && !xc[0] && !yc || yc && !yc[0] && !xc) {
+            y.c = y.e = y.s = null;
+          } else {
+            y.s *= x.s;
+            if (!xc || !yc) {
+              y.c = y.e = null;
+            } else {
+              y.c = [0];
+              y.e = 0;
+            }
+          }
+          return y;
+        }
+        e = bitFloor(x.e / LOG_BASE) + bitFloor(y.e / LOG_BASE);
+        y.s *= x.s;
+        xcL = xc.length;
+        ycL = yc.length;
+        if (xcL < ycL) {
+          zc = xc;
+          xc = yc;
+          yc = zc;
+          i = xcL;
+          xcL = ycL;
+          ycL = i;
+        }
+        for (i = xcL + ycL, zc = [];i--; zc.push(0))
+          ;
+        base = BASE;
+        sqrtBase = SQRT_BASE;
+        for (i = ycL;--i >= 0; ) {
+          c = 0;
+          ylo = yc[i] % sqrtBase;
+          yhi = yc[i] / sqrtBase | 0;
+          for (k = xcL, j = i + k;j > i; ) {
+            xlo = xc[--k] % sqrtBase;
+            xhi = xc[k] / sqrtBase | 0;
+            m = yhi * xlo + xhi * ylo;
+            xlo = ylo * xlo + m % sqrtBase * sqrtBase + zc[j] + c;
+            c = (xlo / base | 0) + (m / sqrtBase | 0) + yhi * xhi;
+            zc[j--] = xlo % base;
+          }
+          zc[j] = c;
+        }
+        if (c) {
+          ++e;
+        } else {
+          zc.splice(0, 1);
+        }
+        return normalise(y, zc, e);
+      };
+      P.negated = function() {
+        var x = new BigNumber2(this);
+        x.s = -x.s || null;
+        return x;
+      };
+      P.plus = function(y, b) {
+        var t, x = this, a = x.s;
+        y = new BigNumber2(y, b);
+        b = y.s;
+        if (!a || !b)
+          return new BigNumber2(NaN);
+        if (a != b) {
+          y.s = -b;
+          return x.minus(y);
+        }
+        var xe = x.e / LOG_BASE, ye = y.e / LOG_BASE, xc = x.c, yc = y.c;
+        if (!xe || !ye) {
+          if (!xc || !yc)
+            return new BigNumber2(a / 0);
+          if (!xc[0] || !yc[0])
+            return yc[0] ? y : new BigNumber2(xc[0] ? x : a * 0);
+        }
+        xe = bitFloor(xe);
+        ye = bitFloor(ye);
+        xc = xc.slice();
+        if (a = xe - ye) {
+          if (a > 0) {
+            ye = xe;
+            t = yc;
+          } else {
+            a = -a;
+            t = xc;
+          }
+          t.reverse();
+          for (;a--; t.push(0))
+            ;
+          t.reverse();
+        }
+        a = xc.length;
+        b = yc.length;
+        if (a - b < 0) {
+          t = yc;
+          yc = xc;
+          xc = t;
+          b = a;
+        }
+        for (a = 0;b; ) {
+          a = (xc[--b] = xc[b] + yc[b] + a) / BASE | 0;
+          xc[b] = BASE === xc[b] ? 0 : xc[b] % BASE;
+        }
+        if (a) {
+          xc = [a].concat(xc);
+          ++ye;
+        }
+        return normalise(y, xc, ye);
+      };
+      P.precision = P.sd = function(sd, rm) {
+        var c, n, v, x = this;
+        if (sd != null && sd !== !!sd) {
+          intCheck(sd, 1, MAX);
+          if (rm == null)
+            rm = ROUNDING_MODE;
+          else
+            intCheck(rm, 0, 8);
+          return round(new BigNumber2(x), sd, rm);
+        }
+        if (!(c = x.c))
+          return null;
+        v = c.length - 1;
+        n = v * LOG_BASE + 1;
+        if (v = c[v]) {
+          for (;v % 10 == 0; v /= 10, n--)
+            ;
+          for (v = c[0];v >= 10; v /= 10, n++)
+            ;
+        }
+        if (sd && x.e + 1 > n)
+          n = x.e + 1;
+        return n;
+      };
+      P.shiftedBy = function(k) {
+        intCheck(k, -MAX_SAFE_INTEGER, MAX_SAFE_INTEGER);
+        return this.times("1e" + k);
+      };
+      P.squareRoot = P.sqrt = function() {
+        var m, n, r, rep, t, x = this, c = x.c, s = x.s, e = x.e, dp = DECIMAL_PLACES + 4, half = new BigNumber2("0.5");
+        if (s !== 1 || !c || !c[0]) {
+          return new BigNumber2(!s || s < 0 && (!c || c[0]) ? NaN : c ? x : 1 / 0);
+        }
+        s = Math.sqrt(+valueOf(x));
+        if (s == 0 || s == 1 / 0) {
+          n = coeffToString(c);
+          if ((n.length + e) % 2 == 0)
+            n += "0";
+          s = Math.sqrt(+n);
+          e = bitFloor((e + 1) / 2) - (e < 0 || e % 2);
+          if (s == 1 / 0) {
+            n = "5e" + e;
+          } else {
+            n = s.toExponential();
+            n = n.slice(0, n.indexOf("e") + 1) + e;
+          }
+          r = new BigNumber2(n);
+        } else {
+          r = new BigNumber2(s + "");
+        }
+        if (r.c[0]) {
+          e = r.e;
+          s = e + dp;
+          if (s < 3)
+            s = 0;
+          for (;; ) {
+            t = r;
+            r = half.times(t.plus(div(x, t, dp, 1)));
+            if (coeffToString(t.c).slice(0, s) === (n = coeffToString(r.c)).slice(0, s)) {
+              if (r.e < e)
+                --s;
+              n = n.slice(s - 3, s + 1);
+              if (n == "9999" || !rep && n == "4999") {
+                if (!rep) {
+                  round(t, t.e + DECIMAL_PLACES + 2, 0);
+                  if (t.times(t).eq(x)) {
+                    r = t;
+                    break;
+                  }
+                }
+                dp += 4;
+                s += 4;
+                rep = 1;
+              } else {
+                if (!+n || !+n.slice(1) && n.charAt(0) == "5") {
+                  round(r, r.e + DECIMAL_PLACES + 2, 1);
+                  m = !r.times(r).eq(x);
+                }
+                break;
+              }
+            }
+          }
+        }
+        return round(r, r.e + DECIMAL_PLACES + 1, ROUNDING_MODE, m);
+      };
+      P.toExponential = function(dp, rm) {
+        if (dp != null) {
+          intCheck(dp, 0, MAX);
+          dp++;
+        }
+        return format(this, dp, rm, 1);
+      };
+      P.toFixed = function(dp, rm) {
+        if (dp != null) {
+          intCheck(dp, 0, MAX);
+          dp = dp + this.e + 1;
+        }
+        return format(this, dp, rm);
+      };
+      P.toFormat = function(dp, rm, format2) {
+        var str, x = this;
+        if (format2 == null) {
+          if (dp != null && rm && typeof rm == "object") {
+            format2 = rm;
+            rm = null;
+          } else if (dp && typeof dp == "object") {
+            format2 = dp;
+            dp = rm = null;
+          } else {
+            format2 = FORMAT;
+          }
+        } else if (typeof format2 != "object") {
+          throw Error(bignumberError + "Argument not an object: " + format2);
+        }
+        str = x.toFixed(dp, rm);
+        if (x.c) {
+          var i, arr = str.split("."), g1 = +format2.groupSize, g2 = +format2.secondaryGroupSize, groupSeparator = format2.groupSeparator || "", intPart = arr[0], fractionPart = arr[1], isNeg = x.s < 0, intDigits = isNeg ? intPart.slice(1) : intPart, len = intDigits.length;
+          if (g2) {
+            i = g1;
+            g1 = g2;
+            g2 = i;
+            len -= i;
+          }
+          if (g1 > 0 && len > 0) {
+            i = len % g1 || g1;
+            intPart = intDigits.substr(0, i);
+            for (;i < len; i += g1)
+              intPart += groupSeparator + intDigits.substr(i, g1);
+            if (g2 > 0)
+              intPart += groupSeparator + intDigits.slice(i);
+            if (isNeg)
+              intPart = "-" + intPart;
+          }
+          str = fractionPart ? intPart + (format2.decimalSeparator || "") + ((g2 = +format2.fractionGroupSize) ? fractionPart.replace(new RegExp("\\d{" + g2 + "}\\B", "g"), "$&" + (format2.fractionGroupSeparator || "")) : fractionPart) : intPart;
+        }
+        return (format2.prefix || "") + str + (format2.suffix || "");
+      };
+      P.toFraction = function(md) {
+        var d, d0, d1, d2, e, exp, n, n0, n1, q, r, s, x = this, xc = x.c;
+        if (md != null) {
+          n = new BigNumber2(md);
+          if (!n.isInteger() && (n.c || n.s !== 1) || n.lt(ONE)) {
+            throw Error(bignumberError + "Argument " + (n.isInteger() ? "out of range: " : "not an integer: ") + valueOf(n));
+          }
+        }
+        if (!xc)
+          return new BigNumber2(x);
+        d = new BigNumber2(ONE);
+        n1 = d0 = new BigNumber2(ONE);
+        d1 = n0 = new BigNumber2(ONE);
+        s = coeffToString(xc);
+        e = d.e = s.length - x.e - 1;
+        d.c[0] = POWS_TEN[(exp = e % LOG_BASE) < 0 ? LOG_BASE + exp : exp];
+        md = !md || n.comparedTo(d) > 0 ? e > 0 ? d : n1 : n;
+        exp = MAX_EXP;
+        MAX_EXP = 1 / 0;
+        n = new BigNumber2(s);
+        n0.c[0] = 0;
+        for (;; ) {
+          q = div(n, d, 0, 1);
+          d2 = d0.plus(q.times(d1));
+          if (d2.comparedTo(md) == 1)
+            break;
+          d0 = d1;
+          d1 = d2;
+          n1 = n0.plus(q.times(d2 = n1));
+          n0 = d2;
+          d = n.minus(q.times(d2 = d));
+          n = d2;
+        }
+        d2 = div(md.minus(d0), d1, 0, 1);
+        n0 = n0.plus(d2.times(n1));
+        d0 = d0.plus(d2.times(d1));
+        n0.s = n1.s = x.s;
+        e = e * 2;
+        r = div(n1, d1, e, ROUNDING_MODE).minus(x).abs().comparedTo(div(n0, d0, e, ROUNDING_MODE).minus(x).abs()) < 1 ? [n1, d1] : [n0, d0];
+        MAX_EXP = exp;
+        return r;
+      };
+      P.toNumber = function() {
+        return +valueOf(this);
+      };
+      P.toPrecision = function(sd, rm) {
+        if (sd != null)
+          intCheck(sd, 1, MAX);
+        return format(this, sd, rm, 2);
+      };
+      P.toString = function(b) {
+        var str, n = this, s = n.s, e = n.e;
+        if (e === null) {
+          if (s) {
+            str = "Infinity";
+            if (s < 0)
+              str = "-" + str;
+          } else {
+            str = "NaN";
+          }
+        } else {
+          if (b == null) {
+            str = e <= TO_EXP_NEG || e >= TO_EXP_POS ? toExponential(coeffToString(n.c), e) : toFixedPoint(coeffToString(n.c), e, "0");
+          } else if (b === 10 && alphabetHasNormalDecimalDigits) {
+            n = round(new BigNumber2(n), DECIMAL_PLACES + e + 1, ROUNDING_MODE);
+            str = toFixedPoint(coeffToString(n.c), n.e, "0");
+          } else {
+            intCheck(b, 2, ALPHABET.length, "Base");
+            str = convertBase(toFixedPoint(coeffToString(n.c), e, "0"), 10, b, s, true);
+          }
+          if (s < 0 && n.c[0])
+            str = "-" + str;
+        }
+        return str;
+      };
+      P.valueOf = P.toJSON = function() {
+        return valueOf(this);
+      };
+      P._isBigNumber = true;
+      if (configObject != null)
+        BigNumber2.set(configObject);
+      return BigNumber2;
+    }
+    function bitFloor(n) {
+      var i = n | 0;
+      return n > 0 || n === i ? i : i - 1;
+    }
+    function coeffToString(a) {
+      var s, z, i = 1, j = a.length, r = a[0] + "";
+      for (;i < j; ) {
+        s = a[i++] + "";
+        z = LOG_BASE - s.length;
+        for (;z--; s = "0" + s)
+          ;
+        r += s;
+      }
+      for (j = r.length;r.charCodeAt(--j) === 48; )
+        ;
+      return r.slice(0, j + 1 || 1);
+    }
+    function compare(x, y) {
+      var a, b, xc = x.c, yc = y.c, i = x.s, j = y.s, k = x.e, l = y.e;
+      if (!i || !j)
+        return null;
+      a = xc && !xc[0];
+      b = yc && !yc[0];
+      if (a || b)
+        return a ? b ? 0 : -j : i;
+      if (i != j)
+        return i;
+      a = i < 0;
+      b = k == l;
+      if (!xc || !yc)
+        return b ? 0 : !xc ^ a ? 1 : -1;
+      if (!b)
+        return k > l ^ a ? 1 : -1;
+      j = (k = xc.length) < (l = yc.length) ? k : l;
+      for (i = 0;i < j; i++)
+        if (xc[i] != yc[i])
+          return xc[i] > yc[i] ^ a ? 1 : -1;
+      return k == l ? 0 : k > l ^ a ? 1 : -1;
+    }
+    function intCheck(n, min, max, name) {
+      if (n < min || n > max || n !== mathfloor(n)) {
+        throw Error(bignumberError + (name || "Argument") + (typeof n == "number" ? n < min || n > max ? " out of range: " : " not an integer: " : " not a primitive number: ") + String(n));
+      }
+    }
+    function isOdd(n) {
+      var k = n.c.length - 1;
+      return bitFloor(n.e / LOG_BASE) == k && n.c[k] % 2 != 0;
+    }
+    function toExponential(str, e) {
+      return (str.length > 1 ? str.charAt(0) + "." + str.slice(1) : str) + (e < 0 ? "e" : "e+") + e;
+    }
+    function toFixedPoint(str, e, z) {
+      var len, zs;
+      if (e < 0) {
+        for (zs = z + ".";++e; zs += z)
+          ;
+        str = zs + str;
+      } else {
+        len = str.length;
+        if (++e > len) {
+          for (zs = z, e -= len;--e; zs += z)
+            ;
+          str += zs;
+        } else if (e < len) {
+          str = str.slice(0, e) + "." + str.slice(e);
+        }
+      }
+      return str;
+    }
+    BigNumber = clone();
+    BigNumber["default"] = BigNumber.BigNumber = BigNumber;
+    if (typeof define == "function" && define.amd) {
+      define(function() {
+        return BigNumber;
+      });
+    } else if (typeof module != "undefined" && module.exports) {
+      module.exports = BigNumber;
+    } else {
+      if (!globalObject) {
+        globalObject = typeof self != "undefined" && self ? self : window;
+      }
+      globalObject.BigNumber = BigNumber;
+    }
+  })(exports);
+});
+
+// node_modules/json-bigint/lib/stringify.js
+var require_stringify = __commonJS((exports, module) => {
+  var BigNumber = require_bignumber();
+  var JSON2 = exports;
+  (function() {
+    function f(n) {
+      return n < 10 ? "0" + n : n;
+    }
+    var cx = /[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g, escapable = /[\\\"\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g, gap, indent, meta = {
+      "\b": "\\b",
+      "\t": "\\t",
+      "\n": "\\n",
+      "\f": "\\f",
+      "\r": "\\r",
+      '"': "\\\"",
+      "\\": "\\\\"
+    }, rep;
+    function quote(string) {
+      escapable.lastIndex = 0;
+      return escapable.test(string) ? '"' + string.replace(escapable, function(a) {
+        var c = meta[a];
+        return typeof c === "string" ? c : "\\u" + ("0000" + a.charCodeAt(0).toString(16)).slice(-4);
+      }) + '"' : '"' + string + '"';
+    }
+    function str(key, holder) {
+      var i, k, v, length, mind = gap, partial, value = holder[key], isBigNumber = value != null && (value instanceof BigNumber || BigNumber.isBigNumber(value));
+      if (value && typeof value === "object" && typeof value.toJSON === "function") {
+        value = value.toJSON(key);
+      }
+      if (typeof rep === "function") {
+        value = rep.call(holder, key, value);
+      }
+      switch (typeof value) {
+        case "string":
+          if (isBigNumber) {
+            return value;
+          } else {
+            return quote(value);
+          }
+        case "number":
+          return isFinite(value) ? String(value) : "null";
+        case "boolean":
+        case "null":
+        case "bigint":
+          return String(value);
+        case "object":
+          if (!value) {
+            return "null";
+          }
+          gap += indent;
+          partial = [];
+          if (Object.prototype.toString.apply(value) === "[object Array]") {
+            length = value.length;
+            for (i = 0;i < length; i += 1) {
+              partial[i] = str(i, value) || "null";
+            }
+            v = partial.length === 0 ? "[]" : gap ? `[
+` + gap + partial.join(`,
+` + gap) + `
+` + mind + "]" : "[" + partial.join(",") + "]";
+            gap = mind;
+            return v;
+          }
+          if (rep && typeof rep === "object") {
+            length = rep.length;
+            for (i = 0;i < length; i += 1) {
+              if (typeof rep[i] === "string") {
+                k = rep[i];
+                v = str(k, value);
+                if (v) {
+                  partial.push(quote(k) + (gap ? ": " : ":") + v);
+                }
+              }
+            }
+          } else {
+            Object.keys(value).forEach(function(k2) {
+              var v2 = str(k2, value);
+              if (v2) {
+                partial.push(quote(k2) + (gap ? ": " : ":") + v2);
+              }
+            });
+          }
+          v = partial.length === 0 ? "{}" : gap ? `{
+` + gap + partial.join(`,
+` + gap) + `
+` + mind + "}" : "{" + partial.join(",") + "}";
+          gap = mind;
+          return v;
+      }
+    }
+    if (typeof JSON2.stringify !== "function") {
+      JSON2.stringify = function(value, replacer, space) {
+        var i;
+        gap = "";
+        indent = "";
+        if (typeof space === "number") {
+          for (i = 0;i < space; i += 1) {
+            indent += " ";
+          }
+        } else if (typeof space === "string") {
+          indent = space;
+        }
+        rep = replacer;
+        if (replacer && typeof replacer !== "function" && (typeof replacer !== "object" || typeof replacer.length !== "number")) {
+          throw new Error("JSON.stringify");
+        }
+        return str("", { "": value });
+      };
+    }
+  })();
+});
+
+// node_modules/json-bigint/lib/parse.js
+var require_parse = __commonJS((exports, module) => {
+  var BigNumber = null;
+  var suspectProtoRx = /(?:_|\\u005[Ff])(?:_|\\u005[Ff])(?:p|\\u0070)(?:r|\\u0072)(?:o|\\u006[Ff])(?:t|\\u0074)(?:o|\\u006[Ff])(?:_|\\u005[Ff])(?:_|\\u005[Ff])/;
+  var suspectConstructorRx = /(?:c|\\u0063)(?:o|\\u006[Ff])(?:n|\\u006[Ee])(?:s|\\u0073)(?:t|\\u0074)(?:r|\\u0072)(?:u|\\u0075)(?:c|\\u0063)(?:t|\\u0074)(?:o|\\u006[Ff])(?:r|\\u0072)/;
+  var json_parse = function(options) {
+    var _options = {
+      strict: false,
+      storeAsString: false,
+      alwaysParseAsBig: false,
+      useNativeBigInt: false,
+      protoAction: "error",
+      constructorAction: "error"
+    };
+    if (options !== undefined && options !== null) {
+      if (options.strict === true) {
+        _options.strict = true;
+      }
+      if (options.storeAsString === true) {
+        _options.storeAsString = true;
+      }
+      _options.alwaysParseAsBig = options.alwaysParseAsBig === true ? options.alwaysParseAsBig : false;
+      _options.useNativeBigInt = options.useNativeBigInt === true ? options.useNativeBigInt : false;
+      if (typeof options.constructorAction !== "undefined") {
+        if (options.constructorAction === "error" || options.constructorAction === "ignore" || options.constructorAction === "preserve") {
+          _options.constructorAction = options.constructorAction;
+        } else {
+          throw new Error(`Incorrect value for constructorAction option, must be "error", "ignore" or undefined but passed ${options.constructorAction}`);
+        }
+      }
+      if (typeof options.protoAction !== "undefined") {
+        if (options.protoAction === "error" || options.protoAction === "ignore" || options.protoAction === "preserve") {
+          _options.protoAction = options.protoAction;
+        } else {
+          throw new Error(`Incorrect value for protoAction option, must be "error", "ignore" or undefined but passed ${options.protoAction}`);
+        }
+      }
+    }
+    var at, ch, escapee = {
+      '"': '"',
+      "\\": "\\",
+      "/": "/",
+      b: "\b",
+      f: "\f",
+      n: `
+`,
+      r: "\r",
+      t: "\t"
+    }, text, error = function(m) {
+      throw {
+        name: "SyntaxError",
+        message: m,
+        at,
+        text
+      };
+    }, next = function(c) {
+      if (c && c !== ch) {
+        error("Expected '" + c + "' instead of '" + ch + "'");
+      }
+      ch = text.charAt(at);
+      at += 1;
+      return ch;
+    }, number = function() {
+      var number2, string2 = "";
+      if (ch === "-") {
+        string2 = "-";
+        next("-");
+      }
+      while (ch >= "0" && ch <= "9") {
+        string2 += ch;
+        next();
+      }
+      if (ch === ".") {
+        string2 += ".";
+        while (next() && ch >= "0" && ch <= "9") {
+          string2 += ch;
+        }
+      }
+      if (ch === "e" || ch === "E") {
+        string2 += ch;
+        next();
+        if (ch === "-" || ch === "+") {
+          string2 += ch;
+          next();
+        }
+        while (ch >= "0" && ch <= "9") {
+          string2 += ch;
+          next();
+        }
+      }
+      number2 = +string2;
+      if (!isFinite(number2)) {
+        error("Bad number");
+      } else {
+        if (BigNumber == null)
+          BigNumber = require_bignumber();
+        if (string2.length > 15)
+          return _options.storeAsString ? string2 : _options.useNativeBigInt ? BigInt(string2) : new BigNumber(string2);
+        else
+          return !_options.alwaysParseAsBig ? number2 : _options.useNativeBigInt ? BigInt(number2) : new BigNumber(number2);
+      }
+    }, string = function() {
+      var hex, i, string2 = "", uffff;
+      if (ch === '"') {
+        var startAt = at;
+        while (next()) {
+          if (ch === '"') {
+            if (at - 1 > startAt)
+              string2 += text.substring(startAt, at - 1);
+            next();
+            return string2;
+          }
+          if (ch === "\\") {
+            if (at - 1 > startAt)
+              string2 += text.substring(startAt, at - 1);
+            next();
+            if (ch === "u") {
+              uffff = 0;
+              for (i = 0;i < 4; i += 1) {
+                hex = parseInt(next(), 16);
+                if (!isFinite(hex)) {
+                  break;
+                }
+                uffff = uffff * 16 + hex;
+              }
+              string2 += String.fromCharCode(uffff);
+            } else if (typeof escapee[ch] === "string") {
+              string2 += escapee[ch];
+            } else {
+              break;
+            }
+            startAt = at;
+          }
+        }
+      }
+      error("Bad string");
+    }, white = function() {
+      while (ch && ch <= " ") {
+        next();
+      }
+    }, word = function() {
+      switch (ch) {
+        case "t":
+          next("t");
+          next("r");
+          next("u");
+          next("e");
+          return true;
+        case "f":
+          next("f");
+          next("a");
+          next("l");
+          next("s");
+          next("e");
+          return false;
+        case "n":
+          next("n");
+          next("u");
+          next("l");
+          next("l");
+          return null;
+      }
+      error("Unexpected '" + ch + "'");
+    }, value, array = function() {
+      var array2 = [];
+      if (ch === "[") {
+        next("[");
+        white();
+        if (ch === "]") {
+          next("]");
+          return array2;
+        }
+        while (ch) {
+          array2.push(value());
+          white();
+          if (ch === "]") {
+            next("]");
+            return array2;
+          }
+          next(",");
+          white();
+        }
+      }
+      error("Bad array");
+    }, object = function() {
+      var key, object2 = Object.create(null);
+      if (ch === "{") {
+        next("{");
+        white();
+        if (ch === "}") {
+          next("}");
+          return object2;
+        }
+        while (ch) {
+          key = string();
+          white();
+          next(":");
+          if (_options.strict === true && Object.hasOwnProperty.call(object2, key)) {
+            error('Duplicate key "' + key + '"');
+          }
+          if (suspectProtoRx.test(key) === true) {
+            if (_options.protoAction === "error") {
+              error("Object contains forbidden prototype property");
+            } else if (_options.protoAction === "ignore") {
+              value();
+            } else {
+              object2[key] = value();
+            }
+          } else if (suspectConstructorRx.test(key) === true) {
+            if (_options.constructorAction === "error") {
+              error("Object contains forbidden constructor property");
+            } else if (_options.constructorAction === "ignore") {
+              value();
+            } else {
+              object2[key] = value();
+            }
+          } else {
+            object2[key] = value();
+          }
+          white();
+          if (ch === "}") {
+            next("}");
+            return object2;
+          }
+          next(",");
+          white();
+        }
+      }
+      error("Bad object");
+    };
+    value = function() {
+      white();
+      switch (ch) {
+        case "{":
+          return object();
+        case "[":
+          return array();
+        case '"':
+          return string();
+        case "-":
+          return number();
+        default:
+          return ch >= "0" && ch <= "9" ? number() : word();
+      }
+    };
+    return function(source, reviver) {
+      var result;
+      text = source + "";
+      at = 0;
+      ch = " ";
+      result = value();
+      white();
+      if (ch) {
+        error("Syntax error");
+      }
+      return typeof reviver === "function" ? function walk(holder, key) {
+        var k, v, value2 = holder[key];
+        if (value2 && typeof value2 === "object") {
+          Object.keys(value2).forEach(function(k2) {
+            v = walk(value2, k2);
+            if (v !== undefined) {
+              value2[k2] = v;
+            } else {
+              delete value2[k2];
+            }
+          });
+        }
+        return reviver.call(holder, key, value2);
+      }({ "": result }, "") : result;
+    };
+  };
+  module.exports = json_parse;
+});
+
+// node_modules/json-bigint/index.js
+var require_json_bigint = __commonJS((exports, module) => {
+  var json_stringify = require_stringify().stringify;
+  var json_parse = require_parse();
+  module.exports = function(options) {
+    return {
+      parse: json_parse(options),
+      stringify: json_stringify
+    };
+  };
+  module.exports.parse = json_parse();
+  module.exports.stringify = json_stringify;
+});
+
+// node_modules/gcp-metadata/build/src/gcp-residency.js
+var require_gcp_residency = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.GCE_LINUX_BIOS_PATHS = undefined;
+  exports.isGoogleCloudServerless = isGoogleCloudServerless;
+  exports.isGoogleComputeEngineLinux = isGoogleComputeEngineLinux;
+  exports.isGoogleComputeEngineMACAddress = isGoogleComputeEngineMACAddress;
+  exports.isGoogleComputeEngine = isGoogleComputeEngine;
+  exports.detectGCPResidency = detectGCPResidency;
+  var fs_1 = __require("fs");
+  var os_1 = __require("os");
+  exports.GCE_LINUX_BIOS_PATHS = {
+    BIOS_DATE: "/sys/class/dmi/id/bios_date",
+    BIOS_VENDOR: "/sys/class/dmi/id/bios_vendor"
+  };
+  var GCE_MAC_ADDRESS_REGEX = /^42:01/;
+  function isGoogleCloudServerless() {
+    const isGFEnvironment = process.env.CLOUD_RUN_JOB || process.env.FUNCTION_NAME || process.env.K_SERVICE;
+    return !!isGFEnvironment;
+  }
+  function isGoogleComputeEngineLinux() {
+    if ((0, os_1.platform)() !== "linux")
+      return false;
+    try {
+      (0, fs_1.statSync)(exports.GCE_LINUX_BIOS_PATHS.BIOS_DATE);
+      const biosVendor = (0, fs_1.readFileSync)(exports.GCE_LINUX_BIOS_PATHS.BIOS_VENDOR, "utf8");
+      return /Google/.test(biosVendor);
+    } catch {
+      return false;
+    }
+  }
+  function isGoogleComputeEngineMACAddress() {
+    const interfaces = (0, os_1.networkInterfaces)();
+    for (const item of Object.values(interfaces)) {
+      if (!item)
+        continue;
+      for (const { mac } of item) {
+        if (GCE_MAC_ADDRESS_REGEX.test(mac)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+  function isGoogleComputeEngine() {
+    return isGoogleComputeEngineLinux() || isGoogleComputeEngineMACAddress();
+  }
+  function detectGCPResidency() {
+    return isGoogleCloudServerless() || isGoogleComputeEngine();
+  }
+});
+
+// node_modules/google-logging-utils/build/src/colours.js
+var require_colours = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.Colours = undefined;
+
+  class Colours {
+    static isEnabled(stream) {
+      return stream && stream.isTTY && (typeof stream.getColorDepth === "function" ? stream.getColorDepth() > 2 : true);
+    }
+    static refresh() {
+      Colours.enabled = Colours.isEnabled(process === null || process === undefined ? undefined : process.stderr);
+      if (!this.enabled) {
+        Colours.reset = "";
+        Colours.bright = "";
+        Colours.dim = "";
+        Colours.red = "";
+        Colours.green = "";
+        Colours.yellow = "";
+        Colours.blue = "";
+        Colours.magenta = "";
+        Colours.cyan = "";
+        Colours.white = "";
+        Colours.grey = "";
+      } else {
+        Colours.reset = "\x1B[0m";
+        Colours.bright = "\x1B[1m";
+        Colours.dim = "\x1B[2m";
+        Colours.red = "\x1B[31m";
+        Colours.green = "\x1B[32m";
+        Colours.yellow = "\x1B[33m";
+        Colours.blue = "\x1B[34m";
+        Colours.magenta = "\x1B[35m";
+        Colours.cyan = "\x1B[36m";
+        Colours.white = "\x1B[37m";
+        Colours.grey = "\x1B[90m";
+      }
+    }
+  }
+  exports.Colours = Colours;
+  Colours.enabled = false;
+  Colours.reset = "";
+  Colours.bright = "";
+  Colours.dim = "";
+  Colours.red = "";
+  Colours.green = "";
+  Colours.yellow = "";
+  Colours.blue = "";
+  Colours.magenta = "";
+  Colours.cyan = "";
+  Colours.white = "";
+  Colours.grey = "";
+  Colours.refresh();
+});
+
+// node_modules/google-logging-utils/build/src/logging-utils.js
+var require_logging_utils = __commonJS((exports) => {
+  var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    if (k2 === undefined)
+      k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() {
+        return m[k];
+      } };
+    }
+    Object.defineProperty(o, k2, desc);
+  } : function(o, m, k, k2) {
+    if (k2 === undefined)
+      k2 = k;
+    o[k2] = m[k];
+  });
+  var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+  } : function(o, v) {
+    o["default"] = v;
+  });
+  var __importStar = exports && exports.__importStar || function() {
+    var ownKeys = function(o) {
+      ownKeys = Object.getOwnPropertyNames || function(o2) {
+        var ar = [];
+        for (var k in o2)
+          if (Object.prototype.hasOwnProperty.call(o2, k))
+            ar[ar.length] = k;
+        return ar;
+      };
+      return ownKeys(o);
+    };
+    return function(mod) {
+      if (mod && mod.__esModule)
+        return mod;
+      var result = {};
+      if (mod != null) {
+        for (var k = ownKeys(mod), i = 0;i < k.length; i++)
+          if (k[i] !== "default")
+            __createBinding(result, mod, k[i]);
+      }
+      __setModuleDefault(result, mod);
+      return result;
+    };
+  }();
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.env = exports.DebugLogBackendBase = exports.placeholder = exports.AdhocDebugLogger = exports.LogSeverity = undefined;
+  exports.getNodeBackend = getNodeBackend;
+  exports.getDebugBackend = getDebugBackend;
+  exports.getStructuredBackend = getStructuredBackend;
+  exports.setBackend = setBackend;
+  exports.log = log;
+  var events_1 = __require("events");
+  var process2 = __importStar(__require("process"));
+  var util = __importStar(__require("util"));
+  var colours_1 = require_colours();
+  var LogSeverity;
+  (function(LogSeverity2) {
+    LogSeverity2["DEFAULT"] = "DEFAULT";
+    LogSeverity2["DEBUG"] = "DEBUG";
+    LogSeverity2["INFO"] = "INFO";
+    LogSeverity2["WARNING"] = "WARNING";
+    LogSeverity2["ERROR"] = "ERROR";
+  })(LogSeverity || (exports.LogSeverity = LogSeverity = {}));
+
+  class AdhocDebugLogger extends events_1.EventEmitter {
+    constructor(namespace, upstream) {
+      super();
+      this.namespace = namespace;
+      this.upstream = upstream;
+      this.func = Object.assign(this.invoke.bind(this), {
+        instance: this,
+        on: (event, listener) => this.on(event, listener)
+      });
+      this.func.debug = (...args) => this.invokeSeverity(LogSeverity.DEBUG, ...args);
+      this.func.info = (...args) => this.invokeSeverity(LogSeverity.INFO, ...args);
+      this.func.warn = (...args) => this.invokeSeverity(LogSeverity.WARNING, ...args);
+      this.func.error = (...args) => this.invokeSeverity(LogSeverity.ERROR, ...args);
+      this.func.sublog = (namespace2) => log(namespace2, this.func);
+    }
+    invoke(fields, ...args) {
+      if (this.upstream) {
+        try {
+          this.upstream(fields, ...args);
+        } catch (e) {}
+      }
+      try {
+        this.emit("log", fields, args);
+      } catch (e) {}
+    }
+    invokeSeverity(severity, ...args) {
+      this.invoke({ severity }, ...args);
+    }
+  }
+  exports.AdhocDebugLogger = AdhocDebugLogger;
+  exports.placeholder = new AdhocDebugLogger("", () => {}).func;
+
+  class DebugLogBackendBase {
+    constructor() {
+      var _a;
+      this.cached = new Map;
+      this.filters = [];
+      this.filtersSet = false;
+      let nodeFlag = (_a = process2.env[exports.env.nodeEnables]) !== null && _a !== undefined ? _a : "*";
+      if (nodeFlag === "all") {
+        nodeFlag = "*";
+      }
+      this.filters = nodeFlag.split(",");
+    }
+    log(namespace, fields, ...args) {
+      try {
+        if (!this.filtersSet) {
+          this.setFilters();
+          this.filtersSet = true;
+        }
+        let logger = this.cached.get(namespace);
+        if (!logger) {
+          logger = this.makeLogger(namespace);
+          this.cached.set(namespace, logger);
+        }
+        logger(fields, ...args);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  }
+  exports.DebugLogBackendBase = DebugLogBackendBase;
+
+  class NodeBackend extends DebugLogBackendBase {
+    constructor() {
+      super(...arguments);
+      this.enabledRegexp = /.*/g;
+    }
+    isEnabled(namespace) {
+      return this.enabledRegexp.test(namespace);
+    }
+    makeLogger(namespace) {
+      if (!this.enabledRegexp.test(namespace)) {
+        return () => {};
+      }
+      return (fields, ...args) => {
+        var _a;
+        const nscolour = `${colours_1.Colours.green}${namespace}${colours_1.Colours.reset}`;
+        const pid = `${colours_1.Colours.yellow}${process2.pid}${colours_1.Colours.reset}`;
+        let level;
+        switch (fields.severity) {
+          case LogSeverity.ERROR:
+            level = `${colours_1.Colours.red}${fields.severity}${colours_1.Colours.reset}`;
+            break;
+          case LogSeverity.INFO:
+            level = `${colours_1.Colours.magenta}${fields.severity}${colours_1.Colours.reset}`;
+            break;
+          case LogSeverity.WARNING:
+            level = `${colours_1.Colours.yellow}${fields.severity}${colours_1.Colours.reset}`;
+            break;
+          default:
+            level = (_a = fields.severity) !== null && _a !== undefined ? _a : LogSeverity.DEFAULT;
+            break;
+        }
+        const msg = util.formatWithOptions({ colors: colours_1.Colours.enabled }, ...args);
+        const filteredFields = Object.assign({}, fields);
+        delete filteredFields.severity;
+        const fieldsJson = Object.getOwnPropertyNames(filteredFields).length ? JSON.stringify(filteredFields) : "";
+        const fieldsColour = fieldsJson ? `${colours_1.Colours.grey}${fieldsJson}${colours_1.Colours.reset}` : "";
+        console.error("%s [%s|%s] %s%s", pid, nscolour, level, msg, fieldsJson ? ` ${fieldsColour}` : "");
+      };
+    }
+    setFilters() {
+      const totalFilters = this.filters.join(",");
+      const regexp = totalFilters.replace(/[|\\{}()[\]^$+?.]/g, "\\$&").replace(/\*/g, ".*").replace(/,/g, "$|^");
+      this.enabledRegexp = new RegExp(`^${regexp}$`, "i");
+    }
+  }
+  function getNodeBackend() {
+    return new NodeBackend;
+  }
+
+  class DebugBackend extends DebugLogBackendBase {
+    constructor(pkg) {
+      super();
+      this.debugPkg = pkg;
+    }
+    makeLogger(namespace) {
+      const debugLogger = this.debugPkg(namespace);
+      return (fields, ...args) => {
+        debugLogger(args[0], ...args.slice(1));
+      };
+    }
+    setFilters() {
+      var _a;
+      const existingFilters = (_a = process2.env["NODE_DEBUG"]) !== null && _a !== undefined ? _a : "";
+      process2.env["NODE_DEBUG"] = `${existingFilters}${existingFilters ? "," : ""}${this.filters.join(",")}`;
+    }
+  }
+  function getDebugBackend(debugPkg) {
+    return new DebugBackend(debugPkg);
+  }
+
+  class StructuredBackend extends DebugLogBackendBase {
+    constructor(upstream) {
+      var _a;
+      super();
+      this.upstream = (_a = upstream) !== null && _a !== undefined ? _a : undefined;
+    }
+    makeLogger(namespace) {
+      var _a;
+      const debugLogger = (_a = this.upstream) === null || _a === undefined ? undefined : _a.makeLogger(namespace);
+      return (fields, ...args) => {
+        var _a2;
+        const severity = (_a2 = fields.severity) !== null && _a2 !== undefined ? _a2 : LogSeverity.INFO;
+        const json = Object.assign({
+          severity,
+          message: util.format(...args)
+        }, fields);
+        const jsonString = JSON.stringify(json);
+        if (debugLogger) {
+          debugLogger(fields, jsonString);
+        } else {
+          console.log("%s", jsonString);
+        }
+      };
+    }
+    setFilters() {
+      var _a;
+      (_a = this.upstream) === null || _a === undefined || _a.setFilters();
+    }
+  }
+  function getStructuredBackend(upstream) {
+    return new StructuredBackend(upstream);
+  }
+  exports.env = {
+    nodeEnables: "GOOGLE_SDK_NODE_LOGGING"
+  };
+  var loggerCache = new Map;
+  var cachedBackend = undefined;
+  function setBackend(backend) {
+    cachedBackend = backend;
+    loggerCache.clear();
+  }
+  function log(namespace, parent) {
+    if (!cachedBackend) {
+      const enablesFlag = process2.env[exports.env.nodeEnables];
+      if (!enablesFlag) {
+        return exports.placeholder;
+      }
+    }
+    if (!namespace) {
+      return exports.placeholder;
+    }
+    if (parent) {
+      namespace = `${parent.instance.namespace}:${namespace}`;
+    }
+    const existing = loggerCache.get(namespace);
+    if (existing) {
+      return existing.func;
+    }
+    if (cachedBackend === null) {
+      return exports.placeholder;
+    } else if (cachedBackend === undefined) {
+      cachedBackend = getNodeBackend();
+    }
+    const logger = (() => {
+      let previousBackend = undefined;
+      const newLogger = new AdhocDebugLogger(namespace, (fields, ...args) => {
+        if (previousBackend !== cachedBackend) {
+          if (cachedBackend === null) {
+            return;
+          } else if (cachedBackend === undefined) {
+            cachedBackend = getNodeBackend();
+          }
+          previousBackend = cachedBackend;
+        }
+        cachedBackend === null || cachedBackend === undefined || cachedBackend.log(namespace, fields, ...args);
+      });
+      return newLogger;
+    })();
+    loggerCache.set(namespace, logger);
+    return logger.func;
+  }
+});
+
+// node_modules/google-logging-utils/build/src/index.js
+var require_src2 = __commonJS((exports) => {
+  var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    if (k2 === undefined)
+      k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() {
+        return m[k];
+      } };
+    }
+    Object.defineProperty(o, k2, desc);
+  } : function(o, m, k, k2) {
+    if (k2 === undefined)
+      k2 = k;
+    o[k2] = m[k];
+  });
+  var __exportStar = exports && exports.__exportStar || function(m, exports2) {
+    for (var p in m)
+      if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports2, p))
+        __createBinding(exports2, m, p);
+  };
+  Object.defineProperty(exports, "__esModule", { value: true });
+  __exportStar(require_logging_utils(), exports);
+});
+
+// node_modules/gcp-metadata/build/src/index.js
+var require_src3 = __commonJS((exports) => {
+  var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    if (k2 === undefined)
+      k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() {
+        return m[k];
+      } };
+    }
+    Object.defineProperty(o, k2, desc);
+  } : function(o, m, k, k2) {
+    if (k2 === undefined)
+      k2 = k;
+    o[k2] = m[k];
+  });
+  var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+  } : function(o, v) {
+    o["default"] = v;
+  });
+  var __importStar = exports && exports.__importStar || function() {
+    var ownKeys = function(o) {
+      ownKeys = Object.getOwnPropertyNames || function(o2) {
+        var ar = [];
+        for (var k in o2)
+          if (Object.prototype.hasOwnProperty.call(o2, k))
+            ar[ar.length] = k;
+        return ar;
+      };
+      return ownKeys(o);
+    };
+    return function(mod) {
+      if (mod && mod.__esModule)
+        return mod;
+      var result = {};
+      if (mod != null) {
+        for (var k = ownKeys(mod), i = 0;i < k.length; i++)
+          if (k[i] !== "default")
+            __createBinding(result, mod, k[i]);
+      }
+      __setModuleDefault(result, mod);
+      return result;
+    };
+  }();
+  var __exportStar = exports && exports.__exportStar || function(m, exports2) {
+    for (var p in m)
+      if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports2, p))
+        __createBinding(exports2, m, p);
+  };
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.gcpResidencyCache = exports.METADATA_SERVER_DETECTION = exports.HEADERS = exports.HEADER_VALUE = exports.HEADER_NAME = exports.SECONDARY_HOST_ADDRESS = exports.HOST_ADDRESS = exports.BASE_PATH = undefined;
+  exports.instance = instance;
+  exports.project = project;
+  exports.universe = universe;
+  exports.bulk = bulk;
+  exports.isAvailable = isAvailable;
+  exports.resetIsAvailableCache = resetIsAvailableCache;
+  exports.getGCPResidency = getGCPResidency;
+  exports.setGCPResidency = setGCPResidency;
+  exports.requestTimeout = requestTimeout;
+  var gaxios_1 = require_src();
+  var jsonBigint = require_json_bigint();
+  var gcp_residency_1 = require_gcp_residency();
+  var logger = __importStar(require_src2());
+  exports.BASE_PATH = "/computeMetadata/v1";
+  exports.HOST_ADDRESS = "http://169.254.169.254";
+  exports.SECONDARY_HOST_ADDRESS = "http://metadata.google.internal.";
+  exports.HEADER_NAME = "Metadata-Flavor";
+  exports.HEADER_VALUE = "Google";
+  exports.HEADERS = Object.freeze({ [exports.HEADER_NAME]: exports.HEADER_VALUE });
+  var log = logger.log("gcp-metadata");
+  exports.METADATA_SERVER_DETECTION = Object.freeze({
+    "assume-present": "don't try to ping the metadata server, but assume it's present",
+    none: "don't try to ping the metadata server, but don't try to use it either",
+    "bios-only": "treat the result of a BIOS probe as canonical (don't fall back to pinging)",
+    "ping-only": "skip the BIOS probe, and go straight to pinging"
+  });
+  function getBaseUrl(baseUrl) {
+    if (!baseUrl) {
+      baseUrl = process.env.GCE_METADATA_IP || process.env.GCE_METADATA_HOST || exports.HOST_ADDRESS;
+    }
+    if (!/^https?:\/\//.test(baseUrl)) {
+      baseUrl = `http://${baseUrl}`;
+    }
+    return new URL(exports.BASE_PATH, baseUrl).href;
+  }
+  function validate(options) {
+    Object.keys(options).forEach((key) => {
+      switch (key) {
+        case "params":
+        case "property":
+        case "headers":
+          break;
+        case "qs":
+          throw new Error("'qs' is not a valid configuration option. Please use 'params' instead.");
+        default:
+          throw new Error(`'${key}' is not a valid configuration option.`);
+      }
+    });
+  }
+  async function metadataAccessor(type, options = {}, noResponseRetries = 3, fastFail = false) {
+    const headers = new Headers(exports.HEADERS);
+    let metadataKey = "";
+    let params = {};
+    if (typeof type === "object") {
+      const metadataAccessor2 = type;
+      new Headers(metadataAccessor2.headers).forEach((value, key) => headers.set(key, value));
+      metadataKey = metadataAccessor2.metadataKey;
+      params = metadataAccessor2.params || params;
+      noResponseRetries = metadataAccessor2.noResponseRetries || noResponseRetries;
+      fastFail = metadataAccessor2.fastFail || fastFail;
+    } else {
+      metadataKey = type;
+    }
+    if (typeof options === "string") {
+      metadataKey += `/${options}`;
+    } else {
+      validate(options);
+      if (options.property) {
+        metadataKey += `/${options.property}`;
+      }
+      new Headers(options.headers).forEach((value, key) => headers.set(key, value));
+      params = options.params || params;
+    }
+    const requestMethod = fastFail ? fastFailMetadataRequest : gaxios_1.request;
+    const req = {
+      url: `${getBaseUrl()}/${metadataKey}`,
+      headers,
+      retryConfig: { noResponseRetries },
+      params,
+      responseType: "text",
+      timeout: requestTimeout()
+    };
+    log.info("instance request %j", req);
+    const res = await requestMethod(req);
+    log.info("instance metadata is %s", res.data);
+    const metadataFlavor = res.headers.get(exports.HEADER_NAME);
+    if (metadataFlavor !== exports.HEADER_VALUE) {
+      throw new RangeError(`Invalid response from metadata service: incorrect ${exports.HEADER_NAME} header. Expected '${exports.HEADER_VALUE}', got ${metadataFlavor ? `'${metadataFlavor}'` : "no header"}`);
+    }
+    if (typeof res.data === "string") {
+      try {
+        return jsonBigint.parse(res.data);
+      } catch {}
+    }
+    return res.data;
+  }
+  async function fastFailMetadataRequest(options) {
+    const secondaryOptions = {
+      ...options,
+      url: options.url?.toString().replace(getBaseUrl(), getBaseUrl(exports.SECONDARY_HOST_ADDRESS))
+    };
+    const r1 = (0, gaxios_1.request)(options);
+    const r2 = (0, gaxios_1.request)(secondaryOptions);
+    return Promise.any([r1, r2]);
+  }
+  function instance(options) {
+    return metadataAccessor("instance", options);
+  }
+  function project(options) {
+    return metadataAccessor("project", options);
+  }
+  function universe(options) {
+    return metadataAccessor("universe", options);
+  }
+  async function bulk(properties) {
+    const r = {};
+    await Promise.all(properties.map((item) => {
+      return (async () => {
+        const res = await metadataAccessor(item);
+        const key = item.metadataKey;
+        r[key] = res;
+      })();
+    }));
+    return r;
+  }
+  function detectGCPAvailableRetries() {
+    return process.env.DETECT_GCP_RETRIES ? Number(process.env.DETECT_GCP_RETRIES) : 0;
+  }
+  var cachedIsAvailableResponse;
+  async function isAvailable() {
+    if (process.env.METADATA_SERVER_DETECTION) {
+      const value = process.env.METADATA_SERVER_DETECTION.trim().toLocaleLowerCase();
+      if (!(value in exports.METADATA_SERVER_DETECTION)) {
+        throw new RangeError(`Unknown \`METADATA_SERVER_DETECTION\` env variable. Got \`${value}\`, but it should be \`${Object.keys(exports.METADATA_SERVER_DETECTION).join("`, `")}\`, or unset`);
+      }
+      switch (value) {
+        case "assume-present":
+          return true;
+        case "none":
+          return false;
+        case "bios-only":
+          return getGCPResidency();
+        case "ping-only":
+      }
+    }
+    try {
+      if (cachedIsAvailableResponse === undefined) {
+        cachedIsAvailableResponse = metadataAccessor("instance", undefined, detectGCPAvailableRetries(), !(process.env.GCE_METADATA_IP || process.env.GCE_METADATA_HOST));
+      }
+      await cachedIsAvailableResponse;
+      return true;
+    } catch (e) {
+      const err = e;
+      if (process.env.DEBUG_AUTH) {
+        console.info(err);
+      }
+      if (err.type === "request-timeout") {
+        return false;
+      }
+      if (err.response && err.response.status === 404) {
+        return false;
+      } else {
+        if (!(err.response && err.response.status === 404) && (!err.code || ![
+          "EHOSTDOWN",
+          "EHOSTUNREACH",
+          "ENETUNREACH",
+          "ENOENT",
+          "ENOTFOUND",
+          "ECONNREFUSED"
+        ].includes(err.code.toString()))) {
+          let code = "UNKNOWN";
+          if (err.code)
+            code = err.code.toString();
+          process.emitWarning(`received unexpected error = ${err.message} code = ${code}`, "MetadataLookupWarning");
+        }
+        return false;
+      }
+    }
+  }
+  function resetIsAvailableCache() {
+    cachedIsAvailableResponse = undefined;
+  }
+  exports.gcpResidencyCache = null;
+  function getGCPResidency() {
+    if (exports.gcpResidencyCache === null) {
+      setGCPResidency();
+    }
+    return exports.gcpResidencyCache;
+  }
+  function setGCPResidency(value = null) {
+    exports.gcpResidencyCache = value !== null ? value : (0, gcp_residency_1.detectGCPResidency)();
+  }
+  function requestTimeout() {
+    return getGCPResidency() ? 0 : 3000;
+  }
+  __exportStar(require_gcp_residency(), exports);
+});
+
+// node_modules/base64-js/index.js
+var require_base64_js = __commonJS((exports) => {
+  exports.byteLength = byteLength;
+  exports.toByteArray = toByteArray;
+  exports.fromByteArray = fromByteArray;
+  var lookup = [];
+  var revLookup = [];
+  var Arr = typeof Uint8Array !== "undefined" ? Uint8Array : Array;
+  var code = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+  for (i = 0, len = code.length;i < len; ++i) {
+    lookup[i] = code[i];
+    revLookup[code.charCodeAt(i)] = i;
+  }
+  var i;
+  var len;
+  revLookup[45] = 62;
+  revLookup[95] = 63;
+  function getLens(b64) {
+    var len2 = b64.length;
+    if (len2 % 4 > 0) {
+      throw new Error("Invalid string. Length must be a multiple of 4");
+    }
+    var validLen = b64.indexOf("=");
+    if (validLen === -1)
+      validLen = len2;
+    var placeHoldersLen = validLen === len2 ? 0 : 4 - validLen % 4;
+    return [validLen, placeHoldersLen];
+  }
+  function byteLength(b64) {
+    var lens = getLens(b64);
+    var validLen = lens[0];
+    var placeHoldersLen = lens[1];
+    return (validLen + placeHoldersLen) * 3 / 4 - placeHoldersLen;
+  }
+  function _byteLength(b64, validLen, placeHoldersLen) {
+    return (validLen + placeHoldersLen) * 3 / 4 - placeHoldersLen;
+  }
+  function toByteArray(b64) {
+    var tmp;
+    var lens = getLens(b64);
+    var validLen = lens[0];
+    var placeHoldersLen = lens[1];
+    var arr = new Arr(_byteLength(b64, validLen, placeHoldersLen));
+    var curByte = 0;
+    var len2 = placeHoldersLen > 0 ? validLen - 4 : validLen;
+    var i2;
+    for (i2 = 0;i2 < len2; i2 += 4) {
+      tmp = revLookup[b64.charCodeAt(i2)] << 18 | revLookup[b64.charCodeAt(i2 + 1)] << 12 | revLookup[b64.charCodeAt(i2 + 2)] << 6 | revLookup[b64.charCodeAt(i2 + 3)];
+      arr[curByte++] = tmp >> 16 & 255;
+      arr[curByte++] = tmp >> 8 & 255;
+      arr[curByte++] = tmp & 255;
+    }
+    if (placeHoldersLen === 2) {
+      tmp = revLookup[b64.charCodeAt(i2)] << 2 | revLookup[b64.charCodeAt(i2 + 1)] >> 4;
+      arr[curByte++] = tmp & 255;
+    }
+    if (placeHoldersLen === 1) {
+      tmp = revLookup[b64.charCodeAt(i2)] << 10 | revLookup[b64.charCodeAt(i2 + 1)] << 4 | revLookup[b64.charCodeAt(i2 + 2)] >> 2;
+      arr[curByte++] = tmp >> 8 & 255;
+      arr[curByte++] = tmp & 255;
+    }
+    return arr;
+  }
+  function tripletToBase64(num) {
+    return lookup[num >> 18 & 63] + lookup[num >> 12 & 63] + lookup[num >> 6 & 63] + lookup[num & 63];
+  }
+  function encodeChunk(uint8, start, end) {
+    var tmp;
+    var output = [];
+    for (var i2 = start;i2 < end; i2 += 3) {
+      tmp = (uint8[i2] << 16 & 16711680) + (uint8[i2 + 1] << 8 & 65280) + (uint8[i2 + 2] & 255);
+      output.push(tripletToBase64(tmp));
+    }
+    return output.join("");
+  }
+  function fromByteArray(uint8) {
+    var tmp;
+    var len2 = uint8.length;
+    var extraBytes = len2 % 3;
+    var parts = [];
+    var maxChunkLength = 16383;
+    for (var i2 = 0, len22 = len2 - extraBytes;i2 < len22; i2 += maxChunkLength) {
+      parts.push(encodeChunk(uint8, i2, i2 + maxChunkLength > len22 ? len22 : i2 + maxChunkLength));
+    }
+    if (extraBytes === 1) {
+      tmp = uint8[len2 - 1];
+      parts.push(lookup[tmp >> 2] + lookup[tmp << 4 & 63] + "==");
+    } else if (extraBytes === 2) {
+      tmp = (uint8[len2 - 2] << 8) + uint8[len2 - 1];
+      parts.push(lookup[tmp >> 10] + lookup[tmp >> 4 & 63] + lookup[tmp << 2 & 63] + "=");
+    }
+    return parts.join("");
+  }
+});
+
+// node_modules/google-auth-library/build/src/crypto/shared.js
+var require_shared = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.fromArrayBufferToHex = fromArrayBufferToHex;
+  function fromArrayBufferToHex(arrayBuffer) {
+    const byteArray = Array.from(new Uint8Array(arrayBuffer));
+    return byteArray.map((byte) => {
+      return byte.toString(16).padStart(2, "0");
+    }).join("");
+  }
+});
+
+// node_modules/google-auth-library/build/src/crypto/browser/crypto.js
+var require_crypto = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.BrowserCrypto = undefined;
+  var base64js = require_base64_js();
+  var shared_1 = require_shared();
+
+  class BrowserCrypto {
+    constructor() {
+      if (typeof window === "undefined" || window.crypto === undefined || window.crypto.subtle === undefined) {
+        throw new Error("SubtleCrypto not found. Make sure it's an https:// website.");
+      }
+    }
+    async sha256DigestBase64(str) {
+      const inputBuffer = new TextEncoder().encode(str);
+      const outputBuffer = await window.crypto.subtle.digest("SHA-256", inputBuffer);
+      return base64js.fromByteArray(new Uint8Array(outputBuffer));
+    }
+    randomBytesBase64(count) {
+      const array = new Uint8Array(count);
+      window.crypto.getRandomValues(array);
+      return base64js.fromByteArray(array);
+    }
+    static padBase64(base64) {
+      while (base64.length % 4 !== 0) {
+        base64 += "=";
+      }
+      return base64;
+    }
+    async verify(pubkey, data, signature) {
+      const algo = {
+        name: "RSASSA-PKCS1-v1_5",
+        hash: { name: "SHA-256" }
+      };
+      const dataArray = new TextEncoder().encode(data);
+      const signatureArray = base64js.toByteArray(BrowserCrypto.padBase64(signature));
+      const cryptoKey = await window.crypto.subtle.importKey("jwk", pubkey, algo, true, ["verify"]);
+      const result = await window.crypto.subtle.verify(algo, cryptoKey, signatureArray, dataArray);
+      return result;
+    }
+    async sign(privateKey, data) {
+      const algo = {
+        name: "RSASSA-PKCS1-v1_5",
+        hash: { name: "SHA-256" }
+      };
+      const dataArray = new TextEncoder().encode(data);
+      const cryptoKey = await window.crypto.subtle.importKey("jwk", privateKey, algo, true, ["sign"]);
+      const result = await window.crypto.subtle.sign(algo, cryptoKey, dataArray);
+      return base64js.fromByteArray(new Uint8Array(result));
+    }
+    decodeBase64StringUtf8(base64) {
+      const uint8array = base64js.toByteArray(BrowserCrypto.padBase64(base64));
+      const result = new TextDecoder().decode(uint8array);
+      return result;
+    }
+    encodeBase64StringUtf8(text) {
+      const uint8array = new TextEncoder().encode(text);
+      const result = base64js.fromByteArray(uint8array);
+      return result;
+    }
+    async sha256DigestHex(str) {
+      const inputBuffer = new TextEncoder().encode(str);
+      const outputBuffer = await window.crypto.subtle.digest("SHA-256", inputBuffer);
+      return (0, shared_1.fromArrayBufferToHex)(outputBuffer);
+    }
+    async signWithHmacSha256(key, msg) {
+      const rawKey = typeof key === "string" ? key : String.fromCharCode(...new Uint16Array(key));
+      const enc = new TextEncoder;
+      const cryptoKey = await window.crypto.subtle.importKey("raw", enc.encode(rawKey), {
+        name: "HMAC",
+        hash: {
+          name: "SHA-256"
+        }
+      }, false, ["sign"]);
+      return window.crypto.subtle.sign("HMAC", cryptoKey, enc.encode(msg));
+    }
+  }
+  exports.BrowserCrypto = BrowserCrypto;
+});
+
+// node_modules/google-auth-library/build/src/crypto/node/crypto.js
+var require_crypto2 = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.NodeCrypto = undefined;
+  var crypto2 = __require("crypto");
+
+  class NodeCrypto {
+    async sha256DigestBase64(str) {
+      return crypto2.createHash("sha256").update(str).digest("base64");
+    }
+    randomBytesBase64(count) {
+      return crypto2.randomBytes(count).toString("base64");
+    }
+    async verify(pubkey, data, signature) {
+      const verifier = crypto2.createVerify("RSA-SHA256");
+      verifier.update(data);
+      verifier.end();
+      return verifier.verify(pubkey, signature, "base64");
+    }
+    async sign(privateKey, data) {
+      const signer = crypto2.createSign("RSA-SHA256");
+      signer.update(data);
+      signer.end();
+      return signer.sign(privateKey, "base64");
+    }
+    decodeBase64StringUtf8(base64) {
+      return Buffer.from(base64, "base64").toString("utf-8");
+    }
+    encodeBase64StringUtf8(text) {
+      return Buffer.from(text, "utf-8").toString("base64");
+    }
+    async sha256DigestHex(str) {
+      return crypto2.createHash("sha256").update(str).digest("hex");
+    }
+    async signWithHmacSha256(key, msg) {
+      const cryptoKey = typeof key === "string" ? key : toBuffer(key);
+      return toArrayBuffer(crypto2.createHmac("sha256", cryptoKey).update(msg).digest());
+    }
+  }
+  exports.NodeCrypto = NodeCrypto;
+  function toArrayBuffer(buffer) {
+    return buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength);
+  }
+  function toBuffer(arrayBuffer) {
+    return Buffer.from(arrayBuffer);
+  }
+});
+
+// node_modules/google-auth-library/build/src/crypto/crypto.js
+var require_crypto3 = __commonJS((exports) => {
+  var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    if (k2 === undefined)
+      k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() {
+        return m[k];
+      } };
+    }
+    Object.defineProperty(o, k2, desc);
+  } : function(o, m, k, k2) {
+    if (k2 === undefined)
+      k2 = k;
+    o[k2] = m[k];
+  });
+  var __exportStar = exports && exports.__exportStar || function(m, exports2) {
+    for (var p in m)
+      if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports2, p))
+        __createBinding(exports2, m, p);
+  };
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.createCrypto = createCrypto;
+  exports.hasBrowserCrypto = hasBrowserCrypto;
+  var crypto_1 = require_crypto();
+  var crypto_2 = require_crypto2();
+  __exportStar(require_shared(), exports);
+  function createCrypto() {
+    if (hasBrowserCrypto()) {
+      return new crypto_1.BrowserCrypto;
+    }
+    return new crypto_2.NodeCrypto;
+  }
+  function hasBrowserCrypto() {
+    return typeof window !== "undefined" && typeof window.crypto !== "undefined" && typeof window.crypto.subtle !== "undefined";
+  }
+});
+
+// node_modules/safe-buffer/index.js
+var require_safe_buffer = __commonJS((exports, module) => {
+  /*! safe-buffer. MIT License. Feross Aboukhadijeh <https://feross.org/opensource> */
+  var buffer = __require("buffer");
+  var Buffer2 = buffer.Buffer;
+  function copyProps(src, dst) {
+    for (var key in src) {
+      dst[key] = src[key];
+    }
+  }
+  if (Buffer2.from && Buffer2.alloc && Buffer2.allocUnsafe && Buffer2.allocUnsafeSlow) {
+    module.exports = buffer;
+  } else {
+    copyProps(buffer, exports);
+    exports.Buffer = SafeBuffer;
+  }
+  function SafeBuffer(arg, encodingOrOffset, length) {
+    return Buffer2(arg, encodingOrOffset, length);
+  }
+  SafeBuffer.prototype = Object.create(Buffer2.prototype);
+  copyProps(Buffer2, SafeBuffer);
+  SafeBuffer.from = function(arg, encodingOrOffset, length) {
+    if (typeof arg === "number") {
+      throw new TypeError("Argument must not be a number");
+    }
+    return Buffer2(arg, encodingOrOffset, length);
+  };
+  SafeBuffer.alloc = function(size, fill, encoding) {
+    if (typeof size !== "number") {
+      throw new TypeError("Argument must be a number");
+    }
+    var buf = Buffer2(size);
+    if (fill !== undefined) {
+      if (typeof encoding === "string") {
+        buf.fill(fill, encoding);
+      } else {
+        buf.fill(fill);
+      }
+    } else {
+      buf.fill(0);
+    }
+    return buf;
+  };
+  SafeBuffer.allocUnsafe = function(size) {
+    if (typeof size !== "number") {
+      throw new TypeError("Argument must be a number");
+    }
+    return Buffer2(size);
+  };
+  SafeBuffer.allocUnsafeSlow = function(size) {
+    if (typeof size !== "number") {
+      throw new TypeError("Argument must be a number");
+    }
+    return buffer.SlowBuffer(size);
+  };
+});
+
+// node_modules/ecdsa-sig-formatter/src/param-bytes-for-alg.js
+var require_param_bytes_for_alg = __commonJS((exports, module) => {
+  function getParamSize(keySize) {
+    var result = (keySize / 8 | 0) + (keySize % 8 === 0 ? 0 : 1);
+    return result;
+  }
+  var paramBytesForAlg = {
+    ES256: getParamSize(256),
+    ES384: getParamSize(384),
+    ES512: getParamSize(521)
+  };
+  function getParamBytesForAlg(alg) {
+    var paramBytes = paramBytesForAlg[alg];
+    if (paramBytes) {
+      return paramBytes;
+    }
+    throw new Error('Unknown algorithm "' + alg + '"');
+  }
+  module.exports = getParamBytesForAlg;
+});
+
+// node_modules/ecdsa-sig-formatter/src/ecdsa-sig-formatter.js
+var require_ecdsa_sig_formatter = __commonJS((exports, module) => {
+  var Buffer2 = require_safe_buffer().Buffer;
+  var getParamBytesForAlg = require_param_bytes_for_alg();
+  var MAX_OCTET = 128;
+  var CLASS_UNIVERSAL = 0;
+  var PRIMITIVE_BIT = 32;
+  var TAG_SEQ = 16;
+  var TAG_INT = 2;
+  var ENCODED_TAG_SEQ = TAG_SEQ | PRIMITIVE_BIT | CLASS_UNIVERSAL << 6;
+  var ENCODED_TAG_INT = TAG_INT | CLASS_UNIVERSAL << 6;
+  function base64Url(base64) {
+    return base64.replace(/=/g, "").replace(/\+/g, "-").replace(/\//g, "_");
+  }
+  function signatureAsBuffer(signature) {
+    if (Buffer2.isBuffer(signature)) {
+      return signature;
+    } else if (typeof signature === "string") {
+      return Buffer2.from(signature, "base64");
+    }
+    throw new TypeError("ECDSA signature must be a Base64 string or a Buffer");
+  }
+  function derToJose(signature, alg) {
+    signature = signatureAsBuffer(signature);
+    var paramBytes = getParamBytesForAlg(alg);
+    var maxEncodedParamLength = paramBytes + 1;
+    var inputLength = signature.length;
+    var offset = 0;
+    if (signature[offset++] !== ENCODED_TAG_SEQ) {
+      throw new Error('Could not find expected "seq"');
+    }
+    var seqLength = signature[offset++];
+    if (seqLength === (MAX_OCTET | 1)) {
+      seqLength = signature[offset++];
+    }
+    if (inputLength - offset < seqLength) {
+      throw new Error('"seq" specified length of "' + seqLength + '", only "' + (inputLength - offset) + '" remaining');
+    }
+    if (signature[offset++] !== ENCODED_TAG_INT) {
+      throw new Error('Could not find expected "int" for "r"');
+    }
+    var rLength = signature[offset++];
+    if (inputLength - offset - 2 < rLength) {
+      throw new Error('"r" specified length of "' + rLength + '", only "' + (inputLength - offset - 2) + '" available');
+    }
+    if (maxEncodedParamLength < rLength) {
+      throw new Error('"r" specified length of "' + rLength + '", max of "' + maxEncodedParamLength + '" is acceptable');
+    }
+    var rOffset = offset;
+    offset += rLength;
+    if (signature[offset++] !== ENCODED_TAG_INT) {
+      throw new Error('Could not find expected "int" for "s"');
+    }
+    var sLength = signature[offset++];
+    if (inputLength - offset !== sLength) {
+      throw new Error('"s" specified length of "' + sLength + '", expected "' + (inputLength - offset) + '"');
+    }
+    if (maxEncodedParamLength < sLength) {
+      throw new Error('"s" specified length of "' + sLength + '", max of "' + maxEncodedParamLength + '" is acceptable');
+    }
+    var sOffset = offset;
+    offset += sLength;
+    if (offset !== inputLength) {
+      throw new Error('Expected to consume entire buffer, but "' + (inputLength - offset) + '" bytes remain');
+    }
+    var rPadding = paramBytes - rLength, sPadding = paramBytes - sLength;
+    var dst = Buffer2.allocUnsafe(rPadding + rLength + sPadding + sLength);
+    for (offset = 0;offset < rPadding; ++offset) {
+      dst[offset] = 0;
+    }
+    signature.copy(dst, offset, rOffset + Math.max(-rPadding, 0), rOffset + rLength);
+    offset = paramBytes;
+    for (var o = offset;offset < o + sPadding; ++offset) {
+      dst[offset] = 0;
+    }
+    signature.copy(dst, offset, sOffset + Math.max(-sPadding, 0), sOffset + sLength);
+    dst = dst.toString("base64");
+    dst = base64Url(dst);
+    return dst;
+  }
+  function countPadding(buf, start, stop) {
+    var padding = 0;
+    while (start + padding < stop && buf[start + padding] === 0) {
+      ++padding;
+    }
+    var needsSign = buf[start + padding] >= MAX_OCTET;
+    if (needsSign) {
+      --padding;
+    }
+    return padding;
+  }
+  function joseToDer(signature, alg) {
+    signature = signatureAsBuffer(signature);
+    var paramBytes = getParamBytesForAlg(alg);
+    var signatureBytes = signature.length;
+    if (signatureBytes !== paramBytes * 2) {
+      throw new TypeError('"' + alg + '" signatures must be "' + paramBytes * 2 + '" bytes, saw "' + signatureBytes + '"');
+    }
+    var rPadding = countPadding(signature, 0, paramBytes);
+    var sPadding = countPadding(signature, paramBytes, signature.length);
+    var rLength = paramBytes - rPadding;
+    var sLength = paramBytes - sPadding;
+    var rsBytes = 1 + 1 + rLength + 1 + 1 + sLength;
+    var shortLength = rsBytes < MAX_OCTET;
+    var dst = Buffer2.allocUnsafe((shortLength ? 2 : 3) + rsBytes);
+    var offset = 0;
+    dst[offset++] = ENCODED_TAG_SEQ;
+    if (shortLength) {
+      dst[offset++] = rsBytes;
+    } else {
+      dst[offset++] = MAX_OCTET | 1;
+      dst[offset++] = rsBytes & 255;
+    }
+    dst[offset++] = ENCODED_TAG_INT;
+    dst[offset++] = rLength;
+    if (rPadding < 0) {
+      dst[offset++] = 0;
+      offset += signature.copy(dst, offset, 0, paramBytes);
+    } else {
+      offset += signature.copy(dst, offset, rPadding, paramBytes);
+    }
+    dst[offset++] = ENCODED_TAG_INT;
+    dst[offset++] = sLength;
+    if (sPadding < 0) {
+      dst[offset++] = 0;
+      signature.copy(dst, offset, paramBytes);
+    } else {
+      signature.copy(dst, offset, paramBytes + sPadding);
+    }
+    return dst;
+  }
+  module.exports = {
+    derToJose,
+    joseToDer
+  };
+});
+
+// node_modules/google-auth-library/build/src/util.js
+var require_util2 = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.LRUCache = undefined;
+  exports.snakeToCamel = snakeToCamel;
+  exports.originalOrCamelOptions = originalOrCamelOptions;
+  exports.removeUndefinedValuesInObject = removeUndefinedValuesInObject;
+  exports.isValidFile = isValidFile;
+  exports.getWellKnownCertificateConfigFileLocation = getWellKnownCertificateConfigFileLocation;
+  var fs = __require("fs");
+  var os = __require("os");
+  var path = __require("path");
+  var WELL_KNOWN_CERTIFICATE_CONFIG_FILE = "certificate_config.json";
+  var CLOUDSDK_CONFIG_DIRECTORY = "gcloud";
+  function snakeToCamel(str) {
+    return str.replace(/([_][^_])/g, (match) => match.slice(1).toUpperCase());
+  }
+  function originalOrCamelOptions(obj) {
+    function get(key) {
+      const o = obj || {};
+      return o[key] ?? o[snakeToCamel(key)];
+    }
+    return { get };
+  }
+
+  class LRUCache {
+    capacity;
+    #cache = new Map;
+    maxAge;
+    constructor(options) {
+      this.capacity = options.capacity;
+      this.maxAge = options.maxAge;
+    }
+    #moveToEnd(key, value) {
+      this.#cache.delete(key);
+      this.#cache.set(key, {
+        value,
+        lastAccessed: Date.now()
+      });
+    }
+    set(key, value) {
+      this.#moveToEnd(key, value);
+      this.#evict();
+    }
+    get(key) {
+      const item = this.#cache.get(key);
+      if (!item)
+        return;
+      this.#moveToEnd(key, item.value);
+      this.#evict();
+      return item.value;
+    }
+    #evict() {
+      const cutoffDate = this.maxAge ? Date.now() - this.maxAge : 0;
+      let oldestItem = this.#cache.entries().next();
+      while (!oldestItem.done && (this.#cache.size > this.capacity || oldestItem.value[1].lastAccessed < cutoffDate)) {
+        this.#cache.delete(oldestItem.value[0]);
+        oldestItem = this.#cache.entries().next();
+      }
+    }
+  }
+  exports.LRUCache = LRUCache;
+  function removeUndefinedValuesInObject(object) {
+    Object.entries(object).forEach(([key, value]) => {
+      if (value === undefined || value === "undefined") {
+        delete object[key];
+      }
+    });
+    return object;
+  }
+  async function isValidFile(filePath) {
+    try {
+      const stats = await fs.promises.lstat(filePath);
+      return stats.isFile();
+    } catch (e) {
+      return false;
+    }
+  }
+  function getWellKnownCertificateConfigFileLocation() {
+    const configDir = process.env.CLOUDSDK_CONFIG || (_isWindows() ? path.join(process.env.APPDATA || "", CLOUDSDK_CONFIG_DIRECTORY) : path.join(process.env.HOME || "", ".config", CLOUDSDK_CONFIG_DIRECTORY));
+    return path.join(configDir, WELL_KNOWN_CERTIFICATE_CONFIG_FILE);
+  }
+  function _isWindows() {
+    return os.platform().startsWith("win");
+  }
+});
+
+// node_modules/google-auth-library/package.json
+var require_package2 = __commonJS((exports, module) => {
+  module.exports = {
+    name: "google-auth-library",
+    version: "10.4.1",
+    author: "Google Inc.",
+    description: "Google APIs Authentication Client Library for Node.js",
+    engines: {
+      node: ">=18"
+    },
+    main: "./build/src/index.js",
+    types: "./build/src/index.d.ts",
+    repository: "googleapis/google-auth-library-nodejs.git",
+    keywords: [
+      "google",
+      "api",
+      "google apis",
+      "client",
+      "client library"
+    ],
+    dependencies: {
+      "base64-js": "^1.3.0",
+      "ecdsa-sig-formatter": "^1.0.11",
+      gaxios: "^7.0.0",
+      "gcp-metadata": "^8.0.0",
+      "google-logging-utils": "^1.0.0",
+      gtoken: "^8.0.0",
+      jws: "^4.0.0"
+    },
+    devDependencies: {
+      "@types/base64-js": "^1.2.5",
+      "@types/jws": "^3.1.0",
+      "@types/mocha": "^10.0.10",
+      "@types/mv": "^2.1.0",
+      "@types/ncp": "^2.0.1",
+      "@types/node": "^22.0.0",
+      "@types/sinon": "^17.0.0",
+      "assert-rejects": "^1.0.0",
+      c8: "^10.0.0",
+      codecov: "^3.0.2",
+      gts: "^6.0.0",
+      "is-docker": "^3.0.0",
+      jsdoc: "^4.0.0",
+      "jsdoc-fresh": "^5.0.0",
+      "jsdoc-region-tag": "^4.0.0",
+      karma: "^6.0.0",
+      "karma-chrome-launcher": "^3.0.0",
+      "karma-coverage": "^2.0.0",
+      "karma-firefox-launcher": "^2.0.0",
+      "karma-mocha": "^2.0.0",
+      "karma-sourcemap-loader": "^0.4.0",
+      "karma-webpack": "^5.0.1",
+      keypair: "^1.0.4",
+      mocha: "^11.1.0",
+      mv: "^2.1.1",
+      ncp: "^2.0.0",
+      nock: "^14.0.5",
+      "null-loader": "^4.0.0",
+      puppeteer: "^24.0.0",
+      sinon: "^21.0.0",
+      "ts-loader": "^8.0.0",
+      typescript: "5.8.2",
+      webpack: "^5.21.2",
+      "webpack-cli": "^4.0.0"
+    },
+    files: [
+      "build/src",
+      "!build/src/**/*.map"
+    ],
+    scripts: {
+      test: "c8 mocha build/test",
+      clean: "gts clean",
+      prepare: "npm run compile",
+      lint: "gts check --no-inline-config",
+      compile: "tsc -p .",
+      fix: "gts fix",
+      pretest: "npm run compile -- --sourceMap",
+      docs: "jsdoc -c .jsdoc.js",
+      "samples-setup": "cd samples/ && npm link ../ && npm run setup && cd ../",
+      "samples-test": "cd samples/ && npm link ../ && npm test && cd ../",
+      "system-test": "mocha build/system-test --timeout 60000",
+      "presystem-test": "npm run compile -- --sourceMap",
+      webpack: "webpack",
+      "browser-test": "karma start",
+      "docs-test": "echo 'disabled until linkinator is fixed'",
+      "predocs-test": "npm run docs",
+      prelint: "cd samples; npm link ../; npm install"
+    },
+    license: "Apache-2.0"
+  };
+});
+
+// node_modules/google-auth-library/build/src/shared.cjs
+var require_shared2 = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.USER_AGENT = exports.PRODUCT_NAME = exports.pkg = undefined;
+  var pkg = require_package2();
+  exports.pkg = pkg;
+  var PRODUCT_NAME = "google-api-nodejs-client";
+  exports.PRODUCT_NAME = PRODUCT_NAME;
+  var USER_AGENT = `${PRODUCT_NAME}/${pkg.version}`;
+  exports.USER_AGENT = USER_AGENT;
+});
+
+// node_modules/google-auth-library/build/src/auth/authclient.js
+var require_authclient = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.AuthClient = exports.DEFAULT_EAGER_REFRESH_THRESHOLD_MILLIS = exports.DEFAULT_UNIVERSE = undefined;
+  var events_1 = __require("events");
+  var gaxios_1 = require_src();
+  var util_1 = require_util2();
+  var google_logging_utils_1 = require_src2();
+  var shared_cjs_1 = require_shared2();
+  exports.DEFAULT_UNIVERSE = "googleapis.com";
+  exports.DEFAULT_EAGER_REFRESH_THRESHOLD_MILLIS = 5 * 60 * 1000;
+
+  class AuthClient extends events_1.EventEmitter {
+    apiKey;
+    projectId;
+    quotaProjectId;
+    transporter;
+    credentials = {};
+    eagerRefreshThresholdMillis = exports.DEFAULT_EAGER_REFRESH_THRESHOLD_MILLIS;
+    forceRefreshOnFailure = false;
+    universeDomain = exports.DEFAULT_UNIVERSE;
+    static RequestMethodNameSymbol = Symbol("request method name");
+    static RequestLogIdSymbol = Symbol("request log id");
+    constructor(opts = {}) {
+      super();
+      const options = (0, util_1.originalOrCamelOptions)(opts);
+      this.apiKey = opts.apiKey;
+      this.projectId = options.get("project_id") ?? null;
+      this.quotaProjectId = options.get("quota_project_id");
+      this.credentials = options.get("credentials") ?? {};
+      this.universeDomain = options.get("universe_domain") ?? exports.DEFAULT_UNIVERSE;
+      this.transporter = opts.transporter ?? new gaxios_1.Gaxios(opts.transporterOptions);
+      if (options.get("useAuthRequestParameters") !== false) {
+        this.transporter.interceptors.request.add(AuthClient.DEFAULT_REQUEST_INTERCEPTOR);
+        this.transporter.interceptors.response.add(AuthClient.DEFAULT_RESPONSE_INTERCEPTOR);
+      }
+      if (opts.eagerRefreshThresholdMillis) {
+        this.eagerRefreshThresholdMillis = opts.eagerRefreshThresholdMillis;
+      }
+      this.forceRefreshOnFailure = opts.forceRefreshOnFailure ?? false;
+    }
+    fetch(...args) {
+      const input = args[0];
+      const init = args[1];
+      let url = undefined;
+      const headers = new Headers;
+      if (typeof input === "string") {
+        url = new URL(input);
+      } else if (input instanceof URL) {
+        url = input;
+      } else if (input && input.url) {
+        url = new URL(input.url);
+      }
+      if (input && typeof input === "object" && "headers" in input) {
+        gaxios_1.Gaxios.mergeHeaders(headers, input.headers);
+      }
+      if (init) {
+        gaxios_1.Gaxios.mergeHeaders(headers, new Headers(init.headers));
+      }
+      if (typeof input === "object" && !(input instanceof URL)) {
+        return this.request({ ...init, ...input, headers, url });
+      } else {
+        return this.request({ ...init, headers, url });
+      }
+    }
+    setCredentials(credentials) {
+      this.credentials = credentials;
+    }
+    addSharedMetadataHeaders(headers) {
+      if (!headers.has("x-goog-user-project") && this.quotaProjectId) {
+        headers.set("x-goog-user-project", this.quotaProjectId);
+      }
+      return headers;
+    }
+    addUserProjectAndAuthHeaders(target, source) {
+      const xGoogUserProject = source.get("x-goog-user-project");
+      const authorizationHeader = source.get("authorization");
+      if (xGoogUserProject) {
+        target.set("x-goog-user-project", xGoogUserProject);
+      }
+      if (authorizationHeader) {
+        target.set("authorization", authorizationHeader);
+      }
+      return target;
+    }
+    static log = (0, google_logging_utils_1.log)("auth");
+    static DEFAULT_REQUEST_INTERCEPTOR = {
+      resolved: async (config) => {
+        if (!config.headers.has("x-goog-api-client")) {
+          const nodeVersion = process.version.replace(/^v/, "");
+          config.headers.set("x-goog-api-client", `gl-node/${nodeVersion}`);
+        }
+        const userAgent = config.headers.get("User-Agent");
+        if (!userAgent) {
+          config.headers.set("User-Agent", shared_cjs_1.USER_AGENT);
+        } else if (!userAgent.includes(`${shared_cjs_1.PRODUCT_NAME}/`)) {
+          config.headers.set("User-Agent", `${userAgent} ${shared_cjs_1.USER_AGENT}`);
+        }
+        try {
+          const symbols = config;
+          const methodName = symbols[AuthClient.RequestMethodNameSymbol];
+          const logId = `${Math.floor(Math.random() * 1000)}`;
+          symbols[AuthClient.RequestLogIdSymbol] = logId;
+          const logObject = {
+            url: config.url,
+            headers: config.headers
+          };
+          if (methodName) {
+            AuthClient.log.info("%s [%s] request %j", methodName, logId, logObject);
+          } else {
+            AuthClient.log.info("[%s] request %j", logId, logObject);
+          }
+        } catch (e) {}
+        return config;
+      }
+    };
+    static DEFAULT_RESPONSE_INTERCEPTOR = {
+      resolved: async (response) => {
+        try {
+          const symbols = response.config;
+          const methodName = symbols[AuthClient.RequestMethodNameSymbol];
+          const logId = symbols[AuthClient.RequestLogIdSymbol];
+          if (methodName) {
+            AuthClient.log.info("%s [%s] response %j", methodName, logId, response.data);
+          } else {
+            AuthClient.log.info("[%s] response %j", logId, response.data);
+          }
+        } catch (e) {}
+        return response;
+      },
+      rejected: async (error) => {
+        try {
+          const symbols = error.config;
+          const methodName = symbols[AuthClient.RequestMethodNameSymbol];
+          const logId = symbols[AuthClient.RequestLogIdSymbol];
+          if (methodName) {
+            AuthClient.log.info("%s [%s] error %j", methodName, logId, error.response?.data);
+          } else {
+            AuthClient.log.error("[%s] error %j", logId, error.response?.data);
+          }
+        } catch (e) {}
+        throw error;
+      }
+    };
+    static setMethodName(config, methodName) {
+      try {
+        const symbols = config;
+        symbols[AuthClient.RequestMethodNameSymbol] = methodName;
+      } catch (e) {}
+    }
+    static get RETRY_CONFIG() {
+      return {
+        retry: true,
+        retryConfig: {
+          httpMethodsToRetry: ["GET", "PUT", "POST", "HEAD", "OPTIONS", "DELETE"]
+        }
+      };
+    }
+  }
+  exports.AuthClient = AuthClient;
+});
+
+// node_modules/google-auth-library/build/src/auth/loginticket.js
+var require_loginticket = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.LoginTicket = undefined;
+
+  class LoginTicket {
+    envelope;
+    payload;
+    constructor(env, pay) {
+      this.envelope = env;
+      this.payload = pay;
+    }
+    getEnvelope() {
+      return this.envelope;
+    }
+    getPayload() {
+      return this.payload;
+    }
+    getUserId() {
+      const payload = this.getPayload();
+      if (payload && payload.sub) {
+        return payload.sub;
+      }
+      return null;
+    }
+    getAttributes() {
+      return { envelope: this.getEnvelope(), payload: this.getPayload() };
+    }
+  }
+  exports.LoginTicket = LoginTicket;
+});
+
+// node_modules/google-auth-library/build/src/auth/oauth2client.js
+var require_oauth2client = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.OAuth2Client = exports.ClientAuthentication = exports.CertificateFormat = exports.CodeChallengeMethod = undefined;
+  var gaxios_1 = require_src();
+  var querystring = __require("querystring");
+  var stream = __require("stream");
+  var formatEcdsa = require_ecdsa_sig_formatter();
+  var util_1 = require_util2();
+  var crypto_1 = require_crypto3();
+  var authclient_1 = require_authclient();
+  var loginticket_1 = require_loginticket();
+  var CodeChallengeMethod;
+  (function(CodeChallengeMethod2) {
+    CodeChallengeMethod2["Plain"] = "plain";
+    CodeChallengeMethod2["S256"] = "S256";
+  })(CodeChallengeMethod || (exports.CodeChallengeMethod = CodeChallengeMethod = {}));
+  var CertificateFormat;
+  (function(CertificateFormat2) {
+    CertificateFormat2["PEM"] = "PEM";
+    CertificateFormat2["JWK"] = "JWK";
+  })(CertificateFormat || (exports.CertificateFormat = CertificateFormat = {}));
+  var ClientAuthentication;
+  (function(ClientAuthentication2) {
+    ClientAuthentication2["ClientSecretPost"] = "ClientSecretPost";
+    ClientAuthentication2["ClientSecretBasic"] = "ClientSecretBasic";
+    ClientAuthentication2["None"] = "None";
+  })(ClientAuthentication || (exports.ClientAuthentication = ClientAuthentication = {}));
+
+  class OAuth2Client extends authclient_1.AuthClient {
+    redirectUri;
+    certificateCache = {};
+    certificateExpiry = null;
+    certificateCacheFormat = CertificateFormat.PEM;
+    refreshTokenPromises = new Map;
+    endpoints;
+    issuers;
+    clientAuthentication;
+    _clientId;
+    _clientSecret;
+    refreshHandler;
+    constructor(options = {}, clientSecret, redirectUri) {
+      super(typeof options === "object" ? options : {});
+      if (typeof options !== "object") {
+        options = {
+          clientId: options,
+          clientSecret,
+          redirectUri
+        };
+      }
+      this._clientId = options.clientId || options.client_id;
+      this._clientSecret = options.clientSecret || options.client_secret;
+      this.redirectUri = options.redirectUri || options.redirect_uris?.[0];
+      this.endpoints = {
+        tokenInfoUrl: "https://oauth2.googleapis.com/tokeninfo",
+        oauth2AuthBaseUrl: "https://accounts.google.com/o/oauth2/v2/auth",
+        oauth2TokenUrl: "https://oauth2.googleapis.com/token",
+        oauth2RevokeUrl: "https://oauth2.googleapis.com/revoke",
+        oauth2FederatedSignonPemCertsUrl: "https://www.googleapis.com/oauth2/v1/certs",
+        oauth2FederatedSignonJwkCertsUrl: "https://www.googleapis.com/oauth2/v3/certs",
+        oauth2IapPublicKeyUrl: "https://www.gstatic.com/iap/verify/public_key",
+        ...options.endpoints
+      };
+      this.clientAuthentication = options.clientAuthentication || ClientAuthentication.ClientSecretPost;
+      this.issuers = options.issuers || [
+        "accounts.google.com",
+        "https://accounts.google.com",
+        this.universeDomain
+      ];
+    }
+    static GOOGLE_TOKEN_INFO_URL = "https://oauth2.googleapis.com/tokeninfo";
+    static CLOCK_SKEW_SECS_ = 300;
+    static DEFAULT_MAX_TOKEN_LIFETIME_SECS_ = 86400;
+    generateAuthUrl(opts = {}) {
+      if (opts.code_challenge_method && !opts.code_challenge) {
+        throw new Error("If a code_challenge_method is provided, code_challenge must be included.");
+      }
+      opts.response_type = opts.response_type || "code";
+      opts.client_id = opts.client_id || this._clientId;
+      opts.redirect_uri = opts.redirect_uri || this.redirectUri;
+      if (Array.isArray(opts.scope)) {
+        opts.scope = opts.scope.join(" ");
+      }
+      const rootUrl = this.endpoints.oauth2AuthBaseUrl.toString();
+      return rootUrl + "?" + querystring.stringify(opts);
+    }
+    generateCodeVerifier() {
+      throw new Error("generateCodeVerifier is removed, please use generateCodeVerifierAsync instead.");
+    }
+    async generateCodeVerifierAsync() {
+      const crypto2 = (0, crypto_1.createCrypto)();
+      const randomString = crypto2.randomBytesBase64(96);
+      const codeVerifier = randomString.replace(/\+/g, "~").replace(/=/g, "_").replace(/\//g, "-");
+      const unencodedCodeChallenge = await crypto2.sha256DigestBase64(codeVerifier);
+      const codeChallenge = unencodedCodeChallenge.split("=")[0].replace(/\+/g, "-").replace(/\//g, "_");
+      return { codeVerifier, codeChallenge };
+    }
+    getToken(codeOrOptions, callback) {
+      const options = typeof codeOrOptions === "string" ? { code: codeOrOptions } : codeOrOptions;
+      if (callback) {
+        this.getTokenAsync(options).then((r) => callback(null, r.tokens, r.res), (e) => callback(e, null, e.response));
+      } else {
+        return this.getTokenAsync(options);
+      }
+    }
+    async getTokenAsync(options) {
+      const url = this.endpoints.oauth2TokenUrl.toString();
+      const headers = new Headers;
+      const values = {
+        client_id: options.client_id || this._clientId,
+        code_verifier: options.codeVerifier,
+        code: options.code,
+        grant_type: "authorization_code",
+        redirect_uri: options.redirect_uri || this.redirectUri
+      };
+      if (this.clientAuthentication === ClientAuthentication.ClientSecretBasic) {
+        const basic = Buffer.from(`${this._clientId}:${this._clientSecret}`);
+        headers.set("authorization", `Basic ${basic.toString("base64")}`);
+      }
+      if (this.clientAuthentication === ClientAuthentication.ClientSecretPost) {
+        values.client_secret = this._clientSecret;
+      }
+      const opts = {
+        ...OAuth2Client.RETRY_CONFIG,
+        method: "POST",
+        url,
+        data: new URLSearchParams((0, util_1.removeUndefinedValuesInObject)(values)),
+        headers
+      };
+      authclient_1.AuthClient.setMethodName(opts, "getTokenAsync");
+      const res = await this.transporter.request(opts);
+      const tokens = res.data;
+      if (res.data && res.data.expires_in) {
+        tokens.expiry_date = new Date().getTime() + res.data.expires_in * 1000;
+        delete tokens.expires_in;
+      }
+      this.emit("tokens", tokens);
+      return { tokens, res };
+    }
+    async refreshToken(refreshToken) {
+      if (!refreshToken) {
+        return this.refreshTokenNoCache(refreshToken);
+      }
+      if (this.refreshTokenPromises.has(refreshToken)) {
+        return this.refreshTokenPromises.get(refreshToken);
+      }
+      const p = this.refreshTokenNoCache(refreshToken).then((r) => {
+        this.refreshTokenPromises.delete(refreshToken);
+        return r;
+      }, (e) => {
+        this.refreshTokenPromises.delete(refreshToken);
+        throw e;
+      });
+      this.refreshTokenPromises.set(refreshToken, p);
+      return p;
+    }
+    async refreshTokenNoCache(refreshToken) {
+      if (!refreshToken) {
+        throw new Error("No refresh token is set.");
+      }
+      const url = this.endpoints.oauth2TokenUrl.toString();
+      const data = {
+        refresh_token: refreshToken,
+        client_id: this._clientId,
+        client_secret: this._clientSecret,
+        grant_type: "refresh_token"
+      };
+      let res;
+      try {
+        const opts = {
+          ...OAuth2Client.RETRY_CONFIG,
+          method: "POST",
+          url,
+          data: new URLSearchParams((0, util_1.removeUndefinedValuesInObject)(data))
+        };
+        authclient_1.AuthClient.setMethodName(opts, "refreshTokenNoCache");
+        res = await this.transporter.request(opts);
+      } catch (e) {
+        if (e instanceof gaxios_1.GaxiosError && e.message === "invalid_grant" && e.response?.data && /ReAuth/i.test(e.response.data.error_description)) {
+          e.message = JSON.stringify(e.response.data);
+        }
+        throw e;
+      }
+      const tokens = res.data;
+      if (res.data && res.data.expires_in) {
+        tokens.expiry_date = new Date().getTime() + res.data.expires_in * 1000;
+        delete tokens.expires_in;
+      }
+      this.emit("tokens", tokens);
+      return { tokens, res };
+    }
+    refreshAccessToken(callback) {
+      if (callback) {
+        this.refreshAccessTokenAsync().then((r) => callback(null, r.credentials, r.res), callback);
+      } else {
+        return this.refreshAccessTokenAsync();
+      }
+    }
+    async refreshAccessTokenAsync() {
+      const r = await this.refreshToken(this.credentials.refresh_token);
+      const tokens = r.tokens;
+      tokens.refresh_token = this.credentials.refresh_token;
+      this.credentials = tokens;
+      return { credentials: this.credentials, res: r.res };
+    }
+    getAccessToken(callback) {
+      if (callback) {
+        this.getAccessTokenAsync().then((r) => callback(null, r.token, r.res), callback);
+      } else {
+        return this.getAccessTokenAsync();
+      }
+    }
+    async getAccessTokenAsync() {
+      const shouldRefresh = !this.credentials.access_token || this.isTokenExpiring();
+      if (shouldRefresh) {
+        if (!this.credentials.refresh_token) {
+          if (this.refreshHandler) {
+            const refreshedAccessToken = await this.processAndValidateRefreshHandler();
+            if (refreshedAccessToken?.access_token) {
+              this.setCredentials(refreshedAccessToken);
+              return { token: this.credentials.access_token };
+            }
+          } else {
+            throw new Error("No refresh token or refresh handler callback is set.");
+          }
+        }
+        const r = await this.refreshAccessTokenAsync();
+        if (!r.credentials || r.credentials && !r.credentials.access_token) {
+          throw new Error("Could not refresh access token.");
+        }
+        return { token: r.credentials.access_token, res: r.res };
+      } else {
+        return { token: this.credentials.access_token };
+      }
+    }
+    async getRequestHeaders(url) {
+      const headers = (await this.getRequestMetadataAsync(url)).headers;
+      return headers;
+    }
+    async getRequestMetadataAsync(url) {
+      const thisCreds = this.credentials;
+      if (!thisCreds.access_token && !thisCreds.refresh_token && !this.apiKey && !this.refreshHandler) {
+        throw new Error("No access, refresh token, API key or refresh handler callback is set.");
+      }
+      if (thisCreds.access_token && !this.isTokenExpiring()) {
+        thisCreds.token_type = thisCreds.token_type || "Bearer";
+        const headers2 = new Headers({
+          authorization: thisCreds.token_type + " " + thisCreds.access_token
+        });
+        return { headers: this.addSharedMetadataHeaders(headers2) };
+      }
+      if (this.refreshHandler) {
+        const refreshedAccessToken = await this.processAndValidateRefreshHandler();
+        if (refreshedAccessToken?.access_token) {
+          this.setCredentials(refreshedAccessToken);
+          const headers2 = new Headers({
+            authorization: "Bearer " + this.credentials.access_token
+          });
+          return { headers: this.addSharedMetadataHeaders(headers2) };
+        }
+      }
+      if (this.apiKey) {
+        return { headers: new Headers({ "X-Goog-Api-Key": this.apiKey }) };
+      }
+      let r = null;
+      let tokens = null;
+      try {
+        r = await this.refreshToken(thisCreds.refresh_token);
+        tokens = r.tokens;
+      } catch (err) {
+        const e = err;
+        if (e.response && (e.response.status === 403 || e.response.status === 404)) {
+          e.message = `Could not refresh access token: ${e.message}`;
+        }
+        throw e;
+      }
+      const credentials = this.credentials;
+      credentials.token_type = credentials.token_type || "Bearer";
+      tokens.refresh_token = credentials.refresh_token;
+      this.credentials = tokens;
+      const headers = new Headers({
+        authorization: credentials.token_type + " " + tokens.access_token
+      });
+      return { headers: this.addSharedMetadataHeaders(headers), res: r.res };
+    }
+    static getRevokeTokenUrl(token) {
+      return new OAuth2Client().getRevokeTokenURL(token).toString();
+    }
+    getRevokeTokenURL(token) {
+      const url = new URL(this.endpoints.oauth2RevokeUrl);
+      url.searchParams.append("token", token);
+      return url;
+    }
+    revokeToken(token, callback) {
+      const opts = {
+        ...OAuth2Client.RETRY_CONFIG,
+        url: this.getRevokeTokenURL(token).toString(),
+        method: "POST"
+      };
+      authclient_1.AuthClient.setMethodName(opts, "revokeToken");
+      if (callback) {
+        this.transporter.request(opts).then((r) => callback(null, r), callback);
+      } else {
+        return this.transporter.request(opts);
+      }
+    }
+    revokeCredentials(callback) {
+      if (callback) {
+        this.revokeCredentialsAsync().then((res) => callback(null, res), callback);
+      } else {
+        return this.revokeCredentialsAsync();
+      }
+    }
+    async revokeCredentialsAsync() {
+      const token = this.credentials.access_token;
+      this.credentials = {};
+      if (token) {
+        return this.revokeToken(token);
+      } else {
+        throw new Error("No access token to revoke.");
+      }
+    }
+    request(opts, callback) {
+      if (callback) {
+        this.requestAsync(opts).then((r) => callback(null, r), (e) => {
+          return callback(e, e.response);
+        });
+      } else {
+        return this.requestAsync(opts);
+      }
+    }
+    async requestAsync(opts, reAuthRetried = false) {
+      try {
+        const r = await this.getRequestMetadataAsync();
+        opts.headers = gaxios_1.Gaxios.mergeHeaders(opts.headers);
+        this.addUserProjectAndAuthHeaders(opts.headers, r.headers);
+        if (this.apiKey) {
+          opts.headers.set("X-Goog-Api-Key", this.apiKey);
+        }
+        return await this.transporter.request(opts);
+      } catch (e) {
+        const res = e.response;
+        if (res) {
+          const statusCode = res.status;
+          const mayRequireRefresh = this.credentials && this.credentials.access_token && this.credentials.refresh_token && (!this.credentials.expiry_date || this.forceRefreshOnFailure);
+          const mayRequireRefreshWithNoRefreshToken = this.credentials && this.credentials.access_token && !this.credentials.refresh_token && (!this.credentials.expiry_date || this.forceRefreshOnFailure) && this.refreshHandler;
+          const isReadableStream = res.config.data instanceof stream.Readable;
+          const isAuthErr = statusCode === 401 || statusCode === 403;
+          if (!reAuthRetried && isAuthErr && !isReadableStream && mayRequireRefresh) {
+            await this.refreshAccessTokenAsync();
+            return this.requestAsync(opts, true);
+          } else if (!reAuthRetried && isAuthErr && !isReadableStream && mayRequireRefreshWithNoRefreshToken) {
+            const refreshedAccessToken = await this.processAndValidateRefreshHandler();
+            if (refreshedAccessToken?.access_token) {
+              this.setCredentials(refreshedAccessToken);
+            }
+            return this.requestAsync(opts, true);
+          }
+        }
+        throw e;
+      }
+    }
+    verifyIdToken(options, callback) {
+      if (callback && typeof callback !== "function") {
+        throw new Error("This method accepts an options object as the first parameter, which includes the idToken, audience, and maxExpiry.");
+      }
+      if (callback) {
+        this.verifyIdTokenAsync(options).then((r) => callback(null, r), callback);
+      } else {
+        return this.verifyIdTokenAsync(options);
+      }
+    }
+    async verifyIdTokenAsync(options) {
+      if (!options.idToken) {
+        throw new Error("The verifyIdToken method requires an ID Token");
+      }
+      const response = await this.getFederatedSignonCertsAsync();
+      const login = await this.verifySignedJwtWithCertsAsync(options.idToken, response.certs, options.audience, this.issuers, options.maxExpiry);
+      return login;
+    }
+    async getTokenInfo(accessToken) {
+      const { data } = await this.transporter.request({
+        ...OAuth2Client.RETRY_CONFIG,
+        method: "POST",
+        headers: {
+          "content-type": "application/x-www-form-urlencoded;charset=UTF-8",
+          authorization: `Bearer ${accessToken}`
+        },
+        url: this.endpoints.tokenInfoUrl.toString()
+      });
+      const info = Object.assign({
+        expiry_date: new Date().getTime() + data.expires_in * 1000,
+        scopes: data.scope.split(" ")
+      }, data);
+      delete info.expires_in;
+      delete info.scope;
+      return info;
+    }
+    getFederatedSignonCerts(callback) {
+      if (callback) {
+        this.getFederatedSignonCertsAsync().then((r) => callback(null, r.certs, r.res), callback);
+      } else {
+        return this.getFederatedSignonCertsAsync();
+      }
+    }
+    async getFederatedSignonCertsAsync() {
+      const nowTime = new Date().getTime();
+      const format = (0, crypto_1.hasBrowserCrypto)() ? CertificateFormat.JWK : CertificateFormat.PEM;
+      if (this.certificateExpiry && nowTime < this.certificateExpiry.getTime() && this.certificateCacheFormat === format) {
+        return { certs: this.certificateCache, format };
+      }
+      let res;
+      let url;
+      switch (format) {
+        case CertificateFormat.PEM:
+          url = this.endpoints.oauth2FederatedSignonPemCertsUrl.toString();
+          break;
+        case CertificateFormat.JWK:
+          url = this.endpoints.oauth2FederatedSignonJwkCertsUrl.toString();
+          break;
+        default:
+          throw new Error(`Unsupported certificate format ${format}`);
+      }
+      try {
+        const opts = {
+          ...OAuth2Client.RETRY_CONFIG,
+          url
+        };
+        authclient_1.AuthClient.setMethodName(opts, "getFederatedSignonCertsAsync");
+        res = await this.transporter.request(opts);
+      } catch (e) {
+        if (e instanceof Error) {
+          e.message = `Failed to retrieve verification certificates: ${e.message}`;
+        }
+        throw e;
+      }
+      const cacheControl = res?.headers.get("cache-control");
+      let cacheAge = -1;
+      if (cacheControl) {
+        const maxAge = /max-age=(?<maxAge>[0-9]+)/.exec(cacheControl)?.groups?.maxAge;
+        if (maxAge) {
+          cacheAge = Number(maxAge) * 1000;
+        }
+      }
+      let certificates = {};
+      switch (format) {
+        case CertificateFormat.PEM:
+          certificates = res.data;
+          break;
+        case CertificateFormat.JWK:
+          for (const key of res.data.keys) {
+            certificates[key.kid] = key;
+          }
+          break;
+        default:
+          throw new Error(`Unsupported certificate format ${format}`);
+      }
+      const now = new Date;
+      this.certificateExpiry = cacheAge === -1 ? null : new Date(now.getTime() + cacheAge);
+      this.certificateCache = certificates;
+      this.certificateCacheFormat = format;
+      return { certs: certificates, format, res };
+    }
+    getIapPublicKeys(callback) {
+      if (callback) {
+        this.getIapPublicKeysAsync().then((r) => callback(null, r.pubkeys, r.res), callback);
+      } else {
+        return this.getIapPublicKeysAsync();
+      }
+    }
+    async getIapPublicKeysAsync() {
+      let res;
+      const url = this.endpoints.oauth2IapPublicKeyUrl.toString();
+      try {
+        const opts = {
+          ...OAuth2Client.RETRY_CONFIG,
+          url
+        };
+        authclient_1.AuthClient.setMethodName(opts, "getIapPublicKeysAsync");
+        res = await this.transporter.request(opts);
+      } catch (e) {
+        if (e instanceof Error) {
+          e.message = `Failed to retrieve verification certificates: ${e.message}`;
+        }
+        throw e;
+      }
+      return { pubkeys: res.data, res };
+    }
+    verifySignedJwtWithCerts() {
+      throw new Error("verifySignedJwtWithCerts is removed, please use verifySignedJwtWithCertsAsync instead.");
+    }
+    async verifySignedJwtWithCertsAsync(jwt, certs, requiredAudience, issuers, maxExpiry) {
+      const crypto2 = (0, crypto_1.createCrypto)();
+      if (!maxExpiry) {
+        maxExpiry = OAuth2Client.DEFAULT_MAX_TOKEN_LIFETIME_SECS_;
+      }
+      const segments = jwt.split(".");
+      if (segments.length !== 3) {
+        throw new Error("Wrong number of segments in token: " + jwt);
+      }
+      const signed = segments[0] + "." + segments[1];
+      let signature = segments[2];
+      let envelope;
+      let payload;
+      try {
+        envelope = JSON.parse(crypto2.decodeBase64StringUtf8(segments[0]));
+      } catch (err) {
+        if (err instanceof Error) {
+          err.message = `Can't parse token envelope: ${segments[0]}': ${err.message}`;
+        }
+        throw err;
+      }
+      if (!envelope) {
+        throw new Error("Can't parse token envelope: " + segments[0]);
+      }
+      try {
+        payload = JSON.parse(crypto2.decodeBase64StringUtf8(segments[1]));
+      } catch (err) {
+        if (err instanceof Error) {
+          err.message = `Can't parse token payload '${segments[0]}`;
+        }
+        throw err;
+      }
+      if (!payload) {
+        throw new Error("Can't parse token payload: " + segments[1]);
+      }
+      if (!Object.prototype.hasOwnProperty.call(certs, envelope.kid)) {
+        throw new Error("No pem found for envelope: " + JSON.stringify(envelope));
+      }
+      const cert = certs[envelope.kid];
+      if (envelope.alg === "ES256") {
+        signature = formatEcdsa.joseToDer(signature, "ES256").toString("base64");
+      }
+      const verified = await crypto2.verify(cert, signed, signature);
+      if (!verified) {
+        throw new Error("Invalid token signature: " + jwt);
+      }
+      if (!payload.iat) {
+        throw new Error("No issue time in token: " + JSON.stringify(payload));
+      }
+      if (!payload.exp) {
+        throw new Error("No expiration time in token: " + JSON.stringify(payload));
+      }
+      const iat = Number(payload.iat);
+      if (isNaN(iat))
+        throw new Error("iat field using invalid format");
+      const exp = Number(payload.exp);
+      if (isNaN(exp))
+        throw new Error("exp field using invalid format");
+      const now = new Date().getTime() / 1000;
+      if (exp >= now + maxExpiry) {
+        throw new Error("Expiration time too far in future: " + JSON.stringify(payload));
+      }
+      const earliest = iat - OAuth2Client.CLOCK_SKEW_SECS_;
+      const latest = exp + OAuth2Client.CLOCK_SKEW_SECS_;
+      if (now < earliest) {
+        throw new Error("Token used too early, " + now + " < " + earliest + ": " + JSON.stringify(payload));
+      }
+      if (now > latest) {
+        throw new Error("Token used too late, " + now + " > " + latest + ": " + JSON.stringify(payload));
+      }
+      if (issuers && issuers.indexOf(payload.iss) < 0) {
+        throw new Error("Invalid issuer, expected one of [" + issuers + "], but got " + payload.iss);
+      }
+      if (typeof requiredAudience !== "undefined" && requiredAudience !== null) {
+        const aud = payload.aud;
+        let audVerified = false;
+        if (requiredAudience.constructor === Array) {
+          audVerified = requiredAudience.indexOf(aud) > -1;
+        } else {
+          audVerified = aud === requiredAudience;
+        }
+        if (!audVerified) {
+          throw new Error("Wrong recipient, payload audience != requiredAudience");
+        }
+      }
+      return new loginticket_1.LoginTicket(envelope, payload);
+    }
+    async processAndValidateRefreshHandler() {
+      if (this.refreshHandler) {
+        const accessTokenResponse = await this.refreshHandler();
+        if (!accessTokenResponse.access_token) {
+          throw new Error("No access token is returned by the refreshHandler callback.");
+        }
+        return accessTokenResponse;
+      }
+      return;
+    }
+    isTokenExpiring() {
+      const expiryDate = this.credentials.expiry_date;
+      return expiryDate ? expiryDate <= new Date().getTime() + this.eagerRefreshThresholdMillis : false;
+    }
+  }
+  exports.OAuth2Client = OAuth2Client;
+});
+
+// node_modules/google-auth-library/build/src/auth/computeclient.js
+var require_computeclient = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.Compute = undefined;
+  var gaxios_1 = require_src();
+  var gcpMetadata = require_src3();
+  var oauth2client_1 = require_oauth2client();
+
+  class Compute extends oauth2client_1.OAuth2Client {
+    serviceAccountEmail;
+    scopes;
+    constructor(options = {}) {
+      super(options);
+      this.credentials = { expiry_date: 1, refresh_token: "compute-placeholder" };
+      this.serviceAccountEmail = options.serviceAccountEmail || "default";
+      this.scopes = Array.isArray(options.scopes) ? options.scopes : options.scopes ? [options.scopes] : [];
+    }
+    async refreshTokenNoCache() {
+      const tokenPath = `service-accounts/${this.serviceAccountEmail}/token`;
+      let data;
+      try {
+        const instanceOptions = {
+          property: tokenPath
+        };
+        if (this.scopes.length > 0) {
+          instanceOptions.params = {
+            scopes: this.scopes.join(",")
+          };
+        }
+        data = await gcpMetadata.instance(instanceOptions);
+      } catch (e) {
+        if (e instanceof gaxios_1.GaxiosError) {
+          e.message = `Could not refresh access token: ${e.message}`;
+          this.wrapError(e);
+        }
+        throw e;
+      }
+      const tokens = data;
+      if (data && data.expires_in) {
+        tokens.expiry_date = new Date().getTime() + data.expires_in * 1000;
+        delete tokens.expires_in;
+      }
+      this.emit("tokens", tokens);
+      return { tokens, res: null };
+    }
+    async fetchIdToken(targetAudience) {
+      const idTokenPath = `service-accounts/${this.serviceAccountEmail}/identity` + `?format=full&audience=${targetAudience}`;
+      let idToken;
+      try {
+        const instanceOptions = {
+          property: idTokenPath
+        };
+        idToken = await gcpMetadata.instance(instanceOptions);
+      } catch (e) {
+        if (e instanceof Error) {
+          e.message = `Could not fetch ID token: ${e.message}`;
+        }
+        throw e;
+      }
+      return idToken;
+    }
+    wrapError(e) {
+      const res = e.response;
+      if (res && res.status) {
+        e.status = res.status;
+        if (res.status === 403) {
+          e.message = "A Forbidden error was returned while attempting to retrieve an access " + "token for the Compute Engine built-in service account. This may be because the Compute " + "Engine instance does not have the correct permission scopes specified: " + e.message;
+        } else if (res.status === 404) {
+          e.message = "A Not Found error was returned while attempting to retrieve an access" + "token for the Compute Engine built-in service account. This may be because the Compute " + "Engine instance does not have any permission scopes specified: " + e.message;
+        }
+      }
+    }
+  }
+  exports.Compute = Compute;
+});
+
+// node_modules/google-auth-library/build/src/auth/idtokenclient.js
+var require_idtokenclient = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.IdTokenClient = undefined;
+  var oauth2client_1 = require_oauth2client();
+
+  class IdTokenClient extends oauth2client_1.OAuth2Client {
+    targetAudience;
+    idTokenProvider;
+    constructor(options) {
+      super(options);
+      this.targetAudience = options.targetAudience;
+      this.idTokenProvider = options.idTokenProvider;
+    }
+    async getRequestMetadataAsync() {
+      if (!this.credentials.id_token || !this.credentials.expiry_date || this.isTokenExpiring()) {
+        const idToken = await this.idTokenProvider.fetchIdToken(this.targetAudience);
+        this.credentials = {
+          id_token: idToken,
+          expiry_date: this.getIdTokenExpiryDate(idToken)
+        };
+      }
+      const headers = new Headers({
+        authorization: "Bearer " + this.credentials.id_token
+      });
+      return { headers };
+    }
+    getIdTokenExpiryDate(idToken) {
+      const payloadB64 = idToken.split(".")[1];
+      if (payloadB64) {
+        const payload = JSON.parse(Buffer.from(payloadB64, "base64").toString("ascii"));
+        return payload.exp * 1000;
+      }
+    }
+  }
+  exports.IdTokenClient = IdTokenClient;
+});
+
+// node_modules/google-auth-library/build/src/auth/envDetect.js
+var require_envDetect = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.GCPEnv = undefined;
+  exports.clear = clear;
+  exports.getEnv = getEnv;
+  var gcpMetadata = require_src3();
+  var GCPEnv;
+  (function(GCPEnv2) {
+    GCPEnv2["APP_ENGINE"] = "APP_ENGINE";
+    GCPEnv2["KUBERNETES_ENGINE"] = "KUBERNETES_ENGINE";
+    GCPEnv2["CLOUD_FUNCTIONS"] = "CLOUD_FUNCTIONS";
+    GCPEnv2["COMPUTE_ENGINE"] = "COMPUTE_ENGINE";
+    GCPEnv2["CLOUD_RUN"] = "CLOUD_RUN";
+    GCPEnv2["CLOUD_RUN_JOBS"] = "CLOUD_RUN_JOBS";
+    GCPEnv2["NONE"] = "NONE";
+  })(GCPEnv || (exports.GCPEnv = GCPEnv = {}));
+  var envPromise;
+  function clear() {
+    envPromise = undefined;
+  }
+  async function getEnv() {
+    if (envPromise) {
+      return envPromise;
+    }
+    envPromise = getEnvMemoized();
+    return envPromise;
+  }
+  async function getEnvMemoized() {
+    let env = GCPEnv.NONE;
+    if (isAppEngine()) {
+      env = GCPEnv.APP_ENGINE;
+    } else if (isCloudFunction()) {
+      env = GCPEnv.CLOUD_FUNCTIONS;
+    } else if (await isComputeEngine()) {
+      if (await isKubernetesEngine()) {
+        env = GCPEnv.KUBERNETES_ENGINE;
+      } else if (isCloudRun()) {
+        env = GCPEnv.CLOUD_RUN;
+      } else if (isCloudRunJob()) {
+        env = GCPEnv.CLOUD_RUN_JOBS;
+      } else {
+        env = GCPEnv.COMPUTE_ENGINE;
+      }
+    } else {
+      env = GCPEnv.NONE;
+    }
+    return env;
+  }
+  function isAppEngine() {
+    return !!(process.env.GAE_SERVICE || process.env.GAE_MODULE_NAME);
+  }
+  function isCloudFunction() {
+    return !!(process.env.FUNCTION_NAME || process.env.FUNCTION_TARGET);
+  }
+  function isCloudRun() {
+    return !!process.env.K_CONFIGURATION;
+  }
+  function isCloudRunJob() {
+    return !!process.env.CLOUD_RUN_JOB;
+  }
+  async function isKubernetesEngine() {
+    try {
+      await gcpMetadata.instance("attributes/cluster-name");
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+  async function isComputeEngine() {
+    return gcpMetadata.isAvailable();
+  }
+});
+
+// node_modules/jws/lib/data-stream.js
+var require_data_stream = __commonJS((exports, module) => {
+  var Buffer2 = require_safe_buffer().Buffer;
+  var Stream = __require("stream");
+  var util = __require("util");
+  function DataStream(data) {
+    this.buffer = null;
+    this.writable = true;
+    this.readable = true;
+    if (!data) {
+      this.buffer = Buffer2.alloc(0);
+      return this;
+    }
+    if (typeof data.pipe === "function") {
+      this.buffer = Buffer2.alloc(0);
+      data.pipe(this);
+      return this;
+    }
+    if (data.length || typeof data === "object") {
+      this.buffer = data;
+      this.writable = false;
+      process.nextTick(function() {
+        this.emit("end", data);
+        this.readable = false;
+        this.emit("close");
+      }.bind(this));
+      return this;
+    }
+    throw new TypeError("Unexpected data type (" + typeof data + ")");
+  }
+  util.inherits(DataStream, Stream);
+  DataStream.prototype.write = function write(data) {
+    this.buffer = Buffer2.concat([this.buffer, Buffer2.from(data)]);
+    this.emit("data", data);
+  };
+  DataStream.prototype.end = function end(data) {
+    if (data)
+      this.write(data);
+    this.emit("end", data);
+    this.emit("close");
+    this.writable = false;
+    this.readable = false;
+  };
+  module.exports = DataStream;
+});
+
+// node_modules/buffer-equal-constant-time/index.js
+var require_buffer_equal_constant_time = __commonJS((exports, module) => {
+  var Buffer2 = __require("buffer").Buffer;
+  var SlowBuffer = __require("buffer").SlowBuffer;
+  module.exports = bufferEq;
+  function bufferEq(a, b) {
+    if (!Buffer2.isBuffer(a) || !Buffer2.isBuffer(b)) {
+      return false;
+    }
+    if (a.length !== b.length) {
+      return false;
+    }
+    var c = 0;
+    for (var i = 0;i < a.length; i++) {
+      c |= a[i] ^ b[i];
+    }
+    return c === 0;
+  }
+  bufferEq.install = function() {
+    Buffer2.prototype.equal = SlowBuffer.prototype.equal = function equal(that) {
+      return bufferEq(this, that);
+    };
+  };
+  var origBufEqual = Buffer2.prototype.equal;
+  var origSlowBufEqual = SlowBuffer.prototype.equal;
+  bufferEq.restore = function() {
+    Buffer2.prototype.equal = origBufEqual;
+    SlowBuffer.prototype.equal = origSlowBufEqual;
+  };
+});
+
+// node_modules/jwa/index.js
+var require_jwa = __commonJS((exports, module) => {
+  var Buffer2 = require_safe_buffer().Buffer;
+  var crypto2 = __require("crypto");
+  var formatEcdsa = require_ecdsa_sig_formatter();
+  var util = __require("util");
+  var MSG_INVALID_ALGORITHM = `"%s" is not a valid algorithm.
+  Supported algorithms are:
+  "HS256", "HS384", "HS512", "RS256", "RS384", "RS512", "PS256", "PS384", "PS512", "ES256", "ES384", "ES512" and "none".`;
+  var MSG_INVALID_SECRET = "secret must be a string or buffer";
+  var MSG_INVALID_VERIFIER_KEY = "key must be a string or a buffer";
+  var MSG_INVALID_SIGNER_KEY = "key must be a string, a buffer or an object";
+  var supportsKeyObjects = typeof crypto2.createPublicKey === "function";
+  if (supportsKeyObjects) {
+    MSG_INVALID_VERIFIER_KEY += " or a KeyObject";
+    MSG_INVALID_SECRET += "or a KeyObject";
+  }
+  function checkIsPublicKey(key) {
+    if (Buffer2.isBuffer(key)) {
+      return;
+    }
+    if (typeof key === "string") {
+      return;
+    }
+    if (!supportsKeyObjects) {
+      throw typeError(MSG_INVALID_VERIFIER_KEY);
+    }
+    if (typeof key !== "object") {
+      throw typeError(MSG_INVALID_VERIFIER_KEY);
+    }
+    if (typeof key.type !== "string") {
+      throw typeError(MSG_INVALID_VERIFIER_KEY);
+    }
+    if (typeof key.asymmetricKeyType !== "string") {
+      throw typeError(MSG_INVALID_VERIFIER_KEY);
+    }
+    if (typeof key.export !== "function") {
+      throw typeError(MSG_INVALID_VERIFIER_KEY);
+    }
+  }
+  function checkIsPrivateKey(key) {
+    if (Buffer2.isBuffer(key)) {
+      return;
+    }
+    if (typeof key === "string") {
+      return;
+    }
+    if (typeof key === "object") {
+      return;
+    }
+    throw typeError(MSG_INVALID_SIGNER_KEY);
+  }
+  function checkIsSecretKey(key) {
+    if (Buffer2.isBuffer(key)) {
+      return;
+    }
+    if (typeof key === "string") {
+      return key;
+    }
+    if (!supportsKeyObjects) {
+      throw typeError(MSG_INVALID_SECRET);
+    }
+    if (typeof key !== "object") {
+      throw typeError(MSG_INVALID_SECRET);
+    }
+    if (key.type !== "secret") {
+      throw typeError(MSG_INVALID_SECRET);
+    }
+    if (typeof key.export !== "function") {
+      throw typeError(MSG_INVALID_SECRET);
+    }
+  }
+  function fromBase64(base64) {
+    return base64.replace(/=/g, "").replace(/\+/g, "-").replace(/\//g, "_");
+  }
+  function toBase64(base64url) {
+    base64url = base64url.toString();
+    var padding = 4 - base64url.length % 4;
+    if (padding !== 4) {
+      for (var i = 0;i < padding; ++i) {
+        base64url += "=";
+      }
+    }
+    return base64url.replace(/\-/g, "+").replace(/_/g, "/");
+  }
+  function typeError(template) {
+    var args = [].slice.call(arguments, 1);
+    var errMsg = util.format.bind(util, template).apply(null, args);
+    return new TypeError(errMsg);
+  }
+  function bufferOrString(obj) {
+    return Buffer2.isBuffer(obj) || typeof obj === "string";
+  }
+  function normalizeInput(thing) {
+    if (!bufferOrString(thing))
+      thing = JSON.stringify(thing);
+    return thing;
+  }
+  function createHmacSigner(bits) {
+    return function sign(thing, secret) {
+      checkIsSecretKey(secret);
+      thing = normalizeInput(thing);
+      var hmac = crypto2.createHmac("sha" + bits, secret);
+      var sig = (hmac.update(thing), hmac.digest("base64"));
+      return fromBase64(sig);
+    };
+  }
+  var bufferEqual;
+  var timingSafeEqual = "timingSafeEqual" in crypto2 ? function timingSafeEqual(a, b) {
+    if (a.byteLength !== b.byteLength) {
+      return false;
+    }
+    return crypto2.timingSafeEqual(a, b);
+  } : function timingSafeEqual(a, b) {
+    if (!bufferEqual) {
+      bufferEqual = require_buffer_equal_constant_time();
+    }
+    return bufferEqual(a, b);
+  };
+  function createHmacVerifier(bits) {
+    return function verify(thing, signature, secret) {
+      var computedSig = createHmacSigner(bits)(thing, secret);
+      return timingSafeEqual(Buffer2.from(signature), Buffer2.from(computedSig));
+    };
+  }
+  function createKeySigner(bits) {
+    return function sign(thing, privateKey) {
+      checkIsPrivateKey(privateKey);
+      thing = normalizeInput(thing);
+      var signer = crypto2.createSign("RSA-SHA" + bits);
+      var sig = (signer.update(thing), signer.sign(privateKey, "base64"));
+      return fromBase64(sig);
+    };
+  }
+  function createKeyVerifier(bits) {
+    return function verify(thing, signature, publicKey) {
+      checkIsPublicKey(publicKey);
+      thing = normalizeInput(thing);
+      signature = toBase64(signature);
+      var verifier = crypto2.createVerify("RSA-SHA" + bits);
+      verifier.update(thing);
+      return verifier.verify(publicKey, signature, "base64");
+    };
+  }
+  function createPSSKeySigner(bits) {
+    return function sign(thing, privateKey) {
+      checkIsPrivateKey(privateKey);
+      thing = normalizeInput(thing);
+      var signer = crypto2.createSign("RSA-SHA" + bits);
+      var sig = (signer.update(thing), signer.sign({
+        key: privateKey,
+        padding: crypto2.constants.RSA_PKCS1_PSS_PADDING,
+        saltLength: crypto2.constants.RSA_PSS_SALTLEN_DIGEST
+      }, "base64"));
+      return fromBase64(sig);
+    };
+  }
+  function createPSSKeyVerifier(bits) {
+    return function verify(thing, signature, publicKey) {
+      checkIsPublicKey(publicKey);
+      thing = normalizeInput(thing);
+      signature = toBase64(signature);
+      var verifier = crypto2.createVerify("RSA-SHA" + bits);
+      verifier.update(thing);
+      return verifier.verify({
+        key: publicKey,
+        padding: crypto2.constants.RSA_PKCS1_PSS_PADDING,
+        saltLength: crypto2.constants.RSA_PSS_SALTLEN_DIGEST
+      }, signature, "base64");
+    };
+  }
+  function createECDSASigner(bits) {
+    var inner = createKeySigner(bits);
+    return function sign() {
+      var signature = inner.apply(null, arguments);
+      signature = formatEcdsa.derToJose(signature, "ES" + bits);
+      return signature;
+    };
+  }
+  function createECDSAVerifer(bits) {
+    var inner = createKeyVerifier(bits);
+    return function verify(thing, signature, publicKey) {
+      signature = formatEcdsa.joseToDer(signature, "ES" + bits).toString("base64");
+      var result = inner(thing, signature, publicKey);
+      return result;
+    };
+  }
+  function createNoneSigner() {
+    return function sign() {
+      return "";
+    };
+  }
+  function createNoneVerifier() {
+    return function verify(thing, signature) {
+      return signature === "";
+    };
+  }
+  module.exports = function jwa(algorithm) {
+    var signerFactories = {
+      hs: createHmacSigner,
+      rs: createKeySigner,
+      ps: createPSSKeySigner,
+      es: createECDSASigner,
+      none: createNoneSigner
+    };
+    var verifierFactories = {
+      hs: createHmacVerifier,
+      rs: createKeyVerifier,
+      ps: createPSSKeyVerifier,
+      es: createECDSAVerifer,
+      none: createNoneVerifier
+    };
+    var match = algorithm.match(/^(RS|PS|ES|HS)(256|384|512)$|^(none)$/);
+    if (!match)
+      throw typeError(MSG_INVALID_ALGORITHM, algorithm);
+    var algo = (match[1] || match[3]).toLowerCase();
+    var bits = match[2];
+    return {
+      sign: signerFactories[algo](bits),
+      verify: verifierFactories[algo](bits)
+    };
+  };
+});
+
+// node_modules/jws/lib/tostring.js
+var require_tostring = __commonJS((exports, module) => {
+  var Buffer2 = __require("buffer").Buffer;
+  module.exports = function toString(obj) {
+    if (typeof obj === "string")
+      return obj;
+    if (typeof obj === "number" || Buffer2.isBuffer(obj))
+      return obj.toString();
+    return JSON.stringify(obj);
+  };
+});
+
+// node_modules/jws/lib/sign-stream.js
+var require_sign_stream = __commonJS((exports, module) => {
+  var Buffer2 = require_safe_buffer().Buffer;
+  var DataStream = require_data_stream();
+  var jwa = require_jwa();
+  var Stream = __require("stream");
+  var toString = require_tostring();
+  var util = __require("util");
+  function base64url(string, encoding) {
+    return Buffer2.from(string, encoding).toString("base64").replace(/=/g, "").replace(/\+/g, "-").replace(/\//g, "_");
+  }
+  function jwsSecuredInput(header, payload, encoding) {
+    encoding = encoding || "utf8";
+    var encodedHeader = base64url(toString(header), "binary");
+    var encodedPayload = base64url(toString(payload), encoding);
+    return util.format("%s.%s", encodedHeader, encodedPayload);
+  }
+  function jwsSign(opts) {
+    var header = opts.header;
+    var payload = opts.payload;
+    var secretOrKey = opts.secret || opts.privateKey;
+    var encoding = opts.encoding;
+    var algo = jwa(header.alg);
+    var securedInput = jwsSecuredInput(header, payload, encoding);
+    var signature = algo.sign(securedInput, secretOrKey);
+    return util.format("%s.%s", securedInput, signature);
+  }
+  function SignStream(opts) {
+    var secret = opts.secret || opts.privateKey || opts.key;
+    var secretStream = new DataStream(secret);
+    this.readable = true;
+    this.header = opts.header;
+    this.encoding = opts.encoding;
+    this.secret = this.privateKey = this.key = secretStream;
+    this.payload = new DataStream(opts.payload);
+    this.secret.once("close", function() {
+      if (!this.payload.writable && this.readable)
+        this.sign();
+    }.bind(this));
+    this.payload.once("close", function() {
+      if (!this.secret.writable && this.readable)
+        this.sign();
+    }.bind(this));
+  }
+  util.inherits(SignStream, Stream);
+  SignStream.prototype.sign = function sign() {
+    try {
+      var signature = jwsSign({
+        header: this.header,
+        payload: this.payload.buffer,
+        secret: this.secret.buffer,
+        encoding: this.encoding
+      });
+      this.emit("done", signature);
+      this.emit("data", signature);
+      this.emit("end");
+      this.readable = false;
+      return signature;
+    } catch (e) {
+      this.readable = false;
+      this.emit("error", e);
+      this.emit("close");
+    }
+  };
+  SignStream.sign = jwsSign;
+  module.exports = SignStream;
+});
+
+// node_modules/jws/lib/verify-stream.js
+var require_verify_stream = __commonJS((exports, module) => {
+  var Buffer2 = require_safe_buffer().Buffer;
+  var DataStream = require_data_stream();
+  var jwa = require_jwa();
+  var Stream = __require("stream");
+  var toString = require_tostring();
+  var util = __require("util");
+  var JWS_REGEX = /^[a-zA-Z0-9\-_]+?\.[a-zA-Z0-9\-_]+?\.([a-zA-Z0-9\-_]+)?$/;
+  function isObject(thing) {
+    return Object.prototype.toString.call(thing) === "[object Object]";
+  }
+  function safeJsonParse(thing) {
+    if (isObject(thing))
+      return thing;
+    try {
+      return JSON.parse(thing);
+    } catch (e) {
+      return;
+    }
+  }
+  function headerFromJWS(jwsSig) {
+    var encodedHeader = jwsSig.split(".", 1)[0];
+    return safeJsonParse(Buffer2.from(encodedHeader, "base64").toString("binary"));
+  }
+  function securedInputFromJWS(jwsSig) {
+    return jwsSig.split(".", 2).join(".");
+  }
+  function signatureFromJWS(jwsSig) {
+    return jwsSig.split(".")[2];
+  }
+  function payloadFromJWS(jwsSig, encoding) {
+    encoding = encoding || "utf8";
+    var payload = jwsSig.split(".")[1];
+    return Buffer2.from(payload, "base64").toString(encoding);
+  }
+  function isValidJws(string) {
+    return JWS_REGEX.test(string) && !!headerFromJWS(string);
+  }
+  function jwsVerify(jwsSig, algorithm, secretOrKey) {
+    if (!algorithm) {
+      var err = new Error("Missing algorithm parameter for jws.verify");
+      err.code = "MISSING_ALGORITHM";
+      throw err;
+    }
+    jwsSig = toString(jwsSig);
+    var signature = signatureFromJWS(jwsSig);
+    var securedInput = securedInputFromJWS(jwsSig);
+    var algo = jwa(algorithm);
+    return algo.verify(securedInput, signature, secretOrKey);
+  }
+  function jwsDecode(jwsSig, opts) {
+    opts = opts || {};
+    jwsSig = toString(jwsSig);
+    if (!isValidJws(jwsSig))
+      return null;
+    var header = headerFromJWS(jwsSig);
+    if (!header)
+      return null;
+    var payload = payloadFromJWS(jwsSig);
+    if (header.typ === "JWT" || opts.json)
+      payload = JSON.parse(payload, opts.encoding);
+    return {
+      header,
+      payload,
+      signature: signatureFromJWS(jwsSig)
+    };
+  }
+  function VerifyStream(opts) {
+    opts = opts || {};
+    var secretOrKey = opts.secret || opts.publicKey || opts.key;
+    var secretStream = new DataStream(secretOrKey);
+    this.readable = true;
+    this.algorithm = opts.algorithm;
+    this.encoding = opts.encoding;
+    this.secret = this.publicKey = this.key = secretStream;
+    this.signature = new DataStream(opts.signature);
+    this.secret.once("close", function() {
+      if (!this.signature.writable && this.readable)
+        this.verify();
+    }.bind(this));
+    this.signature.once("close", function() {
+      if (!this.secret.writable && this.readable)
+        this.verify();
+    }.bind(this));
+  }
+  util.inherits(VerifyStream, Stream);
+  VerifyStream.prototype.verify = function verify() {
+    try {
+      var valid = jwsVerify(this.signature.buffer, this.algorithm, this.key.buffer);
+      var obj = jwsDecode(this.signature.buffer, this.encoding);
+      this.emit("done", valid, obj);
+      this.emit("data", valid);
+      this.emit("end");
+      this.readable = false;
+      return valid;
+    } catch (e) {
+      this.readable = false;
+      this.emit("error", e);
+      this.emit("close");
+    }
+  };
+  VerifyStream.decode = jwsDecode;
+  VerifyStream.isValid = isValidJws;
+  VerifyStream.verify = jwsVerify;
+  module.exports = VerifyStream;
+});
+
+// node_modules/jws/index.js
+var require_jws = __commonJS((exports) => {
+  var SignStream = require_sign_stream();
+  var VerifyStream = require_verify_stream();
+  var ALGORITHMS = [
+    "HS256",
+    "HS384",
+    "HS512",
+    "RS256",
+    "RS384",
+    "RS512",
+    "PS256",
+    "PS384",
+    "PS512",
+    "ES256",
+    "ES384",
+    "ES512"
+  ];
+  exports.ALGORITHMS = ALGORITHMS;
+  exports.sign = SignStream.sign;
+  exports.verify = VerifyStream.verify;
+  exports.decode = VerifyStream.decode;
+  exports.isValid = VerifyStream.isValid;
+  exports.createSign = function createSign(opts) {
+    return new SignStream(opts);
+  };
+  exports.createVerify = function createVerify(opts) {
+    return new VerifyStream(opts);
+  };
+});
+
+// node_modules/gtoken/build/cjs/src/index.cjs
+var require_src4 = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.GoogleToken = undefined;
+  var fs = _interopRequireWildcard(__require("fs"));
+  var _gaxios = require_src();
+  var jws = _interopRequireWildcard(require_jws());
+  var path = _interopRequireWildcard(__require("path"));
+  var _util = __require("util");
+  function _interopRequireWildcard(e, t) {
+    if (typeof WeakMap == "function")
+      var r = new WeakMap, n = new WeakMap;
+    return (_interopRequireWildcard = function _interopRequireWildcard(e2, t2) {
+      if (!t2 && e2 && e2.__esModule)
+        return e2;
+      var o, i, f = { __proto__: null, default: e2 };
+      if (e2 === null || _typeof(e2) != "object" && typeof e2 != "function")
+        return f;
+      if (o = t2 ? n : r) {
+        if (o.has(e2))
+          return o.get(e2);
+        o.set(e2, f);
+      }
+      for (var _t3 in e2)
+        _t3 !== "default" && {}.hasOwnProperty.call(e2, _t3) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e2, _t3)) && (i.get || i.set) ? o(f, _t3, i) : f[_t3] = e2[_t3]);
+      return f;
+    })(e, t);
+  }
+  function _typeof(o) {
+    "@babel/helpers - typeof";
+    return _typeof = typeof Symbol == "function" && typeof Symbol.iterator == "symbol" ? function(o2) {
+      return typeof o2;
+    } : function(o2) {
+      return o2 && typeof Symbol == "function" && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
+    }, _typeof(o);
+  }
+  function _classPrivateMethodInitSpec(e, a) {
+    _checkPrivateRedeclaration(e, a), a.add(e);
+  }
+  function _classPrivateFieldInitSpec(e, t, a) {
+    _checkPrivateRedeclaration(e, t), t.set(e, a);
+  }
+  function _checkPrivateRedeclaration(e, t) {
+    if (t.has(e))
+      throw new TypeError("Cannot initialize the same private elements twice on an object");
+  }
+  function _classPrivateFieldSet(s, a, r) {
+    return s.set(_assertClassBrand(s, a), r), r;
+  }
+  function _classPrivateFieldGet(s, a) {
+    return s.get(_assertClassBrand(s, a));
+  }
+  function _assertClassBrand(e, t, n) {
+    if (typeof e == "function" ? e === t : e.has(t))
+      return arguments.length < 3 ? t : n;
+    throw new TypeError("Private element is not present on this object");
+  }
+  function _defineProperties(e, r) {
+    for (var t = 0;t < r.length; t++) {
+      var o = r[t];
+      o.enumerable = o.enumerable || false, o.configurable = true, "value" in o && (o.writable = true), Object.defineProperty(e, _toPropertyKey(o.key), o);
+    }
+  }
+  function _createClass(e, r, t) {
+    return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: false }), e;
+  }
+  function _classCallCheck(a, n) {
+    if (!(a instanceof n))
+      throw new TypeError("Cannot call a class as a function");
+  }
+  function _callSuper(t, o, e) {
+    return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e));
+  }
+  function _possibleConstructorReturn(t, e) {
+    if (e && (_typeof(e) == "object" || typeof e == "function"))
+      return e;
+    if (e !== undefined)
+      throw new TypeError("Derived constructors may only return object or undefined");
+    return _assertThisInitialized(t);
+  }
+  function _assertThisInitialized(e) {
+    if (e === undefined)
+      throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    return e;
+  }
+  function _inherits(t, e) {
+    if (typeof e != "function" && e !== null)
+      throw new TypeError("Super expression must either be null or a function");
+    t.prototype = Object.create(e && e.prototype, { constructor: { value: t, writable: true, configurable: true } }), Object.defineProperty(t, "prototype", { writable: false }), e && _setPrototypeOf(t, e);
+  }
+  function _wrapNativeSuper(t) {
+    var r = typeof Map == "function" ? new Map : undefined;
+    return _wrapNativeSuper = function _wrapNativeSuper(t2) {
+      if (t2 === null || !_isNativeFunction(t2))
+        return t2;
+      if (typeof t2 != "function")
+        throw new TypeError("Super expression must either be null or a function");
+      if (r !== undefined) {
+        if (r.has(t2))
+          return r.get(t2);
+        r.set(t2, Wrapper);
+      }
+      function Wrapper() {
+        return _construct(t2, arguments, _getPrototypeOf(this).constructor);
+      }
+      return Wrapper.prototype = Object.create(t2.prototype, { constructor: { value: Wrapper, enumerable: false, writable: true, configurable: true } }), _setPrototypeOf(Wrapper, t2);
+    }, _wrapNativeSuper(t);
+  }
+  function _construct(t, e, r) {
+    if (_isNativeReflectConstruct())
+      return Reflect.construct.apply(null, arguments);
+    var o = [null];
+    o.push.apply(o, e);
+    var p = new (t.bind.apply(t, o));
+    return r && _setPrototypeOf(p, r.prototype), p;
+  }
+  function _isNativeReflectConstruct() {
+    try {
+      var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function() {}));
+    } catch (t2) {}
+    return (_isNativeReflectConstruct = function _isNativeReflectConstruct() {
+      return !!t;
+    })();
+  }
+  function _isNativeFunction(t) {
+    try {
+      return Function.toString.call(t).indexOf("[native code]") !== -1;
+    } catch (n) {
+      return typeof t == "function";
+    }
+  }
+  function _setPrototypeOf(t, e) {
+    return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function(t2, e2) {
+      return t2.__proto__ = e2, t2;
+    }, _setPrototypeOf(t, e);
+  }
+  function _getPrototypeOf(t) {
+    return _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function(t2) {
+      return t2.__proto__ || Object.getPrototypeOf(t2);
+    }, _getPrototypeOf(t);
+  }
+  function _defineProperty(e, r, t) {
+    return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: true, configurable: true, writable: true }) : e[r] = t, e;
+  }
+  function _toPropertyKey(t) {
+    var i = _toPrimitive(t, "string");
+    return _typeof(i) == "symbol" ? i : i + "";
+  }
+  function _toPrimitive(t, r) {
+    if (_typeof(t) != "object" || !t)
+      return t;
+    var e = t[Symbol.toPrimitive];
+    if (e !== undefined) {
+      var i = e.call(t, r || "default");
+      if (_typeof(i) != "object")
+        return i;
+      throw new TypeError("@@toPrimitive must return a primitive value.");
+    }
+    return (r === "string" ? String : Number)(t);
+  }
+  function _regenerator() {
+    /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */
+    var e, t, r = typeof Symbol == "function" ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag";
+    function i(r2, n2, o2, i2) {
+      var c2 = n2 && n2.prototype instanceof Generator ? n2 : Generator, u2 = Object.create(c2.prototype);
+      return _regeneratorDefine2(u2, "_invoke", function(r3, n3, o3) {
+        var i3, c3, u3, f2 = 0, p = o3 || [], y = false, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t2, r4) {
+          return i3 = t2, c3 = 0, u3 = e, G.n = r4, a;
+        } };
+        function d(r4, n4) {
+          for (c3 = r4, u3 = n4, t = 0;!y && f2 && !o4 && t < p.length; t++) {
+            var o4, i4 = p[t], d2 = G.p, l = i4[2];
+            r4 > 3 ? (o4 = l === n4) && (u3 = i4[(c3 = i4[4]) ? 5 : (c3 = 3, 3)], i4[4] = i4[5] = e) : i4[0] <= d2 && ((o4 = r4 < 2 && d2 < i4[1]) ? (c3 = 0, G.v = n4, G.n = i4[1]) : d2 < l && (o4 = r4 < 3 || i4[0] > n4 || n4 > l) && (i4[4] = r4, i4[5] = n4, G.n = l, c3 = 0));
+          }
+          if (o4 || r4 > 1)
+            return a;
+          throw y = true, n4;
+        }
+        return function(o4, p2, l) {
+          if (f2 > 1)
+            throw TypeError("Generator is already running");
+          for (y && p2 === 1 && d(p2, l), c3 = p2, u3 = l;(t = c3 < 2 ? e : u3) || !y; ) {
+            i3 || (c3 ? c3 < 3 ? (c3 > 1 && (G.n = -1), d(c3, u3)) : G.n = u3 : G.v = u3);
+            try {
+              if (f2 = 2, i3) {
+                if (c3 || (o4 = "next"), t = i3[o4]) {
+                  if (!(t = t.call(i3, u3)))
+                    throw TypeError("iterator result is not an object");
+                  if (!t.done)
+                    return t;
+                  u3 = t.value, c3 < 2 && (c3 = 0);
+                } else
+                  c3 === 1 && (t = i3["return"]) && t.call(i3), c3 < 2 && (u3 = TypeError("The iterator does not provide a '" + o4 + "' method"), c3 = 1);
+                i3 = e;
+              } else if ((t = (y = G.n < 0) ? u3 : r3.call(n3, G)) !== a)
+                break;
+            } catch (t2) {
+              i3 = e, c3 = 1, u3 = t2;
+            } finally {
+              f2 = 1;
+            }
+          }
+          return { value: t, done: y };
+        };
+      }(r2, o2, i2), true), u2;
+    }
+    var a = {};
+    function Generator() {}
+    function GeneratorFunction() {}
+    function GeneratorFunctionPrototype() {}
+    t = Object.getPrototypeOf;
+    var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function() {
+      return this;
+    }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c);
+    function f(e2) {
+      return Object.setPrototypeOf ? Object.setPrototypeOf(e2, GeneratorFunctionPrototype) : (e2.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e2, o, "GeneratorFunction")), e2.prototype = Object.create(u), e2;
+    }
+    return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function() {
+      return this;
+    }), _regeneratorDefine2(u, "toString", function() {
+      return "[object Generator]";
+    }), (_regenerator = function _regenerator() {
+      return { w: i, m: f };
+    })();
+  }
+  function _regeneratorDefine2(e, r, n, t) {
+    var i = Object.defineProperty;
+    try {
+      i({}, "", {});
+    } catch (e2) {
+      i = 0;
+    }
+    _regeneratorDefine2 = function _regeneratorDefine(e2, r2, n2, t2) {
+      if (r2)
+        i ? i(e2, r2, { value: n2, enumerable: !t2, configurable: !t2, writable: !t2 }) : e2[r2] = n2;
+      else {
+        var o = function o(r3, n3) {
+          _regeneratorDefine2(e2, r3, function(e3) {
+            return this._invoke(r3, n3, e3);
+          });
+        };
+        o("next", 0), o("throw", 1), o("return", 2);
+      }
+    }, _regeneratorDefine2(e, r, n, t);
+  }
+  function asyncGeneratorStep(n, t, e, r, o, a, c) {
+    try {
+      var i = n[a](c), u = i.value;
+    } catch (n2) {
+      return void e(n2);
+    }
+    i.done ? t(u) : Promise.resolve(u).then(r, o);
+  }
+  function _asyncToGenerator(n) {
+    return function() {
+      var t = this, e = arguments;
+      return new Promise(function(r, o) {
+        var a = n.apply(t, e);
+        function _next(n2) {
+          asyncGeneratorStep(a, r, o, _next, _throw, "next", n2);
+        }
+        function _throw(n2) {
+          asyncGeneratorStep(a, r, o, _next, _throw, "throw", n2);
+        }
+        _next(undefined);
+      });
+    };
+  }
+  var readFile = fs.readFile ? (0, _util.promisify)(fs.readFile) : /* @__PURE__ */ _asyncToGenerator(/* @__PURE__ */ _regenerator().m(function _callee() {
+    return _regenerator().w(function(_context) {
+      while (true)
+        switch (_context.n) {
+          case 0:
+            throw new ErrorWithCode("use key rather than keyFile.", "MISSING_CREDENTIALS");
+          case 1:
+            return _context.a(2);
+        }
+    }, _callee);
+  }));
+  var GOOGLE_TOKEN_URL = "https://oauth2.googleapis.com/token";
+  var GOOGLE_REVOKE_TOKEN_URL = "https://oauth2.googleapis.com/revoke?token=";
+  var ErrorWithCode = /* @__PURE__ */ function(_Error) {
+    function ErrorWithCode2(message, code) {
+      var _this;
+      _classCallCheck(this, ErrorWithCode2);
+      _this = _callSuper(this, ErrorWithCode2, [message]);
+      _defineProperty(_this, "code", undefined);
+      _this.code = code;
+      return _this;
+    }
+    _inherits(ErrorWithCode2, _Error);
+    return _createClass(ErrorWithCode2);
+  }(/* @__PURE__ */ _wrapNativeSuper(Error));
+  var _inFlightRequest = /* @__PURE__ */ new WeakMap;
+  var _GoogleToken_brand = /* @__PURE__ */ new WeakSet;
+  var GoogleToken = exports.GoogleToken = /* @__PURE__ */ function() {
+    function GoogleToken2(_options) {
+      _classCallCheck(this, GoogleToken2);
+      _classPrivateMethodInitSpec(this, _GoogleToken_brand);
+      _defineProperty(this, "expiresAt", undefined);
+      _defineProperty(this, "key", undefined);
+      _defineProperty(this, "keyFile", undefined);
+      _defineProperty(this, "iss", undefined);
+      _defineProperty(this, "sub", undefined);
+      _defineProperty(this, "scope", undefined);
+      _defineProperty(this, "rawToken", undefined);
+      _defineProperty(this, "tokenExpires", undefined);
+      _defineProperty(this, "email", undefined);
+      _defineProperty(this, "additionalClaims", undefined);
+      _defineProperty(this, "eagerRefreshThresholdMillis", undefined);
+      _defineProperty(this, "transporter", {
+        request: function request(opts) {
+          return (0, _gaxios.request)(opts);
+        }
+      });
+      _classPrivateFieldInitSpec(this, _inFlightRequest, undefined);
+      _assertClassBrand(_GoogleToken_brand, this, _configure).call(this, _options);
+    }
+    return _createClass(GoogleToken2, [{
+      key: "accessToken",
+      get: function get() {
+        return this.rawToken ? this.rawToken.access_token : undefined;
+      }
+    }, {
+      key: "idToken",
+      get: function get() {
+        return this.rawToken ? this.rawToken.id_token : undefined;
+      }
+    }, {
+      key: "tokenType",
+      get: function get() {
+        return this.rawToken ? this.rawToken.token_type : undefined;
+      }
+    }, {
+      key: "refreshToken",
+      get: function get() {
+        return this.rawToken ? this.rawToken.refresh_token : undefined;
+      }
+    }, {
+      key: "hasExpired",
+      value: function hasExpired() {
+        var now = new Date().getTime();
+        if (this.rawToken && this.expiresAt) {
+          return now >= this.expiresAt;
+        } else {
+          return true;
+        }
+      }
+    }, {
+      key: "isTokenExpiring",
+      value: function isTokenExpiring() {
+        var _this$eagerRefreshThr;
+        var now = new Date().getTime();
+        var eagerRefreshThresholdMillis = (_this$eagerRefreshThr = this.eagerRefreshThresholdMillis) !== null && _this$eagerRefreshThr !== undefined ? _this$eagerRefreshThr : 0;
+        if (this.rawToken && this.expiresAt) {
+          return this.expiresAt <= now + eagerRefreshThresholdMillis;
+        } else {
+          return true;
+        }
+      }
+    }, {
+      key: "getToken",
+      value: function getToken(callback) {
+        var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+        if (_typeof(callback) === "object") {
+          opts = callback;
+          callback = undefined;
+        }
+        opts = Object.assign({
+          forceRefresh: false
+        }, opts);
+        if (callback) {
+          var cb = callback;
+          _assertClassBrand(_GoogleToken_brand, this, _getTokenAsync).call(this, opts).then(function(t) {
+            return cb(null, t);
+          }, callback);
+          return;
+        }
+        return _assertClassBrand(_GoogleToken_brand, this, _getTokenAsync).call(this, opts);
+      }
+    }, {
+      key: "getCredentials",
+      value: function() {
+        var _getCredentials = _asyncToGenerator(/* @__PURE__ */ _regenerator().m(function _callee2(keyFile) {
+          var ext, key, body, privateKey, clientEmail, _privateKey, _t;
+          return _regenerator().w(function(_context2) {
+            while (true)
+              switch (_context2.n) {
+                case 0:
+                  ext = path.extname(keyFile);
+                  _t = ext;
+                  _context2.n = _t === ".json" ? 1 : _t === ".der" ? 4 : _t === ".crt" ? 4 : _t === ".pem" ? 4 : _t === ".p12" ? 6 : _t === ".pfx" ? 6 : 7;
+                  break;
+                case 1:
+                  _context2.n = 2;
+                  return readFile(keyFile, "utf8");
+                case 2:
+                  key = _context2.v;
+                  body = JSON.parse(key);
+                  privateKey = body.private_key;
+                  clientEmail = body.client_email;
+                  if (!(!privateKey || !clientEmail)) {
+                    _context2.n = 3;
+                    break;
+                  }
+                  throw new ErrorWithCode("private_key and client_email are required.", "MISSING_CREDENTIALS");
+                case 3:
+                  return _context2.a(2, {
+                    privateKey,
+                    clientEmail
+                  });
+                case 4:
+                  _context2.n = 5;
+                  return readFile(keyFile, "utf8");
+                case 5:
+                  _privateKey = _context2.v;
+                  return _context2.a(2, {
+                    privateKey: _privateKey
+                  });
+                case 6:
+                  throw new ErrorWithCode("*.p12 certificates are not supported after v6.1.2. " + "Consider utilizing *.json format or converting *.p12 to *.pem using the OpenSSL CLI.", "UNKNOWN_CERTIFICATE_TYPE");
+                case 7:
+                  throw new ErrorWithCode("Unknown certificate type. Type is determined based on file extension. " + "Current supported extensions are *.json, and *.pem.", "UNKNOWN_CERTIFICATE_TYPE");
+                case 8:
+                  return _context2.a(2);
+              }
+          }, _callee2);
+        }));
+        function getCredentials(_x) {
+          return _getCredentials.apply(this, arguments);
+        }
+        return getCredentials;
+      }()
+    }, {
+      key: "revokeToken",
+      value: function revokeToken(callback) {
+        if (callback) {
+          _assertClassBrand(_GoogleToken_brand, this, _revokeTokenAsync).call(this).then(function() {
+            return callback();
+          }, callback);
+          return;
+        }
+        return _assertClassBrand(_GoogleToken_brand, this, _revokeTokenAsync).call(this);
+      }
+    }]);
+  }();
+  function _getTokenAsync(_x2) {
+    return _getTokenAsync2.apply(this, arguments);
+  }
+  function _getTokenAsync2() {
+    _getTokenAsync2 = _asyncToGenerator(/* @__PURE__ */ _regenerator().m(function _callee3(opts) {
+      return _regenerator().w(function(_context3) {
+        while (true)
+          switch (_context3.n) {
+            case 0:
+              if (!(_classPrivateFieldGet(_inFlightRequest, this) && !opts.forceRefresh)) {
+                _context3.n = 1;
+                break;
+              }
+              return _context3.a(2, _classPrivateFieldGet(_inFlightRequest, this));
+            case 1:
+              _context3.p = 1;
+              _context3.n = 2;
+              return _classPrivateFieldSet(_inFlightRequest, this, _assertClassBrand(_GoogleToken_brand, this, _getTokenAsyncInner).call(this, opts));
+            case 2:
+              return _context3.a(2, _context3.v);
+            case 3:
+              _context3.p = 3;
+              _classPrivateFieldSet(_inFlightRequest, this, undefined);
+              return _context3.f(3);
+            case 4:
+              return _context3.a(2);
+          }
+      }, _callee3, this, [[1, , 3, 4]]);
+    }));
+    return _getTokenAsync2.apply(this, arguments);
+  }
+  function _getTokenAsyncInner(_x3) {
+    return _getTokenAsyncInner2.apply(this, arguments);
+  }
+  function _getTokenAsyncInner2() {
+    _getTokenAsyncInner2 = _asyncToGenerator(/* @__PURE__ */ _regenerator().m(function _callee4(opts) {
+      var creds;
+      return _regenerator().w(function(_context4) {
+        while (true)
+          switch (_context4.n) {
+            case 0:
+              if (!(this.isTokenExpiring() === false && opts.forceRefresh === false)) {
+                _context4.n = 1;
+                break;
+              }
+              return _context4.a(2, Promise.resolve(this.rawToken));
+            case 1:
+              if (!(!this.key && !this.keyFile)) {
+                _context4.n = 2;
+                break;
+              }
+              throw new Error("No key or keyFile set.");
+            case 2:
+              if (!(!this.key && this.keyFile)) {
+                _context4.n = 4;
+                break;
+              }
+              _context4.n = 3;
+              return this.getCredentials(this.keyFile);
+            case 3:
+              creds = _context4.v;
+              this.key = creds.privateKey;
+              this.iss = creds.clientEmail || this.iss;
+              if (!creds.clientEmail) {
+                _assertClassBrand(_GoogleToken_brand, this, _ensureEmail).call(this);
+              }
+            case 4:
+              return _context4.a(2, _assertClassBrand(_GoogleToken_brand, this, _requestToken).call(this));
+          }
+      }, _callee4, this);
+    }));
+    return _getTokenAsyncInner2.apply(this, arguments);
+  }
+  function _ensureEmail() {
+    if (!this.iss) {
+      throw new ErrorWithCode("email is required.", "MISSING_CREDENTIALS");
+    }
+  }
+  function _revokeTokenAsync() {
+    return _revokeTokenAsync2.apply(this, arguments);
+  }
+  function _revokeTokenAsync2() {
+    _revokeTokenAsync2 = _asyncToGenerator(/* @__PURE__ */ _regenerator().m(function _callee5() {
+      var url;
+      return _regenerator().w(function(_context5) {
+        while (true)
+          switch (_context5.n) {
+            case 0:
+              if (this.accessToken) {
+                _context5.n = 1;
+                break;
+              }
+              throw new Error("No token to revoke.");
+            case 1:
+              url = GOOGLE_REVOKE_TOKEN_URL + this.accessToken;
+              _context5.n = 2;
+              return this.transporter.request({
+                url,
+                retry: true
+              });
+            case 2:
+              _assertClassBrand(_GoogleToken_brand, this, _configure).call(this, {
+                email: this.iss,
+                sub: this.sub,
+                key: this.key,
+                keyFile: this.keyFile,
+                scope: this.scope,
+                additionalClaims: this.additionalClaims
+              });
+            case 3:
+              return _context5.a(2);
+          }
+      }, _callee5, this);
+    }));
+    return _revokeTokenAsync2.apply(this, arguments);
+  }
+  function _configure() {
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    this.keyFile = options.keyFile;
+    this.key = options.key;
+    this.rawToken = undefined;
+    this.iss = options.email || options.iss;
+    this.sub = options.sub;
+    this.additionalClaims = options.additionalClaims;
+    if (_typeof(options.scope) === "object") {
+      this.scope = options.scope.join(" ");
+    } else {
+      this.scope = options.scope;
+    }
+    this.eagerRefreshThresholdMillis = options.eagerRefreshThresholdMillis;
+    if (options.transporter) {
+      this.transporter = options.transporter;
+    }
+  }
+  function _requestToken() {
+    return _requestToken2.apply(this, arguments);
+  }
+  function _requestToken2() {
+    _requestToken2 = _asyncToGenerator(/* @__PURE__ */ _regenerator().m(function _callee6() {
+      var iat, additionalClaims, payload, signedJWT, r, _response, _response2, body, desc, _t2;
+      return _regenerator().w(function(_context6) {
+        while (true)
+          switch (_context6.n) {
+            case 0:
+              iat = Math.floor(new Date().getTime() / 1000);
+              additionalClaims = this.additionalClaims || {};
+              payload = Object.assign({
+                iss: this.iss,
+                scope: this.scope,
+                aud: GOOGLE_TOKEN_URL,
+                exp: iat + 3600,
+                iat,
+                sub: this.sub
+              }, additionalClaims);
+              signedJWT = jws.sign({
+                header: {
+                  alg: "RS256"
+                },
+                payload,
+                secret: this.key
+              });
+              _context6.p = 1;
+              _context6.n = 2;
+              return this.transporter.request({
+                method: "POST",
+                url: GOOGLE_TOKEN_URL,
+                data: new URLSearchParams({
+                  grant_type: "urn:ietf:params:oauth:grant-type:jwt-bearer",
+                  assertion: signedJWT
+                }),
+                responseType: "json",
+                retryConfig: {
+                  httpMethodsToRetry: ["POST"]
+                }
+              });
+            case 2:
+              r = _context6.v;
+              this.rawToken = r.data;
+              this.expiresAt = r.data.expires_in === null || r.data.expires_in === undefined ? undefined : (iat + r.data.expires_in) * 1000;
+              return _context6.a(2, this.rawToken);
+            case 3:
+              _context6.p = 3;
+              _t2 = _context6.v;
+              this.rawToken = undefined;
+              this.tokenExpires = undefined;
+              body = _t2.response && (_response = _t2.response) !== null && _response !== undefined && _response.data ? (_response2 = _t2.response) === null || _response2 === undefined ? undefined : _response2.data : {};
+              if (body.error) {
+                desc = body.error_description ? ": ".concat(body.error_description) : "";
+                _t2.message = "".concat(body.error).concat(desc);
+              }
+              throw _t2;
+            case 4:
+              return _context6.a(2);
+          }
+      }, _callee6, this, [[1, 3]]);
+    }));
+    return _requestToken2.apply(this, arguments);
+  }
+});
+
+// node_modules/google-auth-library/build/src/auth/jwtaccess.js
+var require_jwtaccess = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.JWTAccess = undefined;
+  var jws = require_jws();
+  var util_1 = require_util2();
+  var DEFAULT_HEADER = {
+    alg: "RS256",
+    typ: "JWT"
+  };
+
+  class JWTAccess {
+    email;
+    key;
+    keyId;
+    projectId;
+    eagerRefreshThresholdMillis;
+    cache = new util_1.LRUCache({
+      capacity: 500,
+      maxAge: 60 * 60 * 1000
+    });
+    constructor(email, key, keyId, eagerRefreshThresholdMillis) {
+      this.email = email;
+      this.key = key;
+      this.keyId = keyId;
+      this.eagerRefreshThresholdMillis = eagerRefreshThresholdMillis ?? 5 * 60 * 1000;
+    }
+    getCachedKey(url, scopes) {
+      let cacheKey = url;
+      if (scopes && Array.isArray(scopes) && scopes.length) {
+        cacheKey = url ? `${url}_${scopes.join("_")}` : `${scopes.join("_")}`;
+      } else if (typeof scopes === "string") {
+        cacheKey = url ? `${url}_${scopes}` : scopes;
+      }
+      if (!cacheKey) {
+        throw Error("Scopes or url must be provided");
+      }
+      return cacheKey;
+    }
+    getRequestHeaders(url, additionalClaims, scopes) {
+      const key = this.getCachedKey(url, scopes);
+      const cachedToken = this.cache.get(key);
+      const now = Date.now();
+      if (cachedToken && cachedToken.expiration - now > this.eagerRefreshThresholdMillis) {
+        return new Headers(cachedToken.headers);
+      }
+      const iat = Math.floor(Date.now() / 1000);
+      const exp = JWTAccess.getExpirationTime(iat);
+      let defaultClaims;
+      if (Array.isArray(scopes)) {
+        scopes = scopes.join(" ");
+      }
+      if (scopes) {
+        defaultClaims = {
+          iss: this.email,
+          sub: this.email,
+          scope: scopes,
+          exp,
+          iat
+        };
+      } else {
+        defaultClaims = {
+          iss: this.email,
+          sub: this.email,
+          aud: url,
+          exp,
+          iat
+        };
+      }
+      if (additionalClaims) {
+        for (const claim in defaultClaims) {
+          if (additionalClaims[claim]) {
+            throw new Error(`The '${claim}' property is not allowed when passing additionalClaims. This claim is included in the JWT by default.`);
+          }
+        }
+      }
+      const header = this.keyId ? { ...DEFAULT_HEADER, kid: this.keyId } : DEFAULT_HEADER;
+      const payload = Object.assign(defaultClaims, additionalClaims);
+      const signedJWT = jws.sign({ header, payload, secret: this.key });
+      const headers = new Headers({ authorization: `Bearer ${signedJWT}` });
+      this.cache.set(key, {
+        expiration: exp * 1000,
+        headers
+      });
+      return headers;
+    }
+    static getExpirationTime(iat) {
+      const exp = iat + 3600;
+      return exp;
+    }
+    fromJSON(json) {
+      if (!json) {
+        throw new Error("Must pass in a JSON object containing the service account auth settings.");
+      }
+      if (!json.client_email) {
+        throw new Error("The incoming JSON object does not contain a client_email field");
+      }
+      if (!json.private_key) {
+        throw new Error("The incoming JSON object does not contain a private_key field");
+      }
+      this.email = json.client_email;
+      this.key = json.private_key;
+      this.keyId = json.private_key_id;
+      this.projectId = json.project_id;
+    }
+    fromStream(inputStream, callback) {
+      if (callback) {
+        this.fromStreamAsync(inputStream).then(() => callback(), callback);
+      } else {
+        return this.fromStreamAsync(inputStream);
+      }
+    }
+    fromStreamAsync(inputStream) {
+      return new Promise((resolve, reject) => {
+        if (!inputStream) {
+          reject(new Error("Must pass in a stream containing the service account auth settings."));
+        }
+        let s = "";
+        inputStream.setEncoding("utf8").on("data", (chunk) => s += chunk).on("error", reject).on("end", () => {
+          try {
+            const data = JSON.parse(s);
+            this.fromJSON(data);
+            resolve();
+          } catch (err) {
+            reject(err);
+          }
+        });
+      });
+    }
+  }
+  exports.JWTAccess = JWTAccess;
+});
+
+// node_modules/google-auth-library/build/src/auth/jwtclient.js
+var require_jwtclient = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.JWT = undefined;
+  var gtoken_1 = require_src4();
+  var jwtaccess_1 = require_jwtaccess();
+  var oauth2client_1 = require_oauth2client();
+  var authclient_1 = require_authclient();
+
+  class JWT extends oauth2client_1.OAuth2Client {
+    email;
+    keyFile;
+    key;
+    keyId;
+    defaultScopes;
+    scopes;
+    scope;
+    subject;
+    gtoken;
+    additionalClaims;
+    useJWTAccessWithScope;
+    defaultServicePath;
+    access;
+    constructor(options = {}) {
+      super(options);
+      this.email = options.email;
+      this.keyFile = options.keyFile;
+      this.key = options.key;
+      this.keyId = options.keyId;
+      this.scopes = options.scopes;
+      this.subject = options.subject;
+      this.additionalClaims = options.additionalClaims;
+      this.credentials = { refresh_token: "jwt-placeholder", expiry_date: 1 };
+    }
+    createScoped(scopes) {
+      const jwt = new JWT(this);
+      jwt.scopes = scopes;
+      return jwt;
+    }
+    async getRequestMetadataAsync(url) {
+      url = this.defaultServicePath ? `https://${this.defaultServicePath}/` : url;
+      const useSelfSignedJWT = !this.hasUserScopes() && url || this.useJWTAccessWithScope && this.hasAnyScopes() || this.universeDomain !== authclient_1.DEFAULT_UNIVERSE;
+      if (this.subject && this.universeDomain !== authclient_1.DEFAULT_UNIVERSE) {
+        throw new RangeError(`Service Account user is configured for the credential. Domain-wide delegation is not supported in universes other than ${authclient_1.DEFAULT_UNIVERSE}`);
+      }
+      if (!this.apiKey && useSelfSignedJWT) {
+        if (this.additionalClaims && this.additionalClaims.target_audience) {
+          const { tokens } = await this.refreshToken();
+          return {
+            headers: this.addSharedMetadataHeaders(new Headers({
+              authorization: `Bearer ${tokens.id_token}`
+            }))
+          };
+        } else {
+          if (!this.access) {
+            this.access = new jwtaccess_1.JWTAccess(this.email, this.key, this.keyId, this.eagerRefreshThresholdMillis);
+          }
+          let scopes;
+          if (this.hasUserScopes()) {
+            scopes = this.scopes;
+          } else if (!url) {
+            scopes = this.defaultScopes;
+          }
+          const useScopes = this.useJWTAccessWithScope || this.universeDomain !== authclient_1.DEFAULT_UNIVERSE;
+          const headers = await this.access.getRequestHeaders(url ?? undefined, this.additionalClaims, useScopes ? scopes : undefined);
+          return { headers: this.addSharedMetadataHeaders(headers) };
+        }
+      } else if (this.hasAnyScopes() || this.apiKey) {
+        return super.getRequestMetadataAsync(url);
+      } else {
+        return { headers: new Headers };
+      }
+    }
+    async fetchIdToken(targetAudience) {
+      const gtoken = new gtoken_1.GoogleToken({
+        iss: this.email,
+        sub: this.subject,
+        scope: this.scopes || this.defaultScopes,
+        keyFile: this.keyFile,
+        key: this.key,
+        additionalClaims: { target_audience: targetAudience },
+        transporter: this.transporter
+      });
+      await gtoken.getToken({
+        forceRefresh: true
+      });
+      if (!gtoken.idToken) {
+        throw new Error("Unknown error: Failed to fetch ID token");
+      }
+      return gtoken.idToken;
+    }
+    hasUserScopes() {
+      if (!this.scopes) {
+        return false;
+      }
+      return this.scopes.length > 0;
+    }
+    hasAnyScopes() {
+      if (this.scopes && this.scopes.length > 0)
+        return true;
+      if (this.defaultScopes && this.defaultScopes.length > 0)
+        return true;
+      return false;
+    }
+    authorize(callback) {
+      if (callback) {
+        this.authorizeAsync().then((r) => callback(null, r), callback);
+      } else {
+        return this.authorizeAsync();
+      }
+    }
+    async authorizeAsync() {
+      const result = await this.refreshToken();
+      if (!result) {
+        throw new Error("No result returned");
+      }
+      this.credentials = result.tokens;
+      this.credentials.refresh_token = "jwt-placeholder";
+      this.key = this.gtoken.key;
+      this.email = this.gtoken.iss;
+      return result.tokens;
+    }
+    async refreshTokenNoCache() {
+      const gtoken = this.createGToken();
+      const token = await gtoken.getToken({
+        forceRefresh: this.isTokenExpiring()
+      });
+      const tokens = {
+        access_token: token.access_token,
+        token_type: "Bearer",
+        expiry_date: gtoken.expiresAt,
+        id_token: gtoken.idToken
+      };
+      this.emit("tokens", tokens);
+      return { res: null, tokens };
+    }
+    createGToken() {
+      if (!this.gtoken) {
+        this.gtoken = new gtoken_1.GoogleToken({
+          iss: this.email,
+          sub: this.subject,
+          scope: this.scopes || this.defaultScopes,
+          keyFile: this.keyFile,
+          key: this.key,
+          additionalClaims: this.additionalClaims,
+          transporter: this.transporter
+        });
+      }
+      return this.gtoken;
+    }
+    fromJSON(json) {
+      if (!json) {
+        throw new Error("Must pass in a JSON object containing the service account auth settings.");
+      }
+      if (!json.client_email) {
+        throw new Error("The incoming JSON object does not contain a client_email field");
+      }
+      if (!json.private_key) {
+        throw new Error("The incoming JSON object does not contain a private_key field");
+      }
+      this.email = json.client_email;
+      this.key = json.private_key;
+      this.keyId = json.private_key_id;
+      this.projectId = json.project_id;
+      this.quotaProjectId = json.quota_project_id;
+      this.universeDomain = json.universe_domain || this.universeDomain;
+    }
+    fromStream(inputStream, callback) {
+      if (callback) {
+        this.fromStreamAsync(inputStream).then(() => callback(), callback);
+      } else {
+        return this.fromStreamAsync(inputStream);
+      }
+    }
+    fromStreamAsync(inputStream) {
+      return new Promise((resolve, reject) => {
+        if (!inputStream) {
+          throw new Error("Must pass in a stream containing the service account auth settings.");
+        }
+        let s = "";
+        inputStream.setEncoding("utf8").on("error", reject).on("data", (chunk) => s += chunk).on("end", () => {
+          try {
+            const data = JSON.parse(s);
+            this.fromJSON(data);
+            resolve();
+          } catch (e) {
+            reject(e);
+          }
+        });
+      });
+    }
+    fromAPIKey(apiKey) {
+      if (typeof apiKey !== "string") {
+        throw new Error("Must provide an API Key string.");
+      }
+      this.apiKey = apiKey;
+    }
+    async getCredentials() {
+      if (this.key) {
+        return { private_key: this.key, client_email: this.email };
+      } else if (this.keyFile) {
+        const gtoken = this.createGToken();
+        const creds = await gtoken.getCredentials(this.keyFile);
+        return { private_key: creds.privateKey, client_email: creds.clientEmail };
+      }
+      throw new Error("A key or a keyFile must be provided to getCredentials.");
+    }
+  }
+  exports.JWT = JWT;
+});
+
+// node_modules/google-auth-library/build/src/auth/refreshclient.js
+var require_refreshclient = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.UserRefreshClient = exports.USER_REFRESH_ACCOUNT_TYPE = undefined;
+  var oauth2client_1 = require_oauth2client();
+  var authclient_1 = require_authclient();
+  exports.USER_REFRESH_ACCOUNT_TYPE = "authorized_user";
+
+  class UserRefreshClient extends oauth2client_1.OAuth2Client {
+    _refreshToken;
+    constructor(optionsOrClientId, clientSecret, refreshToken, eagerRefreshThresholdMillis, forceRefreshOnFailure) {
+      const opts = optionsOrClientId && typeof optionsOrClientId === "object" ? optionsOrClientId : {
+        clientId: optionsOrClientId,
+        clientSecret,
+        refreshToken,
+        eagerRefreshThresholdMillis,
+        forceRefreshOnFailure
+      };
+      super(opts);
+      this._refreshToken = opts.refreshToken;
+      this.credentials.refresh_token = opts.refreshToken;
+    }
+    async refreshTokenNoCache() {
+      return super.refreshTokenNoCache(this._refreshToken);
+    }
+    async fetchIdToken(targetAudience) {
+      const opts = {
+        ...UserRefreshClient.RETRY_CONFIG,
+        url: this.endpoints.oauth2TokenUrl,
+        method: "POST",
+        data: new URLSearchParams({
+          client_id: this._clientId,
+          client_secret: this._clientSecret,
+          grant_type: "refresh_token",
+          refresh_token: this._refreshToken,
+          target_audience: targetAudience
+        })
+      };
+      authclient_1.AuthClient.setMethodName(opts, "fetchIdToken");
+      const res = await this.transporter.request(opts);
+      return res.data.id_token;
+    }
+    fromJSON(json) {
+      if (!json) {
+        throw new Error("Must pass in a JSON object containing the user refresh token");
+      }
+      if (json.type !== "authorized_user") {
+        throw new Error('The incoming JSON object does not have the "authorized_user" type');
+      }
+      if (!json.client_id) {
+        throw new Error("The incoming JSON object does not contain a client_id field");
+      }
+      if (!json.client_secret) {
+        throw new Error("The incoming JSON object does not contain a client_secret field");
+      }
+      if (!json.refresh_token) {
+        throw new Error("The incoming JSON object does not contain a refresh_token field");
+      }
+      this._clientId = json.client_id;
+      this._clientSecret = json.client_secret;
+      this._refreshToken = json.refresh_token;
+      this.credentials.refresh_token = json.refresh_token;
+      this.quotaProjectId = json.quota_project_id;
+      this.universeDomain = json.universe_domain || this.universeDomain;
+    }
+    fromStream(inputStream, callback) {
+      if (callback) {
+        this.fromStreamAsync(inputStream).then(() => callback(), callback);
+      } else {
+        return this.fromStreamAsync(inputStream);
+      }
+    }
+    async fromStreamAsync(inputStream) {
+      return new Promise((resolve, reject) => {
+        if (!inputStream) {
+          return reject(new Error("Must pass in a stream containing the user refresh token."));
+        }
+        let s = "";
+        inputStream.setEncoding("utf8").on("error", reject).on("data", (chunk) => s += chunk).on("end", () => {
+          try {
+            const data = JSON.parse(s);
+            this.fromJSON(data);
+            return resolve();
+          } catch (err) {
+            return reject(err);
+          }
+        });
+      });
+    }
+    static fromJSON(json) {
+      const client = new UserRefreshClient;
+      client.fromJSON(json);
+      return client;
+    }
+  }
+  exports.UserRefreshClient = UserRefreshClient;
+});
+
+// node_modules/google-auth-library/build/src/auth/impersonated.js
+var require_impersonated = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.Impersonated = exports.IMPERSONATED_ACCOUNT_TYPE = undefined;
+  var oauth2client_1 = require_oauth2client();
+  var gaxios_1 = require_src();
+  var util_1 = require_util2();
+  exports.IMPERSONATED_ACCOUNT_TYPE = "impersonated_service_account";
+
+  class Impersonated extends oauth2client_1.OAuth2Client {
+    sourceClient;
+    targetPrincipal;
+    targetScopes;
+    delegates;
+    lifetime;
+    endpoint;
+    constructor(options = {}) {
+      super(options);
+      this.credentials = {
+        expiry_date: 1,
+        refresh_token: "impersonated-placeholder"
+      };
+      this.sourceClient = options.sourceClient ?? new oauth2client_1.OAuth2Client;
+      this.targetPrincipal = options.targetPrincipal ?? "";
+      this.delegates = options.delegates ?? [];
+      this.targetScopes = options.targetScopes ?? [];
+      this.lifetime = options.lifetime ?? 3600;
+      const usingExplicitUniverseDomain = !!(0, util_1.originalOrCamelOptions)(options).get("universe_domain");
+      if (!usingExplicitUniverseDomain) {
+        this.universeDomain = this.sourceClient.universeDomain;
+      } else if (this.sourceClient.universeDomain !== this.universeDomain) {
+        throw new RangeError(`Universe domain ${this.sourceClient.universeDomain} in source credentials does not match ${this.universeDomain} universe domain set for impersonated credentials.`);
+      }
+      this.endpoint = options.endpoint ?? `https://iamcredentials.${this.universeDomain}`;
+    }
+    async sign(blobToSign) {
+      await this.sourceClient.getAccessToken();
+      const name = `projects/-/serviceAccounts/${this.targetPrincipal}`;
+      const u = `${this.endpoint}/v1/${name}:signBlob`;
+      const body = {
+        delegates: this.delegates,
+        payload: Buffer.from(blobToSign).toString("base64")
+      };
+      const res = await this.sourceClient.request({
+        ...Impersonated.RETRY_CONFIG,
+        url: u,
+        data: body,
+        method: "POST"
+      });
+      return res.data;
+    }
+    getTargetPrincipal() {
+      return this.targetPrincipal;
+    }
+    async refreshToken() {
+      try {
+        await this.sourceClient.getAccessToken();
+        const name = "projects/-/serviceAccounts/" + this.targetPrincipal;
+        const u = `${this.endpoint}/v1/${name}:generateAccessToken`;
+        const body = {
+          delegates: this.delegates,
+          scope: this.targetScopes,
+          lifetime: this.lifetime + "s"
+        };
+        const res = await this.sourceClient.request({
+          ...Impersonated.RETRY_CONFIG,
+          url: u,
+          data: body,
+          method: "POST"
+        });
+        const tokenResponse = res.data;
+        this.credentials.access_token = tokenResponse.accessToken;
+        this.credentials.expiry_date = Date.parse(tokenResponse.expireTime);
+        return {
+          tokens: this.credentials,
+          res
+        };
+      } catch (error) {
+        if (!(error instanceof Error))
+          throw error;
+        let status = 0;
+        let message = "";
+        if (error instanceof gaxios_1.GaxiosError) {
+          status = error?.response?.data?.error?.status;
+          message = error?.response?.data?.error?.message;
+        }
+        if (status && message) {
+          error.message = `${status}: unable to impersonate: ${message}`;
+          throw error;
+        } else {
+          error.message = `unable to impersonate: ${error}`;
+          throw error;
+        }
+      }
+    }
+    async fetchIdToken(targetAudience, options) {
+      await this.sourceClient.getAccessToken();
+      const name = `projects/-/serviceAccounts/${this.targetPrincipal}`;
+      const u = `${this.endpoint}/v1/${name}:generateIdToken`;
+      const body = {
+        delegates: this.delegates,
+        audience: targetAudience,
+        includeEmail: options?.includeEmail ?? true,
+        useEmailAzp: options?.includeEmail ?? true
+      };
+      const res = await this.sourceClient.request({
+        ...Impersonated.RETRY_CONFIG,
+        url: u,
+        data: body,
+        method: "POST"
+      });
+      return res.data.token;
+    }
+  }
+  exports.Impersonated = Impersonated;
+});
+
+// node_modules/google-auth-library/build/src/auth/oauth2common.js
+var require_oauth2common = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.OAuthClientAuthHandler = undefined;
+  exports.getErrorFromOAuthErrorResponse = getErrorFromOAuthErrorResponse;
+  var gaxios_1 = require_src();
+  var crypto_1 = require_crypto3();
+  var METHODS_SUPPORTING_REQUEST_BODY = ["PUT", "POST", "PATCH"];
+
+  class OAuthClientAuthHandler {
+    #crypto = (0, crypto_1.createCrypto)();
+    #clientAuthentication;
+    transporter;
+    constructor(options) {
+      if (options && "clientId" in options) {
+        this.#clientAuthentication = options;
+        this.transporter = new gaxios_1.Gaxios;
+      } else {
+        this.#clientAuthentication = options?.clientAuthentication;
+        this.transporter = options?.transporter || new gaxios_1.Gaxios;
+      }
+    }
+    applyClientAuthenticationOptions(opts, bearerToken) {
+      opts.headers = gaxios_1.Gaxios.mergeHeaders(opts.headers);
+      this.injectAuthenticatedHeaders(opts, bearerToken);
+      if (!bearerToken) {
+        this.injectAuthenticatedRequestBody(opts);
+      }
+    }
+    injectAuthenticatedHeaders(opts, bearerToken) {
+      if (bearerToken) {
+        opts.headers = gaxios_1.Gaxios.mergeHeaders(opts.headers, {
+          authorization: `Bearer ${bearerToken}`
+        });
+      } else if (this.#clientAuthentication?.confidentialClientType === "basic") {
+        opts.headers = gaxios_1.Gaxios.mergeHeaders(opts.headers);
+        const clientId = this.#clientAuthentication.clientId;
+        const clientSecret = this.#clientAuthentication.clientSecret || "";
+        const base64EncodedCreds = this.#crypto.encodeBase64StringUtf8(`${clientId}:${clientSecret}`);
+        gaxios_1.Gaxios.mergeHeaders(opts.headers, {
+          authorization: `Basic ${base64EncodedCreds}`
+        });
+      }
+    }
+    injectAuthenticatedRequestBody(opts) {
+      if (this.#clientAuthentication?.confidentialClientType === "request-body") {
+        const method = (opts.method || "GET").toUpperCase();
+        if (!METHODS_SUPPORTING_REQUEST_BODY.includes(method)) {
+          throw new Error(`${method} HTTP method does not support ` + `${this.#clientAuthentication.confidentialClientType} ` + "client authentication");
+        }
+        const headers = new Headers(opts.headers);
+        const contentType = headers.get("content-type");
+        if (contentType?.startsWith("application/x-www-form-urlencoded") || opts.data instanceof URLSearchParams) {
+          const data = new URLSearchParams(opts.data ?? "");
+          data.append("client_id", this.#clientAuthentication.clientId);
+          data.append("client_secret", this.#clientAuthentication.clientSecret || "");
+          opts.data = data;
+        } else if (contentType?.startsWith("application/json")) {
+          opts.data = opts.data || {};
+          Object.assign(opts.data, {
+            client_id: this.#clientAuthentication.clientId,
+            client_secret: this.#clientAuthentication.clientSecret || ""
+          });
+        } else {
+          throw new Error(`${contentType} content-types are not supported with ` + `${this.#clientAuthentication.confidentialClientType} ` + "client authentication");
+        }
+      }
+    }
+    static get RETRY_CONFIG() {
+      return {
+        retry: true,
+        retryConfig: {
+          httpMethodsToRetry: ["GET", "PUT", "POST", "HEAD", "OPTIONS", "DELETE"]
+        }
+      };
+    }
+  }
+  exports.OAuthClientAuthHandler = OAuthClientAuthHandler;
+  function getErrorFromOAuthErrorResponse(resp, err) {
+    const errorCode = resp.error;
+    const errorDescription = resp.error_description;
+    const errorUri = resp.error_uri;
+    let message = `Error code ${errorCode}`;
+    if (typeof errorDescription !== "undefined") {
+      message += `: ${errorDescription}`;
+    }
+    if (typeof errorUri !== "undefined") {
+      message += ` - ${errorUri}`;
+    }
+    const newError = new Error(message);
+    if (err) {
+      const keys = Object.keys(err);
+      if (err.stack) {
+        keys.push("stack");
+      }
+      keys.forEach((key) => {
+        if (key !== "message") {
+          Object.defineProperty(newError, key, {
+            value: err[key],
+            writable: false,
+            enumerable: true
+          });
+        }
+      });
+    }
+    return newError;
+  }
+});
+
+// node_modules/google-auth-library/build/src/auth/stscredentials.js
+var require_stscredentials = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.StsCredentials = undefined;
+  var gaxios_1 = require_src();
+  var authclient_1 = require_authclient();
+  var oauth2common_1 = require_oauth2common();
+  var util_1 = require_util2();
+
+  class StsCredentials extends oauth2common_1.OAuthClientAuthHandler {
+    #tokenExchangeEndpoint;
+    constructor(options = {
+      tokenExchangeEndpoint: ""
+    }, clientAuthentication) {
+      if (typeof options !== "object" || options instanceof URL) {
+        options = {
+          tokenExchangeEndpoint: options,
+          clientAuthentication
+        };
+      }
+      super(options);
+      this.#tokenExchangeEndpoint = options.tokenExchangeEndpoint;
+    }
+    async exchangeToken(stsCredentialsOptions, headers, options) {
+      const values = {
+        grant_type: stsCredentialsOptions.grantType,
+        resource: stsCredentialsOptions.resource,
+        audience: stsCredentialsOptions.audience,
+        scope: stsCredentialsOptions.scope?.join(" "),
+        requested_token_type: stsCredentialsOptions.requestedTokenType,
+        subject_token: stsCredentialsOptions.subjectToken,
+        subject_token_type: stsCredentialsOptions.subjectTokenType,
+        actor_token: stsCredentialsOptions.actingParty?.actorToken,
+        actor_token_type: stsCredentialsOptions.actingParty?.actorTokenType,
+        options: options && JSON.stringify(options)
+      };
+      const opts = {
+        ...StsCredentials.RETRY_CONFIG,
+        url: this.#tokenExchangeEndpoint.toString(),
+        method: "POST",
+        headers,
+        data: new URLSearchParams((0, util_1.removeUndefinedValuesInObject)(values))
+      };
+      authclient_1.AuthClient.setMethodName(opts, "exchangeToken");
+      this.applyClientAuthenticationOptions(opts);
+      try {
+        const response = await this.transporter.request(opts);
+        const stsSuccessfulResponse = response.data;
+        stsSuccessfulResponse.res = response;
+        return stsSuccessfulResponse;
+      } catch (error) {
+        if (error instanceof gaxios_1.GaxiosError && error.response) {
+          throw (0, oauth2common_1.getErrorFromOAuthErrorResponse)(error.response.data, error);
+        }
+        throw error;
+      }
+    }
+  }
+  exports.StsCredentials = StsCredentials;
+});
+
+// node_modules/google-auth-library/build/src/auth/baseexternalclient.js
+var require_baseexternalclient = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.BaseExternalAccountClient = exports.CLOUD_RESOURCE_MANAGER = exports.EXTERNAL_ACCOUNT_TYPE = exports.EXPIRATION_TIME_OFFSET = undefined;
+  var gaxios_1 = require_src();
+  var stream = __require("stream");
+  var authclient_1 = require_authclient();
+  var sts = require_stscredentials();
+  var util_1 = require_util2();
+  var shared_cjs_1 = require_shared2();
+  var STS_GRANT_TYPE = "urn:ietf:params:oauth:grant-type:token-exchange";
+  var STS_REQUEST_TOKEN_TYPE = "urn:ietf:params:oauth:token-type:access_token";
+  var DEFAULT_OAUTH_SCOPE = "https://www.googleapis.com/auth/cloud-platform";
+  var DEFAULT_TOKEN_LIFESPAN = 3600;
+  exports.EXPIRATION_TIME_OFFSET = 5 * 60 * 1000;
+  exports.EXTERNAL_ACCOUNT_TYPE = "external_account";
+  exports.CLOUD_RESOURCE_MANAGER = "https://cloudresourcemanager.googleapis.com/v1/projects/";
+  var WORKFORCE_AUDIENCE_PATTERN = "//iam\\.googleapis\\.com/locations/[^/]+/workforcePools/[^/]+/providers/.+";
+  var DEFAULT_TOKEN_URL = "https://sts.{universeDomain}/v1/token";
+
+  class BaseExternalAccountClient extends authclient_1.AuthClient {
+    scopes;
+    projectNumber;
+    audience;
+    subjectTokenType;
+    stsCredential;
+    clientAuth;
+    credentialSourceType;
+    cachedAccessToken;
+    serviceAccountImpersonationUrl;
+    serviceAccountImpersonationLifetime;
+    workforcePoolUserProject;
+    configLifetimeRequested;
+    tokenUrl;
+    cloudResourceManagerURL;
+    supplierContext;
+    #pendingAccessToken = null;
+    constructor(options) {
+      super(options);
+      const opts = (0, util_1.originalOrCamelOptions)(options);
+      const type = opts.get("type");
+      if (type && type !== exports.EXTERNAL_ACCOUNT_TYPE) {
+        throw new Error(`Expected "${exports.EXTERNAL_ACCOUNT_TYPE}" type but ` + `received "${options.type}"`);
+      }
+      const clientId = opts.get("client_id");
+      const clientSecret = opts.get("client_secret");
+      this.tokenUrl = opts.get("token_url") ?? DEFAULT_TOKEN_URL.replace("{universeDomain}", this.universeDomain);
+      const subjectTokenType = opts.get("subject_token_type");
+      const workforcePoolUserProject = opts.get("workforce_pool_user_project");
+      const serviceAccountImpersonationUrl = opts.get("service_account_impersonation_url");
+      const serviceAccountImpersonation = opts.get("service_account_impersonation");
+      const serviceAccountImpersonationLifetime = (0, util_1.originalOrCamelOptions)(serviceAccountImpersonation).get("token_lifetime_seconds");
+      this.cloudResourceManagerURL = new URL(opts.get("cloud_resource_manager_url") || `https://cloudresourcemanager.${this.universeDomain}/v1/projects/`);
+      if (clientId) {
+        this.clientAuth = {
+          confidentialClientType: "basic",
+          clientId,
+          clientSecret
+        };
+      }
+      this.stsCredential = new sts.StsCredentials({
+        tokenExchangeEndpoint: this.tokenUrl,
+        clientAuthentication: this.clientAuth
+      });
+      this.scopes = opts.get("scopes") || [DEFAULT_OAUTH_SCOPE];
+      this.cachedAccessToken = null;
+      this.audience = opts.get("audience");
+      this.subjectTokenType = subjectTokenType;
+      this.workforcePoolUserProject = workforcePoolUserProject;
+      const workforceAudiencePattern = new RegExp(WORKFORCE_AUDIENCE_PATTERN);
+      if (this.workforcePoolUserProject && !this.audience.match(workforceAudiencePattern)) {
+        throw new Error("workforcePoolUserProject should not be set for non-workforce pool " + "credentials.");
+      }
+      this.serviceAccountImpersonationUrl = serviceAccountImpersonationUrl;
+      this.serviceAccountImpersonationLifetime = serviceAccountImpersonationLifetime;
+      if (this.serviceAccountImpersonationLifetime) {
+        this.configLifetimeRequested = true;
+      } else {
+        this.configLifetimeRequested = false;
+        this.serviceAccountImpersonationLifetime = DEFAULT_TOKEN_LIFESPAN;
+      }
+      this.projectNumber = this.getProjectNumber(this.audience);
+      this.supplierContext = {
+        audience: this.audience,
+        subjectTokenType: this.subjectTokenType,
+        transporter: this.transporter
+      };
+    }
+    getServiceAccountEmail() {
+      if (this.serviceAccountImpersonationUrl) {
+        if (this.serviceAccountImpersonationUrl.length > 256) {
+          throw new RangeError(`URL is too long: ${this.serviceAccountImpersonationUrl}`);
+        }
+        const re = /serviceAccounts\/(?<email>[^:]+):generateAccessToken$/;
+        const result = re.exec(this.serviceAccountImpersonationUrl);
+        return result?.groups?.email || null;
+      }
+      return null;
+    }
+    setCredentials(credentials) {
+      super.setCredentials(credentials);
+      this.cachedAccessToken = credentials;
+    }
+    async getAccessToken() {
+      if (!this.cachedAccessToken || this.isExpired(this.cachedAccessToken)) {
+        await this.refreshAccessTokenAsync();
+      }
+      return {
+        token: this.cachedAccessToken.access_token,
+        res: this.cachedAccessToken.res
+      };
+    }
+    async getRequestHeaders() {
+      const accessTokenResponse = await this.getAccessToken();
+      const headers = new Headers({
+        authorization: `Bearer ${accessTokenResponse.token}`
+      });
+      return this.addSharedMetadataHeaders(headers);
+    }
+    request(opts, callback) {
+      if (callback) {
+        this.requestAsync(opts).then((r) => callback(null, r), (e) => {
+          return callback(e, e.response);
+        });
+      } else {
+        return this.requestAsync(opts);
+      }
+    }
+    async getProjectId() {
+      const projectNumber = this.projectNumber || this.workforcePoolUserProject;
+      if (this.projectId) {
+        return this.projectId;
+      } else if (projectNumber) {
+        const headers = await this.getRequestHeaders();
+        const opts = {
+          ...BaseExternalAccountClient.RETRY_CONFIG,
+          headers,
+          url: `${this.cloudResourceManagerURL.toString()}${projectNumber}`
+        };
+        authclient_1.AuthClient.setMethodName(opts, "getProjectId");
+        const response = await this.transporter.request(opts);
+        this.projectId = response.data.projectId;
+        return this.projectId;
+      }
+      return null;
+    }
+    async requestAsync(opts, reAuthRetried = false) {
+      let response;
+      try {
+        const requestHeaders = await this.getRequestHeaders();
+        opts.headers = gaxios_1.Gaxios.mergeHeaders(opts.headers);
+        this.addUserProjectAndAuthHeaders(opts.headers, requestHeaders);
+        response = await this.transporter.request(opts);
+      } catch (e) {
+        const res = e.response;
+        if (res) {
+          const statusCode = res.status;
+          const isReadableStream = res.config.data instanceof stream.Readable;
+          const isAuthErr = statusCode === 401 || statusCode === 403;
+          if (!reAuthRetried && isAuthErr && !isReadableStream && this.forceRefreshOnFailure) {
+            await this.refreshAccessTokenAsync();
+            return await this.requestAsync(opts, true);
+          }
+        }
+        throw e;
+      }
+      return response;
+    }
+    async refreshAccessTokenAsync() {
+      this.#pendingAccessToken = this.#pendingAccessToken || this.#internalRefreshAccessTokenAsync();
+      try {
+        return await this.#pendingAccessToken;
+      } finally {
+        this.#pendingAccessToken = null;
+      }
+    }
+    async#internalRefreshAccessTokenAsync() {
+      const subjectToken = await this.retrieveSubjectToken();
+      const stsCredentialsOptions = {
+        grantType: STS_GRANT_TYPE,
+        audience: this.audience,
+        requestedTokenType: STS_REQUEST_TOKEN_TYPE,
+        subjectToken,
+        subjectTokenType: this.subjectTokenType,
+        scope: this.serviceAccountImpersonationUrl ? [DEFAULT_OAUTH_SCOPE] : this.getScopesArray()
+      };
+      const additionalOptions = !this.clientAuth && this.workforcePoolUserProject ? { userProject: this.workforcePoolUserProject } : undefined;
+      const additionalHeaders = new Headers({
+        "x-goog-api-client": this.getMetricsHeaderValue()
+      });
+      const stsResponse = await this.stsCredential.exchangeToken(stsCredentialsOptions, additionalHeaders, additionalOptions);
+      if (this.serviceAccountImpersonationUrl) {
+        this.cachedAccessToken = await this.getImpersonatedAccessToken(stsResponse.access_token);
+      } else if (stsResponse.expires_in) {
+        this.cachedAccessToken = {
+          access_token: stsResponse.access_token,
+          expiry_date: new Date().getTime() + stsResponse.expires_in * 1000,
+          res: stsResponse.res
+        };
+      } else {
+        this.cachedAccessToken = {
+          access_token: stsResponse.access_token,
+          res: stsResponse.res
+        };
+      }
+      this.credentials = {};
+      Object.assign(this.credentials, this.cachedAccessToken);
+      delete this.credentials.res;
+      this.emit("tokens", {
+        refresh_token: null,
+        expiry_date: this.cachedAccessToken.expiry_date,
+        access_token: this.cachedAccessToken.access_token,
+        token_type: "Bearer",
+        id_token: null
+      });
+      return this.cachedAccessToken;
+    }
+    getProjectNumber(audience) {
+      const match = audience.match(/\/projects\/([^/]+)/);
+      if (!match) {
+        return null;
+      }
+      return match[1];
+    }
+    async getImpersonatedAccessToken(token) {
+      const opts = {
+        ...BaseExternalAccountClient.RETRY_CONFIG,
+        url: this.serviceAccountImpersonationUrl,
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${token}`
+        },
+        data: {
+          scope: this.getScopesArray(),
+          lifetime: this.serviceAccountImpersonationLifetime + "s"
+        }
+      };
+      authclient_1.AuthClient.setMethodName(opts, "getImpersonatedAccessToken");
+      const response = await this.transporter.request(opts);
+      const successResponse = response.data;
+      return {
+        access_token: successResponse.accessToken,
+        expiry_date: new Date(successResponse.expireTime).getTime(),
+        res: response
+      };
+    }
+    isExpired(accessToken) {
+      const now = new Date().getTime();
+      return accessToken.expiry_date ? now >= accessToken.expiry_date - this.eagerRefreshThresholdMillis : false;
+    }
+    getScopesArray() {
+      if (typeof this.scopes === "string") {
+        return [this.scopes];
+      }
+      return this.scopes || [DEFAULT_OAUTH_SCOPE];
+    }
+    getMetricsHeaderValue() {
+      const nodeVersion = process.version.replace(/^v/, "");
+      const saImpersonation = this.serviceAccountImpersonationUrl !== undefined;
+      const credentialSourceType = this.credentialSourceType ? this.credentialSourceType : "unknown";
+      return `gl-node/${nodeVersion} auth/${shared_cjs_1.pkg.version} google-byoid-sdk source/${credentialSourceType} sa-impersonation/${saImpersonation} config-lifetime/${this.configLifetimeRequested}`;
+    }
+    getTokenUrl() {
+      return this.tokenUrl;
+    }
+  }
+  exports.BaseExternalAccountClient = BaseExternalAccountClient;
+});
+
+// node_modules/google-auth-library/build/src/auth/filesubjecttokensupplier.js
+var require_filesubjecttokensupplier = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.FileSubjectTokenSupplier = undefined;
+  var util_1 = __require("util");
+  var fs = __require("fs");
+  var readFile = (0, util_1.promisify)(fs.readFile ?? (() => {}));
+  var realpath = (0, util_1.promisify)(fs.realpath ?? (() => {}));
+  var lstat = (0, util_1.promisify)(fs.lstat ?? (() => {}));
+
+  class FileSubjectTokenSupplier {
+    filePath;
+    formatType;
+    subjectTokenFieldName;
+    constructor(opts) {
+      this.filePath = opts.filePath;
+      this.formatType = opts.formatType;
+      this.subjectTokenFieldName = opts.subjectTokenFieldName;
+    }
+    async getSubjectToken() {
+      let parsedFilePath = this.filePath;
+      try {
+        parsedFilePath = await realpath(parsedFilePath);
+        if (!(await lstat(parsedFilePath)).isFile()) {
+          throw new Error;
+        }
+      } catch (err) {
+        if (err instanceof Error) {
+          err.message = `The file at ${parsedFilePath} does not exist, or it is not a file. ${err.message}`;
+        }
+        throw err;
+      }
+      let subjectToken;
+      const rawText = await readFile(parsedFilePath, { encoding: "utf8" });
+      if (this.formatType === "text") {
+        subjectToken = rawText;
+      } else if (this.formatType === "json" && this.subjectTokenFieldName) {
+        const json = JSON.parse(rawText);
+        subjectToken = json[this.subjectTokenFieldName];
+      }
+      if (!subjectToken) {
+        throw new Error("Unable to parse the subject_token from the credential_source file");
+      }
+      return subjectToken;
+    }
+  }
+  exports.FileSubjectTokenSupplier = FileSubjectTokenSupplier;
+});
+
+// node_modules/google-auth-library/build/src/auth/urlsubjecttokensupplier.js
+var require_urlsubjecttokensupplier = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.UrlSubjectTokenSupplier = undefined;
+  var authclient_1 = require_authclient();
+
+  class UrlSubjectTokenSupplier {
+    url;
+    headers;
+    formatType;
+    subjectTokenFieldName;
+    additionalGaxiosOptions;
+    constructor(opts) {
+      this.url = opts.url;
+      this.formatType = opts.formatType;
+      this.subjectTokenFieldName = opts.subjectTokenFieldName;
+      this.headers = opts.headers;
+      this.additionalGaxiosOptions = opts.additionalGaxiosOptions;
+    }
+    async getSubjectToken(context) {
+      const opts = {
+        ...this.additionalGaxiosOptions,
+        url: this.url,
+        method: "GET",
+        headers: this.headers
+      };
+      authclient_1.AuthClient.setMethodName(opts, "getSubjectToken");
+      let subjectToken;
+      if (this.formatType === "text") {
+        const response = await context.transporter.request(opts);
+        subjectToken = response.data;
+      } else if (this.formatType === "json" && this.subjectTokenFieldName) {
+        const response = await context.transporter.request(opts);
+        subjectToken = response.data[this.subjectTokenFieldName];
+      }
+      if (!subjectToken) {
+        throw new Error("Unable to parse the subject_token from the credential_source URL");
+      }
+      return subjectToken;
+    }
+  }
+  exports.UrlSubjectTokenSupplier = UrlSubjectTokenSupplier;
+});
+
+// node_modules/google-auth-library/build/src/auth/certificatesubjecttokensupplier.js
+var require_certificatesubjecttokensupplier = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.CertificateSubjectTokenSupplier = exports.InvalidConfigurationError = exports.CertificateSourceUnavailableError = exports.CERTIFICATE_CONFIGURATION_ENV_VARIABLE = undefined;
+  var util_1 = require_util2();
+  var fs = __require("fs");
+  var crypto_1 = __require("crypto");
+  var https = __require("https");
+  exports.CERTIFICATE_CONFIGURATION_ENV_VARIABLE = "GOOGLE_API_CERTIFICATE_CONFIG";
+
+  class CertificateSourceUnavailableError extends Error {
+    constructor(message) {
+      super(message);
+      this.name = "CertificateSourceUnavailableError";
+    }
+  }
+  exports.CertificateSourceUnavailableError = CertificateSourceUnavailableError;
+
+  class InvalidConfigurationError extends Error {
+    constructor(message) {
+      super(message);
+      this.name = "InvalidConfigurationError";
+    }
+  }
+  exports.InvalidConfigurationError = InvalidConfigurationError;
+
+  class CertificateSubjectTokenSupplier {
+    certificateConfigPath;
+    trustChainPath;
+    cert;
+    key;
+    constructor(opts) {
+      if (!opts.useDefaultCertificateConfig && !opts.certificateConfigLocation) {
+        throw new InvalidConfigurationError("Either `useDefaultCertificateConfig` must be true or a `certificateConfigLocation` must be provided.");
+      }
+      if (opts.useDefaultCertificateConfig && opts.certificateConfigLocation) {
+        throw new InvalidConfigurationError("Both `useDefaultCertificateConfig` and `certificateConfigLocation` cannot be provided.");
+      }
+      this.trustChainPath = opts.trustChainPath;
+      this.certificateConfigPath = opts.certificateConfigLocation ?? "";
+    }
+    async createMtlsHttpsAgent() {
+      if (!this.key || !this.cert) {
+        throw new InvalidConfigurationError("Cannot create mTLS Agent with missing certificate or key");
+      }
+      return new https.Agent({ key: this.key, cert: this.cert });
+    }
+    async getSubjectToken() {
+      this.certificateConfigPath = await this.#resolveCertificateConfigFilePath();
+      const { certPath, keyPath } = await this.#getCertAndKeyPaths();
+      ({ cert: this.cert, key: this.key } = await this.#getKeyAndCert(certPath, keyPath));
+      return await this.#processChainFromPaths(this.cert);
+    }
+    async#resolveCertificateConfigFilePath() {
+      const overridePath = this.certificateConfigPath;
+      if (overridePath) {
+        if (await (0, util_1.isValidFile)(overridePath)) {
+          return overridePath;
+        }
+        throw new CertificateSourceUnavailableError(`Provided certificate config path is invalid: ${overridePath}`);
+      }
+      const envPath = process.env[exports.CERTIFICATE_CONFIGURATION_ENV_VARIABLE];
+      if (envPath) {
+        if (await (0, util_1.isValidFile)(envPath)) {
+          return envPath;
+        }
+        throw new CertificateSourceUnavailableError(`Path from environment variable "${exports.CERTIFICATE_CONFIGURATION_ENV_VARIABLE}" is invalid: ${envPath}`);
+      }
+      const wellKnownPath = (0, util_1.getWellKnownCertificateConfigFileLocation)();
+      if (await (0, util_1.isValidFile)(wellKnownPath)) {
+        return wellKnownPath;
+      }
+      throw new CertificateSourceUnavailableError("Could not find certificate configuration file. Searched override path, " + `the "${exports.CERTIFICATE_CONFIGURATION_ENV_VARIABLE}" env var, and the gcloud path (${wellKnownPath}).`);
+    }
+    async#getCertAndKeyPaths() {
+      const configPath = this.certificateConfigPath;
+      let fileContents;
+      try {
+        fileContents = await fs.promises.readFile(configPath, "utf8");
+      } catch (err) {
+        throw new CertificateSourceUnavailableError(`Failed to read certificate config file at: ${configPath}`);
+      }
+      try {
+        const config = JSON.parse(fileContents);
+        const certPath = config?.cert_configs?.workload?.cert_path;
+        const keyPath = config?.cert_configs?.workload?.key_path;
+        if (!certPath || !keyPath) {
+          throw new InvalidConfigurationError(`Certificate config file (${configPath}) is missing required "cert_path" or "key_path" in the workload config.`);
+        }
+        return { certPath, keyPath };
+      } catch (e) {
+        if (e instanceof InvalidConfigurationError)
+          throw e;
+        throw new InvalidConfigurationError(`Failed to parse certificate config from ${configPath}: ${e.message}`);
+      }
+    }
+    async#getKeyAndCert(certPath, keyPath) {
+      let cert, key;
+      try {
+        cert = await fs.promises.readFile(certPath);
+        new crypto_1.X509Certificate(cert);
+      } catch (err) {
+        const message = err instanceof Error ? err.message : String(err);
+        throw new CertificateSourceUnavailableError(`Failed to read certificate file at ${certPath}: ${message}`);
+      }
+      try {
+        key = await fs.promises.readFile(keyPath);
+        (0, crypto_1.createPrivateKey)(key);
+      } catch (err) {
+        const message = err instanceof Error ? err.message : String(err);
+        throw new CertificateSourceUnavailableError(`Failed to read private key file at ${keyPath}: ${message}`);
+      }
+      return { cert, key };
+    }
+    async#processChainFromPaths(leafCertBuffer) {
+      const leafCert = new crypto_1.X509Certificate(leafCertBuffer);
+      if (!this.trustChainPath) {
+        return JSON.stringify([leafCert.raw.toString("base64")]);
+      }
+      try {
+        const chainPems = await fs.promises.readFile(this.trustChainPath, "utf8");
+        const pemBlocks = chainPems.match(/-----BEGIN CERTIFICATE-----[^-]+-----END CERTIFICATE-----/g) ?? [];
+        const chainCerts = pemBlocks.map((pem, index) => {
+          try {
+            return new crypto_1.X509Certificate(pem);
+          } catch (err) {
+            const message = err instanceof Error ? err.message : String(err);
+            throw new InvalidConfigurationError(`Failed to parse certificate at index ${index} in trust chain file ${this.trustChainPath}: ${message}`);
+          }
+        });
+        const leafIndex = chainCerts.findIndex((chainCert) => leafCert.raw.equals(chainCert.raw));
+        let finalChain;
+        if (leafIndex === -1) {
+          finalChain = [leafCert, ...chainCerts];
+        } else if (leafIndex === 0) {
+          finalChain = chainCerts;
+        } else {
+          throw new InvalidConfigurationError(`Leaf certificate exists in the trust chain but is not the first entry (found at index ${leafIndex}).`);
+        }
+        return JSON.stringify(finalChain.map((cert) => cert.raw.toString("base64")));
+      } catch (err) {
+        if (err instanceof InvalidConfigurationError)
+          throw err;
+        const message = err instanceof Error ? err.message : String(err);
+        throw new CertificateSourceUnavailableError(`Failed to process certificate chain from ${this.trustChainPath}: ${message}`);
+      }
+    }
+  }
+  exports.CertificateSubjectTokenSupplier = CertificateSubjectTokenSupplier;
+});
+
+// node_modules/google-auth-library/build/src/auth/identitypoolclient.js
+var require_identitypoolclient = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.IdentityPoolClient = undefined;
+  var baseexternalclient_1 = require_baseexternalclient();
+  var util_1 = require_util2();
+  var filesubjecttokensupplier_1 = require_filesubjecttokensupplier();
+  var urlsubjecttokensupplier_1 = require_urlsubjecttokensupplier();
+  var certificatesubjecttokensupplier_1 = require_certificatesubjecttokensupplier();
+  var stscredentials_1 = require_stscredentials();
+  var gaxios_1 = require_src();
+
+  class IdentityPoolClient extends baseexternalclient_1.BaseExternalAccountClient {
+    subjectTokenSupplier;
+    constructor(options) {
+      super(options);
+      const opts = (0, util_1.originalOrCamelOptions)(options);
+      const credentialSource = opts.get("credential_source");
+      const subjectTokenSupplier = opts.get("subject_token_supplier");
+      if (!credentialSource && !subjectTokenSupplier) {
+        throw new Error("A credential source or subject token supplier must be specified.");
+      }
+      if (credentialSource && subjectTokenSupplier) {
+        throw new Error("Only one of credential source or subject token supplier can be specified.");
+      }
+      if (subjectTokenSupplier) {
+        this.subjectTokenSupplier = subjectTokenSupplier;
+        this.credentialSourceType = "programmatic";
+      } else {
+        const credentialSourceOpts = (0, util_1.originalOrCamelOptions)(credentialSource);
+        const formatOpts = (0, util_1.originalOrCamelOptions)(credentialSourceOpts.get("format"));
+        const formatType = formatOpts.get("type") || "text";
+        const formatSubjectTokenFieldName = formatOpts.get("subject_token_field_name");
+        if (formatType !== "json" && formatType !== "text") {
+          throw new Error(`Invalid credential_source format "${formatType}"`);
+        }
+        if (formatType === "json" && !formatSubjectTokenFieldName) {
+          throw new Error("Missing subject_token_field_name for JSON credential_source format");
+        }
+        const file = credentialSourceOpts.get("file");
+        const url = credentialSourceOpts.get("url");
+        const certificate = credentialSourceOpts.get("certificate");
+        const headers = credentialSourceOpts.get("headers");
+        if (file && url || url && certificate || file && certificate) {
+          throw new Error('No valid Identity Pool "credential_source" provided, must be either file, url, or certificate.');
+        } else if (file) {
+          this.credentialSourceType = "file";
+          this.subjectTokenSupplier = new filesubjecttokensupplier_1.FileSubjectTokenSupplier({
+            filePath: file,
+            formatType,
+            subjectTokenFieldName: formatSubjectTokenFieldName
+          });
+        } else if (url) {
+          this.credentialSourceType = "url";
+          this.subjectTokenSupplier = new urlsubjecttokensupplier_1.UrlSubjectTokenSupplier({
+            url,
+            formatType,
+            subjectTokenFieldName: formatSubjectTokenFieldName,
+            headers,
+            additionalGaxiosOptions: IdentityPoolClient.RETRY_CONFIG
+          });
+        } else if (certificate) {
+          this.credentialSourceType = "certificate";
+          const certificateSubjecttokensupplier = new certificatesubjecttokensupplier_1.CertificateSubjectTokenSupplier({
+            useDefaultCertificateConfig: certificate.use_default_certificate_config,
+            certificateConfigLocation: certificate.certificate_config_location,
+            trustChainPath: certificate.trust_chain_path
+          });
+          this.subjectTokenSupplier = certificateSubjecttokensupplier;
+        } else {
+          throw new Error('No valid Identity Pool "credential_source" provided, must be either file, url, or certificate.');
+        }
+      }
+    }
+    async retrieveSubjectToken() {
+      const subjectToken = await this.subjectTokenSupplier.getSubjectToken(this.supplierContext);
+      if (this.subjectTokenSupplier instanceof certificatesubjecttokensupplier_1.CertificateSubjectTokenSupplier) {
+        const mtlsAgent = await this.subjectTokenSupplier.createMtlsHttpsAgent();
+        this.stsCredential = new stscredentials_1.StsCredentials({
+          tokenExchangeEndpoint: this.getTokenUrl(),
+          clientAuthentication: this.clientAuth,
+          transporter: new gaxios_1.Gaxios({ agent: mtlsAgent })
+        });
+        this.transporter = new gaxios_1.Gaxios({
+          ...this.transporter.defaults || {},
+          agent: mtlsAgent
+        });
+      }
+      return subjectToken;
+    }
+  }
+  exports.IdentityPoolClient = IdentityPoolClient;
+});
+
+// node_modules/google-auth-library/build/src/auth/awsrequestsigner.js
+var require_awsrequestsigner = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.AwsRequestSigner = undefined;
+  var gaxios_1 = require_src();
+  var crypto_1 = require_crypto3();
+  var AWS_ALGORITHM = "AWS4-HMAC-SHA256";
+  var AWS_REQUEST_TYPE = "aws4_request";
+
+  class AwsRequestSigner {
+    getCredentials;
+    region;
+    crypto;
+    constructor(getCredentials, region) {
+      this.getCredentials = getCredentials;
+      this.region = region;
+      this.crypto = (0, crypto_1.createCrypto)();
+    }
+    async getRequestOptions(amzOptions) {
+      if (!amzOptions.url) {
+        throw new RangeError('"url" is required in "amzOptions"');
+      }
+      const requestPayloadData = typeof amzOptions.data === "object" ? JSON.stringify(amzOptions.data) : amzOptions.data;
+      const url = amzOptions.url;
+      const method = amzOptions.method || "GET";
+      const requestPayload = amzOptions.body || requestPayloadData;
+      const additionalAmzHeaders = amzOptions.headers;
+      const awsSecurityCredentials = await this.getCredentials();
+      const uri = new URL(url);
+      if (typeof requestPayload !== "string" && requestPayload !== undefined) {
+        throw new TypeError(`'requestPayload' is expected to be a string if provided. Got: ${requestPayload}`);
+      }
+      const headerMap = await generateAuthenticationHeaderMap({
+        crypto: this.crypto,
+        host: uri.host,
+        canonicalUri: uri.pathname,
+        canonicalQuerystring: uri.search.slice(1),
+        method,
+        region: this.region,
+        securityCredentials: awsSecurityCredentials,
+        requestPayload,
+        additionalAmzHeaders
+      });
+      const headers = gaxios_1.Gaxios.mergeHeaders(headerMap.amzDate ? { "x-amz-date": headerMap.amzDate } : {}, {
+        authorization: headerMap.authorizationHeader,
+        host: uri.host
+      }, additionalAmzHeaders || {});
+      if (awsSecurityCredentials.token) {
+        gaxios_1.Gaxios.mergeHeaders(headers, {
+          "x-amz-security-token": awsSecurityCredentials.token
+        });
+      }
+      const awsSignedReq = {
+        url,
+        method,
+        headers
+      };
+      if (requestPayload !== undefined) {
+        awsSignedReq.body = requestPayload;
+      }
+      return awsSignedReq;
+    }
+  }
+  exports.AwsRequestSigner = AwsRequestSigner;
+  async function sign(crypto2, key, msg) {
+    return await crypto2.signWithHmacSha256(key, msg);
+  }
+  async function getSigningKey(crypto2, key, dateStamp, region, serviceName) {
+    const kDate = await sign(crypto2, `AWS4${key}`, dateStamp);
+    const kRegion = await sign(crypto2, kDate, region);
+    const kService = await sign(crypto2, kRegion, serviceName);
+    const kSigning = await sign(crypto2, kService, "aws4_request");
+    return kSigning;
+  }
+  async function generateAuthenticationHeaderMap(options) {
+    const additionalAmzHeaders = gaxios_1.Gaxios.mergeHeaders(options.additionalAmzHeaders);
+    const requestPayload = options.requestPayload || "";
+    const serviceName = options.host.split(".")[0];
+    const now = new Date;
+    const amzDate = now.toISOString().replace(/[-:]/g, "").replace(/\.[0-9]+/, "");
+    const dateStamp = now.toISOString().replace(/[-]/g, "").replace(/T.*/, "");
+    if (options.securityCredentials.token) {
+      additionalAmzHeaders.set("x-amz-security-token", options.securityCredentials.token);
+    }
+    const amzHeaders = gaxios_1.Gaxios.mergeHeaders({
+      host: options.host
+    }, additionalAmzHeaders.has("date") ? {} : { "x-amz-date": amzDate }, additionalAmzHeaders);
+    let canonicalHeaders = "";
+    const signedHeadersList = [
+      ...amzHeaders.keys()
+    ].sort();
+    signedHeadersList.forEach((key) => {
+      canonicalHeaders += `${key}:${amzHeaders.get(key)}
+`;
+    });
+    const signedHeaders = signedHeadersList.join(";");
+    const payloadHash = await options.crypto.sha256DigestHex(requestPayload);
+    const canonicalRequest = `${options.method.toUpperCase()}
+` + `${options.canonicalUri}
+` + `${options.canonicalQuerystring}
+` + `${canonicalHeaders}
+` + `${signedHeaders}
+` + `${payloadHash}`;
+    const credentialScope = `${dateStamp}/${options.region}/${serviceName}/${AWS_REQUEST_TYPE}`;
+    const stringToSign = `${AWS_ALGORITHM}
+` + `${amzDate}
+` + `${credentialScope}
+` + await options.crypto.sha256DigestHex(canonicalRequest);
+    const signingKey = await getSigningKey(options.crypto, options.securityCredentials.secretAccessKey, dateStamp, options.region, serviceName);
+    const signature = await sign(options.crypto, signingKey, stringToSign);
+    const authorizationHeader = `${AWS_ALGORITHM} Credential=${options.securityCredentials.accessKeyId}/` + `${credentialScope}, SignedHeaders=${signedHeaders}, ` + `Signature=${(0, crypto_1.fromArrayBufferToHex)(signature)}`;
+    return {
+      amzDate: additionalAmzHeaders.has("date") ? undefined : amzDate,
+      authorizationHeader,
+      canonicalQuerystring: options.canonicalQuerystring
+    };
+  }
+});
+
+// node_modules/google-auth-library/build/src/auth/defaultawssecuritycredentialssupplier.js
+var require_defaultawssecuritycredentialssupplier = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.DefaultAwsSecurityCredentialsSupplier = undefined;
+  var authclient_1 = require_authclient();
+
+  class DefaultAwsSecurityCredentialsSupplier {
+    regionUrl;
+    securityCredentialsUrl;
+    imdsV2SessionTokenUrl;
+    additionalGaxiosOptions;
+    constructor(opts) {
+      this.regionUrl = opts.regionUrl;
+      this.securityCredentialsUrl = opts.securityCredentialsUrl;
+      this.imdsV2SessionTokenUrl = opts.imdsV2SessionTokenUrl;
+      this.additionalGaxiosOptions = opts.additionalGaxiosOptions;
+    }
+    async getAwsRegion(context) {
+      if (this.#regionFromEnv) {
+        return this.#regionFromEnv;
+      }
+      const metadataHeaders = new Headers;
+      if (!this.#regionFromEnv && this.imdsV2SessionTokenUrl) {
+        metadataHeaders.set("x-aws-ec2-metadata-token", await this.#getImdsV2SessionToken(context.transporter));
+      }
+      if (!this.regionUrl) {
+        throw new RangeError("Unable to determine AWS region due to missing " + '"options.credential_source.region_url"');
+      }
+      const opts = {
+        ...this.additionalGaxiosOptions,
+        url: this.regionUrl,
+        method: "GET",
+        headers: metadataHeaders
+      };
+      authclient_1.AuthClient.setMethodName(opts, "getAwsRegion");
+      const response = await context.transporter.request(opts);
+      return response.data.substr(0, response.data.length - 1);
+    }
+    async getAwsSecurityCredentials(context) {
+      if (this.#securityCredentialsFromEnv) {
+        return this.#securityCredentialsFromEnv;
+      }
+      const metadataHeaders = new Headers;
+      if (this.imdsV2SessionTokenUrl) {
+        metadataHeaders.set("x-aws-ec2-metadata-token", await this.#getImdsV2SessionToken(context.transporter));
+      }
+      const roleName = await this.#getAwsRoleName(metadataHeaders, context.transporter);
+      const awsCreds = await this.#retrieveAwsSecurityCredentials(roleName, metadataHeaders, context.transporter);
+      return {
+        accessKeyId: awsCreds.AccessKeyId,
+        secretAccessKey: awsCreds.SecretAccessKey,
+        token: awsCreds.Token
+      };
+    }
+    async#getImdsV2SessionToken(transporter) {
+      const opts = {
+        ...this.additionalGaxiosOptions,
+        url: this.imdsV2SessionTokenUrl,
+        method: "PUT",
+        headers: { "x-aws-ec2-metadata-token-ttl-seconds": "300" }
+      };
+      authclient_1.AuthClient.setMethodName(opts, "#getImdsV2SessionToken");
+      const response = await transporter.request(opts);
+      return response.data;
+    }
+    async#getAwsRoleName(headers, transporter) {
+      if (!this.securityCredentialsUrl) {
+        throw new Error("Unable to determine AWS role name due to missing " + '"options.credential_source.url"');
+      }
+      const opts = {
+        ...this.additionalGaxiosOptions,
+        url: this.securityCredentialsUrl,
+        method: "GET",
+        headers
+      };
+      authclient_1.AuthClient.setMethodName(opts, "#getAwsRoleName");
+      const response = await transporter.request(opts);
+      return response.data;
+    }
+    async#retrieveAwsSecurityCredentials(roleName, headers, transporter) {
+      const opts = {
+        ...this.additionalGaxiosOptions,
+        url: `${this.securityCredentialsUrl}/${roleName}`,
+        headers
+      };
+      authclient_1.AuthClient.setMethodName(opts, "#retrieveAwsSecurityCredentials");
+      const response = await transporter.request(opts);
+      return response.data;
+    }
+    get #regionFromEnv() {
+      return process.env["AWS_REGION"] || process.env["AWS_DEFAULT_REGION"] || null;
+    }
+    get #securityCredentialsFromEnv() {
+      if (process.env["AWS_ACCESS_KEY_ID"] && process.env["AWS_SECRET_ACCESS_KEY"]) {
+        return {
+          accessKeyId: process.env["AWS_ACCESS_KEY_ID"],
+          secretAccessKey: process.env["AWS_SECRET_ACCESS_KEY"],
+          token: process.env["AWS_SESSION_TOKEN"]
+        };
+      }
+      return null;
+    }
+  }
+  exports.DefaultAwsSecurityCredentialsSupplier = DefaultAwsSecurityCredentialsSupplier;
+});
+
+// node_modules/google-auth-library/build/src/auth/awsclient.js
+var require_awsclient = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.AwsClient = undefined;
+  var awsrequestsigner_1 = require_awsrequestsigner();
+  var baseexternalclient_1 = require_baseexternalclient();
+  var defaultawssecuritycredentialssupplier_1 = require_defaultawssecuritycredentialssupplier();
+  var util_1 = require_util2();
+  var gaxios_1 = require_src();
+
+  class AwsClient extends baseexternalclient_1.BaseExternalAccountClient {
+    environmentId;
+    awsSecurityCredentialsSupplier;
+    regionalCredVerificationUrl;
+    awsRequestSigner;
+    region;
+    static #DEFAULT_AWS_REGIONAL_CREDENTIAL_VERIFICATION_URL = "https://sts.{region}.amazonaws.com?Action=GetCallerIdentity&Version=2011-06-15";
+    static AWS_EC2_METADATA_IPV4_ADDRESS = "169.254.169.254";
+    static AWS_EC2_METADATA_IPV6_ADDRESS = "fd00:ec2::254";
+    constructor(options) {
+      super(options);
+      const opts = (0, util_1.originalOrCamelOptions)(options);
+      const credentialSource = opts.get("credential_source");
+      const awsSecurityCredentialsSupplier = opts.get("aws_security_credentials_supplier");
+      if (!credentialSource && !awsSecurityCredentialsSupplier) {
+        throw new Error("A credential source or AWS security credentials supplier must be specified.");
+      }
+      if (credentialSource && awsSecurityCredentialsSupplier) {
+        throw new Error("Only one of credential source or AWS security credentials supplier can be specified.");
+      }
+      if (awsSecurityCredentialsSupplier) {
+        this.awsSecurityCredentialsSupplier = awsSecurityCredentialsSupplier;
+        this.regionalCredVerificationUrl = AwsClient.#DEFAULT_AWS_REGIONAL_CREDENTIAL_VERIFICATION_URL;
+        this.credentialSourceType = "programmatic";
+      } else {
+        const credentialSourceOpts = (0, util_1.originalOrCamelOptions)(credentialSource);
+        this.environmentId = credentialSourceOpts.get("environment_id");
+        const regionUrl = credentialSourceOpts.get("region_url");
+        const securityCredentialsUrl = credentialSourceOpts.get("url");
+        const imdsV2SessionTokenUrl = credentialSourceOpts.get("imdsv2_session_token_url");
+        this.awsSecurityCredentialsSupplier = new defaultawssecuritycredentialssupplier_1.DefaultAwsSecurityCredentialsSupplier({
+          regionUrl,
+          securityCredentialsUrl,
+          imdsV2SessionTokenUrl
+        });
+        this.regionalCredVerificationUrl = credentialSourceOpts.get("regional_cred_verification_url");
+        this.credentialSourceType = "aws";
+        this.validateEnvironmentId();
+      }
+      this.awsRequestSigner = null;
+      this.region = "";
+    }
+    validateEnvironmentId() {
+      const match = this.environmentId?.match(/^(aws)(\d+)$/);
+      if (!match || !this.regionalCredVerificationUrl) {
+        throw new Error('No valid AWS "credential_source" provided');
+      } else if (parseInt(match[2], 10) !== 1) {
+        throw new Error(`aws version "${match[2]}" is not supported in the current build.`);
+      }
+    }
+    async retrieveSubjectToken() {
+      if (!this.awsRequestSigner) {
+        this.region = await this.awsSecurityCredentialsSupplier.getAwsRegion(this.supplierContext);
+        this.awsRequestSigner = new awsrequestsigner_1.AwsRequestSigner(async () => {
+          return this.awsSecurityCredentialsSupplier.getAwsSecurityCredentials(this.supplierContext);
+        }, this.region);
+      }
+      const options = await this.awsRequestSigner.getRequestOptions({
+        ...AwsClient.RETRY_CONFIG,
+        url: this.regionalCredVerificationUrl.replace("{region}", this.region),
+        method: "POST"
+      });
+      const reformattedHeader = [];
+      const extendedHeaders = gaxios_1.Gaxios.mergeHeaders({
+        "x-goog-cloud-target-resource": this.audience
+      }, options.headers);
+      extendedHeaders.forEach((value, key) => reformattedHeader.push({ key, value }));
+      return encodeURIComponent(JSON.stringify({
+        url: options.url,
+        method: options.method,
+        headers: reformattedHeader
+      }));
+    }
+  }
+  exports.AwsClient = AwsClient;
+});
+
+// node_modules/google-auth-library/build/src/auth/executable-response.js
+var require_executable_response = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.InvalidSubjectTokenError = exports.InvalidMessageFieldError = exports.InvalidCodeFieldError = exports.InvalidTokenTypeFieldError = exports.InvalidExpirationTimeFieldError = exports.InvalidSuccessFieldError = exports.InvalidVersionFieldError = exports.ExecutableResponseError = exports.ExecutableResponse = undefined;
+  var SAML_SUBJECT_TOKEN_TYPE = "urn:ietf:params:oauth:token-type:saml2";
+  var OIDC_SUBJECT_TOKEN_TYPE1 = "urn:ietf:params:oauth:token-type:id_token";
+  var OIDC_SUBJECT_TOKEN_TYPE2 = "urn:ietf:params:oauth:token-type:jwt";
+
+  class ExecutableResponse {
+    version;
+    success;
+    expirationTime;
+    tokenType;
+    errorCode;
+    errorMessage;
+    subjectToken;
+    constructor(responseJson) {
+      if (!responseJson.version) {
+        throw new InvalidVersionFieldError("Executable response must contain a 'version' field.");
+      }
+      if (responseJson.success === undefined) {
+        throw new InvalidSuccessFieldError("Executable response must contain a 'success' field.");
+      }
+      this.version = responseJson.version;
+      this.success = responseJson.success;
+      if (this.success) {
+        this.expirationTime = responseJson.expiration_time;
+        this.tokenType = responseJson.token_type;
+        if (this.tokenType !== SAML_SUBJECT_TOKEN_TYPE && this.tokenType !== OIDC_SUBJECT_TOKEN_TYPE1 && this.tokenType !== OIDC_SUBJECT_TOKEN_TYPE2) {
+          throw new InvalidTokenTypeFieldError("Executable response must contain a 'token_type' field when successful " + `and it must be one of ${OIDC_SUBJECT_TOKEN_TYPE1}, ${OIDC_SUBJECT_TOKEN_TYPE2}, or ${SAML_SUBJECT_TOKEN_TYPE}.`);
+        }
+        if (this.tokenType === SAML_SUBJECT_TOKEN_TYPE) {
+          if (!responseJson.saml_response) {
+            throw new InvalidSubjectTokenError(`Executable response must contain a 'saml_response' field when token_type=${SAML_SUBJECT_TOKEN_TYPE}.`);
+          }
+          this.subjectToken = responseJson.saml_response;
+        } else {
+          if (!responseJson.id_token) {
+            throw new InvalidSubjectTokenError("Executable response must contain a 'id_token' field when " + `token_type=${OIDC_SUBJECT_TOKEN_TYPE1} or ${OIDC_SUBJECT_TOKEN_TYPE2}.`);
+          }
+          this.subjectToken = responseJson.id_token;
+        }
+      } else {
+        if (!responseJson.code) {
+          throw new InvalidCodeFieldError("Executable response must contain a 'code' field when unsuccessful.");
+        }
+        if (!responseJson.message) {
+          throw new InvalidMessageFieldError("Executable response must contain a 'message' field when unsuccessful.");
+        }
+        this.errorCode = responseJson.code;
+        this.errorMessage = responseJson.message;
+      }
+    }
+    isValid() {
+      return !this.isExpired() && this.success;
+    }
+    isExpired() {
+      return this.expirationTime !== undefined && this.expirationTime < Math.round(Date.now() / 1000);
+    }
+  }
+  exports.ExecutableResponse = ExecutableResponse;
+
+  class ExecutableResponseError extends Error {
+    constructor(message) {
+      super(message);
+      Object.setPrototypeOf(this, new.target.prototype);
+    }
+  }
+  exports.ExecutableResponseError = ExecutableResponseError;
+
+  class InvalidVersionFieldError extends ExecutableResponseError {
+  }
+  exports.InvalidVersionFieldError = InvalidVersionFieldError;
+
+  class InvalidSuccessFieldError extends ExecutableResponseError {
+  }
+  exports.InvalidSuccessFieldError = InvalidSuccessFieldError;
+
+  class InvalidExpirationTimeFieldError extends ExecutableResponseError {
+  }
+  exports.InvalidExpirationTimeFieldError = InvalidExpirationTimeFieldError;
+
+  class InvalidTokenTypeFieldError extends ExecutableResponseError {
+  }
+  exports.InvalidTokenTypeFieldError = InvalidTokenTypeFieldError;
+
+  class InvalidCodeFieldError extends ExecutableResponseError {
+  }
+  exports.InvalidCodeFieldError = InvalidCodeFieldError;
+
+  class InvalidMessageFieldError extends ExecutableResponseError {
+  }
+  exports.InvalidMessageFieldError = InvalidMessageFieldError;
+
+  class InvalidSubjectTokenError extends ExecutableResponseError {
+  }
+  exports.InvalidSubjectTokenError = InvalidSubjectTokenError;
+});
+
+// node_modules/google-auth-library/build/src/auth/pluggable-auth-handler.js
+var require_pluggable_auth_handler = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.PluggableAuthHandler = exports.ExecutableError = undefined;
+  var executable_response_1 = require_executable_response();
+  var childProcess = __require("child_process");
+  var fs = __require("fs");
+
+  class ExecutableError extends Error {
+    code;
+    constructor(message, code) {
+      super(`The executable failed with exit code: ${code} and error message: ${message}.`);
+      this.code = code;
+      Object.setPrototypeOf(this, new.target.prototype);
+    }
+  }
+  exports.ExecutableError = ExecutableError;
+
+  class PluggableAuthHandler {
+    commandComponents;
+    timeoutMillis;
+    outputFile;
+    constructor(options) {
+      if (!options.command) {
+        throw new Error("No command provided.");
+      }
+      this.commandComponents = PluggableAuthHandler.parseCommand(options.command);
+      this.timeoutMillis = options.timeoutMillis;
+      if (!this.timeoutMillis) {
+        throw new Error("No timeoutMillis provided.");
+      }
+      this.outputFile = options.outputFile;
+    }
+    retrieveResponseFromExecutable(envMap) {
+      return new Promise((resolve, reject) => {
+        const child = childProcess.spawn(this.commandComponents[0], this.commandComponents.slice(1), {
+          env: { ...process.env, ...Object.fromEntries(envMap) }
+        });
+        let output = "";
+        child.stdout.on("data", (data) => {
+          output += data;
+        });
+        child.stderr.on("data", (err) => {
+          output += err;
+        });
+        const timeout = setTimeout(() => {
+          child.removeAllListeners();
+          child.kill();
+          return reject(new Error("The executable failed to finish within the timeout specified."));
+        }, this.timeoutMillis);
+        child.on("close", (code) => {
+          clearTimeout(timeout);
+          if (code === 0) {
+            try {
+              const responseJson = JSON.parse(output);
+              const response = new executable_response_1.ExecutableResponse(responseJson);
+              return resolve(response);
+            } catch (error) {
+              if (error instanceof executable_response_1.ExecutableResponseError) {
+                return reject(error);
+              }
+              return reject(new executable_response_1.ExecutableResponseError(`The executable returned an invalid response: ${output}`));
+            }
+          } else {
+            return reject(new ExecutableError(output, code.toString()));
+          }
+        });
+      });
+    }
+    async retrieveCachedResponse() {
+      if (!this.outputFile || this.outputFile.length === 0) {
+        return;
+      }
+      let filePath;
+      try {
+        filePath = await fs.promises.realpath(this.outputFile);
+      } catch {
+        return;
+      }
+      if (!(await fs.promises.lstat(filePath)).isFile()) {
+        return;
+      }
+      const responseString = await fs.promises.readFile(filePath, {
+        encoding: "utf8"
+      });
+      if (responseString === "") {
+        return;
+      }
+      try {
+        const responseJson = JSON.parse(responseString);
+        const response = new executable_response_1.ExecutableResponse(responseJson);
+        if (response.isValid()) {
+          return new executable_response_1.ExecutableResponse(responseJson);
+        }
+        return;
+      } catch (error) {
+        if (error instanceof executable_response_1.ExecutableResponseError) {
+          throw error;
+        }
+        throw new executable_response_1.ExecutableResponseError(`The output file contained an invalid response: ${responseString}`);
+      }
+    }
+    static parseCommand(command) {
+      const components = command.match(/(?:[^\s"]+|"[^"]*")+/g);
+      if (!components) {
+        throw new Error(`Provided command: "${command}" could not be parsed.`);
+      }
+      for (let i = 0;i < components.length; i++) {
+        if (components[i][0] === '"' && components[i].slice(-1) === '"') {
+          components[i] = components[i].slice(1, -1);
+        }
+      }
+      return components;
+    }
+  }
+  exports.PluggableAuthHandler = PluggableAuthHandler;
+});
+
+// node_modules/google-auth-library/build/src/auth/pluggable-auth-client.js
+var require_pluggable_auth_client = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.PluggableAuthClient = exports.ExecutableError = undefined;
+  var baseexternalclient_1 = require_baseexternalclient();
+  var executable_response_1 = require_executable_response();
+  var pluggable_auth_handler_1 = require_pluggable_auth_handler();
+  var pluggable_auth_handler_2 = require_pluggable_auth_handler();
+  Object.defineProperty(exports, "ExecutableError", { enumerable: true, get: function() {
+    return pluggable_auth_handler_2.ExecutableError;
+  } });
+  var DEFAULT_EXECUTABLE_TIMEOUT_MILLIS = 30 * 1000;
+  var MINIMUM_EXECUTABLE_TIMEOUT_MILLIS = 5 * 1000;
+  var MAXIMUM_EXECUTABLE_TIMEOUT_MILLIS = 120 * 1000;
+  var GOOGLE_EXTERNAL_ACCOUNT_ALLOW_EXECUTABLES = "GOOGLE_EXTERNAL_ACCOUNT_ALLOW_EXECUTABLES";
+  var MAXIMUM_EXECUTABLE_VERSION = 1;
+
+  class PluggableAuthClient extends baseexternalclient_1.BaseExternalAccountClient {
+    command;
+    timeoutMillis;
+    outputFile;
+    handler;
+    constructor(options) {
+      super(options);
+      if (!options.credential_source.executable) {
+        throw new Error('No valid Pluggable Auth "credential_source" provided.');
+      }
+      this.command = options.credential_source.executable.command;
+      if (!this.command) {
+        throw new Error('No valid Pluggable Auth "credential_source" provided.');
+      }
+      if (options.credential_source.executable.timeout_millis === undefined) {
+        this.timeoutMillis = DEFAULT_EXECUTABLE_TIMEOUT_MILLIS;
+      } else {
+        this.timeoutMillis = options.credential_source.executable.timeout_millis;
+        if (this.timeoutMillis < MINIMUM_EXECUTABLE_TIMEOUT_MILLIS || this.timeoutMillis > MAXIMUM_EXECUTABLE_TIMEOUT_MILLIS) {
+          throw new Error(`Timeout must be between ${MINIMUM_EXECUTABLE_TIMEOUT_MILLIS} and ` + `${MAXIMUM_EXECUTABLE_TIMEOUT_MILLIS} milliseconds.`);
+        }
+      }
+      this.outputFile = options.credential_source.executable.output_file;
+      this.handler = new pluggable_auth_handler_1.PluggableAuthHandler({
+        command: this.command,
+        timeoutMillis: this.timeoutMillis,
+        outputFile: this.outputFile
+      });
+      this.credentialSourceType = "executable";
+    }
+    async retrieveSubjectToken() {
+      if (process.env[GOOGLE_EXTERNAL_ACCOUNT_ALLOW_EXECUTABLES] !== "1") {
+        throw new Error("Pluggable Auth executables need to be explicitly allowed to run by " + "setting the GOOGLE_EXTERNAL_ACCOUNT_ALLOW_EXECUTABLES environment " + "Variable to 1.");
+      }
+      let executableResponse = undefined;
+      if (this.outputFile) {
+        executableResponse = await this.handler.retrieveCachedResponse();
+      }
+      if (!executableResponse) {
+        const envMap = new Map;
+        envMap.set("GOOGLE_EXTERNAL_ACCOUNT_AUDIENCE", this.audience);
+        envMap.set("GOOGLE_EXTERNAL_ACCOUNT_TOKEN_TYPE", this.subjectTokenType);
+        envMap.set("GOOGLE_EXTERNAL_ACCOUNT_INTERACTIVE", "0");
+        if (this.outputFile) {
+          envMap.set("GOOGLE_EXTERNAL_ACCOUNT_OUTPUT_FILE", this.outputFile);
+        }
+        const serviceAccountEmail = this.getServiceAccountEmail();
+        if (serviceAccountEmail) {
+          envMap.set("GOOGLE_EXTERNAL_ACCOUNT_IMPERSONATED_EMAIL", serviceAccountEmail);
+        }
+        executableResponse = await this.handler.retrieveResponseFromExecutable(envMap);
+      }
+      if (executableResponse.version > MAXIMUM_EXECUTABLE_VERSION) {
+        throw new Error(`Version of executable is not currently supported, maximum supported version is ${MAXIMUM_EXECUTABLE_VERSION}.`);
+      }
+      if (!executableResponse.success) {
+        throw new pluggable_auth_handler_1.ExecutableError(executableResponse.errorMessage, executableResponse.errorCode);
+      }
+      if (this.outputFile) {
+        if (!executableResponse.expirationTime) {
+          throw new executable_response_1.InvalidExpirationTimeFieldError("The executable response must contain the `expiration_time` field for successful responses when an output_file has been specified in the configuration.");
+        }
+      }
+      if (executableResponse.isExpired()) {
+        throw new Error("Executable response is expired.");
+      }
+      return executableResponse.subjectToken;
+    }
+  }
+  exports.PluggableAuthClient = PluggableAuthClient;
+});
+
+// node_modules/google-auth-library/build/src/auth/externalclient.js
+var require_externalclient = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.ExternalAccountClient = undefined;
+  var baseexternalclient_1 = require_baseexternalclient();
+  var identitypoolclient_1 = require_identitypoolclient();
+  var awsclient_1 = require_awsclient();
+  var pluggable_auth_client_1 = require_pluggable_auth_client();
+
+  class ExternalAccountClient {
+    constructor() {
+      throw new Error("ExternalAccountClients should be initialized via: " + "ExternalAccountClient.fromJSON(), " + "directly via explicit constructors, eg. " + "new AwsClient(options), new IdentityPoolClient(options), new" + "PluggableAuthClientOptions, or via " + "new GoogleAuth(options).getClient()");
+    }
+    static fromJSON(options) {
+      if (options && options.type === baseexternalclient_1.EXTERNAL_ACCOUNT_TYPE) {
+        if (options.credential_source?.environment_id) {
+          return new awsclient_1.AwsClient(options);
+        } else if (options.credential_source?.executable) {
+          return new pluggable_auth_client_1.PluggableAuthClient(options);
+        } else {
+          return new identitypoolclient_1.IdentityPoolClient(options);
+        }
+      } else {
+        return null;
+      }
+    }
+  }
+  exports.ExternalAccountClient = ExternalAccountClient;
+});
+
+// node_modules/google-auth-library/build/src/auth/externalAccountAuthorizedUserClient.js
+var require_externalAccountAuthorizedUserClient = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.ExternalAccountAuthorizedUserClient = exports.EXTERNAL_ACCOUNT_AUTHORIZED_USER_TYPE = undefined;
+  var authclient_1 = require_authclient();
+  var oauth2common_1 = require_oauth2common();
+  var gaxios_1 = require_src();
+  var stream = __require("stream");
+  var baseexternalclient_1 = require_baseexternalclient();
+  exports.EXTERNAL_ACCOUNT_AUTHORIZED_USER_TYPE = "external_account_authorized_user";
+  var DEFAULT_TOKEN_URL = "https://sts.{universeDomain}/v1/oauthtoken";
+
+  class ExternalAccountAuthorizedUserHandler extends oauth2common_1.OAuthClientAuthHandler {
+    #tokenRefreshEndpoint;
+    constructor(options) {
+      super(options);
+      this.#tokenRefreshEndpoint = options.tokenRefreshEndpoint;
+    }
+    async refreshToken(refreshToken, headers) {
+      const opts = {
+        ...ExternalAccountAuthorizedUserHandler.RETRY_CONFIG,
+        url: this.#tokenRefreshEndpoint,
+        method: "POST",
+        headers,
+        data: new URLSearchParams({
+          grant_type: "refresh_token",
+          refresh_token: refreshToken
+        })
+      };
+      authclient_1.AuthClient.setMethodName(opts, "refreshToken");
+      this.applyClientAuthenticationOptions(opts);
+      try {
+        const response = await this.transporter.request(opts);
+        const tokenRefreshResponse = response.data;
+        tokenRefreshResponse.res = response;
+        return tokenRefreshResponse;
+      } catch (error) {
+        if (error instanceof gaxios_1.GaxiosError && error.response) {
+          throw (0, oauth2common_1.getErrorFromOAuthErrorResponse)(error.response.data, error);
+        }
+        throw error;
+      }
+    }
+  }
+
+  class ExternalAccountAuthorizedUserClient extends authclient_1.AuthClient {
+    cachedAccessToken;
+    externalAccountAuthorizedUserHandler;
+    refreshToken;
+    constructor(options) {
+      super(options);
+      if (options.universe_domain) {
+        this.universeDomain = options.universe_domain;
+      }
+      this.refreshToken = options.refresh_token;
+      const clientAuthentication = {
+        confidentialClientType: "basic",
+        clientId: options.client_id,
+        clientSecret: options.client_secret
+      };
+      this.externalAccountAuthorizedUserHandler = new ExternalAccountAuthorizedUserHandler({
+        tokenRefreshEndpoint: options.token_url ?? DEFAULT_TOKEN_URL.replace("{universeDomain}", this.universeDomain),
+        transporter: this.transporter,
+        clientAuthentication
+      });
+      this.cachedAccessToken = null;
+      this.quotaProjectId = options.quota_project_id;
+      if (typeof options?.eagerRefreshThresholdMillis !== "number") {
+        this.eagerRefreshThresholdMillis = baseexternalclient_1.EXPIRATION_TIME_OFFSET;
+      } else {
+        this.eagerRefreshThresholdMillis = options.eagerRefreshThresholdMillis;
+      }
+      this.forceRefreshOnFailure = !!options?.forceRefreshOnFailure;
+    }
+    async getAccessToken() {
+      if (!this.cachedAccessToken || this.isExpired(this.cachedAccessToken)) {
+        await this.refreshAccessTokenAsync();
+      }
+      return {
+        token: this.cachedAccessToken.access_token,
+        res: this.cachedAccessToken.res
+      };
+    }
+    async getRequestHeaders() {
+      const accessTokenResponse = await this.getAccessToken();
+      const headers = new Headers({
+        authorization: `Bearer ${accessTokenResponse.token}`
+      });
+      return this.addSharedMetadataHeaders(headers);
+    }
+    request(opts, callback) {
+      if (callback) {
+        this.requestAsync(opts).then((r) => callback(null, r), (e) => {
+          return callback(e, e.response);
+        });
+      } else {
+        return this.requestAsync(opts);
+      }
+    }
+    async requestAsync(opts, reAuthRetried = false) {
+      let response;
+      try {
+        const requestHeaders = await this.getRequestHeaders();
+        opts.headers = gaxios_1.Gaxios.mergeHeaders(opts.headers);
+        this.addUserProjectAndAuthHeaders(opts.headers, requestHeaders);
+        response = await this.transporter.request(opts);
+      } catch (e) {
+        const res = e.response;
+        if (res) {
+          const statusCode = res.status;
+          const isReadableStream = res.config.data instanceof stream.Readable;
+          const isAuthErr = statusCode === 401 || statusCode === 403;
+          if (!reAuthRetried && isAuthErr && !isReadableStream && this.forceRefreshOnFailure) {
+            await this.refreshAccessTokenAsync();
+            return await this.requestAsync(opts, true);
+          }
+        }
+        throw e;
+      }
+      return response;
+    }
+    async refreshAccessTokenAsync() {
+      const refreshResponse = await this.externalAccountAuthorizedUserHandler.refreshToken(this.refreshToken);
+      this.cachedAccessToken = {
+        access_token: refreshResponse.access_token,
+        expiry_date: new Date().getTime() + refreshResponse.expires_in * 1000,
+        res: refreshResponse.res
+      };
+      if (refreshResponse.refresh_token !== undefined) {
+        this.refreshToken = refreshResponse.refresh_token;
+      }
+      return this.cachedAccessToken;
+    }
+    isExpired(credentials) {
+      const now = new Date().getTime();
+      return credentials.expiry_date ? now >= credentials.expiry_date - this.eagerRefreshThresholdMillis : false;
+    }
+  }
+  exports.ExternalAccountAuthorizedUserClient = ExternalAccountAuthorizedUserClient;
+});
+
+// node_modules/google-auth-library/build/src/auth/googleauth.js
+var require_googleauth = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.GoogleAuth = exports.GoogleAuthExceptionMessages = undefined;
+  var child_process_1 = __require("child_process");
+  var fs = __require("fs");
+  var gaxios_1 = require_src();
+  var gcpMetadata = require_src3();
+  var os = __require("os");
+  var path = __require("path");
+  var crypto_1 = require_crypto3();
+  var computeclient_1 = require_computeclient();
+  var idtokenclient_1 = require_idtokenclient();
+  var envDetect_1 = require_envDetect();
+  var jwtclient_1 = require_jwtclient();
+  var refreshclient_1 = require_refreshclient();
+  var impersonated_1 = require_impersonated();
+  var externalclient_1 = require_externalclient();
+  var baseexternalclient_1 = require_baseexternalclient();
+  var authclient_1 = require_authclient();
+  var externalAccountAuthorizedUserClient_1 = require_externalAccountAuthorizedUserClient();
+  var util_1 = require_util2();
+  exports.GoogleAuthExceptionMessages = {
+    API_KEY_WITH_CREDENTIALS: "API Keys and Credentials are mutually exclusive authentication methods and cannot be used together.",
+    NO_PROJECT_ID_FOUND: `Unable to detect a Project Id in the current environment. 
+` + `To learn more about authentication and Google APIs, visit: 
+` + "https://cloud.google.com/docs/authentication/getting-started",
+    NO_CREDENTIALS_FOUND: `Unable to find credentials in current environment. 
+` + `To learn more about authentication and Google APIs, visit: 
+` + "https://cloud.google.com/docs/authentication/getting-started",
+    NO_ADC_FOUND: "Could not load the default credentials. Browse to https://cloud.google.com/docs/authentication/getting-started for more information.",
+    NO_UNIVERSE_DOMAIN_FOUND: `Unable to detect a Universe Domain in the current environment.
+` + `To learn more about Universe Domain retrieval, visit: 
+` + "https://cloud.google.com/compute/docs/metadata/predefined-metadata-keys"
+  };
+
+  class GoogleAuth {
+    checkIsGCE = undefined;
+    useJWTAccessWithScope;
+    defaultServicePath;
+    get isGCE() {
+      return this.checkIsGCE;
+    }
+    _findProjectIdPromise;
+    _cachedProjectId;
+    jsonContent = null;
+    apiKey;
+    cachedCredential = null;
+    #pendingAuthClient = null;
+    defaultScopes;
+    keyFilename;
+    scopes;
+    clientOptions = {};
+    constructor(opts = {}) {
+      this._cachedProjectId = opts.projectId || null;
+      this.cachedCredential = opts.authClient || null;
+      this.keyFilename = opts.keyFilename || opts.keyFile;
+      this.scopes = opts.scopes;
+      this.clientOptions = opts.clientOptions || {};
+      this.jsonContent = opts.credentials || null;
+      this.apiKey = opts.apiKey || this.clientOptions.apiKey || null;
+      if (this.apiKey && (this.jsonContent || this.clientOptions.credentials)) {
+        throw new RangeError(exports.GoogleAuthExceptionMessages.API_KEY_WITH_CREDENTIALS);
+      }
+      if (opts.universeDomain) {
+        this.clientOptions.universeDomain = opts.universeDomain;
+      }
+    }
+    setGapicJWTValues(client) {
+      client.defaultServicePath = this.defaultServicePath;
+      client.useJWTAccessWithScope = this.useJWTAccessWithScope;
+      client.defaultScopes = this.defaultScopes;
+    }
+    getProjectId(callback) {
+      if (callback) {
+        this.getProjectIdAsync().then((r) => callback(null, r), callback);
+      } else {
+        return this.getProjectIdAsync();
+      }
+    }
+    async getProjectIdOptional() {
+      try {
+        return await this.getProjectId();
+      } catch (e) {
+        if (e instanceof Error && e.message === exports.GoogleAuthExceptionMessages.NO_PROJECT_ID_FOUND) {
+          return null;
+        } else {
+          throw e;
+        }
+      }
+    }
+    async findAndCacheProjectId() {
+      let projectId = null;
+      projectId ||= await this.getProductionProjectId();
+      projectId ||= await this.getFileProjectId();
+      projectId ||= await this.getDefaultServiceProjectId();
+      projectId ||= await this.getGCEProjectId();
+      projectId ||= await this.getExternalAccountClientProjectId();
+      if (projectId) {
+        this._cachedProjectId = projectId;
+        return projectId;
+      } else {
+        throw new Error(exports.GoogleAuthExceptionMessages.NO_PROJECT_ID_FOUND);
+      }
+    }
+    async getProjectIdAsync() {
+      if (this._cachedProjectId) {
+        return this._cachedProjectId;
+      }
+      if (!this._findProjectIdPromise) {
+        this._findProjectIdPromise = this.findAndCacheProjectId();
+      }
+      return this._findProjectIdPromise;
+    }
+    async getUniverseDomainFromMetadataServer() {
+      let universeDomain;
+      try {
+        universeDomain = await gcpMetadata.universe("universe-domain");
+        universeDomain ||= authclient_1.DEFAULT_UNIVERSE;
+      } catch (e) {
+        if (e && e?.response?.status === 404) {
+          universeDomain = authclient_1.DEFAULT_UNIVERSE;
+        } else {
+          throw e;
+        }
+      }
+      return universeDomain;
+    }
+    async getUniverseDomain() {
+      let universeDomain = (0, util_1.originalOrCamelOptions)(this.clientOptions).get("universe_domain");
+      try {
+        universeDomain ??= (await this.getClient()).universeDomain;
+      } catch {
+        universeDomain ??= authclient_1.DEFAULT_UNIVERSE;
+      }
+      return universeDomain;
+    }
+    getAnyScopes() {
+      return this.scopes || this.defaultScopes;
+    }
+    getApplicationDefault(optionsOrCallback = {}, callback) {
+      let options;
+      if (typeof optionsOrCallback === "function") {
+        callback = optionsOrCallback;
+      } else {
+        options = optionsOrCallback;
+      }
+      if (callback) {
+        this.getApplicationDefaultAsync(options).then((r) => callback(null, r.credential, r.projectId), callback);
+      } else {
+        return this.getApplicationDefaultAsync(options);
+      }
+    }
+    async getApplicationDefaultAsync(options = {}) {
+      if (this.cachedCredential) {
+        return await this.#prepareAndCacheClient(this.cachedCredential, null);
+      }
+      let credential;
+      credential = await this._tryGetApplicationCredentialsFromEnvironmentVariable(options);
+      if (credential) {
+        if (credential instanceof jwtclient_1.JWT) {
+          credential.scopes = this.scopes;
+        } else if (credential instanceof baseexternalclient_1.BaseExternalAccountClient) {
+          credential.scopes = this.getAnyScopes();
+        }
+        return await this.#prepareAndCacheClient(credential);
+      }
+      credential = await this._tryGetApplicationCredentialsFromWellKnownFile(options);
+      if (credential) {
+        if (credential instanceof jwtclient_1.JWT) {
+          credential.scopes = this.scopes;
+        } else if (credential instanceof baseexternalclient_1.BaseExternalAccountClient) {
+          credential.scopes = this.getAnyScopes();
+        }
+        return await this.#prepareAndCacheClient(credential);
+      }
+      if (await this._checkIsGCE()) {
+        options.scopes = this.getAnyScopes();
+        return await this.#prepareAndCacheClient(new computeclient_1.Compute(options));
+      }
+      throw new Error(exports.GoogleAuthExceptionMessages.NO_ADC_FOUND);
+    }
+    async#prepareAndCacheClient(credential, quotaProjectIdOverride = process.env["GOOGLE_CLOUD_QUOTA_PROJECT"] || null) {
+      const projectId = await this.getProjectIdOptional();
+      if (quotaProjectIdOverride) {
+        credential.quotaProjectId = quotaProjectIdOverride;
+      }
+      this.cachedCredential = credential;
+      return { credential, projectId };
+    }
+    async _checkIsGCE() {
+      if (this.checkIsGCE === undefined) {
+        this.checkIsGCE = gcpMetadata.getGCPResidency() || await gcpMetadata.isAvailable();
+      }
+      return this.checkIsGCE;
+    }
+    async _tryGetApplicationCredentialsFromEnvironmentVariable(options) {
+      const credentialsPath = process.env["GOOGLE_APPLICATION_CREDENTIALS"] || process.env["google_application_credentials"];
+      if (!credentialsPath || credentialsPath.length === 0) {
+        return null;
+      }
+      try {
+        return this._getApplicationCredentialsFromFilePath(credentialsPath, options);
+      } catch (e) {
+        if (e instanceof Error) {
+          e.message = `Unable to read the credential file specified by the GOOGLE_APPLICATION_CREDENTIALS environment variable: ${e.message}`;
+        }
+        throw e;
+      }
+    }
+    async _tryGetApplicationCredentialsFromWellKnownFile(options) {
+      let location = null;
+      if (this._isWindows()) {
+        location = process.env["APPDATA"];
+      } else {
+        const home = process.env["HOME"];
+        if (home) {
+          location = path.join(home, ".config");
+        }
+      }
+      if (location) {
+        location = path.join(location, "gcloud", "application_default_credentials.json");
+        if (!fs.existsSync(location)) {
+          location = null;
+        }
+      }
+      if (!location) {
+        return null;
+      }
+      const client = await this._getApplicationCredentialsFromFilePath(location, options);
+      return client;
+    }
+    async _getApplicationCredentialsFromFilePath(filePath, options = {}) {
+      if (!filePath || filePath.length === 0) {
+        throw new Error("The file path is invalid.");
+      }
+      try {
+        filePath = fs.realpathSync(filePath);
+        if (!fs.lstatSync(filePath).isFile()) {
+          throw new Error;
+        }
+      } catch (err) {
+        if (err instanceof Error) {
+          err.message = `The file at ${filePath} does not exist, or it is not a file. ${err.message}`;
+        }
+        throw err;
+      }
+      const readStream = fs.createReadStream(filePath);
+      return this.fromStream(readStream, options);
+    }
+    fromImpersonatedJSON(json) {
+      if (!json) {
+        throw new Error("Must pass in a JSON object containing an  impersonated refresh token");
+      }
+      if (json.type !== impersonated_1.IMPERSONATED_ACCOUNT_TYPE) {
+        throw new Error(`The incoming JSON object does not have the "${impersonated_1.IMPERSONATED_ACCOUNT_TYPE}" type`);
+      }
+      if (!json.source_credentials) {
+        throw new Error("The incoming JSON object does not contain a source_credentials field");
+      }
+      if (!json.service_account_impersonation_url) {
+        throw new Error("The incoming JSON object does not contain a service_account_impersonation_url field");
+      }
+      const sourceClient = this.fromJSON(json.source_credentials);
+      if (json.service_account_impersonation_url?.length > 256) {
+        throw new RangeError(`Target principal is too long: ${json.service_account_impersonation_url}`);
+      }
+      const targetPrincipal = /(?<target>[^/]+):(generateAccessToken|generateIdToken)$/.exec(json.service_account_impersonation_url)?.groups?.target;
+      if (!targetPrincipal) {
+        throw new RangeError(`Cannot extract target principal from ${json.service_account_impersonation_url}`);
+      }
+      const targetScopes = this.getAnyScopes() ?? [];
+      return new impersonated_1.Impersonated({
+        ...json,
+        sourceClient,
+        targetPrincipal,
+        targetScopes: Array.isArray(targetScopes) ? targetScopes : [targetScopes]
+      });
+    }
+    fromJSON(json, options = {}) {
+      let client;
+      const preferredUniverseDomain = (0, util_1.originalOrCamelOptions)(options).get("universe_domain");
+      if (json.type === refreshclient_1.USER_REFRESH_ACCOUNT_TYPE) {
+        client = new refreshclient_1.UserRefreshClient(options);
+        client.fromJSON(json);
+      } else if (json.type === impersonated_1.IMPERSONATED_ACCOUNT_TYPE) {
+        client = this.fromImpersonatedJSON(json);
+      } else if (json.type === baseexternalclient_1.EXTERNAL_ACCOUNT_TYPE) {
+        client = externalclient_1.ExternalAccountClient.fromJSON({
+          ...json,
+          ...options
+        });
+        client.scopes = this.getAnyScopes();
+      } else if (json.type === externalAccountAuthorizedUserClient_1.EXTERNAL_ACCOUNT_AUTHORIZED_USER_TYPE) {
+        client = new externalAccountAuthorizedUserClient_1.ExternalAccountAuthorizedUserClient({
+          ...json,
+          ...options
+        });
+      } else {
+        options.scopes = this.scopes;
+        client = new jwtclient_1.JWT(options);
+        this.setGapicJWTValues(client);
+        client.fromJSON(json);
+      }
+      if (preferredUniverseDomain) {
+        client.universeDomain = preferredUniverseDomain;
+      }
+      return client;
+    }
+    _cacheClientFromJSON(json, options) {
+      const client = this.fromJSON(json, options);
+      this.jsonContent = json;
+      this.cachedCredential = client;
+      return client;
+    }
+    fromStream(inputStream, optionsOrCallback = {}, callback) {
+      let options = {};
+      if (typeof optionsOrCallback === "function") {
+        callback = optionsOrCallback;
+      } else {
+        options = optionsOrCallback;
+      }
+      if (callback) {
+        this.fromStreamAsync(inputStream, options).then((r) => callback(null, r), callback);
+      } else {
+        return this.fromStreamAsync(inputStream, options);
+      }
+    }
+    fromStreamAsync(inputStream, options) {
+      return new Promise((resolve, reject) => {
+        if (!inputStream) {
+          throw new Error("Must pass in a stream containing the Google auth settings.");
+        }
+        const chunks = [];
+        inputStream.setEncoding("utf8").on("error", reject).on("data", (chunk) => chunks.push(chunk)).on("end", () => {
+          try {
+            try {
+              const data = JSON.parse(chunks.join(""));
+              const r = this._cacheClientFromJSON(data, options);
+              return resolve(r);
+            } catch (err) {
+              if (!this.keyFilename)
+                throw err;
+              const client = new jwtclient_1.JWT({
+                ...this.clientOptions,
+                keyFile: this.keyFilename
+              });
+              this.cachedCredential = client;
+              this.setGapicJWTValues(client);
+              return resolve(client);
+            }
+          } catch (err) {
+            return reject(err);
+          }
+        });
+      });
+    }
+    fromAPIKey(apiKey, options = {}) {
+      return new jwtclient_1.JWT({ ...options, apiKey });
+    }
+    _isWindows() {
+      const sys = os.platform();
+      if (sys && sys.length >= 3) {
+        if (sys.substring(0, 3).toLowerCase() === "win") {
+          return true;
+        }
+      }
+      return false;
+    }
+    async getDefaultServiceProjectId() {
+      return new Promise((resolve) => {
+        (0, child_process_1.exec)("gcloud config config-helper --format json", (err, stdout) => {
+          if (!err && stdout) {
+            try {
+              const projectId = JSON.parse(stdout).configuration.properties.core.project;
+              resolve(projectId);
+              return;
+            } catch (e) {}
+          }
+          resolve(null);
+        });
+      });
+    }
+    getProductionProjectId() {
+      return process.env["GCLOUD_PROJECT"] || process.env["GOOGLE_CLOUD_PROJECT"] || process.env["gcloud_project"] || process.env["google_cloud_project"];
+    }
+    async getFileProjectId() {
+      if (this.cachedCredential) {
+        return this.cachedCredential.projectId;
+      }
+      if (this.keyFilename) {
+        const creds = await this.getClient();
+        if (creds && creds.projectId) {
+          return creds.projectId;
+        }
+      }
+      const r = await this._tryGetApplicationCredentialsFromEnvironmentVariable();
+      if (r) {
+        return r.projectId;
+      } else {
+        return null;
+      }
+    }
+    async getExternalAccountClientProjectId() {
+      if (!this.jsonContent || this.jsonContent.type !== baseexternalclient_1.EXTERNAL_ACCOUNT_TYPE) {
+        return null;
+      }
+      const creds = await this.getClient();
+      return await creds.getProjectId();
+    }
+    async getGCEProjectId() {
+      try {
+        const r = await gcpMetadata.project("project-id");
+        return r;
+      } catch (e) {
+        return null;
+      }
+    }
+    getCredentials(callback) {
+      if (callback) {
+        this.getCredentialsAsync().then((r) => callback(null, r), callback);
+      } else {
+        return this.getCredentialsAsync();
+      }
+    }
+    async getCredentialsAsync() {
+      const client = await this.getClient();
+      if (client instanceof impersonated_1.Impersonated) {
+        return { client_email: client.getTargetPrincipal() };
+      }
+      if (client instanceof baseexternalclient_1.BaseExternalAccountClient) {
+        const serviceAccountEmail = client.getServiceAccountEmail();
+        if (serviceAccountEmail) {
+          return {
+            client_email: serviceAccountEmail,
+            universe_domain: client.universeDomain
+          };
+        }
+      }
+      if (this.jsonContent) {
+        return {
+          client_email: this.jsonContent.client_email,
+          private_key: this.jsonContent.private_key,
+          universe_domain: this.jsonContent.universe_domain
+        };
+      }
+      if (await this._checkIsGCE()) {
+        const [client_email, universe_domain] = await Promise.all([
+          gcpMetadata.instance("service-accounts/default/email"),
+          this.getUniverseDomain()
+        ]);
+        return { client_email, universe_domain };
+      }
+      throw new Error(exports.GoogleAuthExceptionMessages.NO_CREDENTIALS_FOUND);
+    }
+    async getClient() {
+      if (this.cachedCredential) {
+        return this.cachedCredential;
+      }
+      this.#pendingAuthClient = this.#pendingAuthClient || this.#determineClient();
+      try {
+        return await this.#pendingAuthClient;
+      } finally {
+        this.#pendingAuthClient = null;
+      }
+    }
+    async#determineClient() {
+      if (this.jsonContent) {
+        return this._cacheClientFromJSON(this.jsonContent, this.clientOptions);
+      } else if (this.keyFilename) {
+        const filePath = path.resolve(this.keyFilename);
+        const stream = fs.createReadStream(filePath);
+        return await this.fromStreamAsync(stream, this.clientOptions);
+      } else if (this.apiKey) {
+        const client = await this.fromAPIKey(this.apiKey, this.clientOptions);
+        client.scopes = this.scopes;
+        const { credential } = await this.#prepareAndCacheClient(client);
+        return credential;
+      } else {
+        const { credential } = await this.getApplicationDefaultAsync(this.clientOptions);
+        return credential;
+      }
+    }
+    async getIdTokenClient(targetAudience) {
+      const client = await this.getClient();
+      if (!("fetchIdToken" in client)) {
+        throw new Error("Cannot fetch ID token in this environment, use GCE or set the GOOGLE_APPLICATION_CREDENTIALS environment variable to a service account credentials JSON file.");
+      }
+      return new idtokenclient_1.IdTokenClient({ targetAudience, idTokenProvider: client });
+    }
+    async getAccessToken() {
+      const client = await this.getClient();
+      return (await client.getAccessToken()).token;
+    }
+    async getRequestHeaders(url) {
+      const client = await this.getClient();
+      return client.getRequestHeaders(url);
+    }
+    async authorizeRequest(opts = {}) {
+      const url = opts.url;
+      const client = await this.getClient();
+      const headers = await client.getRequestHeaders(url);
+      opts.headers = gaxios_1.Gaxios.mergeHeaders(opts.headers, headers);
+      return opts;
+    }
+    async fetch(...args) {
+      const client = await this.getClient();
+      return client.fetch(...args);
+    }
+    async request(opts) {
+      const client = await this.getClient();
+      return client.request(opts);
+    }
+    getEnv() {
+      return (0, envDetect_1.getEnv)();
+    }
+    async sign(data, endpoint) {
+      const client = await this.getClient();
+      const universe = await this.getUniverseDomain();
+      endpoint = endpoint || `https://iamcredentials.${universe}/v1/projects/-/serviceAccounts/`;
+      if (client instanceof impersonated_1.Impersonated) {
+        const signed = await client.sign(data);
+        return signed.signedBlob;
+      }
+      const crypto2 = (0, crypto_1.createCrypto)();
+      if (client instanceof jwtclient_1.JWT && client.key) {
+        const sign = await crypto2.sign(client.key, data);
+        return sign;
+      }
+      const creds = await this.getCredentials();
+      if (!creds.client_email) {
+        throw new Error("Cannot sign data without `client_email`.");
+      }
+      return this.signBlob(crypto2, creds.client_email, data, endpoint);
+    }
+    async signBlob(crypto2, emailOrUniqueId, data, endpoint) {
+      const url = new URL(endpoint + `${emailOrUniqueId}:signBlob`);
+      const res = await this.request({
+        method: "POST",
+        url: url.href,
+        data: {
+          payload: crypto2.encodeBase64StringUtf8(data)
+        },
+        retry: true,
+        retryConfig: {
+          httpMethodsToRetry: ["POST"]
+        }
+      });
+      return res.data.signedBlob;
+    }
+  }
+  exports.GoogleAuth = GoogleAuth;
+});
+
+// node_modules/google-auth-library/build/src/auth/iam.js
+var require_iam = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.IAMAuth = undefined;
+
+  class IAMAuth {
+    selector;
+    token;
+    constructor(selector, token) {
+      this.selector = selector;
+      this.token = token;
+      this.selector = selector;
+      this.token = token;
+    }
+    getRequestHeaders() {
+      return {
+        "x-goog-iam-authority-selector": this.selector,
+        "x-goog-iam-authorization-token": this.token
+      };
+    }
+  }
+  exports.IAMAuth = IAMAuth;
+});
+
+// node_modules/google-auth-library/build/src/auth/downscopedclient.js
+var require_downscopedclient = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.DownscopedClient = exports.EXPIRATION_TIME_OFFSET = exports.MAX_ACCESS_BOUNDARY_RULES_COUNT = undefined;
+  var gaxios_1 = require_src();
+  var stream = __require("stream");
+  var authclient_1 = require_authclient();
+  var sts = require_stscredentials();
+  var STS_GRANT_TYPE = "urn:ietf:params:oauth:grant-type:token-exchange";
+  var STS_REQUEST_TOKEN_TYPE = "urn:ietf:params:oauth:token-type:access_token";
+  var STS_SUBJECT_TOKEN_TYPE = "urn:ietf:params:oauth:token-type:access_token";
+  exports.MAX_ACCESS_BOUNDARY_RULES_COUNT = 10;
+  exports.EXPIRATION_TIME_OFFSET = 5 * 60 * 1000;
+
+  class DownscopedClient extends authclient_1.AuthClient {
+    authClient;
+    credentialAccessBoundary;
+    cachedDownscopedAccessToken;
+    stsCredential;
+    constructor(options, credentialAccessBoundary = {
+      accessBoundary: {
+        accessBoundaryRules: []
+      }
+    }) {
+      super(options instanceof authclient_1.AuthClient ? {} : options);
+      if (options instanceof authclient_1.AuthClient) {
+        this.authClient = options;
+        this.credentialAccessBoundary = credentialAccessBoundary;
+      } else {
+        this.authClient = options.authClient;
+        this.credentialAccessBoundary = options.credentialAccessBoundary;
+      }
+      if (this.credentialAccessBoundary.accessBoundary.accessBoundaryRules.length === 0) {
+        throw new Error("At least one access boundary rule needs to be defined.");
+      } else if (this.credentialAccessBoundary.accessBoundary.accessBoundaryRules.length > exports.MAX_ACCESS_BOUNDARY_RULES_COUNT) {
+        throw new Error("The provided access boundary has more than " + `${exports.MAX_ACCESS_BOUNDARY_RULES_COUNT} access boundary rules.`);
+      }
+      for (const rule of this.credentialAccessBoundary.accessBoundary.accessBoundaryRules) {
+        if (rule.availablePermissions.length === 0) {
+          throw new Error("At least one permission should be defined in access boundary rules.");
+        }
+      }
+      this.stsCredential = new sts.StsCredentials({
+        tokenExchangeEndpoint: `https://sts.${this.universeDomain}/v1/token`
+      });
+      this.cachedDownscopedAccessToken = null;
+    }
+    setCredentials(credentials) {
+      if (!credentials.expiry_date) {
+        throw new Error("The access token expiry_date field is missing in the provided " + "credentials.");
+      }
+      super.setCredentials(credentials);
+      this.cachedDownscopedAccessToken = credentials;
+    }
+    async getAccessToken() {
+      if (!this.cachedDownscopedAccessToken || this.isExpired(this.cachedDownscopedAccessToken)) {
+        await this.refreshAccessTokenAsync();
+      }
+      return {
+        token: this.cachedDownscopedAccessToken.access_token,
+        expirationTime: this.cachedDownscopedAccessToken.expiry_date,
+        res: this.cachedDownscopedAccessToken.res
+      };
+    }
+    async getRequestHeaders() {
+      const accessTokenResponse = await this.getAccessToken();
+      const headers = new Headers({
+        authorization: `Bearer ${accessTokenResponse.token}`
+      });
+      return this.addSharedMetadataHeaders(headers);
+    }
+    request(opts, callback) {
+      if (callback) {
+        this.requestAsync(opts).then((r) => callback(null, r), (e) => {
+          return callback(e, e.response);
+        });
+      } else {
+        return this.requestAsync(opts);
+      }
+    }
+    async requestAsync(opts, reAuthRetried = false) {
+      let response;
+      try {
+        const requestHeaders = await this.getRequestHeaders();
+        opts.headers = gaxios_1.Gaxios.mergeHeaders(opts.headers);
+        this.addUserProjectAndAuthHeaders(opts.headers, requestHeaders);
+        response = await this.transporter.request(opts);
+      } catch (e) {
+        const res = e.response;
+        if (res) {
+          const statusCode = res.status;
+          const isReadableStream = res.config.data instanceof stream.Readable;
+          const isAuthErr = statusCode === 401 || statusCode === 403;
+          if (!reAuthRetried && isAuthErr && !isReadableStream && this.forceRefreshOnFailure) {
+            await this.refreshAccessTokenAsync();
+            return await this.requestAsync(opts, true);
+          }
+        }
+        throw e;
+      }
+      return response;
+    }
+    async refreshAccessTokenAsync() {
+      const subjectToken = (await this.authClient.getAccessToken()).token;
+      const stsCredentialsOptions = {
+        grantType: STS_GRANT_TYPE,
+        requestedTokenType: STS_REQUEST_TOKEN_TYPE,
+        subjectToken,
+        subjectTokenType: STS_SUBJECT_TOKEN_TYPE
+      };
+      const stsResponse = await this.stsCredential.exchangeToken(stsCredentialsOptions, undefined, this.credentialAccessBoundary);
+      const sourceCredExpireDate = this.authClient.credentials?.expiry_date || null;
+      const expiryDate = stsResponse.expires_in ? new Date().getTime() + stsResponse.expires_in * 1000 : sourceCredExpireDate;
+      this.cachedDownscopedAccessToken = {
+        access_token: stsResponse.access_token,
+        expiry_date: expiryDate,
+        res: stsResponse.res
+      };
+      this.credentials = {};
+      Object.assign(this.credentials, this.cachedDownscopedAccessToken);
+      delete this.credentials.res;
+      this.emit("tokens", {
+        refresh_token: null,
+        expiry_date: this.cachedDownscopedAccessToken.expiry_date,
+        access_token: this.cachedDownscopedAccessToken.access_token,
+        token_type: "Bearer",
+        id_token: null
+      });
+      return this.cachedDownscopedAccessToken;
+    }
+    isExpired(downscopedAccessToken) {
+      const now = new Date().getTime();
+      return downscopedAccessToken.expiry_date ? now >= downscopedAccessToken.expiry_date - this.eagerRefreshThresholdMillis : false;
+    }
+  }
+  exports.DownscopedClient = DownscopedClient;
+});
+
+// node_modules/google-auth-library/build/src/auth/passthrough.js
+var require_passthrough = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.PassThroughClient = undefined;
+  var authclient_1 = require_authclient();
+
+  class PassThroughClient extends authclient_1.AuthClient {
+    async request(opts) {
+      return this.transporter.request(opts);
+    }
+    async getAccessToken() {
+      return {};
+    }
+    async getRequestHeaders() {
+      return new Headers;
+    }
+  }
+  exports.PassThroughClient = PassThroughClient;
+});
+
+// node_modules/google-auth-library/build/src/index.js
+var require_src5 = __commonJS((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.GoogleAuth = exports.auth = exports.PassThroughClient = exports.ExecutableError = exports.PluggableAuthClient = exports.DownscopedClient = exports.BaseExternalAccountClient = exports.ExternalAccountClient = exports.IdentityPoolClient = exports.AwsRequestSigner = exports.AwsClient = exports.UserRefreshClient = exports.LoginTicket = exports.ClientAuthentication = exports.OAuth2Client = exports.CodeChallengeMethod = exports.Impersonated = exports.JWT = exports.JWTAccess = exports.IdTokenClient = exports.IAMAuth = exports.GCPEnv = exports.Compute = exports.DEFAULT_UNIVERSE = exports.AuthClient = exports.gaxios = exports.gcpMetadata = undefined;
+  var googleauth_1 = require_googleauth();
+  Object.defineProperty(exports, "GoogleAuth", { enumerable: true, get: function() {
+    return googleauth_1.GoogleAuth;
+  } });
+  exports.gcpMetadata = require_src3();
+  exports.gaxios = require_src();
+  var authclient_1 = require_authclient();
+  Object.defineProperty(exports, "AuthClient", { enumerable: true, get: function() {
+    return authclient_1.AuthClient;
+  } });
+  Object.defineProperty(exports, "DEFAULT_UNIVERSE", { enumerable: true, get: function() {
+    return authclient_1.DEFAULT_UNIVERSE;
+  } });
+  var computeclient_1 = require_computeclient();
+  Object.defineProperty(exports, "Compute", { enumerable: true, get: function() {
+    return computeclient_1.Compute;
+  } });
+  var envDetect_1 = require_envDetect();
+  Object.defineProperty(exports, "GCPEnv", { enumerable: true, get: function() {
+    return envDetect_1.GCPEnv;
+  } });
+  var iam_1 = require_iam();
+  Object.defineProperty(exports, "IAMAuth", { enumerable: true, get: function() {
+    return iam_1.IAMAuth;
+  } });
+  var idtokenclient_1 = require_idtokenclient();
+  Object.defineProperty(exports, "IdTokenClient", { enumerable: true, get: function() {
+    return idtokenclient_1.IdTokenClient;
+  } });
+  var jwtaccess_1 = require_jwtaccess();
+  Object.defineProperty(exports, "JWTAccess", { enumerable: true, get: function() {
+    return jwtaccess_1.JWTAccess;
+  } });
+  var jwtclient_1 = require_jwtclient();
+  Object.defineProperty(exports, "JWT", { enumerable: true, get: function() {
+    return jwtclient_1.JWT;
+  } });
+  var impersonated_1 = require_impersonated();
+  Object.defineProperty(exports, "Impersonated", { enumerable: true, get: function() {
+    return impersonated_1.Impersonated;
+  } });
+  var oauth2client_1 = require_oauth2client();
+  Object.defineProperty(exports, "CodeChallengeMethod", { enumerable: true, get: function() {
+    return oauth2client_1.CodeChallengeMethod;
+  } });
+  Object.defineProperty(exports, "OAuth2Client", { enumerable: true, get: function() {
+    return oauth2client_1.OAuth2Client;
+  } });
+  Object.defineProperty(exports, "ClientAuthentication", { enumerable: true, get: function() {
+    return oauth2client_1.ClientAuthentication;
+  } });
+  var loginticket_1 = require_loginticket();
+  Object.defineProperty(exports, "LoginTicket", { enumerable: true, get: function() {
+    return loginticket_1.LoginTicket;
+  } });
+  var refreshclient_1 = require_refreshclient();
+  Object.defineProperty(exports, "UserRefreshClient", { enumerable: true, get: function() {
+    return refreshclient_1.UserRefreshClient;
+  } });
+  var awsclient_1 = require_awsclient();
+  Object.defineProperty(exports, "AwsClient", { enumerable: true, get: function() {
+    return awsclient_1.AwsClient;
+  } });
+  var awsrequestsigner_1 = require_awsrequestsigner();
+  Object.defineProperty(exports, "AwsRequestSigner", { enumerable: true, get: function() {
+    return awsrequestsigner_1.AwsRequestSigner;
+  } });
+  var identitypoolclient_1 = require_identitypoolclient();
+  Object.defineProperty(exports, "IdentityPoolClient", { enumerable: true, get: function() {
+    return identitypoolclient_1.IdentityPoolClient;
+  } });
+  var externalclient_1 = require_externalclient();
+  Object.defineProperty(exports, "ExternalAccountClient", { enumerable: true, get: function() {
+    return externalclient_1.ExternalAccountClient;
+  } });
+  var baseexternalclient_1 = require_baseexternalclient();
+  Object.defineProperty(exports, "BaseExternalAccountClient", { enumerable: true, get: function() {
+    return baseexternalclient_1.BaseExternalAccountClient;
+  } });
+  var downscopedclient_1 = require_downscopedclient();
+  Object.defineProperty(exports, "DownscopedClient", { enumerable: true, get: function() {
+    return downscopedclient_1.DownscopedClient;
+  } });
+  var pluggable_auth_client_1 = require_pluggable_auth_client();
+  Object.defineProperty(exports, "PluggableAuthClient", { enumerable: true, get: function() {
+    return pluggable_auth_client_1.PluggableAuthClient;
+  } });
+  Object.defineProperty(exports, "ExecutableError", { enumerable: true, get: function() {
+    return pluggable_auth_client_1.ExecutableError;
+  } });
+  var passthrough_1 = require_passthrough();
+  Object.defineProperty(exports, "PassThroughClient", { enumerable: true, get: function() {
+    return passthrough_1.PassThroughClient;
+  } });
+  var auth = new googleauth_1.GoogleAuth;
+  exports.auth = auth;
+});
 
 // node_modules/baseline-browser-mapping/dist/index.cjs
 var require_dist = __commonJS((exports) => {
@@ -604,8 +9776,8 @@ var require_region = __commonJS((exports, module) => {
 var require_node = __commonJS((exports, module) => {
   var feature = require_feature().default;
   var region = require_region().default;
-  var fs = __require("fs");
-  var path = __require("path");
+  var fs2 = __require("fs");
+  var path2 = __require("path");
   var BrowserslistError = require_error();
   var IS_SECTION = /^\s*\[(.+)]\s*$/;
   var CONFIG_PATTERN = /^browserslist-config-/;
@@ -633,7 +9805,7 @@ var require_node = __commonJS((exports, module) => {
   function getPathType(filepath) {
     var stats;
     try {
-      stats = fs.existsSync(filepath) && fs.statSync(filepath);
+      stats = fs2.existsSync(filepath) && fs2.statSync(filepath);
     } catch (err) {
       if (err.code !== "ENOENT" && err.code !== "EACCES" && err.code !== "ERR_ACCESS_DENIED") {
         throw err;
@@ -652,7 +9824,7 @@ var require_node = __commonJS((exports, module) => {
     return getPathType(dir) === PATHTYPE_DIR;
   }
   function eachParent(file, callback, cache) {
-    var loc = path.resolve(file);
+    var loc = path2.resolve(file);
     var pathsForCacheResult = [];
     var result;
     do {
@@ -672,7 +9844,7 @@ var require_node = __commonJS((exports, module) => {
         result = locResult;
         break;
       }
-    } while (loc !== (loc = path.dirname(loc)));
+    } while (loc !== (loc = path2.dirname(loc)));
     if (cache && !process.env.BROWSERSLIST_DISABLE_CACHE) {
       pathsForCacheResult.forEach(function(cachePath) {
         cache[cachePath] = result;
@@ -683,8 +9855,8 @@ var require_node = __commonJS((exports, module) => {
   function pathInRoot(p) {
     if (!process.env.BROWSERSLIST_ROOT_PATH)
       return true;
-    var rootPath = path.resolve(process.env.BROWSERSLIST_ROOT_PATH);
-    if (path.relative(rootPath, p).substring(0, 2) === "..") {
+    var rootPath = path2.resolve(process.env.BROWSERSLIST_ROOT_PATH);
+    if (path2.relative(rootPath, p).substring(0, 2) === "..") {
       return false;
     }
     return true;
@@ -721,7 +9893,7 @@ var require_node = __commonJS((exports, module) => {
     return config[name] || config.defaults;
   }
   function parsePackage(file) {
-    var text = fs.readFileSync(file).toString().replace(/^\uFEFF/m, "");
+    var text = fs2.readFileSync(file).toString().replace(/^\uFEFF/m, "");
     var list;
     if (text.indexOf('"browserslist"') >= 0) {
       list = JSON.parse(text).browserslist;
@@ -743,7 +9915,7 @@ var require_node = __commonJS((exports, module) => {
     if (file in parseConfigCache) {
       return parseConfigCache[file];
     }
-    var isPackage = path.basename(file) === "package.json";
+    var isPackage = path2.basename(file) === "package.json";
     var result = isPackage ? parsePackage(file) : module.exports.readConfig(file);
     if (!process.env.BROWSERSLIST_DISABLE_CACHE) {
       parseConfigCache[file] = result;
@@ -825,7 +9997,7 @@ var require_node = __commonJS((exports, module) => {
       if (!ctx.dangerousExtend && !process.env.BROWSERSLIST_DANGEROUS_EXTEND) {
         checkExtend(name);
       }
-      var stats = __require(__require.resolve(path.posix.join(name, "browserslist-stats.json"), {
+      var stats = __require(__require.resolve(path2.posix.join(name, "browserslist-stats.json"), {
         paths: ["."]
       }));
       return normalizeStats(data, stats);
@@ -836,15 +10008,15 @@ var require_node = __commonJS((exports, module) => {
         stats = opts.stats;
       } else if (process.env.BROWSERSLIST_STATS) {
         stats = process.env.BROWSERSLIST_STATS;
-      } else if (opts.path && path.resolve && fs.existsSync) {
+      } else if (opts.path && path2.resolve && fs2.existsSync) {
         stats = eachParent(opts.path, function(dir) {
-          var file = path.join(dir, "browserslist-stats.json");
+          var file = path2.join(dir, "browserslist-stats.json");
           return isFile(file) ? file : undefined;
         }, statCache);
       }
       if (typeof stats === "string") {
         try {
-          stats = JSON.parse(fs.readFileSync(stats));
+          stats = JSON.parse(fs2.readFileSync(stats));
         } catch (e) {
           throw new BrowserslistError("Can't read " + stats);
         }
@@ -929,13 +10101,13 @@ var require_node = __commonJS((exports, module) => {
       if (!isFile(file)) {
         throw new BrowserslistError("Can't read " + file + " config");
       }
-      return module.exports.parseConfig(fs.readFileSync(file));
+      return module.exports.parseConfig(fs2.readFileSync(file));
     },
     findConfigFile: function findConfigFile(from) {
       return eachParent(from, function(dir) {
-        var config = path.join(dir, "browserslist");
-        var pkg = path.join(dir, "package.json");
-        var rc = path.join(dir, ".browserslistrc");
+        var config = path2.join(dir, "browserslist");
+        var pkg = path2.join(dir, "package.json");
+        var rc = path2.join(dir, ".browserslistrc");
         var pkgBrowserslist;
         if (isFile(pkg)) {
           try {
@@ -995,7 +10167,7 @@ var require_node = __commonJS((exports, module) => {
 });
 
 // node_modules/browserslist/parse.js
-var require_parse = __commonJS((exports, module) => {
+var require_parse2 = __commonJS((exports, module) => {
   var AND_REGEXP = /^\s+and\s+(.*)/i;
   var OR_REGEXP = /^(?:,\s*|\s+or\s+)(.*)/i;
   function flatten(array) {
@@ -1076,10 +10248,10 @@ var require_browserslist = __commonJS((exports, module) => {
   var agents = require_agents2().agents;
   var e2c = require_versions();
   var jsEOL = require_release_schedule();
-  var path = __require("path");
+  var path2 = __require("path");
   var BrowserslistError = require_error();
   var env = require_node();
-  var parseWithoutCache = require_parse();
+  var parseWithoutCache = require_parse2();
   var YEAR = 365.259641 * 24 * 60 * 60 * 1000;
   var ANDROID_EVERGREEN_FIRST = "37";
   var OP_MOB_BLINK_FIRST = 14;
@@ -1388,7 +10560,7 @@ var require_browserslist = __commonJS((exports, module) => {
     if (typeof opts === "undefined")
       opts = {};
     if (typeof opts.path === "undefined") {
-      opts.path = path.resolve ? path.resolve(".") : ".";
+      opts.path = path2.resolve ? path2.resolve(".") : ".";
     }
     return opts;
   }
@@ -1522,7 +10694,7 @@ var require_browserslist = __commonJS((exports, module) => {
       data = browserslist.usage.global;
     } else if (stats === "my stats") {
       var opts = {};
-      opts.path = path.resolve ? path.resolve(".") : ".";
+      opts.path = path2.resolve ? path2.resolve(".") : ".";
       var customStats = env.getStat(opts);
       if (!customStats) {
         throw new BrowserslistError("Custom usage statistics was not provided");
@@ -2260,9 +11432,9 @@ var require_picocolors = __commonJS((exports, module) => {
   var argv = p.argv || [];
   var env = p.env || {};
   var isColorSupported = !(!!env.NO_COLOR || argv.includes("--no-color")) && (!!env.FORCE_COLOR || argv.includes("--color") || p.platform === "win32" || (p.stdout || {}).isTTY && env.TERM !== "dumb" || !!env.CI);
-  var formatter = (open, close, replace = open) => (input) => {
-    let string = "" + input, index = string.indexOf(close, open.length);
-    return ~index ? open + replaceClose(string, close, replace, index) + close : open + string + close;
+  var formatter = (open2, close, replace = open2) => (input) => {
+    let string = "" + input, index = string.indexOf(close, open2.length);
+    return ~index ? open2 + replaceClose(string, close, replace, index) + close : open2 + string + close;
   };
   var replaceClose = (string, close, replace, index) => {
     let result = "", cursor = 0;
@@ -4104,7 +13276,7 @@ var require_stringifier = __commonJS((exports, module) => {
 });
 
 // node_modules/postcss/lib/stringify.js
-var require_stringify = __commonJS((exports, module) => {
+var require_stringify2 = __commonJS((exports, module) => {
   var Stringifier = require_stringifier();
   function stringify(node, builder) {
     let str = new Stringifier(builder);
@@ -4124,7 +13296,7 @@ var require_symbols = __commonJS((exports, module) => {
 var require_node2 = __commonJS((exports, module) => {
   var CssSyntaxError = require_css_syntax_error();
   var Stringifier = require_stringifier();
-  var stringify = require_stringify();
+  var stringify = require_stringify2();
   var { isClean, my } = require_symbols();
   function cloneNode(obj, parent) {
     let cloned = new obj.constructor;
@@ -5090,7 +14262,7 @@ var require_base64_vlq = __commonJS((exports) => {
 });
 
 // node_modules/source-map-js/lib/util.js
-var require_util = __commonJS((exports) => {
+var require_util3 = __commonJS((exports) => {
   function getArg(aArgs, aName, aDefaultValue) {
     if (aName in aArgs) {
       return aArgs[aName];
@@ -5162,27 +14334,27 @@ var require_util = __commonJS((exports) => {
     };
   }
   var normalize = lruMemoize(function normalize(aPath) {
-    var path = aPath;
+    var path2 = aPath;
     var url = urlParse(aPath);
     if (url) {
       if (!url.path) {
         return aPath;
       }
-      path = url.path;
+      path2 = url.path;
     }
-    var isAbsolute = exports.isAbsolute(path);
+    var isAbsolute = exports.isAbsolute(path2);
     var parts = [];
     var start = 0;
     var i = 0;
     while (true) {
       start = i;
-      i = path.indexOf("/", start);
+      i = path2.indexOf("/", start);
       if (i === -1) {
-        parts.push(path.slice(start));
+        parts.push(path2.slice(start));
         break;
       } else {
-        parts.push(path.slice(start, i));
-        while (i < path.length && path[i] === "/") {
+        parts.push(path2.slice(start, i));
+        while (i < path2.length && path2[i] === "/") {
           i++;
         }
       }
@@ -5203,15 +14375,15 @@ var require_util = __commonJS((exports) => {
         }
       }
     }
-    path = parts.join("/");
-    if (path === "") {
-      path = isAbsolute ? "/" : ".";
+    path2 = parts.join("/");
+    if (path2 === "") {
+      path2 = isAbsolute ? "/" : ".";
     }
     if (url) {
-      url.path = path;
+      url.path = path2;
       return urlGenerate(url);
     }
-    return path;
+    return path2;
   });
   exports.normalize = normalize;
   function join(aRoot, aPath) {
@@ -5469,7 +14641,7 @@ var require_util = __commonJS((exports) => {
 
 // node_modules/source-map-js/lib/array-set.js
 var require_array_set = __commonJS((exports) => {
-  var util = require_util();
+  var util = require_util3();
   var has = Object.prototype.hasOwnProperty;
   var hasNativeMap = typeof Map !== "undefined";
   function ArraySet() {
@@ -5537,7 +14709,7 @@ var require_array_set = __commonJS((exports) => {
 
 // node_modules/source-map-js/lib/mapping-list.js
 var require_mapping_list = __commonJS((exports) => {
-  var util = require_util();
+  var util = require_util3();
   function generatedPositionAfter(mappingA, mappingB) {
     var lineA = mappingA.generatedLine;
     var lineB = mappingB.generatedLine;
@@ -5575,7 +14747,7 @@ var require_mapping_list = __commonJS((exports) => {
 // node_modules/source-map-js/lib/source-map-generator.js
 var require_source_map_generator = __commonJS((exports) => {
   var base64VLQ = require_base64_vlq();
-  var util = require_util();
+  var util = require_util3();
   var ArraySet = require_array_set().ArraySet;
   var MappingList = require_mapping_list().MappingList;
   function SourceMapGenerator(aArgs) {
@@ -5957,7 +15129,7 @@ var require_quick_sort = __commonJS((exports) => {
 
 // node_modules/source-map-js/lib/source-map-consumer.js
 var require_source_map_consumer = __commonJS((exports) => {
-  var util = require_util();
+  var util = require_util3();
   var binarySearch = require_binary_search();
   var ArraySet = require_array_set().ArraySet;
   var base64VLQ = require_base64_vlq();
@@ -6573,7 +15745,7 @@ var require_source_map_consumer = __commonJS((exports) => {
 // node_modules/source-map-js/lib/source-node.js
 var require_source_node = __commonJS((exports) => {
   var SourceMapGenerator = require_source_map_generator().SourceMapGenerator;
-  var util = require_util();
+  var util = require_util3();
   var REGEX_NEWLINE = /(\r?\n)/;
   var NEWLINE_CODE = 10;
   var isSourceNode = "$$$isSourceNode$$$";
@@ -6900,11 +16072,11 @@ var require_previous_map = __commonJS((exports, module) => {
         this.annotation = this.getAnnotationURL(css.substring(start, end));
       }
     }
-    loadFile(path) {
-      this.root = dirname(path);
-      if (existsSync(path)) {
-        this.mapFile = path;
-        return readFileSync(path, "utf-8").toString().trim();
+    loadFile(path2) {
+      this.root = dirname(path2);
+      if (existsSync(path2)) {
+        this.mapFile = path2;
+        return readFileSync(path2, "utf-8").toString().trim();
       }
     }
     loadMap(file, prev) {
@@ -7600,9 +16772,9 @@ var require_map_generator = __commonJS((exports, module) => {
       if (typeof this.mapOpts.annotation === "string") {
         from = dirname(resolve(from, this.mapOpts.annotation));
       }
-      let path = relative(from, file);
-      this.memoizedPaths.set(file, path);
-      return path;
+      let path2 = relative(from, file);
+      this.memoizedPaths.set(file, path2);
+      return path2;
     }
     previous() {
       if (!this.previousMaps) {
@@ -7658,27 +16830,27 @@ var require_map_generator = __commonJS((exports, module) => {
         return window.btoa(unescape(encodeURIComponent(str)));
       }
     }
-    toFileUrl(path) {
-      let cached = this.memoizedFileURLs.get(path);
+    toFileUrl(path2) {
+      let cached = this.memoizedFileURLs.get(path2);
       if (cached)
         return cached;
       if (pathToFileURL) {
-        let fileURL = pathToFileURL(path).toString();
-        this.memoizedFileURLs.set(path, fileURL);
+        let fileURL = pathToFileURL(path2).toString();
+        this.memoizedFileURLs.set(path2, fileURL);
         return fileURL;
       } else {
         throw new Error("`map.absolute` option is not available in this PostCSS build");
       }
     }
-    toUrl(path) {
-      let cached = this.memoizedURLs.get(path);
+    toUrl(path2) {
+      let cached = this.memoizedURLs.get(path2);
       if (cached)
         return cached;
       if (sep === "\\") {
-        path = path.replace(/\\/g, "/");
+        path2 = path2.replace(/\\/g, "/");
       }
-      let url = encodeURI(path).replace(/[#?]/g, encodeURIComponent);
-      this.memoizedURLs.set(path, url);
+      let url = encodeURI(path2).replace(/[#?]/g, encodeURIComponent);
+      this.memoizedURLs.set(path2, url);
       return url;
     }
   }
@@ -7727,7 +16899,7 @@ var require_parser = __commonJS((exports, module) => {
       let prev;
       let shift;
       let last = false;
-      let open = false;
+      let open2 = false;
       let params = [];
       let brackets = [];
       while (!this.tokenizer.endOfFile()) {
@@ -7747,7 +16919,7 @@ var require_parser = __commonJS((exports, module) => {
             this.semicolon = true;
             break;
           } else if (type === "{") {
-            open = true;
+            open2 = true;
             break;
           } else if (type === "}") {
             if (params.length > 0) {
@@ -7789,7 +16961,7 @@ var require_parser = __commonJS((exports, module) => {
         node.raws.afterName = "";
         node.params = "";
       }
-      if (open) {
+      if (open2) {
         node.nodes = [];
         this.current = node;
       }
@@ -8207,7 +17379,7 @@ var require_parser = __commonJS((exports, module) => {
 });
 
 // node_modules/postcss/lib/parse.js
-var require_parse2 = __commonJS((exports, module) => {
+var require_parse3 = __commonJS((exports, module) => {
   var Container = require_container();
   var Input = require_input();
   var Parser = require_parser();
@@ -8329,10 +17501,10 @@ var require_lazy_result = __commonJS((exports, module) => {
   var Container = require_container();
   var Document = require_document();
   var MapGenerator = require_map_generator();
-  var parse = require_parse2();
+  var parse = require_parse3();
   var Result = require_result();
   var Root = require_root();
-  var stringify = require_stringify();
+  var stringify = require_stringify2();
   var { isClean, my } = require_symbols();
   var warnOnce = require_warn_once();
   var TYPE_TO_CLASS_NAME = {
@@ -8805,9 +17977,9 @@ var require_lazy_result = __commonJS((exports, module) => {
 // node_modules/postcss/lib/no-work-result.js
 var require_no_work_result = __commonJS((exports, module) => {
   var MapGenerator = require_map_generator();
-  var parse = require_parse2();
+  var parse = require_parse3();
   var Result = require_result();
-  var stringify = require_stringify();
+  var stringify = require_stringify2();
   var warnOnce = require_warn_once();
 
   class NoWorkResult {
@@ -8983,12 +18155,12 @@ var require_postcss = __commonJS((exports, module) => {
   var LazyResult = require_lazy_result();
   var list = require_list();
   var Node = require_node2();
-  var parse = require_parse2();
+  var parse = require_parse3();
   var Processor = require_processor();
   var Result = require_result();
   var Root = require_root();
   var Rule = require_rule();
-  var stringify = require_stringify();
+  var stringify = require_stringify2();
   var Warning = require_warning();
   function postcss(...plugins) {
     if (plugins.length === 1 && Array.isArray(plugins[0])) {
@@ -10658,7 +19830,7 @@ var require_normalize_range = __commonJS((exports, module) => {
 });
 
 // node_modules/postcss-value-parser/lib/parse.js
-var require_parse3 = __commonJS((exports, module) => {
+var require_parse4 = __commonJS((exports, module) => {
   var openParentheses = 40;
   var closeParentheses = 41;
   var singleQuote = 39;
@@ -10925,7 +20097,7 @@ var require_walk = __commonJS((exports, module) => {
 });
 
 // node_modules/postcss-value-parser/lib/stringify.js
-var require_stringify2 = __commonJS((exports, module) => {
+var require_stringify3 = __commonJS((exports, module) => {
   function stringifyNode(node, custom) {
     var type = node.type;
     var value = node.value;
@@ -11052,9 +20224,9 @@ var require_unit = __commonJS((exports, module) => {
 
 // node_modules/postcss-value-parser/lib/index.js
 var require_lib = __commonJS((exports, module) => {
-  var parse = require_parse3();
+  var parse = require_parse4();
   var walk = require_walk();
-  var stringify = require_stringify2();
+  var stringify = require_stringify3();
   function ValueParser(value) {
     if (this instanceof ValueParser) {
       this.nodes = parse(value);
@@ -11422,8 +20594,8 @@ var require_grid_utils = __commonJS((exports) => {
     }
     return [false, false];
   }
-  exports.translate = translate;
-  function translate(values, startIndex, endIndex) {
+  exports.translate = translate2;
+  function translate2(values, startIndex, endIndex) {
     let startValue = values[startIndex];
     let endValue = values[endIndex];
     if (!startValue) {
@@ -15152,12 +24324,12 @@ var require_autoprefixer = __commonJS((exports, module) => {
 });
 
 // node_modules/lilconfig/src/index.js
-var require_src = __commonJS((exports, module) => {
-  var path = __require("path");
-  var fs = __require("fs");
+var require_src6 = __commonJS((exports, module) => {
+  var path2 = __require("path");
+  var fs2 = __require("fs");
   var os = __require("os");
   var url = __require("url");
-  var fsReadFileAsync = fs.promises.readFile;
+  var fsReadFileAsync = fs2.promises.readFile;
   function getDefaultSearchPlaces(name, sync) {
     return [
       "package.json",
@@ -15176,7 +24348,7 @@ var require_src = __commonJS((exports, module) => {
     ];
   }
   function parentDir(p) {
-    return path.dirname(p) || path.sep;
+    return path2.dirname(p) || path2.sep;
   }
   var jsonLoader = (_, content) => JSON.parse(content);
   var requireFunc = typeof __webpack_require__ === "function" ? __non_webpack_require__ : __require;
@@ -15226,7 +24398,7 @@ var require_src = __commonJS((exports, module) => {
       }
     };
     conf.searchPlaces.forEach((place) => {
-      const key = path.extname(place) || "noExt";
+      const key = path2.extname(place) || "noExt";
       const loader = conf.loaders[key];
       if (!loader) {
         throw new Error(`Missing loader for extension "${place}"`);
@@ -15290,14 +24462,14 @@ var require_src = __commonJS((exports, module) => {
               visited.add(dir);
             }
             for (const searchPlace of searchPlaces) {
-              const filepath = path.join(dir, searchPlace);
+              const filepath = path2.join(dir, searchPlace);
               try {
-                await fs.promises.access(filepath);
+                await fs2.promises.access(filepath);
               } catch {
                 continue;
               }
               const content = String(await fsReadFileAsync(filepath));
-              const loaderKey = path.extname(searchPlace) || "noExt";
+              const loaderKey = path2.extname(searchPlace) || "noExt";
               const loader = loaders[loaderKey];
               if (searchPlace === "package.json") {
                 const pkg = await loader(filepath, content);
@@ -15335,11 +24507,11 @@ var require_src = __commonJS((exports, module) => {
       },
       async load(filepath) {
         validateFilePath(filepath);
-        const absPath = path.resolve(process.cwd(), filepath);
+        const absPath = path2.resolve(process.cwd(), filepath);
         if (cache && loadCache.has(absPath)) {
           return loadCache.get(absPath);
         }
-        const { base, ext } = path.parse(absPath);
+        const { base, ext } = path2.parse(absPath);
         const loaderKey = ext || "noExt";
         const loader = loaders[loaderKey];
         validateLoader(loader, loaderKey);
@@ -15414,15 +24586,15 @@ var require_src = __commonJS((exports, module) => {
               visited.add(dir);
             }
             for (const searchPlace of searchPlaces) {
-              const filepath = path.join(dir, searchPlace);
+              const filepath = path2.join(dir, searchPlace);
               try {
-                fs.accessSync(filepath);
+                fs2.accessSync(filepath);
               } catch {
                 continue;
               }
-              const loaderKey = path.extname(searchPlace) || "noExt";
+              const loaderKey = path2.extname(searchPlace) || "noExt";
               const loader = loaders[loaderKey];
-              const content = String(fs.readFileSync(filepath));
+              const content = String(fs2.readFileSync(filepath));
               if (searchPlace === "package.json") {
                 const pkg = loader(filepath, content);
                 const maybeConfig = getPackageProp(packageProp, pkg);
@@ -15459,15 +24631,15 @@ var require_src = __commonJS((exports, module) => {
       },
       load(filepath) {
         validateFilePath(filepath);
-        const absPath = path.resolve(process.cwd(), filepath);
+        const absPath = path2.resolve(process.cwd(), filepath);
         if (cache && loadCache.has(absPath)) {
           return loadCache.get(absPath);
         }
-        const { base, ext } = path.parse(absPath);
+        const { base, ext } = path2.parse(absPath);
         const loaderKey = ext || "noExt";
         const loader = loaders[loaderKey];
         validateLoader(loader, loaderKey);
-        const content = String(fs.readFileSync(absPath));
+        const content = String(fs2.readFileSync(absPath));
         if (base === "package.json") {
           const pkg = loader(absPath, content);
           return transform({
@@ -16018,8 +25190,8 @@ var require_main = __commonJS((exports, module) => {
     }
     return list;
   }
-  function __variableDynamicImportRuntime0__(path) {
-    switch (path) {
+  function __variableDynamicImportRuntime0__(path2) {
+    switch (path2) {
       case "../orders/alphabetical.mjs":
         return Promise.resolve().then(function() {
           return alphabetical;
@@ -16038,7 +25210,7 @@ var require_main = __commonJS((exports, module) => {
         });
       default:
         return new Promise(function(resolve, reject) {
-          (typeof queueMicrotask === "function" ? queueMicrotask : setTimeout)(reject.bind(null, new Error("Unknown variable dynamic import: " + path)));
+          (typeof queueMicrotask === "function" ? queueMicrotask : setTimeout)(reject.bind(null, new Error("Unknown variable dynamic import: " + path2)));
         });
     }
   }
@@ -18238,7 +27410,7 @@ var require_stripComments = __commonJS((exports, module) => {
 });
 
 // node_modules/postcss-selector-parser/dist/util/index.js
-var require_util2 = __commonJS((exports) => {
+var require_util4 = __commonJS((exports) => {
   exports.__esModule = true;
   exports.unesc = exports.stripComments = exports.getProp = exports.ensureObject = undefined;
   var _unesc = _interopRequireDefault(require_unesc());
@@ -18258,7 +27430,7 @@ var require_util2 = __commonJS((exports) => {
 var require_node3 = __commonJS((exports, module) => {
   exports.__esModule = true;
   exports.default = undefined;
-  var _util = require_util2();
+  var _util = require_util4();
   function _defineProperties(target, props) {
     for (var i = 0;i < props.length; i++) {
       var descriptor = props[i];
@@ -19071,7 +28243,7 @@ var require_className = __commonJS((exports, module) => {
   exports.__esModule = true;
   exports.default = undefined;
   var _cssesc = _interopRequireDefault(require_cssesc());
-  var _util = require_util2();
+  var _util = require_util4();
   var _node = _interopRequireDefault(require_node3());
   var _types = require_types();
   function _interopRequireDefault(obj) {
@@ -19225,7 +28397,7 @@ var require_namespace = __commonJS((exports, module) => {
   exports.__esModule = true;
   exports.default = undefined;
   var _cssesc = _interopRequireDefault(require_cssesc());
-  var _util = require_util2();
+  var _util = require_util4();
   var _node = _interopRequireDefault(require_node3());
   function _interopRequireDefault(obj) {
     return obj && obj.__esModule ? obj : { default: obj };
@@ -20271,7 +29443,7 @@ var require_parser2 = __commonJS((exports, module) => {
   var _tokenize = _interopRequireWildcard(require_tokenize2());
   var tokens = _interopRequireWildcard(require_tokenTypes());
   var types = _interopRequireWildcard(require_types());
-  var _util = require_util2();
+  var _util = require_util4();
   var _WHITESPACE_TOKENS;
   var _Object$assign;
   function _getRequireWildcardCache(nodeInterop) {
@@ -21610,7 +30782,7 @@ var require_dist2 = __commonJS((exports, module) => {
 });
 
 // node_modules/postcss-discard-comments/src/index.js
-var require_src2 = __commonJS((exports, module) => {
+var require_src7 = __commonJS((exports, module) => {
   var CommentRemover = require_commentRemover();
   var commentParser = require_commentParser();
   var selectorParser = require_dist2();
@@ -25351,7 +34523,7 @@ var require_ignoreProps = __commonJS((exports, module) => {
 });
 
 // node_modules/postcss-reduce-initial/src/index.js
-var require_src3 = __commonJS((exports, module) => {
+var require_src8 = __commonJS((exports, module) => {
   var __filename = "/Users/arvid/Development/Privat/pleb-ts/node_modules/postcss-reduce-initial/src/index.js";
   var { dirname } = __require("path");
   var browserslist = require_browserslist();
@@ -25463,7 +34635,7 @@ var require_sameParent = __commonJS((exports, module) => {
 });
 
 // node_modules/cssnano-utils/src/index.js
-var require_src4 = __commonJS((exports, module) => {
+var require_src9 = __commonJS((exports, module) => {
   var rawCache = require_rawCache();
   var getArguments = require_getArguments();
   var sameParent = require_sameParent();
@@ -25725,9 +34897,9 @@ var require_isColorStop = __commonJS((exports, module) => {
 });
 
 // node_modules/postcss-minify-gradients/src/index.js
-var require_src5 = __commonJS((exports, module) => {
+var require_src10 = __commonJS((exports, module) => {
   var valueParser = require_lib();
-  var { getArguments } = require_src4();
+  var { getArguments } = require_src9();
   var isColorStop = require_isColorStop();
   var angles = {
     top: "0deg",
@@ -27414,7 +36586,7 @@ var require_lib5 = __commonJS((exports) => {
 });
 
 // node_modules/domutils/lib/stringify.js
-var require_stringify3 = __commonJS((exports) => {
+var require_stringify4 = __commonJS((exports) => {
   var __importDefault = exports && exports.__importDefault || function(mod) {
     return mod && mod.__esModule ? mod : { default: mod };
   };
@@ -27932,7 +37104,7 @@ var require_helpers = __commonJS((exports) => {
 var require_feeds = __commonJS((exports) => {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.getFeed = getFeed;
-  var stringify_js_1 = require_stringify3();
+  var stringify_js_1 = require_stringify4();
   var legacy_js_1 = require_legacy();
   function getFeed(doc) {
     var feedRoot = getOneElement(isValidFeed, doc);
@@ -27953,11 +37125,11 @@ var require_feeds = __commonJS((exports) => {
         if (href2) {
           entry.link = href2;
         }
-        var description = fetch("summary", children) || fetch("content", children);
+        var description = fetch2("summary", children) || fetch2("content", children);
         if (description) {
           entry.description = description;
         }
-        var pubDate = fetch("updated", children);
+        var pubDate = fetch2("updated", children);
         if (pubDate) {
           entry.pubDate = new Date(pubDate);
         }
@@ -27971,7 +37143,7 @@ var require_feeds = __commonJS((exports) => {
       feed.link = href;
     }
     addConditionally(feed, "description", "subtitle", childs);
-    var updated = fetch("updated", childs);
+    var updated = fetch2("updated", childs);
     if (updated) {
       feed.updated = new Date(updated);
     }
@@ -27991,7 +37163,7 @@ var require_feeds = __commonJS((exports) => {
         addConditionally(entry, "title", "title", children);
         addConditionally(entry, "link", "link", children);
         addConditionally(entry, "description", "description", children);
-        var pubDate = fetch("pubDate", children) || fetch("dc:date", children);
+        var pubDate = fetch2("pubDate", children) || fetch2("dc:date", children);
         if (pubDate)
           entry.pubDate = new Date(pubDate);
         return entry;
@@ -28000,7 +37172,7 @@ var require_feeds = __commonJS((exports) => {
     addConditionally(feed, "title", "title", childs);
     addConditionally(feed, "link", "link", childs);
     addConditionally(feed, "description", "description", childs);
-    var updated = fetch("lastBuildDate", childs);
+    var updated = fetch2("lastBuildDate", childs);
     if (updated) {
       feed.updated = new Date(updated);
     }
@@ -28046,7 +37218,7 @@ var require_feeds = __commonJS((exports) => {
   function getOneElement(tagName, node) {
     return (0, legacy_js_1.getElementsByTagName)(tagName, node, true, 1)[0];
   }
-  function fetch(tagName, where, recurse) {
+  function fetch2(tagName, where, recurse) {
     if (recurse === undefined) {
       recurse = false;
     }
@@ -28056,7 +37228,7 @@ var require_feeds = __commonJS((exports) => {
     if (recurse === undefined) {
       recurse = false;
     }
-    var val = fetch(tagName, where, recurse);
+    var val = fetch2(tagName, where, recurse);
     if (val)
       obj[prop] = val;
   }
@@ -28089,7 +37261,7 @@ var require_lib6 = __commonJS((exports) => {
   };
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.hasChildren = exports.isDocument = exports.isComment = exports.isText = exports.isCDATA = exports.isTag = undefined;
-  __exportStar(require_stringify3(), exports);
+  __exportStar(require_stringify4(), exports);
   __exportStar(require_traversal(), exports);
   __exportStar(require_manipulation(), exports);
   __exportStar(require_querying(), exports);
@@ -28167,7 +37339,7 @@ var require_types2 = __commonJS((exports) => {
 });
 
 // node_modules/css-what/lib/commonjs/parse.js
-var require_parse4 = __commonJS((exports) => {
+var require_parse5 = __commonJS((exports) => {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.parse = exports.isTraversal = undefined;
   var types_1 = require_types2();
@@ -28511,7 +37683,7 @@ var require_parse4 = __commonJS((exports) => {
 });
 
 // node_modules/css-what/lib/commonjs/stringify.js
-var require_stringify4 = __commonJS((exports) => {
+var require_stringify5 = __commonJS((exports) => {
   var __spreadArray = exports && exports.__spreadArray || function(to, from, pack) {
     if (pack || arguments.length === 2)
       for (var i = 0, l = from.length, ar;i < l; i++) {
@@ -28657,14 +37829,14 @@ var require_commonjs = __commonJS((exports) => {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.stringify = exports.parse = exports.isTraversal = undefined;
   __exportStar(require_types2(), exports);
-  var parse_1 = require_parse4();
+  var parse_1 = require_parse5();
   Object.defineProperty(exports, "isTraversal", { enumerable: true, get: function() {
     return parse_1.isTraversal;
   } });
   Object.defineProperty(exports, "parse", { enumerable: true, get: function() {
     return parse_1.parse;
   } });
-  var stringify_1 = require_stringify4();
+  var stringify_1 = require_stringify5();
   Object.defineProperty(exports, "stringify", { enumerable: true, get: function() {
     return stringify_1.stringify;
   } });
@@ -28936,7 +38108,7 @@ var require_attributes = __commonJS((exports) => {
 });
 
 // node_modules/nth-check/lib/parse.js
-var require_parse5 = __commonJS((exports) => {
+var require_parse6 = __commonJS((exports) => {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.parse = undefined;
   var whitespace = new Set([9, 10, 12, 13, 32]);
@@ -29063,7 +38235,7 @@ var require_compile = __commonJS((exports) => {
 var require_lib7 = __commonJS((exports) => {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.sequence = exports.generate = exports.compile = exports.parse = undefined;
-  var parse_js_1 = require_parse5();
+  var parse_js_1 = require_parse6();
   Object.defineProperty(exports, "parse", { enumerable: true, get: function() {
     return parse_js_1.parse;
   } });
@@ -33315,7 +42487,7 @@ var require_scanner = __commonJS((exports) => {
 });
 
 // node_modules/css-tree/cjs/definition-syntax/parse.cjs
-var require_parse6 = __commonJS((exports) => {
+var require_parse7 = __commonJS((exports) => {
   var scanner = require_scanner();
   var TAB = 9;
   var N = 10;
@@ -33720,7 +42892,7 @@ var require_parse6 = __commonJS((exports) => {
 
 // node_modules/css-tree/cjs/lexer/match-graph.cjs
 var require_match_graph = __commonJS((exports) => {
-  var parse = require_parse6();
+  var parse = require_parse7();
   var MATCH = { type: "Match" };
   var MISMATCH = { type: "Mismatch" };
   var DISALLOW_EMPTY = { type: "DisallowEmpty" };
@@ -34634,7 +43806,7 @@ var require_structure = __commonJS((exports) => {
       }
     };
   }
-  function genTypesList(fieldTypes, path) {
+  function genTypesList(fieldTypes, path2) {
     const docsTypes = [];
     for (let i = 0;i < fieldTypes.length; i++) {
       const fieldType = fieldTypes[i];
@@ -34645,9 +43817,9 @@ var require_structure = __commonJS((exports) => {
       } else if (typeof fieldType === "string") {
         docsTypes.push(fieldType);
       } else if (Array.isArray(fieldType)) {
-        docsTypes.push("List<" + (genTypesList(fieldType, path) || "any") + ">");
+        docsTypes.push("List<" + (genTypesList(fieldType, path2) || "any") + ">");
       } else {
-        throw new Error("Wrong value `" + fieldType + "` in `" + path + "` structure definition");
+        throw new Error("Wrong value `" + fieldType + "` in `" + path2 + "` structure definition");
       }
     }
     return docsTypes.join(" | ");
@@ -34752,7 +43924,7 @@ var require_Lexer = __commonJS((exports) => {
   var trace = require_trace();
   var search = require_search();
   var structure = require_structure();
-  var parse = require_parse6();
+  var parse = require_parse7();
   var generate = require_generate();
   var walk = require_walk2();
   function dumpMapSyntax(map, compact, syntaxAsAst) {
@@ -52088,7 +61260,7 @@ var require_syntax = __commonJS((exports, module) => {
 });
 
 // node_modules/css-tree/package.json
-var require_package = __commonJS((exports, module) => {
+var require_package3 = __commonJS((exports, module) => {
   module.exports = {
     name: "css-tree",
     version: "3.1.0",
@@ -52218,7 +61390,7 @@ var require_package = __commonJS((exports, module) => {
 
 // node_modules/css-tree/cjs/version.cjs
 var require_version = __commonJS((exports) => {
-  var { version } = require_package();
+  var { version } = require_package3();
   exports.version = version;
 });
 
@@ -52226,7 +61398,7 @@ var require_version = __commonJS((exports) => {
 var require_definition_syntax = __commonJS((exports) => {
   var SyntaxError2 = require_SyntaxError2();
   var generate = require_generate();
-  var parse = require_parse6();
+  var parse = require_parse7();
   var walk = require_walk2();
   exports.SyntaxError = SyntaxError2.SyntaxError;
   exports.generate = generate.generate;
@@ -52376,7 +61548,7 @@ var require_cjs = __commonJS((exports) => {
 });
 
 // node_modules/csso/package.json
-var require_package2 = __commonJS((exports, module) => {
+var require_package4 = __commonJS((exports, module) => {
   module.exports = {
     name: "csso",
     version: "5.0.5",
@@ -52463,7 +61635,7 @@ var require_package2 = __commonJS((exports, module) => {
 
 // node_modules/csso/cjs/version.cjs
 var require_version2 = __commonJS((exports) => {
-  var { version } = require_package2();
+  var { version } = require_package4();
   exports.version = version;
 });
 
@@ -55769,7 +64941,7 @@ var require_tokenizer3 = __commonJS((exports) => {
 });
 
 // node_modules/csso/node_modules/css-tree/cjs/definition-syntax/parse.cjs
-var require_parse7 = __commonJS((exports) => {
+var require_parse8 = __commonJS((exports) => {
   var tokenizer = require_tokenizer3();
   var TAB = 9;
   var N = 10;
@@ -56198,7 +65370,7 @@ var require_parse7 = __commonJS((exports) => {
 
 // node_modules/csso/node_modules/css-tree/cjs/lexer/match-graph.cjs
 var require_match_graph2 = __commonJS((exports) => {
-  var parse = require_parse7();
+  var parse = require_parse8();
   var MATCH = { type: "Match" };
   var MISMATCH = { type: "Mismatch" };
   var DISALLOW_EMPTY = { type: "DisallowEmpty" };
@@ -57167,7 +66339,7 @@ var require_Lexer2 = __commonJS((exports) => {
   var trace = require_trace2();
   var search = require_search2();
   var structure = require_structure2();
-  var parse = require_parse7();
+  var parse = require_parse8();
   var generate = require_generate2();
   var walk = require_walk3();
   var cssWideKeywordsSyntax = matchGraph.buildMatchGraph(genericConst.cssWideKeywords.join(" | "));
@@ -71987,7 +81159,7 @@ var require_syntax2 = __commonJS((exports, module) => {
 });
 
 // node_modules/csso/node_modules/css-tree/package.json
-var require_package3 = __commonJS((exports, module) => {
+var require_package5 = __commonJS((exports, module) => {
   module.exports = {
     name: "css-tree",
     version: "2.2.1",
@@ -72119,7 +81291,7 @@ var require_package3 = __commonJS((exports, module) => {
 
 // node_modules/csso/node_modules/css-tree/cjs/version.cjs
 var require_version3 = __commonJS((exports) => {
-  var { version } = require_package3();
+  var { version } = require_package5();
   exports.version = version;
 });
 
@@ -72127,7 +81299,7 @@ var require_version3 = __commonJS((exports) => {
 var require_definition_syntax2 = __commonJS((exports) => {
   var SyntaxError2 = require_SyntaxError4();
   var generate = require_generate2();
-  var parse = require_parse7();
+  var parse = require_parse8();
   var walk = require_walk3();
   exports.SyntaxError = SyntaxError2.SyntaxError;
   exports.generate = generate.generate;
@@ -76375,8 +85547,8 @@ Char: ` + parser.c;
 // node_modules/svgo/dist/svgo-node.cjs
 var require_svgo_node = __commonJS((exports) => {
   var os = __require("os");
-  var fs = __require("fs/promises");
-  var path = __require("path");
+  var fs2 = __require("fs/promises");
+  var path2 = __require("path");
   var cssSelect = require_lib8();
   var csswhat = require_commonjs();
   var csstree = require_cjs();
@@ -78007,15 +87179,15 @@ plugins: [
   };
   var collapseGroups = Object.freeze({ __proto__: null, description: description$s, fn: fn$s, name: name$s });
   var prevCtrlPoint;
-  var path2js = (path2) => {
-    if (path2.pathJS)
-      return path2.pathJS;
+  var path2js = (path3) => {
+    if (path3.pathJS)
+      return path3.pathJS;
     const pathData = [];
-    const newPathData = parsePathData(path2.attributes.d);
+    const newPathData = parsePathData(path3.attributes.d);
     for (const { command, args } of newPathData)
       pathData.push({ command, args });
     pathData.length && pathData[0].command == "m" && (pathData[0].command = "M");
-    path2.pathJS = pathData;
+    path3.pathJS = pathData;
     return pathData;
   };
   var convertRelativeToAbsolute = (data) => {
@@ -78116,8 +87288,8 @@ plugins: [
     }
     return newData;
   };
-  var js2path = function(path2, data, params) {
-    path2.pathJS = data;
+  var js2path = function(path3, data, params) {
+    path3.pathJS = data;
     const pathData = [];
     for (const item of data) {
       if (pathData.length !== 0 && (item.command === "M" || item.command === "m")) {
@@ -78126,16 +87298,16 @@ plugins: [
       }
       pathData.push({ command: item.command, args: item.args });
     }
-    path2.attributes.d = stringifyPathData({ pathData, precision: params.floatPrecision, disableSpaceAfterFlags: params.noSpaceAfterFlags });
+    path3.attributes.d = stringifyPathData({ pathData, precision: params.floatPrecision, disableSpaceAfterFlags: params.noSpaceAfterFlags });
   };
   function set(dest, source) {
     dest[0] = source[source.length - 2];
     dest[1] = source[source.length - 1];
     return dest;
   }
-  var intersects = function(path1, path2) {
+  var intersects = function(path1, path22) {
     const points1 = gatherPoints(convertRelativeToAbsolute(path1));
-    const points2 = gatherPoints(convertRelativeToAbsolute(path2));
+    const points2 = gatherPoints(convertRelativeToAbsolute(path22));
     if (points1.maxX <= points2.minX || points2.maxX <= points1.minX || points1.maxY <= points2.minY || points2.maxY <= points1.minY || points1.list.every((set1) => points2.list.every((set2) => set1.list[set1.maxX][0] <= set2.list[set2.minX][0] || set2.list[set2.maxX][0] <= set1.list[set1.minX][0] || set1.list[set1.maxY][1] <= set2.list[set2.minY][1] || set2.list[set2.maxY][1] <= set1.list[set1.minY][1])))
       return false;
     const hullNest1 = points1.list.map(convexHull);
@@ -78234,24 +87406,24 @@ plugins: [
   }
   function gatherPoints(pathData) {
     const points = { list: [], minX: 0, minY: 0, maxX: 0, maxY: 0 };
-    const addPoint = (path2, point) => {
-      if (!path2.list.length || point[1] > path2.list[path2.maxY][1]) {
-        path2.maxY = path2.list.length;
+    const addPoint = (path3, point) => {
+      if (!path3.list.length || point[1] > path3.list[path3.maxY][1]) {
+        path3.maxY = path3.list.length;
         points.maxY = points.list.length ? Math.max(point[1], points.maxY) : point[1];
       }
-      if (!path2.list.length || point[0] > path2.list[path2.maxX][0]) {
-        path2.maxX = path2.list.length;
+      if (!path3.list.length || point[0] > path3.list[path3.maxX][0]) {
+        path3.maxX = path3.list.length;
         points.maxX = points.list.length ? Math.max(point[0], points.maxX) : point[0];
       }
-      if (!path2.list.length || point[1] < path2.list[path2.minY][1]) {
-        path2.minY = path2.list.length;
+      if (!path3.list.length || point[1] < path3.list[path3.minY][1]) {
+        path3.minY = path3.list.length;
         points.minY = points.list.length ? Math.min(point[1], points.minY) : point[1];
       }
-      if (!path2.list.length || point[0] < path2.list[path2.minX][0]) {
-        path2.minX = path2.list.length;
+      if (!path3.list.length || point[0] < path3.list[path3.minX][0]) {
+        path3.minX = path3.list.length;
         points.minX = points.list.length ? Math.min(point[0], points.minX) : point[0];
       }
-      path2.list.push(point);
+      path3.list.push(point);
     };
     for (let i = 0;i < pathData.length; i += 1) {
       const pathDataItem = pathData[i];
@@ -79072,17 +88244,17 @@ plugins: [
     }
     return pathData;
   };
-  function filters(path2, params, { isSafeToUseZ, maybeHasStrokeAndLinecap, hasMarkerMid }) {
+  function filters(path3, params, { isSafeToUseZ, maybeHasStrokeAndLinecap, hasMarkerMid }) {
     const stringify = data2Path.bind(null, params);
     const relSubpoint = [0, 0];
     const pathBase = [0, 0];
     let prev = {};
     let prevQControlPoint;
-    path2 = path2.filter(function(item, index, path3) {
+    path3 = path3.filter(function(item, index, path4) {
       const qControlPoint = prevQControlPoint;
       let command = item.command;
       let data = item.args;
-      let next = path3[index + 1];
+      let next = path4[index + 1];
       if (command !== "Z" && command !== "z") {
         let sdata = data;
         let circle;
@@ -79116,10 +88288,10 @@ plugins: [
             angle > Math.PI && (arc.args[3] = 1);
             hasPrev = 1;
           }
-          for (var j = index;(next = path3[++j]) && (next.command === "c" || next.command === "s"); ) {
+          for (var j = index;(next = path4[++j]) && (next.command === "c" || next.command === "s"); ) {
             let nextData = next.args;
             if (next.command == "s") {
-              nextLonghand = makeLonghand({ command: "s", args: next.args.slice() }, path3[j - 1].args);
+              nextLonghand = makeLonghand({ command: "s", args: next.args.slice() }, path4[j - 1].args);
               nextData = nextLonghand.args;
               nextLonghand.args = nextData.slice(0, 2);
               suffix = stringify([nextLonghand]);
@@ -79147,7 +88319,7 @@ plugins: [
             relCenter[1] -= nextData[5];
           }
           if ((stringify(output) + suffix).length < stringify(arcCurves).length) {
-            path3[j] && path3[j].command == "s" && makeLonghand(path3[j], path3[j - 1].args);
+            path4[j] && path4[j].command == "s" && makeLonghand(path4[j], path4[j - 1].args);
             if (hasPrev) {
               const prevArc = output.shift();
               roundData(prevArc.args);
@@ -79158,7 +88330,7 @@ plugins: [
               item.base = prev.coords = prevArc.coords;
             }
             arc = output.shift();
-            arcCurves.length == 1 ? item.sdata = sdata.slice() : arcCurves.length - 1 - hasPrev > 0 && path3.splice(index + 1, arcCurves.length - 1 - hasPrev, ...output);
+            arcCurves.length == 1 ? item.sdata = sdata.slice() : arcCurves.length - 1 - hasPrev > 0 && path4.splice(index + 1, arcCurves.length - 1 - hasPrev, ...output);
             if (!arc)
               return false;
             command = "a";
@@ -79253,7 +88425,7 @@ plugins: [
           prev.args[0] += data[0];
           command != "h" && command != "v" && (prev.args[1] += data[1]);
           prev.coords = item.coords;
-          path3[index] = prev;
+          path4[index] = prev;
           return false;
         }
         if (params.curveSmoothShorthands && prev.command) {
@@ -79286,11 +88458,11 @@ plugins: [
           if ((command === "l" || command === "h" || command === "v" || command === "q" || command === "t" || command === "c" || command === "s") && data.every(function(i) {
             return i === 0;
           })) {
-            path3[index] = prev;
+            path4[index] = prev;
             return false;
           }
           if (command === "a" && data[5] === 0 && data[6] === 0) {
-            path3[index] = prev;
+            path4[index] = prev;
             return false;
           }
         }
@@ -79312,11 +88484,11 @@ plugins: [
       prev = item;
       return true;
     });
-    return path2;
+    return path3;
   }
-  function convertToMixed(path2, params) {
-    let prev = path2[0];
-    path2 = path2.filter(function(item, index) {
+  function convertToMixed(path3, params) {
+    let prev = path3[0];
+    path3 = path3.filter(function(item, index) {
       if (index == 0)
         return true;
       if (item.command === "Z" || item.command === "z") {
@@ -79349,7 +88521,7 @@ plugins: [
       prev = item;
       return true;
     });
-    return path2;
+    return path3;
   }
   function isConvex(data) {
     const center = getIntersection([0, 0, data[2], data[3], data[0], data[1], data[4], data[5]]);
@@ -79990,8 +89162,8 @@ plugins: [
   var convertStyleToAttrs = Object.freeze({ __proto__: null, description: description$e, fn: fn$e, name: name$e });
   var name$d = "prefixIds";
   var description$d = "prefix IDs";
-  var getBasename = (path2) => {
-    const matched = /[/\\]?([^/\\]+)$/.exec(path2);
+  var getBasename = (path3) => {
+    const matched = /[/\\]?([^/\\]+)$/.exec(path3);
     if (matched)
       return matched[1];
     return "";
@@ -80724,7 +89896,7 @@ ${code}
     return { data: output };
   };
   var importConfig = async (configFile) => {
-    const resolvedPath = path.resolve(configFile);
+    const resolvedPath = path2.resolve(configFile);
     const imported = await import(url.pathToFileURL(resolvedPath).toString());
     const config2 = imported.default;
     if (config2 == null || typeof config2 !== "object" || Array.isArray(config2))
@@ -80733,7 +89905,7 @@ ${code}
   };
   var isFile = async (file) => {
     try {
-      const stats = await fs.stat(file);
+      const stats = await fs2.stat(file);
       return stats.isFile();
     } catch {
       return false;
@@ -80741,19 +89913,19 @@ ${code}
   };
   var loadConfig = async (configFile, cwd = process.cwd()) => {
     if (configFile != null)
-      return path.isAbsolute(configFile) ? importConfig(configFile) : importConfig(path.join(cwd, configFile));
+      return path2.isAbsolute(configFile) ? importConfig(configFile) : importConfig(path2.join(cwd, configFile));
     let dir = cwd;
     while (true) {
-      const js = path.join(dir, "svgo.config.js");
+      const js = path2.join(dir, "svgo.config.js");
       if (await isFile(js))
         return importConfig(js);
-      const mjs = path.join(dir, "svgo.config.mjs");
+      const mjs = path2.join(dir, "svgo.config.mjs");
       if (await isFile(mjs))
         return importConfig(mjs);
-      const cjs = path.join(dir, "svgo.config.cjs");
+      const cjs = path2.join(dir, "svgo.config.cjs");
       if (await isFile(cjs))
         return importConfig(cjs);
-      const parent = path.dirname(dir);
+      const parent = path2.dirname(dir);
       if (dir === parent)
         return null;
       dir = parent;
@@ -80786,7 +89958,7 @@ var require_url4 = __commonJS((exports, module) => {
 });
 
 // node_modules/postcss-svgo/src/index.js
-var require_src6 = __commonJS((exports, module) => {
+var require_src11 = __commonJS((exports, module) => {
   var valueParser = require_lib();
   var { optimize } = require_svgo_node();
   var { encode, decode } = require_url4();
@@ -80875,7 +90047,7 @@ var require_src6 = __commonJS((exports, module) => {
 });
 
 // node_modules/postcss-reduce-transforms/src/index.js
-var require_src7 = __commonJS((exports, module) => {
+var require_src12 = __commonJS((exports, module) => {
   var valueParser = require_lib();
   function getValues(list, node, index) {
     if (index % 2 === 0) {
@@ -80976,7 +90148,7 @@ var require_src7 = __commonJS((exports, module) => {
       return;
     }
   }
-  function translate(node, values) {
+  function translate2(node, values) {
     if (values.length !== 2) {
       return;
     }
@@ -81007,7 +90179,7 @@ var require_src7 = __commonJS((exports, module) => {
     ["rotateZ", rotateZ],
     ["scale", scale],
     ["scale3d", scale3d],
-    ["translate", translate],
+    ["translate", translate2],
     ["translate3d", translate3d]
   ]);
   function normalizeReducerName(name) {
@@ -81112,7 +90284,7 @@ var require_convert = __commonJS((exports, module) => {
 });
 
 // node_modules/postcss-convert-values/src/index.js
-var require_src8 = __commonJS((exports, module) => {
+var require_src13 = __commonJS((exports, module) => {
   var __filename = "/Users/arvid/Development/Privat/pleb-ts/node_modules/postcss-convert-values/src/index.js";
   var { dirname } = __require("path");
   var valueParser = require_lib();
@@ -84024,7 +93196,7 @@ var require_transform = __commonJS((exports, module) => {
 });
 
 // node_modules/postcss-calc/src/index.js
-var require_src9 = __commonJS((exports, module) => {
+var require_src14 = __commonJS((exports, module) => {
   var transform = require_transform();
   function pluginCreator(opts) {
     const options = Object.assign({
@@ -84113,7 +93285,7 @@ var require_minifyColor = __commonJS((exports, module) => {
 });
 
 // node_modules/postcss-colormin/src/index.js
-var require_src10 = __commonJS((exports, module) => {
+var require_src15 = __commonJS((exports, module) => {
   var __filename = "/Users/arvid/Development/Privat/pleb-ts/node_modules/postcss-colormin/src/index.js";
   var { dirname } = __require("path");
   var browserslist = require_browserslist();
@@ -84337,7 +93509,7 @@ var require_mathfunctions = __commonJS((exports, module) => {
 // node_modules/postcss-ordered-values/src/rules/animation.js
 var require_animation2 = __commonJS((exports, module) => {
   var { unit } = require_lib();
-  var { getArguments } = require_src4();
+  var { getArguments } = require_src9();
   var addSpace = require_addSpace();
   var getValue = require_getValue();
   var mathFunctions = require_mathfunctions();
@@ -84513,7 +93685,7 @@ var require_vendorUnprefixed = __commonJS((exports, module) => {
 // node_modules/postcss-ordered-values/src/rules/boxShadow.js
 var require_boxShadow = __commonJS((exports, module) => {
   var { unit } = require_lib();
-  var { getArguments } = require_src4();
+  var { getArguments } = require_src9();
   var addSpace = require_addSpace();
   var getValue = require_getValue();
   var mathFunctions = require_mathfunctions();
@@ -84592,7 +93764,7 @@ var require_flexFlow = __commonJS((exports, module) => {
 // node_modules/postcss-ordered-values/src/rules/transition.js
 var require_transition2 = __commonJS((exports, module) => {
   var { unit } = require_lib();
-  var { getArguments } = require_src4();
+  var { getArguments } = require_src9();
   var addSpace = require_addSpace();
   var getValue = require_getValue();
   var timingFunctions = new Set([
@@ -84813,7 +93985,7 @@ var require_columns = __commonJS((exports, module) => {
 });
 
 // node_modules/postcss-ordered-values/src/index.js
-var require_src11 = __commonJS((exports, module) => {
+var require_src16 = __commonJS((exports, module) => {
   var valueParser = require_lib();
   var {
     normalizeGridAutoFlow,
@@ -84943,7 +94115,7 @@ var require_canUnquote = __commonJS((exports, module) => {
 });
 
 // node_modules/postcss-minify-selectors/src/index.js
-var require_src12 = __commonJS((exports, module) => {
+var require_src17 = __commonJS((exports, module) => {
   var parser = require_dist2();
   var canUnquote = require_canUnquote();
   var pseudoElements = new Set([
@@ -85126,12 +94298,12 @@ var require_src12 = __commonJS((exports, module) => {
 });
 
 // node_modules/postcss-minify-params/src/index.js
-var require_src13 = __commonJS((exports, module) => {
+var require_src18 = __commonJS((exports, module) => {
   var __filename = "/Users/arvid/Development/Privat/pleb-ts/node_modules/postcss-minify-params/src/index.js";
   var { dirname } = __require("path");
   var browserslist = require_browserslist();
   var valueParser = require_lib();
-  var { getArguments } = require_src4();
+  var { getArguments } = require_src9();
   function gcd(a, b) {
     return b ? gcd(b, a % b) : a;
   }
@@ -85221,7 +94393,7 @@ var require_src13 = __commonJS((exports, module) => {
 });
 
 // node_modules/postcss-normalize-charset/src/index.js
-var require_src14 = __commonJS((exports, module) => {
+var require_src19 = __commonJS((exports, module) => {
   var charset = "charset";
   var nonAscii = /[^\x00-\x7F]/;
   function pluginCreator(opts = {}) {
@@ -85536,7 +94708,7 @@ var require_minify_font = __commonJS((exports, module) => {
 });
 
 // node_modules/postcss-minify-font-values/src/index.js
-var require_src15 = __commonJS((exports, module) => {
+var require_src20 = __commonJS((exports, module) => {
   var valueParser = require_lib();
   var minifyWeight = require_minify_weight();
   var minifyFamily = require_minify_family();
@@ -85683,8 +94855,8 @@ var require_normalize = __commonJS((exports, module) => {
 });
 
 // node_modules/postcss-normalize-url/src/index.js
-var require_src16 = __commonJS((exports, module) => {
-  var path = __require("path");
+var require_src21 = __commonJS((exports, module) => {
+  var path2 = __require("path");
   var valueParser = require_lib();
   var normalize = require_normalize();
   var multiline = /\\[\r\n]/;
@@ -85707,7 +94879,7 @@ var require_src16 = __commonJS((exports, module) => {
       }
       return normalizedURL;
     }
-    return path.normalize(url).replace(new RegExp("\\" + path.sep, "g"), "/");
+    return path2.normalize(url).replace(new RegExp("\\" + path2.sep, "g"), "/");
   }
   function transformNamespace(rule) {
     rule.params = valueParser(rule.params).walk((node) => {
@@ -86268,7 +95440,7 @@ var require_plugins = __commonJS((exports, module) => {
 });
 
 // node_modules/stylehacks/src/index.js
-var require_src17 = __commonJS((exports, module) => {
+var require_src22 = __commonJS((exports, module) => {
   var __filename = "/Users/arvid/Development/Privat/pleb-ts/node_modules/stylehacks/src/index.js";
   var { dirname } = __require("path");
   var browserslist = require_browserslist();
@@ -86774,7 +95946,7 @@ var require_canExplode = __commonJS((exports, module) => {
 // node_modules/postcss-merge-longhand/src/lib/decl/borders.js
 var require_borders = __commonJS((exports, module) => {
   var { list } = require_postcss();
-  var stylehacks = require_src17();
+  var stylehacks = require_src22();
   var insertCloned = require_insertCloned();
   var parseTrbl = require_parseTrbl();
   var hasAllProps = require_hasAllProps();
@@ -87280,7 +96452,7 @@ var require_borders = __commonJS((exports, module) => {
 var require_columns2 = __commonJS((exports, module) => {
   var { list } = require_postcss();
   var { unit } = require_lib();
-  var stylehacks = require_src17();
+  var stylehacks = require_src22();
   var canMerge = require_canMerge();
   var getDecls = require_getDecls();
   var getValue = require_getValue2();
@@ -87377,7 +96549,7 @@ var require_mergeValues = __commonJS((exports, module) => {
 
 // node_modules/postcss-merge-longhand/src/lib/decl/boxBase.js
 var require_boxBase = __commonJS((exports, module) => {
-  var stylehacks = require_src17();
+  var stylehacks = require_src22();
   var canMerge = require_canMerge();
   var getDecls = require_getDecls();
   var minifyTrbl = require_minifyTrbl();
@@ -87468,7 +96640,7 @@ var require_decl = __commonJS((exports, module) => {
 });
 
 // node_modules/postcss-merge-longhand/src/index.js
-var require_src18 = __commonJS((exports, module) => {
+var require_src23 = __commonJS((exports, module) => {
   var processors = require_decl();
   function pluginCreator() {
     return {
@@ -87488,7 +96660,7 @@ var require_src18 = __commonJS((exports, module) => {
 });
 
 // node_modules/postcss-discard-duplicates/src/index.js
-var require_src19 = __commonJS((exports, module) => {
+var require_src24 = __commonJS((exports, module) => {
   function trimValue(value) {
     return value ? value.trim() : value;
   }
@@ -87602,7 +96774,7 @@ var require_src19 = __commonJS((exports, module) => {
 });
 
 // node_modules/postcss-discard-overridden/src/index.js
-var require_src20 = __commonJS((exports, module) => {
+var require_src25 = __commonJS((exports, module) => {
   var OVERRIDABLE_RULES = new Set(["keyframes", "counter-style"]);
   var SCOPE_RULES = new Set(["media", "supports"]);
   function vendorUnprefixed(prop) {
@@ -87670,7 +96842,7 @@ var require_map = __commonJS((exports, module) => {
 });
 
 // node_modules/postcss-normalize-repeat-style/src/index.js
-var require_src21 = __commonJS((exports, module) => {
+var require_src26 = __commonJS((exports, module) => {
   var valueParser = require_lib();
   var mappings = require_map();
   function evenValues(item, index) {
@@ -87944,11 +97116,11 @@ var require_ensureCompatibility = __commonJS((exports, module) => {
 });
 
 // node_modules/postcss-merge-rules/src/index.js
-var require_src22 = __commonJS((exports, module) => {
+var require_src27 = __commonJS((exports, module) => {
   var __filename = "/Users/arvid/Development/Privat/pleb-ts/node_modules/postcss-merge-rules/src/index.js";
   var { dirname } = __require("path");
   var browserslist = require_browserslist();
-  var { sameParent } = require_src4();
+  var { sameParent } = require_src9();
   var {
     ensureCompatibility,
     sameVendor,
@@ -88201,7 +97373,7 @@ var require_src22 = __commonJS((exports, module) => {
 });
 
 // node_modules/postcss-discard-empty/src/index.js
-var require_src23 = __commonJS((exports, module) => {
+var require_src28 = __commonJS((exports, module) => {
   var plugin = "postcss-discard-empty";
   function discardAndReport(css, result) {
     function discardEmpty(node) {
@@ -88234,7 +97406,7 @@ var require_src23 = __commonJS((exports, module) => {
 });
 
 // node_modules/postcss-unique-selectors/src/index.js
-var require_src24 = __commonJS((exports, module) => {
+var require_src29 = __commonJS((exports, module) => {
   var selectorParser = require_dist2();
   function generateUniqueSelector(selectors) {
     const uniqueSelectors = new Map;
@@ -88279,7 +97451,7 @@ var require_src24 = __commonJS((exports, module) => {
 });
 
 // node_modules/postcss-normalize-string/src/index.js
-var require_src25 = __commonJS((exports, module) => {
+var require_src30 = __commonJS((exports, module) => {
   var valueParser = require_lib();
   var SINGLE_QUOTE = 39;
   var DOUBLE_QUOTE = 34;
@@ -88477,7 +97649,7 @@ var require_src25 = __commonJS((exports, module) => {
 });
 
 // node_modules/postcss-normalize-positions/src/index.js
-var require_src26 = __commonJS((exports, module) => {
+var require_src31 = __commonJS((exports, module) => {
   var valueParser = require_lib();
   var directionKeywords = new Set(["top", "right", "bottom", "left", "center"]);
   var center = "50%";
@@ -88636,7 +97808,7 @@ var require_src26 = __commonJS((exports, module) => {
 });
 
 // node_modules/postcss-normalize-whitespace/src/index.js
-var require_src27 = __commonJS((exports, module) => {
+var require_src32 = __commonJS((exports, module) => {
   var valueParser = require_lib();
   var atrule = "atrule";
   var decl = "decl";
@@ -88715,7 +97887,7 @@ var require_src27 = __commonJS((exports, module) => {
 });
 
 // node_modules/postcss-normalize-unicode/src/index.js
-var require_src28 = __commonJS((exports, module) => {
+var require_src33 = __commonJS((exports, module) => {
   var __filename = "/Users/arvid/Development/Privat/pleb-ts/node_modules/postcss-normalize-unicode/src/index.js";
   var { dirname } = __require("path");
   var browserslist = require_browserslist();
@@ -88844,7 +98016,7 @@ var require_map2 = __commonJS((exports, module) => {
 });
 
 // node_modules/postcss-normalize-display-values/src/index.js
-var require_src29 = __commonJS((exports, module) => {
+var require_src34 = __commonJS((exports, module) => {
   var valueParser = require_lib();
   var mappings = require_map2();
   function transform(value) {
@@ -88892,7 +98064,7 @@ var require_src29 = __commonJS((exports, module) => {
 });
 
 // node_modules/postcss-normalize-timing-functions/src/index.js
-var require_src30 = __commonJS((exports, module) => {
+var require_src35 = __commonJS((exports, module) => {
   var valueParser = require_lib();
   var getValue = (node) => parseFloat(node.value);
   var conversions = new Map([
@@ -88971,43 +98143,43 @@ var require_src30 = __commonJS((exports, module) => {
 });
 
 // node_modules/cssnano-preset-default/src/index.js
-var require_src31 = __commonJS((exports, module) => {
+var require_src36 = __commonJS((exports, module) => {
   var cssDeclarationSorter = require_main();
-  var postcssDiscardComments = require_src2();
-  var postcssReduceInitial = require_src3();
-  var postcssMinifyGradients = require_src5();
-  var postcssSvgo = require_src6();
-  var postcssReduceTransforms = require_src7();
-  var postcssConvertValues = require_src8();
-  var postcssCalc = require_src9();
-  var postcssColormin = require_src10();
-  var postcssOrderedValues = require_src11();
-  var postcssMinifySelectors = require_src12();
-  var postcssMinifyParams = require_src13();
-  var postcssNormalizeCharset = require_src14();
-  var postcssMinifyFontValues = require_src15();
-  var postcssNormalizeUrl = require_src16();
-  var postcssMergeLonghand = require_src18();
-  var postcssDiscardDuplicates = require_src19();
-  var postcssDiscardOverridden = require_src20();
-  var postcssNormalizeRepeatStyle = require_src21();
-  var postcssMergeRules = require_src22();
-  var postcssDiscardEmpty = require_src23();
-  var postcssUniqueSelectors = require_src24();
-  var postcssNormalizeString = require_src25();
-  var postcssNormalizePositions = require_src26();
-  var postcssNormalizeWhitespace = require_src27();
-  var postcssNormalizeUnicode = require_src28();
-  var postcssNormalizeDisplayValues = require_src29();
-  var postcssNormalizeTimingFunctions = require_src30();
-  var { rawCache } = require_src4();
+  var postcssDiscardComments = require_src7();
+  var postcssReduceInitial = require_src8();
+  var postcssMinifyGradients = require_src10();
+  var postcssSvgo = require_src11();
+  var postcssReduceTransforms = require_src12();
+  var postcssConvertValues = require_src13();
+  var postcssCalc = require_src14();
+  var postcssColormin = require_src15();
+  var postcssOrderedValues = require_src16();
+  var postcssMinifySelectors = require_src17();
+  var postcssMinifyParams = require_src18();
+  var postcssNormalizeCharset = require_src19();
+  var postcssMinifyFontValues = require_src20();
+  var postcssNormalizeUrl = require_src21();
+  var postcssMergeLonghand = require_src23();
+  var postcssDiscardDuplicates = require_src24();
+  var postcssDiscardOverridden = require_src25();
+  var postcssNormalizeRepeatStyle = require_src26();
+  var postcssMergeRules = require_src27();
+  var postcssDiscardEmpty = require_src28();
+  var postcssUniqueSelectors = require_src29();
+  var postcssNormalizeString = require_src30();
+  var postcssNormalizePositions = require_src31();
+  var postcssNormalizeWhitespace = require_src32();
+  var postcssNormalizeUnicode = require_src33();
+  var postcssNormalizeDisplayValues = require_src34();
+  var postcssNormalizeTimingFunctions = require_src35();
+  var { rawCache } = require_src9();
   function configurePlugins(plugins, opts = {}) {
-    const { overrideBrowserslist, stats, env, path } = opts;
+    const { overrideBrowserslist, stats, env, path: path2 } = opts;
     const sharedProps = {
       overrideBrowserslist,
       stats,
       env,
-      path
+      path: path2
     };
     const defaults = {
       colormin: {
@@ -89094,11 +98266,11 @@ var require_src31 = __commonJS((exports, module) => {
 });
 
 // node_modules/cssnano/src/index.js
-var require_src32 = __commonJS((exports, module) => {
-  var path = __require("path");
+var require_src37 = __commonJS((exports, module) => {
+  var path2 = __require("path");
   var postcss = require_postcss();
-  var { lilconfigSync } = require_src();
-  var defaultPreset = require_src31();
+  var { lilconfigSync } = require_src6();
+  var defaultPreset = require_src36();
   var cssnano = "cssnano";
   function isResolvable(moduleId) {
     try {
@@ -89143,7 +98315,7 @@ var require_src32 = __commonJS((exports, module) => {
     let configPath = undefined;
     if (options.configFile) {
       searchPath = undefined;
-      configPath = path.resolve(process.cwd(), options.configFile);
+      configPath = path2.resolve(process.cwd(), options.configFile);
     }
     const configExplorer = lilconfigSync(cssnano, {
       searchPlaces: [
@@ -89410,12 +98582,12 @@ var require_pify = __commonJS((exports, module) => {
 
 // node_modules/read-cache/index.js
 var require_read_cache = __commonJS((exports, module) => {
-  var fs = __require("fs");
-  var path = __require("path");
+  var fs2 = __require("fs");
+  var path2 = __require("path");
   var pify = require_pify();
-  var stat = pify(fs.stat);
-  var readFile = pify(fs.readFile);
-  var resolve = path.resolve;
+  var stat2 = pify(fs2.stat);
+  var readFile = pify(fs2.readFile);
+  var resolve = path2.resolve;
   var cache = Object.create(null);
   function convert(content, encoding) {
     if (Buffer.isEncoding(encoding)) {
@@ -89423,48 +98595,48 @@ var require_read_cache = __commonJS((exports, module) => {
     }
     return content;
   }
-  module.exports = function(path2, encoding) {
-    path2 = resolve(path2);
-    return stat(path2).then(function(stats) {
-      var item = cache[path2];
+  module.exports = function(path3, encoding) {
+    path3 = resolve(path3);
+    return stat2(path3).then(function(stats) {
+      var item = cache[path3];
       if (item && item.mtime.getTime() === stats.mtime.getTime()) {
         return convert(item.content, encoding);
       }
-      return readFile(path2).then(function(data) {
-        cache[path2] = {
+      return readFile(path3).then(function(data) {
+        cache[path3] = {
           mtime: stats.mtime,
           content: data
         };
         return convert(data, encoding);
       });
     }).catch(function(err) {
-      cache[path2] = null;
+      cache[path3] = null;
       return Promise.reject(err);
     });
   };
-  module.exports.sync = function(path2, encoding) {
-    path2 = resolve(path2);
+  module.exports.sync = function(path3, encoding) {
+    path3 = resolve(path3);
     try {
-      var stats = fs.statSync(path2);
-      var item = cache[path2];
+      var stats = fs2.statSync(path3);
+      var item = cache[path3];
       if (item && item.mtime.getTime() === stats.mtime.getTime()) {
         return convert(item.content, encoding);
       }
-      var data = fs.readFileSync(path2);
-      cache[path2] = {
+      var data = fs2.readFileSync(path3);
+      cache[path3] = {
         mtime: stats.mtime,
         content: data
       };
       return convert(data, encoding);
     } catch (err) {
-      cache[path2] = null;
+      cache[path3] = null;
       throw err;
     }
   };
-  module.exports.get = function(path2, encoding) {
-    path2 = resolve(path2);
-    if (cache[path2]) {
-      return convert(cache[path2].content, encoding);
+  module.exports.get = function(path3, encoding) {
+    path3 = resolve(path3);
+    if (cache[path3]) {
+      return convert(cache[path3].content, encoding);
     }
     return null;
   };
@@ -89695,11 +98867,11 @@ var require_parse_statements = __commonJS((exports, module) => {
 
 // node_modules/postcss-import/lib/process-content.js
 var require_process_content = __commonJS((exports, module) => {
-  var path = __require("path");
+  var path2 = __require("path");
   var sugarss;
   module.exports = function processContent(result, content, filename, options, postcss2) {
     const { plugins } = options;
-    const ext = path.extname(filename);
+    const ext = path2.extname(filename);
     const parserList = [];
     if (ext === ".sss") {
       if (!sugarss) {
@@ -89820,8 +98992,8 @@ var require_path_parse = __commonJS((exports, module) => {
 
 // node_modules/postcss-import/node_modules/resolve/lib/node-modules-paths.js
 var require_node_modules_paths = __commonJS((exports, module) => {
-  var path = __require("path");
-  var parse2 = path.parse || require_path_parse();
+  var path2 = __require("path");
+  var parse2 = path2.parse || require_path_parse();
   var getNodeModulesDirs = function getNodeModulesDirs(absoluteStart, modules) {
     var prefix = "/";
     if (/^([A-Za-z]:)/.test(absoluteStart)) {
@@ -89837,7 +99009,7 @@ var require_node_modules_paths = __commonJS((exports, module) => {
     }
     return paths.reduce(function(dirs, aPath) {
       return dirs.concat(modules.map(function(moduleDir) {
-        return path.resolve(prefix, aPath, moduleDir);
+        return path2.resolve(prefix, aPath, moduleDir);
       }));
     }, []);
   };
@@ -90168,25 +99340,25 @@ var require_is_core_module = __commonJS((exports, module) => {
 
 // node_modules/postcss-import/node_modules/resolve/lib/async.js
 var require_async = __commonJS((exports, module) => {
-  var fs = __require("fs");
+  var fs2 = __require("fs");
   var getHomedir = require_homedir();
-  var path = __require("path");
+  var path2 = __require("path");
   var caller = require_caller();
   var nodeModulesPaths = require_node_modules_paths();
   var normalizeOptions = require_normalize_options();
   var isCore = require_is_core_module();
-  var realpathFS = process.platform !== "win32" && fs.realpath && typeof fs.realpath.native === "function" ? fs.realpath.native : fs.realpath;
+  var realpathFS = process.platform !== "win32" && fs2.realpath && typeof fs2.realpath.native === "function" ? fs2.realpath.native : fs2.realpath;
   var homedir = getHomedir();
   var defaultPaths = function() {
     return [
-      path.join(homedir, ".node_modules"),
-      path.join(homedir, ".node_libraries")
+      path2.join(homedir, ".node_modules"),
+      path2.join(homedir, ".node_libraries")
     ];
   };
   var defaultIsFile = function isFile(file, cb) {
-    fs.stat(file, function(err, stat) {
+    fs2.stat(file, function(err, stat2) {
       if (!err) {
-        return cb(null, stat.isFile() || stat.isFIFO());
+        return cb(null, stat2.isFile() || stat2.isFIFO());
       }
       if (err.code === "ENOENT" || err.code === "ENOTDIR")
         return cb(null, false);
@@ -90194,9 +99366,9 @@ var require_async = __commonJS((exports, module) => {
     });
   };
   var defaultIsDir = function isDirectory(dir, cb) {
-    fs.stat(dir, function(err, stat) {
+    fs2.stat(dir, function(err, stat2) {
       if (!err) {
-        return cb(null, stat.isDirectory());
+        return cb(null, stat2.isDirectory());
       }
       if (err.code === "ENOENT" || err.code === "ENOTDIR")
         return cb(null, false);
@@ -90235,7 +99407,7 @@ var require_async = __commonJS((exports, module) => {
   var getPackageCandidates = function getPackageCandidates(x, start, opts) {
     var dirs = nodeModulesPaths(start, opts, x);
     for (var i = 0;i < dirs.length; i++) {
-      dirs[i] = path.join(dirs[i], x);
+      dirs[i] = path2.join(dirs[i], x);
     }
     return dirs;
   };
@@ -90255,7 +99427,7 @@ var require_async = __commonJS((exports, module) => {
     opts = normalizeOptions(x, opts);
     var isFile = opts.isFile || defaultIsFile;
     var isDirectory = opts.isDirectory || defaultIsDir;
-    var readFile = opts.readFile || fs.readFile;
+    var readFile = opts.readFile || fs2.readFile;
     var realpath = opts.realpath || defaultRealpath;
     var readPackage = opts.readPackage || defaultReadPackage;
     if (opts.readFile && opts.readPackage) {
@@ -90267,10 +99439,10 @@ var require_async = __commonJS((exports, module) => {
     var packageIterator = opts.packageIterator;
     var extensions = opts.extensions || [".js"];
     var includeCoreModules = opts.includeCoreModules !== false;
-    var basedir = opts.basedir || path.dirname(caller());
+    var basedir = opts.basedir || path2.dirname(caller());
     var parent = opts.filename || basedir;
     opts.paths = opts.paths || defaultPaths();
-    var absoluteStart = path.resolve(basedir);
+    var absoluteStart = path2.resolve(basedir);
     maybeRealpath(realpath, absoluteStart, opts, function(err2, realStart) {
       if (err2)
         cb(err2);
@@ -90280,7 +99452,7 @@ var require_async = __commonJS((exports, module) => {
     var res;
     function init(basedir2) {
       if (/^(?:\.\.?(?:\/|$)|\/|([A-Za-z]:)?[/\\])/.test(x)) {
-        res = path.resolve(basedir2, x);
+        res = path2.resolve(basedir2, x);
         if (x === "." || x === ".." || x.slice(-1) === "/")
           res += "/";
         if (/\/$/.test(x) && res === basedir2) {
@@ -90349,17 +99521,17 @@ var require_async = __commonJS((exports, module) => {
         if (pkg)
           onpkg(null, pkg);
         else
-          loadpkg(path.dirname(file), onpkg);
+          loadpkg(path2.dirname(file), onpkg);
         function onpkg(err2, pkg_, dir) {
           pkg = pkg_;
           if (err2)
             return cb2(err2);
           if (dir && pkg && opts.pathFilter) {
-            var rfile = path.relative(dir, file);
+            var rfile = path2.relative(dir, file);
             var rel = rfile.slice(0, rfile.length - exts2[0].length);
             var r = opts.pathFilter(pkg, x3, rel);
             if (r)
-              return load([""].concat(extensions.slice()), path.resolve(dir, r), pkg);
+              return load([""].concat(extensions.slice()), path2.resolve(dir, r), pkg);
           }
           isFile(file, onex);
         }
@@ -90382,11 +99554,11 @@ var require_async = __commonJS((exports, module) => {
         return cb2(null);
       maybeRealpath(realpath, dir, opts, function(unwrapErr, pkgdir) {
         if (unwrapErr)
-          return loadpkg(path.dirname(dir), cb2);
-        var pkgfile = path.join(pkgdir, "package.json");
+          return loadpkg(path2.dirname(dir), cb2);
+        var pkgfile = path2.join(pkgdir, "package.json");
         isFile(pkgfile, function(err2, ex) {
           if (!ex)
-            return loadpkg(path.dirname(dir), cb2);
+            return loadpkg(path2.dirname(dir), cb2);
           readPackage(readFile, pkgfile, function(err3, pkgParam) {
             if (err3)
               cb2(err3);
@@ -90409,12 +99581,12 @@ var require_async = __commonJS((exports, module) => {
       maybeRealpath(realpath, x2, opts, function(unwrapErr, pkgdir) {
         if (unwrapErr)
           return cb2(unwrapErr);
-        var pkgfile = path.join(pkgdir, "package.json");
+        var pkgfile = path2.join(pkgdir, "package.json");
         isFile(pkgfile, function(err2, ex) {
           if (err2)
             return cb2(err2);
           if (!ex)
-            return loadAsFile(path.join(x2, "index"), fpkg, cb2);
+            return loadAsFile(path2.join(x2, "index"), fpkg, cb2);
           readPackage(readFile, pkgfile, function(err3, pkgParam) {
             if (err3)
               return cb2(err3);
@@ -90431,25 +99603,25 @@ var require_async = __commonJS((exports, module) => {
               if (pkg.main === "." || pkg.main === "./") {
                 pkg.main = "index";
               }
-              loadAsFile(path.resolve(x2, pkg.main), pkg, function(err4, m, pkg2) {
+              loadAsFile(path2.resolve(x2, pkg.main), pkg, function(err4, m, pkg2) {
                 if (err4)
                   return cb2(err4);
                 if (m)
                   return cb2(null, m, pkg2);
                 if (!pkg2)
-                  return loadAsFile(path.join(x2, "index"), pkg2, cb2);
-                var dir = path.resolve(x2, pkg2.main);
+                  return loadAsFile(path2.join(x2, "index"), pkg2, cb2);
+                var dir = path2.resolve(x2, pkg2.main);
                 loadAsDirectory(dir, pkg2, function(err5, n, pkg3) {
                   if (err5)
                     return cb2(err5);
                   if (n)
                     return cb2(null, n, pkg3);
-                  loadAsFile(path.join(x2, "index"), pkg3, cb2);
+                  loadAsFile(path2.join(x2, "index"), pkg3, cb2);
                 });
               });
               return;
             }
-            loadAsFile(path.join(x2, "/index"), pkg, cb2);
+            loadAsFile(path2.join(x2, "/index"), pkg, cb2);
           });
         });
       });
@@ -90458,7 +99630,7 @@ var require_async = __commonJS((exports, module) => {
       if (dirs.length === 0)
         return cb2(null, undefined);
       var dir = dirs[0];
-      isDirectory(path.dirname(dir), isdir);
+      isDirectory(path2.dirname(dir), isdir);
       function isdir(err2, isdir2) {
         if (err2)
           return cb2(err2);
@@ -90681,39 +99853,39 @@ var require_is_core = __commonJS((exports, module) => {
 // node_modules/postcss-import/node_modules/resolve/lib/sync.js
 var require_sync = __commonJS((exports, module) => {
   var isCore = require_is_core_module();
-  var fs = __require("fs");
-  var path = __require("path");
+  var fs2 = __require("fs");
+  var path2 = __require("path");
   var getHomedir = require_homedir();
   var caller = require_caller();
   var nodeModulesPaths = require_node_modules_paths();
   var normalizeOptions = require_normalize_options();
-  var realpathFS = process.platform !== "win32" && fs.realpathSync && typeof fs.realpathSync.native === "function" ? fs.realpathSync.native : fs.realpathSync;
+  var realpathFS = process.platform !== "win32" && fs2.realpathSync && typeof fs2.realpathSync.native === "function" ? fs2.realpathSync.native : fs2.realpathSync;
   var homedir = getHomedir();
   var defaultPaths = function() {
     return [
-      path.join(homedir, ".node_modules"),
-      path.join(homedir, ".node_libraries")
+      path2.join(homedir, ".node_modules"),
+      path2.join(homedir, ".node_libraries")
     ];
   };
   var defaultIsFile = function isFile(file) {
     try {
-      var stat = fs.statSync(file, { throwIfNoEntry: false });
+      var stat2 = fs2.statSync(file, { throwIfNoEntry: false });
     } catch (e) {
       if (e && (e.code === "ENOENT" || e.code === "ENOTDIR"))
         return false;
       throw e;
     }
-    return !!stat && (stat.isFile() || stat.isFIFO());
+    return !!stat2 && (stat2.isFile() || stat2.isFIFO());
   };
   var defaultIsDir = function isDirectory(dir) {
     try {
-      var stat = fs.statSync(dir, { throwIfNoEntry: false });
+      var stat2 = fs2.statSync(dir, { throwIfNoEntry: false });
     } catch (e) {
       if (e && (e.code === "ENOENT" || e.code === "ENOTDIR"))
         return false;
       throw e;
     }
-    return !!stat && stat.isDirectory();
+    return !!stat2 && stat2.isDirectory();
   };
   var defaultRealpathSync = function realpathSync(x) {
     try {
@@ -90741,7 +99913,7 @@ var require_sync = __commonJS((exports, module) => {
   var getPackageCandidates = function getPackageCandidates(x, start, opts) {
     var dirs = nodeModulesPaths(start, opts, x);
     for (var i = 0;i < dirs.length; i++) {
-      dirs[i] = path.join(dirs[i], x);
+      dirs[i] = path2.join(dirs[i], x);
     }
     return dirs;
   };
@@ -90751,7 +99923,7 @@ var require_sync = __commonJS((exports, module) => {
     }
     var opts = normalizeOptions(x, options);
     var isFile = opts.isFile || defaultIsFile;
-    var readFileSync = opts.readFileSync || fs.readFileSync;
+    var readFileSync = opts.readFileSync || fs2.readFileSync;
     var isDirectory = opts.isDirectory || defaultIsDir;
     var realpathSync = opts.realpathSync || defaultRealpathSync;
     var readPackageSync = opts.readPackageSync || defaultReadPackageSync;
@@ -90761,12 +99933,12 @@ var require_sync = __commonJS((exports, module) => {
     var packageIterator = opts.packageIterator;
     var extensions = opts.extensions || [".js"];
     var includeCoreModules = opts.includeCoreModules !== false;
-    var basedir = opts.basedir || path.dirname(caller());
+    var basedir = opts.basedir || path2.dirname(caller());
     var parent = opts.filename || basedir;
     opts.paths = opts.paths || defaultPaths();
-    var absoluteStart = maybeRealpathSync(realpathSync, path.resolve(basedir), opts);
+    var absoluteStart = maybeRealpathSync(realpathSync, path2.resolve(basedir), opts);
     if (/^(?:\.\.?(?:\/|$)|\/|([A-Za-z]:)?[/\\])/.test(x)) {
-      var res = path.resolve(absoluteStart, x);
+      var res = path2.resolve(absoluteStart, x);
       if (x === "." || x === ".." || x.slice(-1) === "/")
         res += "/";
       var m = loadAsFileSync(res) || loadAsDirectorySync(res);
@@ -90783,12 +99955,12 @@ var require_sync = __commonJS((exports, module) => {
     err.code = "MODULE_NOT_FOUND";
     throw err;
     function loadAsFileSync(x2) {
-      var pkg = loadpkg(path.dirname(x2));
+      var pkg = loadpkg(path2.dirname(x2));
       if (pkg && pkg.dir && pkg.pkg && opts.pathFilter) {
-        var rfile = path.relative(pkg.dir, x2);
+        var rfile = path2.relative(pkg.dir, x2);
         var r = opts.pathFilter(pkg.pkg, x2, rfile);
         if (r) {
-          x2 = path.resolve(pkg.dir, r);
+          x2 = path2.resolve(pkg.dir, r);
         }
       }
       if (isFile(x2)) {
@@ -90809,9 +99981,9 @@ var require_sync = __commonJS((exports, module) => {
       }
       if (/[/\\]node_modules[/\\]*$/.test(dir))
         return;
-      var pkgfile = path.join(maybeRealpathSync(realpathSync, dir, opts), "package.json");
+      var pkgfile = path2.join(maybeRealpathSync(realpathSync, dir, opts), "package.json");
       if (!isFile(pkgfile)) {
-        return loadpkg(path.dirname(dir));
+        return loadpkg(path2.dirname(dir));
       }
       var pkg = readPackageSync(readFileSync, pkgfile);
       if (pkg && opts.packageFilter) {
@@ -90820,7 +99992,7 @@ var require_sync = __commonJS((exports, module) => {
       return { pkg, dir };
     }
     function loadAsDirectorySync(x2) {
-      var pkgfile = path.join(maybeRealpathSync(realpathSync, x2, opts), "/package.json");
+      var pkgfile = path2.join(maybeRealpathSync(realpathSync, x2, opts), "/package.json");
       if (isFile(pkgfile)) {
         try {
           var pkg = readPackageSync(readFileSync, pkgfile);
@@ -90838,16 +100010,16 @@ var require_sync = __commonJS((exports, module) => {
             pkg.main = "index";
           }
           try {
-            var m2 = loadAsFileSync(path.resolve(x2, pkg.main));
+            var m2 = loadAsFileSync(path2.resolve(x2, pkg.main));
             if (m2)
               return m2;
-            var n2 = loadAsDirectorySync(path.resolve(x2, pkg.main));
+            var n2 = loadAsDirectorySync(path2.resolve(x2, pkg.main));
             if (n2)
               return n2;
           } catch (e) {}
         }
       }
-      return loadAsFileSync(path.join(x2, "/index"));
+      return loadAsFileSync(path2.join(x2, "/index"));
     }
     function loadNodeModulesSync(x2, start) {
       var thunk = function() {
@@ -90856,7 +100028,7 @@ var require_sync = __commonJS((exports, module) => {
       var dirs = packageIterator ? packageIterator(x2, start, thunk, opts) : thunk();
       for (var i = 0;i < dirs.length; i++) {
         var dir = dirs[i];
-        if (isDirectory(path.dirname(dir))) {
+        if (isDirectory(path2.dirname(dir))) {
           var m2 = loadAsFileSync(dir);
           if (m2)
             return m2;
@@ -90884,7 +100056,7 @@ var require_resolve_id = __commonJS((exports, module) => {
   var moduleDirectories = ["web_modules", "node_modules"];
   function resolveModule(id, opts) {
     return new Promise((res, rej) => {
-      resolve(id, opts, (err, path) => err ? rej(err) : res(path));
+      resolve(id, opts, (err, path2) => err ? rej(err) : res(path2));
     });
   }
   module.exports = function resolveId(id, base, options, node) {
@@ -90917,7 +100089,7 @@ var require_resolve_id = __commonJS((exports, module) => {
 
 // node_modules/postcss-import/lib/parse-styles.js
 var require_parse_styles = __commonJS((exports, module) => {
-  var path = __require("path");
+  var path2 = __require("path");
   var dataURL = require_data_url();
   var parseStatements = require_parse_statements();
   var processContent = require_process_content();
@@ -90985,10 +100157,10 @@ var require_parse_styles = __commonJS((exports, module) => {
     if (atRule2.source?.input?.file) {
       sourceFile = atRule2.source.input.file;
     }
-    const base = sourceFile ? path.dirname(atRule2.source.input.file) : options.root;
+    const base = sourceFile ? path2.dirname(atRule2.source.input.file) : options.root;
     const paths = [await options.resolve(stmt.uri, base, options, atRule2)].flat();
     const resolved = await Promise.all(paths.map((file) => {
-      return !path.isAbsolute(file) ? resolveId(file, base, options, atRule2) : file;
+      return !path2.isAbsolute(file) ? resolveId(file, base, options, atRule2) : file;
     }));
     resolved.forEach((file) => {
       result.messages.push({
@@ -91060,7 +100232,7 @@ var require_parse_styles = __commonJS((exports, module) => {
 
 // node_modules/postcss-import/index.js
 var require_postcss_import = __commonJS((exports, module) => {
-  var path = __require("path");
+  var path2 = __require("path");
   var applyConditions = require_apply_conditions();
   var applyRaws = require_apply_raws();
   var applyStyles = require_apply_styles();
@@ -91079,12 +100251,12 @@ var require_postcss_import = __commonJS((exports, module) => {
       warnOnEmpty: true,
       ...options
     };
-    options.root = path.resolve(options.root);
+    options.root = path2.resolve(options.root);
     if (typeof options.path === "string")
       options.path = [options.path];
     if (!Array.isArray(options.path))
       options.path = [];
-    options.path = options.path.map((p) => path.resolve(options.root, p));
+    options.path = options.path.map((p) => path2.resolve(options.root, p));
     return {
       postcssPlugin: "postcss-import",
       async Once(styles, { result, atRule: atRule2, postcss: postcss2 }) {
@@ -109561,13 +118733,12530 @@ var require_server_bun = __commonJS((exports) => {
 });
 
 // src/build.ts
-import fs2 from "fs/promises";
-import path3 from "path";
+import fs3 from "fs/promises";
+import path4 from "path";
+
+// node_modules/@google/genai/dist/node/index.mjs
+var import_google_auth_library = __toESM(require_src5(), 1);
+import { createWriteStream, writeFile } from "fs";
+import { Readable } from "stream";
+import * as NodeWs from "ws";
+import * as fs from "fs/promises";
+var _defaultBaseGeminiUrl = undefined;
+var _defaultBaseVertexUrl = undefined;
+function getDefaultBaseUrls() {
+  return {
+    geminiUrl: _defaultBaseGeminiUrl,
+    vertexUrl: _defaultBaseVertexUrl
+  };
+}
+function getBaseUrl(httpOptions, vertexai, vertexBaseUrlFromEnv, geminiBaseUrlFromEnv) {
+  var _a, _b;
+  if (!(httpOptions === null || httpOptions === undefined ? undefined : httpOptions.baseUrl)) {
+    const defaultBaseUrls = getDefaultBaseUrls();
+    if (vertexai) {
+      return (_a = defaultBaseUrls.vertexUrl) !== null && _a !== undefined ? _a : vertexBaseUrlFromEnv;
+    } else {
+      return (_b = defaultBaseUrls.geminiUrl) !== null && _b !== undefined ? _b : geminiBaseUrlFromEnv;
+    }
+  }
+  return httpOptions.baseUrl;
+}
+
+class BaseModule {
+}
+function formatMap(templateString, valueMap) {
+  const regex = /\{([^}]+)\}/g;
+  return templateString.replace(regex, (match, key) => {
+    if (Object.prototype.hasOwnProperty.call(valueMap, key)) {
+      const value = valueMap[key];
+      return value !== undefined && value !== null ? String(value) : "";
+    } else {
+      throw new Error(`Key '${key}' not found in valueMap.`);
+    }
+  });
+}
+function setValueByPath(data, keys, value) {
+  for (let i = 0;i < keys.length - 1; i++) {
+    const key = keys[i];
+    if (key.endsWith("[]")) {
+      const keyName = key.slice(0, -2);
+      if (!(keyName in data)) {
+        if (Array.isArray(value)) {
+          data[keyName] = Array.from({ length: value.length }, () => ({}));
+        } else {
+          throw new Error(`Value must be a list given an array path ${key}`);
+        }
+      }
+      if (Array.isArray(data[keyName])) {
+        const arrayData = data[keyName];
+        if (Array.isArray(value)) {
+          for (let j = 0;j < arrayData.length; j++) {
+            const entry = arrayData[j];
+            setValueByPath(entry, keys.slice(i + 1), value[j]);
+          }
+        } else {
+          for (const d of arrayData) {
+            setValueByPath(d, keys.slice(i + 1), value);
+          }
+        }
+      }
+      return;
+    } else if (key.endsWith("[0]")) {
+      const keyName = key.slice(0, -3);
+      if (!(keyName in data)) {
+        data[keyName] = [{}];
+      }
+      const arrayData = data[keyName];
+      setValueByPath(arrayData[0], keys.slice(i + 1), value);
+      return;
+    }
+    if (!data[key] || typeof data[key] !== "object") {
+      data[key] = {};
+    }
+    data = data[key];
+  }
+  const keyToSet = keys[keys.length - 1];
+  const existingData = data[keyToSet];
+  if (existingData !== undefined) {
+    if (!value || typeof value === "object" && Object.keys(value).length === 0) {
+      return;
+    }
+    if (value === existingData) {
+      return;
+    }
+    if (typeof existingData === "object" && typeof value === "object" && existingData !== null && value !== null) {
+      Object.assign(existingData, value);
+    } else {
+      throw new Error(`Cannot set value for an existing key. Key: ${keyToSet}`);
+    }
+  } else {
+    if (keyToSet === "_self" && typeof value === "object" && value !== null && !Array.isArray(value)) {
+      const valueAsRecord = value;
+      Object.assign(data, valueAsRecord);
+    } else {
+      data[keyToSet] = value;
+    }
+  }
+}
+function getValueByPath(data, keys, defaultValue = undefined) {
+  try {
+    if (keys.length === 1 && keys[0] === "_self") {
+      return data;
+    }
+    for (let i = 0;i < keys.length; i++) {
+      if (typeof data !== "object" || data === null) {
+        return defaultValue;
+      }
+      const key = keys[i];
+      if (key.endsWith("[]")) {
+        const keyName = key.slice(0, -2);
+        if (keyName in data) {
+          const arrayData = data[keyName];
+          if (!Array.isArray(arrayData)) {
+            return defaultValue;
+          }
+          return arrayData.map((d) => getValueByPath(d, keys.slice(i + 1), defaultValue));
+        } else {
+          return defaultValue;
+        }
+      } else {
+        data = data[key];
+      }
+    }
+    return data;
+  } catch (error) {
+    if (error instanceof TypeError) {
+      return defaultValue;
+    }
+    throw error;
+  }
+}
+function moveValueByPath(data, paths) {
+  for (const [sourcePath, destPath] of Object.entries(paths)) {
+    const sourceKeys = sourcePath.split(".");
+    const destKeys = destPath.split(".");
+    const excludeKeys = new Set;
+    let wildcardIdx = -1;
+    for (let i = 0;i < sourceKeys.length; i++) {
+      if (sourceKeys[i] === "*") {
+        wildcardIdx = i;
+        break;
+      }
+    }
+    if (wildcardIdx !== -1 && destKeys.length > wildcardIdx) {
+      for (let i = wildcardIdx;i < destKeys.length; i++) {
+        const key = destKeys[i];
+        if (key !== "*" && !key.endsWith("[]") && !key.endsWith("[0]")) {
+          excludeKeys.add(key);
+        }
+      }
+    }
+    _moveValueRecursive(data, sourceKeys, destKeys, 0, excludeKeys);
+  }
+}
+function _moveValueRecursive(data, sourceKeys, destKeys, keyIdx, excludeKeys) {
+  if (keyIdx >= sourceKeys.length) {
+    return;
+  }
+  if (typeof data !== "object" || data === null) {
+    return;
+  }
+  const key = sourceKeys[keyIdx];
+  if (key.endsWith("[]")) {
+    const keyName = key.slice(0, -2);
+    const dataRecord = data;
+    if (keyName in dataRecord && Array.isArray(dataRecord[keyName])) {
+      for (const item of dataRecord[keyName]) {
+        _moveValueRecursive(item, sourceKeys, destKeys, keyIdx + 1, excludeKeys);
+      }
+    }
+  } else if (key === "*") {
+    if (typeof data === "object" && data !== null && !Array.isArray(data)) {
+      const dataRecord = data;
+      const keysToMove = Object.keys(dataRecord).filter((k) => !k.startsWith("_") && !excludeKeys.has(k));
+      const valuesToMove = {};
+      for (const k of keysToMove) {
+        valuesToMove[k] = dataRecord[k];
+      }
+      for (const [k, v] of Object.entries(valuesToMove)) {
+        const newDestKeys = [];
+        for (const dk of destKeys.slice(keyIdx)) {
+          if (dk === "*") {
+            newDestKeys.push(k);
+          } else {
+            newDestKeys.push(dk);
+          }
+        }
+        setValueByPath(dataRecord, newDestKeys, v);
+      }
+      for (const k of keysToMove) {
+        delete dataRecord[k];
+      }
+    }
+  } else {
+    const dataRecord = data;
+    if (key in dataRecord) {
+      _moveValueRecursive(dataRecord[key], sourceKeys, destKeys, keyIdx + 1, excludeKeys);
+    }
+  }
+}
+function tBytes$1(fromBytes) {
+  if (typeof fromBytes !== "string") {
+    throw new Error("fromImageBytes must be a string");
+  }
+  return fromBytes;
+}
+function fetchPredictOperationParametersToVertex(fromObject) {
+  const toObject = {};
+  const fromOperationName = getValueByPath(fromObject, [
+    "operationName"
+  ]);
+  if (fromOperationName != null) {
+    setValueByPath(toObject, ["operationName"], fromOperationName);
+  }
+  const fromResourceName = getValueByPath(fromObject, ["resourceName"]);
+  if (fromResourceName != null) {
+    setValueByPath(toObject, ["_url", "resourceName"], fromResourceName);
+  }
+  return toObject;
+}
+function generateVideosOperationFromMldev$1(fromObject) {
+  const toObject = {};
+  const fromName = getValueByPath(fromObject, ["name"]);
+  if (fromName != null) {
+    setValueByPath(toObject, ["name"], fromName);
+  }
+  const fromMetadata = getValueByPath(fromObject, ["metadata"]);
+  if (fromMetadata != null) {
+    setValueByPath(toObject, ["metadata"], fromMetadata);
+  }
+  const fromDone = getValueByPath(fromObject, ["done"]);
+  if (fromDone != null) {
+    setValueByPath(toObject, ["done"], fromDone);
+  }
+  const fromError = getValueByPath(fromObject, ["error"]);
+  if (fromError != null) {
+    setValueByPath(toObject, ["error"], fromError);
+  }
+  const fromResponse = getValueByPath(fromObject, [
+    "response",
+    "generateVideoResponse"
+  ]);
+  if (fromResponse != null) {
+    setValueByPath(toObject, ["response"], generateVideosResponseFromMldev$1(fromResponse));
+  }
+  return toObject;
+}
+function generateVideosOperationFromVertex$1(fromObject) {
+  const toObject = {};
+  const fromName = getValueByPath(fromObject, ["name"]);
+  if (fromName != null) {
+    setValueByPath(toObject, ["name"], fromName);
+  }
+  const fromMetadata = getValueByPath(fromObject, ["metadata"]);
+  if (fromMetadata != null) {
+    setValueByPath(toObject, ["metadata"], fromMetadata);
+  }
+  const fromDone = getValueByPath(fromObject, ["done"]);
+  if (fromDone != null) {
+    setValueByPath(toObject, ["done"], fromDone);
+  }
+  const fromError = getValueByPath(fromObject, ["error"]);
+  if (fromError != null) {
+    setValueByPath(toObject, ["error"], fromError);
+  }
+  const fromResponse = getValueByPath(fromObject, ["response"]);
+  if (fromResponse != null) {
+    setValueByPath(toObject, ["response"], generateVideosResponseFromVertex$1(fromResponse));
+  }
+  return toObject;
+}
+function generateVideosResponseFromMldev$1(fromObject) {
+  const toObject = {};
+  const fromGeneratedVideos = getValueByPath(fromObject, [
+    "generatedSamples"
+  ]);
+  if (fromGeneratedVideos != null) {
+    let transformedList = fromGeneratedVideos;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return generatedVideoFromMldev$1(item);
+      });
+    }
+    setValueByPath(toObject, ["generatedVideos"], transformedList);
+  }
+  const fromRaiMediaFilteredCount = getValueByPath(fromObject, [
+    "raiMediaFilteredCount"
+  ]);
+  if (fromRaiMediaFilteredCount != null) {
+    setValueByPath(toObject, ["raiMediaFilteredCount"], fromRaiMediaFilteredCount);
+  }
+  const fromRaiMediaFilteredReasons = getValueByPath(fromObject, [
+    "raiMediaFilteredReasons"
+  ]);
+  if (fromRaiMediaFilteredReasons != null) {
+    setValueByPath(toObject, ["raiMediaFilteredReasons"], fromRaiMediaFilteredReasons);
+  }
+  return toObject;
+}
+function generateVideosResponseFromVertex$1(fromObject) {
+  const toObject = {};
+  const fromGeneratedVideos = getValueByPath(fromObject, ["videos"]);
+  if (fromGeneratedVideos != null) {
+    let transformedList = fromGeneratedVideos;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return generatedVideoFromVertex$1(item);
+      });
+    }
+    setValueByPath(toObject, ["generatedVideos"], transformedList);
+  }
+  const fromRaiMediaFilteredCount = getValueByPath(fromObject, [
+    "raiMediaFilteredCount"
+  ]);
+  if (fromRaiMediaFilteredCount != null) {
+    setValueByPath(toObject, ["raiMediaFilteredCount"], fromRaiMediaFilteredCount);
+  }
+  const fromRaiMediaFilteredReasons = getValueByPath(fromObject, [
+    "raiMediaFilteredReasons"
+  ]);
+  if (fromRaiMediaFilteredReasons != null) {
+    setValueByPath(toObject, ["raiMediaFilteredReasons"], fromRaiMediaFilteredReasons);
+  }
+  return toObject;
+}
+function generatedVideoFromMldev$1(fromObject) {
+  const toObject = {};
+  const fromVideo = getValueByPath(fromObject, ["video"]);
+  if (fromVideo != null) {
+    setValueByPath(toObject, ["video"], videoFromMldev$1(fromVideo));
+  }
+  return toObject;
+}
+function generatedVideoFromVertex$1(fromObject) {
+  const toObject = {};
+  const fromVideo = getValueByPath(fromObject, ["_self"]);
+  if (fromVideo != null) {
+    setValueByPath(toObject, ["video"], videoFromVertex$1(fromVideo));
+  }
+  return toObject;
+}
+function getOperationParametersToMldev(fromObject) {
+  const toObject = {};
+  const fromOperationName = getValueByPath(fromObject, [
+    "operationName"
+  ]);
+  if (fromOperationName != null) {
+    setValueByPath(toObject, ["_url", "operationName"], fromOperationName);
+  }
+  return toObject;
+}
+function getOperationParametersToVertex(fromObject) {
+  const toObject = {};
+  const fromOperationName = getValueByPath(fromObject, [
+    "operationName"
+  ]);
+  if (fromOperationName != null) {
+    setValueByPath(toObject, ["_url", "operationName"], fromOperationName);
+  }
+  return toObject;
+}
+function videoFromMldev$1(fromObject) {
+  const toObject = {};
+  const fromUri = getValueByPath(fromObject, ["uri"]);
+  if (fromUri != null) {
+    setValueByPath(toObject, ["uri"], fromUri);
+  }
+  const fromVideoBytes = getValueByPath(fromObject, ["encodedVideo"]);
+  if (fromVideoBytes != null) {
+    setValueByPath(toObject, ["videoBytes"], tBytes$1(fromVideoBytes));
+  }
+  const fromMimeType = getValueByPath(fromObject, ["encoding"]);
+  if (fromMimeType != null) {
+    setValueByPath(toObject, ["mimeType"], fromMimeType);
+  }
+  return toObject;
+}
+function videoFromVertex$1(fromObject) {
+  const toObject = {};
+  const fromUri = getValueByPath(fromObject, ["gcsUri"]);
+  if (fromUri != null) {
+    setValueByPath(toObject, ["uri"], fromUri);
+  }
+  const fromVideoBytes = getValueByPath(fromObject, [
+    "bytesBase64Encoded"
+  ]);
+  if (fromVideoBytes != null) {
+    setValueByPath(toObject, ["videoBytes"], tBytes$1(fromVideoBytes));
+  }
+  const fromMimeType = getValueByPath(fromObject, ["mimeType"]);
+  if (fromMimeType != null) {
+    setValueByPath(toObject, ["mimeType"], fromMimeType);
+  }
+  return toObject;
+}
+var Outcome;
+(function(Outcome2) {
+  Outcome2["OUTCOME_UNSPECIFIED"] = "OUTCOME_UNSPECIFIED";
+  Outcome2["OUTCOME_OK"] = "OUTCOME_OK";
+  Outcome2["OUTCOME_FAILED"] = "OUTCOME_FAILED";
+  Outcome2["OUTCOME_DEADLINE_EXCEEDED"] = "OUTCOME_DEADLINE_EXCEEDED";
+})(Outcome || (Outcome = {}));
+var Language;
+(function(Language2) {
+  Language2["LANGUAGE_UNSPECIFIED"] = "LANGUAGE_UNSPECIFIED";
+  Language2["PYTHON"] = "PYTHON";
+})(Language || (Language = {}));
+var FunctionResponseScheduling;
+(function(FunctionResponseScheduling2) {
+  FunctionResponseScheduling2["SCHEDULING_UNSPECIFIED"] = "SCHEDULING_UNSPECIFIED";
+  FunctionResponseScheduling2["SILENT"] = "SILENT";
+  FunctionResponseScheduling2["WHEN_IDLE"] = "WHEN_IDLE";
+  FunctionResponseScheduling2["INTERRUPT"] = "INTERRUPT";
+})(FunctionResponseScheduling || (FunctionResponseScheduling = {}));
+var Type;
+(function(Type2) {
+  Type2["TYPE_UNSPECIFIED"] = "TYPE_UNSPECIFIED";
+  Type2["STRING"] = "STRING";
+  Type2["NUMBER"] = "NUMBER";
+  Type2["INTEGER"] = "INTEGER";
+  Type2["BOOLEAN"] = "BOOLEAN";
+  Type2["ARRAY"] = "ARRAY";
+  Type2["OBJECT"] = "OBJECT";
+  Type2["NULL"] = "NULL";
+})(Type || (Type = {}));
+var HarmCategory;
+(function(HarmCategory2) {
+  HarmCategory2["HARM_CATEGORY_UNSPECIFIED"] = "HARM_CATEGORY_UNSPECIFIED";
+  HarmCategory2["HARM_CATEGORY_HARASSMENT"] = "HARM_CATEGORY_HARASSMENT";
+  HarmCategory2["HARM_CATEGORY_HATE_SPEECH"] = "HARM_CATEGORY_HATE_SPEECH";
+  HarmCategory2["HARM_CATEGORY_SEXUALLY_EXPLICIT"] = "HARM_CATEGORY_SEXUALLY_EXPLICIT";
+  HarmCategory2["HARM_CATEGORY_DANGEROUS_CONTENT"] = "HARM_CATEGORY_DANGEROUS_CONTENT";
+  HarmCategory2["HARM_CATEGORY_CIVIC_INTEGRITY"] = "HARM_CATEGORY_CIVIC_INTEGRITY";
+  HarmCategory2["HARM_CATEGORY_IMAGE_HATE"] = "HARM_CATEGORY_IMAGE_HATE";
+  HarmCategory2["HARM_CATEGORY_IMAGE_DANGEROUS_CONTENT"] = "HARM_CATEGORY_IMAGE_DANGEROUS_CONTENT";
+  HarmCategory2["HARM_CATEGORY_IMAGE_HARASSMENT"] = "HARM_CATEGORY_IMAGE_HARASSMENT";
+  HarmCategory2["HARM_CATEGORY_IMAGE_SEXUALLY_EXPLICIT"] = "HARM_CATEGORY_IMAGE_SEXUALLY_EXPLICIT";
+  HarmCategory2["HARM_CATEGORY_JAILBREAK"] = "HARM_CATEGORY_JAILBREAK";
+})(HarmCategory || (HarmCategory = {}));
+var HarmBlockMethod;
+(function(HarmBlockMethod2) {
+  HarmBlockMethod2["HARM_BLOCK_METHOD_UNSPECIFIED"] = "HARM_BLOCK_METHOD_UNSPECIFIED";
+  HarmBlockMethod2["SEVERITY"] = "SEVERITY";
+  HarmBlockMethod2["PROBABILITY"] = "PROBABILITY";
+})(HarmBlockMethod || (HarmBlockMethod = {}));
+var HarmBlockThreshold;
+(function(HarmBlockThreshold2) {
+  HarmBlockThreshold2["HARM_BLOCK_THRESHOLD_UNSPECIFIED"] = "HARM_BLOCK_THRESHOLD_UNSPECIFIED";
+  HarmBlockThreshold2["BLOCK_LOW_AND_ABOVE"] = "BLOCK_LOW_AND_ABOVE";
+  HarmBlockThreshold2["BLOCK_MEDIUM_AND_ABOVE"] = "BLOCK_MEDIUM_AND_ABOVE";
+  HarmBlockThreshold2["BLOCK_ONLY_HIGH"] = "BLOCK_ONLY_HIGH";
+  HarmBlockThreshold2["BLOCK_NONE"] = "BLOCK_NONE";
+  HarmBlockThreshold2["OFF"] = "OFF";
+})(HarmBlockThreshold || (HarmBlockThreshold = {}));
+var Mode;
+(function(Mode2) {
+  Mode2["MODE_UNSPECIFIED"] = "MODE_UNSPECIFIED";
+  Mode2["MODE_DYNAMIC"] = "MODE_DYNAMIC";
+})(Mode || (Mode = {}));
+var AuthType;
+(function(AuthType2) {
+  AuthType2["AUTH_TYPE_UNSPECIFIED"] = "AUTH_TYPE_UNSPECIFIED";
+  AuthType2["NO_AUTH"] = "NO_AUTH";
+  AuthType2["API_KEY_AUTH"] = "API_KEY_AUTH";
+  AuthType2["HTTP_BASIC_AUTH"] = "HTTP_BASIC_AUTH";
+  AuthType2["GOOGLE_SERVICE_ACCOUNT_AUTH"] = "GOOGLE_SERVICE_ACCOUNT_AUTH";
+  AuthType2["OAUTH"] = "OAUTH";
+  AuthType2["OIDC_AUTH"] = "OIDC_AUTH";
+})(AuthType || (AuthType = {}));
+var ApiSpec;
+(function(ApiSpec2) {
+  ApiSpec2["API_SPEC_UNSPECIFIED"] = "API_SPEC_UNSPECIFIED";
+  ApiSpec2["SIMPLE_SEARCH"] = "SIMPLE_SEARCH";
+  ApiSpec2["ELASTIC_SEARCH"] = "ELASTIC_SEARCH";
+})(ApiSpec || (ApiSpec = {}));
+var UrlRetrievalStatus;
+(function(UrlRetrievalStatus2) {
+  UrlRetrievalStatus2["URL_RETRIEVAL_STATUS_UNSPECIFIED"] = "URL_RETRIEVAL_STATUS_UNSPECIFIED";
+  UrlRetrievalStatus2["URL_RETRIEVAL_STATUS_SUCCESS"] = "URL_RETRIEVAL_STATUS_SUCCESS";
+  UrlRetrievalStatus2["URL_RETRIEVAL_STATUS_ERROR"] = "URL_RETRIEVAL_STATUS_ERROR";
+  UrlRetrievalStatus2["URL_RETRIEVAL_STATUS_PAYWALL"] = "URL_RETRIEVAL_STATUS_PAYWALL";
+  UrlRetrievalStatus2["URL_RETRIEVAL_STATUS_UNSAFE"] = "URL_RETRIEVAL_STATUS_UNSAFE";
+})(UrlRetrievalStatus || (UrlRetrievalStatus = {}));
+var FinishReason;
+(function(FinishReason2) {
+  FinishReason2["FINISH_REASON_UNSPECIFIED"] = "FINISH_REASON_UNSPECIFIED";
+  FinishReason2["STOP"] = "STOP";
+  FinishReason2["MAX_TOKENS"] = "MAX_TOKENS";
+  FinishReason2["SAFETY"] = "SAFETY";
+  FinishReason2["RECITATION"] = "RECITATION";
+  FinishReason2["LANGUAGE"] = "LANGUAGE";
+  FinishReason2["OTHER"] = "OTHER";
+  FinishReason2["BLOCKLIST"] = "BLOCKLIST";
+  FinishReason2["PROHIBITED_CONTENT"] = "PROHIBITED_CONTENT";
+  FinishReason2["SPII"] = "SPII";
+  FinishReason2["MALFORMED_FUNCTION_CALL"] = "MALFORMED_FUNCTION_CALL";
+  FinishReason2["IMAGE_SAFETY"] = "IMAGE_SAFETY";
+  FinishReason2["UNEXPECTED_TOOL_CALL"] = "UNEXPECTED_TOOL_CALL";
+  FinishReason2["IMAGE_PROHIBITED_CONTENT"] = "IMAGE_PROHIBITED_CONTENT";
+  FinishReason2["NO_IMAGE"] = "NO_IMAGE";
+})(FinishReason || (FinishReason = {}));
+var HarmProbability;
+(function(HarmProbability2) {
+  HarmProbability2["HARM_PROBABILITY_UNSPECIFIED"] = "HARM_PROBABILITY_UNSPECIFIED";
+  HarmProbability2["NEGLIGIBLE"] = "NEGLIGIBLE";
+  HarmProbability2["LOW"] = "LOW";
+  HarmProbability2["MEDIUM"] = "MEDIUM";
+  HarmProbability2["HIGH"] = "HIGH";
+})(HarmProbability || (HarmProbability = {}));
+var HarmSeverity;
+(function(HarmSeverity2) {
+  HarmSeverity2["HARM_SEVERITY_UNSPECIFIED"] = "HARM_SEVERITY_UNSPECIFIED";
+  HarmSeverity2["HARM_SEVERITY_NEGLIGIBLE"] = "HARM_SEVERITY_NEGLIGIBLE";
+  HarmSeverity2["HARM_SEVERITY_LOW"] = "HARM_SEVERITY_LOW";
+  HarmSeverity2["HARM_SEVERITY_MEDIUM"] = "HARM_SEVERITY_MEDIUM";
+  HarmSeverity2["HARM_SEVERITY_HIGH"] = "HARM_SEVERITY_HIGH";
+})(HarmSeverity || (HarmSeverity = {}));
+var BlockedReason;
+(function(BlockedReason2) {
+  BlockedReason2["BLOCKED_REASON_UNSPECIFIED"] = "BLOCKED_REASON_UNSPECIFIED";
+  BlockedReason2["SAFETY"] = "SAFETY";
+  BlockedReason2["OTHER"] = "OTHER";
+  BlockedReason2["BLOCKLIST"] = "BLOCKLIST";
+  BlockedReason2["PROHIBITED_CONTENT"] = "PROHIBITED_CONTENT";
+  BlockedReason2["IMAGE_SAFETY"] = "IMAGE_SAFETY";
+  BlockedReason2["MODEL_ARMOR"] = "MODEL_ARMOR";
+  BlockedReason2["JAILBREAK"] = "JAILBREAK";
+})(BlockedReason || (BlockedReason = {}));
+var TrafficType;
+(function(TrafficType2) {
+  TrafficType2["TRAFFIC_TYPE_UNSPECIFIED"] = "TRAFFIC_TYPE_UNSPECIFIED";
+  TrafficType2["ON_DEMAND"] = "ON_DEMAND";
+  TrafficType2["PROVISIONED_THROUGHPUT"] = "PROVISIONED_THROUGHPUT";
+})(TrafficType || (TrafficType = {}));
+var Modality;
+(function(Modality2) {
+  Modality2["MODALITY_UNSPECIFIED"] = "MODALITY_UNSPECIFIED";
+  Modality2["TEXT"] = "TEXT";
+  Modality2["IMAGE"] = "IMAGE";
+  Modality2["AUDIO"] = "AUDIO";
+})(Modality || (Modality = {}));
+var MediaResolution;
+(function(MediaResolution2) {
+  MediaResolution2["MEDIA_RESOLUTION_UNSPECIFIED"] = "MEDIA_RESOLUTION_UNSPECIFIED";
+  MediaResolution2["MEDIA_RESOLUTION_LOW"] = "MEDIA_RESOLUTION_LOW";
+  MediaResolution2["MEDIA_RESOLUTION_MEDIUM"] = "MEDIA_RESOLUTION_MEDIUM";
+  MediaResolution2["MEDIA_RESOLUTION_HIGH"] = "MEDIA_RESOLUTION_HIGH";
+})(MediaResolution || (MediaResolution = {}));
+var JobState;
+(function(JobState2) {
+  JobState2["JOB_STATE_UNSPECIFIED"] = "JOB_STATE_UNSPECIFIED";
+  JobState2["JOB_STATE_QUEUED"] = "JOB_STATE_QUEUED";
+  JobState2["JOB_STATE_PENDING"] = "JOB_STATE_PENDING";
+  JobState2["JOB_STATE_RUNNING"] = "JOB_STATE_RUNNING";
+  JobState2["JOB_STATE_SUCCEEDED"] = "JOB_STATE_SUCCEEDED";
+  JobState2["JOB_STATE_FAILED"] = "JOB_STATE_FAILED";
+  JobState2["JOB_STATE_CANCELLING"] = "JOB_STATE_CANCELLING";
+  JobState2["JOB_STATE_CANCELLED"] = "JOB_STATE_CANCELLED";
+  JobState2["JOB_STATE_PAUSED"] = "JOB_STATE_PAUSED";
+  JobState2["JOB_STATE_EXPIRED"] = "JOB_STATE_EXPIRED";
+  JobState2["JOB_STATE_UPDATING"] = "JOB_STATE_UPDATING";
+  JobState2["JOB_STATE_PARTIALLY_SUCCEEDED"] = "JOB_STATE_PARTIALLY_SUCCEEDED";
+})(JobState || (JobState = {}));
+var TuningMode;
+(function(TuningMode2) {
+  TuningMode2["TUNING_MODE_UNSPECIFIED"] = "TUNING_MODE_UNSPECIFIED";
+  TuningMode2["TUNING_MODE_FULL"] = "TUNING_MODE_FULL";
+  TuningMode2["TUNING_MODE_PEFT_ADAPTER"] = "TUNING_MODE_PEFT_ADAPTER";
+})(TuningMode || (TuningMode = {}));
+var AdapterSize;
+(function(AdapterSize2) {
+  AdapterSize2["ADAPTER_SIZE_UNSPECIFIED"] = "ADAPTER_SIZE_UNSPECIFIED";
+  AdapterSize2["ADAPTER_SIZE_ONE"] = "ADAPTER_SIZE_ONE";
+  AdapterSize2["ADAPTER_SIZE_TWO"] = "ADAPTER_SIZE_TWO";
+  AdapterSize2["ADAPTER_SIZE_FOUR"] = "ADAPTER_SIZE_FOUR";
+  AdapterSize2["ADAPTER_SIZE_EIGHT"] = "ADAPTER_SIZE_EIGHT";
+  AdapterSize2["ADAPTER_SIZE_SIXTEEN"] = "ADAPTER_SIZE_SIXTEEN";
+  AdapterSize2["ADAPTER_SIZE_THIRTY_TWO"] = "ADAPTER_SIZE_THIRTY_TWO";
+})(AdapterSize || (AdapterSize = {}));
+var TuningTask;
+(function(TuningTask2) {
+  TuningTask2["TUNING_TASK_UNSPECIFIED"] = "TUNING_TASK_UNSPECIFIED";
+  TuningTask2["TUNING_TASK_I2V"] = "TUNING_TASK_I2V";
+  TuningTask2["TUNING_TASK_T2V"] = "TUNING_TASK_T2V";
+})(TuningTask || (TuningTask = {}));
+var FeatureSelectionPreference;
+(function(FeatureSelectionPreference2) {
+  FeatureSelectionPreference2["FEATURE_SELECTION_PREFERENCE_UNSPECIFIED"] = "FEATURE_SELECTION_PREFERENCE_UNSPECIFIED";
+  FeatureSelectionPreference2["PRIORITIZE_QUALITY"] = "PRIORITIZE_QUALITY";
+  FeatureSelectionPreference2["BALANCED"] = "BALANCED";
+  FeatureSelectionPreference2["PRIORITIZE_COST"] = "PRIORITIZE_COST";
+})(FeatureSelectionPreference || (FeatureSelectionPreference = {}));
+var Behavior;
+(function(Behavior2) {
+  Behavior2["UNSPECIFIED"] = "UNSPECIFIED";
+  Behavior2["BLOCKING"] = "BLOCKING";
+  Behavior2["NON_BLOCKING"] = "NON_BLOCKING";
+})(Behavior || (Behavior = {}));
+var DynamicRetrievalConfigMode;
+(function(DynamicRetrievalConfigMode2) {
+  DynamicRetrievalConfigMode2["MODE_UNSPECIFIED"] = "MODE_UNSPECIFIED";
+  DynamicRetrievalConfigMode2["MODE_DYNAMIC"] = "MODE_DYNAMIC";
+})(DynamicRetrievalConfigMode || (DynamicRetrievalConfigMode = {}));
+var Environment;
+(function(Environment2) {
+  Environment2["ENVIRONMENT_UNSPECIFIED"] = "ENVIRONMENT_UNSPECIFIED";
+  Environment2["ENVIRONMENT_BROWSER"] = "ENVIRONMENT_BROWSER";
+})(Environment || (Environment = {}));
+var FunctionCallingConfigMode;
+(function(FunctionCallingConfigMode2) {
+  FunctionCallingConfigMode2["MODE_UNSPECIFIED"] = "MODE_UNSPECIFIED";
+  FunctionCallingConfigMode2["AUTO"] = "AUTO";
+  FunctionCallingConfigMode2["ANY"] = "ANY";
+  FunctionCallingConfigMode2["NONE"] = "NONE";
+  FunctionCallingConfigMode2["VALIDATED"] = "VALIDATED";
+})(FunctionCallingConfigMode || (FunctionCallingConfigMode = {}));
+var SafetyFilterLevel;
+(function(SafetyFilterLevel2) {
+  SafetyFilterLevel2["BLOCK_LOW_AND_ABOVE"] = "BLOCK_LOW_AND_ABOVE";
+  SafetyFilterLevel2["BLOCK_MEDIUM_AND_ABOVE"] = "BLOCK_MEDIUM_AND_ABOVE";
+  SafetyFilterLevel2["BLOCK_ONLY_HIGH"] = "BLOCK_ONLY_HIGH";
+  SafetyFilterLevel2["BLOCK_NONE"] = "BLOCK_NONE";
+})(SafetyFilterLevel || (SafetyFilterLevel = {}));
+var PersonGeneration;
+(function(PersonGeneration2) {
+  PersonGeneration2["DONT_ALLOW"] = "DONT_ALLOW";
+  PersonGeneration2["ALLOW_ADULT"] = "ALLOW_ADULT";
+  PersonGeneration2["ALLOW_ALL"] = "ALLOW_ALL";
+})(PersonGeneration || (PersonGeneration = {}));
+var ImagePromptLanguage;
+(function(ImagePromptLanguage2) {
+  ImagePromptLanguage2["auto"] = "auto";
+  ImagePromptLanguage2["en"] = "en";
+  ImagePromptLanguage2["ja"] = "ja";
+  ImagePromptLanguage2["ko"] = "ko";
+  ImagePromptLanguage2["hi"] = "hi";
+  ImagePromptLanguage2["zh"] = "zh";
+  ImagePromptLanguage2["pt"] = "pt";
+  ImagePromptLanguage2["es"] = "es";
+})(ImagePromptLanguage || (ImagePromptLanguage = {}));
+var MaskReferenceMode;
+(function(MaskReferenceMode2) {
+  MaskReferenceMode2["MASK_MODE_DEFAULT"] = "MASK_MODE_DEFAULT";
+  MaskReferenceMode2["MASK_MODE_USER_PROVIDED"] = "MASK_MODE_USER_PROVIDED";
+  MaskReferenceMode2["MASK_MODE_BACKGROUND"] = "MASK_MODE_BACKGROUND";
+  MaskReferenceMode2["MASK_MODE_FOREGROUND"] = "MASK_MODE_FOREGROUND";
+  MaskReferenceMode2["MASK_MODE_SEMANTIC"] = "MASK_MODE_SEMANTIC";
+})(MaskReferenceMode || (MaskReferenceMode = {}));
+var ControlReferenceType;
+(function(ControlReferenceType2) {
+  ControlReferenceType2["CONTROL_TYPE_DEFAULT"] = "CONTROL_TYPE_DEFAULT";
+  ControlReferenceType2["CONTROL_TYPE_CANNY"] = "CONTROL_TYPE_CANNY";
+  ControlReferenceType2["CONTROL_TYPE_SCRIBBLE"] = "CONTROL_TYPE_SCRIBBLE";
+  ControlReferenceType2["CONTROL_TYPE_FACE_MESH"] = "CONTROL_TYPE_FACE_MESH";
+})(ControlReferenceType || (ControlReferenceType = {}));
+var SubjectReferenceType;
+(function(SubjectReferenceType2) {
+  SubjectReferenceType2["SUBJECT_TYPE_DEFAULT"] = "SUBJECT_TYPE_DEFAULT";
+  SubjectReferenceType2["SUBJECT_TYPE_PERSON"] = "SUBJECT_TYPE_PERSON";
+  SubjectReferenceType2["SUBJECT_TYPE_ANIMAL"] = "SUBJECT_TYPE_ANIMAL";
+  SubjectReferenceType2["SUBJECT_TYPE_PRODUCT"] = "SUBJECT_TYPE_PRODUCT";
+})(SubjectReferenceType || (SubjectReferenceType = {}));
+var EditMode;
+(function(EditMode2) {
+  EditMode2["EDIT_MODE_DEFAULT"] = "EDIT_MODE_DEFAULT";
+  EditMode2["EDIT_MODE_INPAINT_REMOVAL"] = "EDIT_MODE_INPAINT_REMOVAL";
+  EditMode2["EDIT_MODE_INPAINT_INSERTION"] = "EDIT_MODE_INPAINT_INSERTION";
+  EditMode2["EDIT_MODE_OUTPAINT"] = "EDIT_MODE_OUTPAINT";
+  EditMode2["EDIT_MODE_CONTROLLED_EDITING"] = "EDIT_MODE_CONTROLLED_EDITING";
+  EditMode2["EDIT_MODE_STYLE"] = "EDIT_MODE_STYLE";
+  EditMode2["EDIT_MODE_BGSWAP"] = "EDIT_MODE_BGSWAP";
+  EditMode2["EDIT_MODE_PRODUCT_IMAGE"] = "EDIT_MODE_PRODUCT_IMAGE";
+})(EditMode || (EditMode = {}));
+var SegmentMode;
+(function(SegmentMode2) {
+  SegmentMode2["FOREGROUND"] = "FOREGROUND";
+  SegmentMode2["BACKGROUND"] = "BACKGROUND";
+  SegmentMode2["PROMPT"] = "PROMPT";
+  SegmentMode2["SEMANTIC"] = "SEMANTIC";
+  SegmentMode2["INTERACTIVE"] = "INTERACTIVE";
+})(SegmentMode || (SegmentMode = {}));
+var VideoGenerationReferenceType;
+(function(VideoGenerationReferenceType2) {
+  VideoGenerationReferenceType2["ASSET"] = "ASSET";
+  VideoGenerationReferenceType2["STYLE"] = "STYLE";
+})(VideoGenerationReferenceType || (VideoGenerationReferenceType = {}));
+var VideoGenerationMaskMode;
+(function(VideoGenerationMaskMode2) {
+  VideoGenerationMaskMode2["INSERT"] = "INSERT";
+  VideoGenerationMaskMode2["REMOVE"] = "REMOVE";
+  VideoGenerationMaskMode2["REMOVE_STATIC"] = "REMOVE_STATIC";
+  VideoGenerationMaskMode2["OUTPAINT"] = "OUTPAINT";
+})(VideoGenerationMaskMode || (VideoGenerationMaskMode = {}));
+var VideoCompressionQuality;
+(function(VideoCompressionQuality2) {
+  VideoCompressionQuality2["OPTIMIZED"] = "OPTIMIZED";
+  VideoCompressionQuality2["LOSSLESS"] = "LOSSLESS";
+})(VideoCompressionQuality || (VideoCompressionQuality = {}));
+var FileState;
+(function(FileState2) {
+  FileState2["STATE_UNSPECIFIED"] = "STATE_UNSPECIFIED";
+  FileState2["PROCESSING"] = "PROCESSING";
+  FileState2["ACTIVE"] = "ACTIVE";
+  FileState2["FAILED"] = "FAILED";
+})(FileState || (FileState = {}));
+var FileSource;
+(function(FileSource2) {
+  FileSource2["SOURCE_UNSPECIFIED"] = "SOURCE_UNSPECIFIED";
+  FileSource2["UPLOADED"] = "UPLOADED";
+  FileSource2["GENERATED"] = "GENERATED";
+})(FileSource || (FileSource = {}));
+var TurnCompleteReason;
+(function(TurnCompleteReason2) {
+  TurnCompleteReason2["TURN_COMPLETE_REASON_UNSPECIFIED"] = "TURN_COMPLETE_REASON_UNSPECIFIED";
+  TurnCompleteReason2["MALFORMED_FUNCTION_CALL"] = "MALFORMED_FUNCTION_CALL";
+  TurnCompleteReason2["RESPONSE_REJECTED"] = "RESPONSE_REJECTED";
+  TurnCompleteReason2["NEED_MORE_INPUT"] = "NEED_MORE_INPUT";
+})(TurnCompleteReason || (TurnCompleteReason = {}));
+var MediaModality;
+(function(MediaModality2) {
+  MediaModality2["MODALITY_UNSPECIFIED"] = "MODALITY_UNSPECIFIED";
+  MediaModality2["TEXT"] = "TEXT";
+  MediaModality2["IMAGE"] = "IMAGE";
+  MediaModality2["VIDEO"] = "VIDEO";
+  MediaModality2["AUDIO"] = "AUDIO";
+  MediaModality2["DOCUMENT"] = "DOCUMENT";
+})(MediaModality || (MediaModality = {}));
+var StartSensitivity;
+(function(StartSensitivity2) {
+  StartSensitivity2["START_SENSITIVITY_UNSPECIFIED"] = "START_SENSITIVITY_UNSPECIFIED";
+  StartSensitivity2["START_SENSITIVITY_HIGH"] = "START_SENSITIVITY_HIGH";
+  StartSensitivity2["START_SENSITIVITY_LOW"] = "START_SENSITIVITY_LOW";
+})(StartSensitivity || (StartSensitivity = {}));
+var EndSensitivity;
+(function(EndSensitivity2) {
+  EndSensitivity2["END_SENSITIVITY_UNSPECIFIED"] = "END_SENSITIVITY_UNSPECIFIED";
+  EndSensitivity2["END_SENSITIVITY_HIGH"] = "END_SENSITIVITY_HIGH";
+  EndSensitivity2["END_SENSITIVITY_LOW"] = "END_SENSITIVITY_LOW";
+})(EndSensitivity || (EndSensitivity = {}));
+var ActivityHandling;
+(function(ActivityHandling2) {
+  ActivityHandling2["ACTIVITY_HANDLING_UNSPECIFIED"] = "ACTIVITY_HANDLING_UNSPECIFIED";
+  ActivityHandling2["START_OF_ACTIVITY_INTERRUPTS"] = "START_OF_ACTIVITY_INTERRUPTS";
+  ActivityHandling2["NO_INTERRUPTION"] = "NO_INTERRUPTION";
+})(ActivityHandling || (ActivityHandling = {}));
+var TurnCoverage;
+(function(TurnCoverage2) {
+  TurnCoverage2["TURN_COVERAGE_UNSPECIFIED"] = "TURN_COVERAGE_UNSPECIFIED";
+  TurnCoverage2["TURN_INCLUDES_ONLY_ACTIVITY"] = "TURN_INCLUDES_ONLY_ACTIVITY";
+  TurnCoverage2["TURN_INCLUDES_ALL_INPUT"] = "TURN_INCLUDES_ALL_INPUT";
+})(TurnCoverage || (TurnCoverage = {}));
+var Scale;
+(function(Scale2) {
+  Scale2["SCALE_UNSPECIFIED"] = "SCALE_UNSPECIFIED";
+  Scale2["C_MAJOR_A_MINOR"] = "C_MAJOR_A_MINOR";
+  Scale2["D_FLAT_MAJOR_B_FLAT_MINOR"] = "D_FLAT_MAJOR_B_FLAT_MINOR";
+  Scale2["D_MAJOR_B_MINOR"] = "D_MAJOR_B_MINOR";
+  Scale2["E_FLAT_MAJOR_C_MINOR"] = "E_FLAT_MAJOR_C_MINOR";
+  Scale2["E_MAJOR_D_FLAT_MINOR"] = "E_MAJOR_D_FLAT_MINOR";
+  Scale2["F_MAJOR_D_MINOR"] = "F_MAJOR_D_MINOR";
+  Scale2["G_FLAT_MAJOR_E_FLAT_MINOR"] = "G_FLAT_MAJOR_E_FLAT_MINOR";
+  Scale2["G_MAJOR_E_MINOR"] = "G_MAJOR_E_MINOR";
+  Scale2["A_FLAT_MAJOR_F_MINOR"] = "A_FLAT_MAJOR_F_MINOR";
+  Scale2["A_MAJOR_G_FLAT_MINOR"] = "A_MAJOR_G_FLAT_MINOR";
+  Scale2["B_FLAT_MAJOR_G_MINOR"] = "B_FLAT_MAJOR_G_MINOR";
+  Scale2["B_MAJOR_A_FLAT_MINOR"] = "B_MAJOR_A_FLAT_MINOR";
+})(Scale || (Scale = {}));
+var MusicGenerationMode;
+(function(MusicGenerationMode2) {
+  MusicGenerationMode2["MUSIC_GENERATION_MODE_UNSPECIFIED"] = "MUSIC_GENERATION_MODE_UNSPECIFIED";
+  MusicGenerationMode2["QUALITY"] = "QUALITY";
+  MusicGenerationMode2["DIVERSITY"] = "DIVERSITY";
+  MusicGenerationMode2["VOCALIZATION"] = "VOCALIZATION";
+})(MusicGenerationMode || (MusicGenerationMode = {}));
+var LiveMusicPlaybackControl;
+(function(LiveMusicPlaybackControl2) {
+  LiveMusicPlaybackControl2["PLAYBACK_CONTROL_UNSPECIFIED"] = "PLAYBACK_CONTROL_UNSPECIFIED";
+  LiveMusicPlaybackControl2["PLAY"] = "PLAY";
+  LiveMusicPlaybackControl2["PAUSE"] = "PAUSE";
+  LiveMusicPlaybackControl2["STOP"] = "STOP";
+  LiveMusicPlaybackControl2["RESET_CONTEXT"] = "RESET_CONTEXT";
+})(LiveMusicPlaybackControl || (LiveMusicPlaybackControl = {}));
+class HttpResponse {
+  constructor(response) {
+    const headers = {};
+    for (const pair of response.headers.entries()) {
+      headers[pair[0]] = pair[1];
+    }
+    this.headers = headers;
+    this.responseInternal = response;
+  }
+  json() {
+    return this.responseInternal.json();
+  }
+}
+class GenerateContentResponse {
+  get text() {
+    var _a, _b, _c, _d, _e, _f, _g, _h;
+    if (((_d = (_c = (_b = (_a = this.candidates) === null || _a === undefined ? undefined : _a[0]) === null || _b === undefined ? undefined : _b.content) === null || _c === undefined ? undefined : _c.parts) === null || _d === undefined ? undefined : _d.length) === 0) {
+      return;
+    }
+    if (this.candidates && this.candidates.length > 1) {
+      console.warn("there are multiple candidates in the response, returning text from the first one.");
+    }
+    let text = "";
+    let anyTextPartText = false;
+    const nonTextParts = [];
+    for (const part of (_h = (_g = (_f = (_e = this.candidates) === null || _e === undefined ? undefined : _e[0]) === null || _f === undefined ? undefined : _f.content) === null || _g === undefined ? undefined : _g.parts) !== null && _h !== undefined ? _h : []) {
+      for (const [fieldName, fieldValue] of Object.entries(part)) {
+        if (fieldName !== "text" && fieldName !== "thought" && (fieldValue !== null || fieldValue !== undefined)) {
+          nonTextParts.push(fieldName);
+        }
+      }
+      if (typeof part.text === "string") {
+        if (typeof part.thought === "boolean" && part.thought) {
+          continue;
+        }
+        anyTextPartText = true;
+        text += part.text;
+      }
+    }
+    if (nonTextParts.length > 0) {
+      console.warn(`there are non-text parts ${nonTextParts} in the response, returning concatenation of all text parts. Please refer to the non text parts for a full response from model.`);
+    }
+    return anyTextPartText ? text : undefined;
+  }
+  get data() {
+    var _a, _b, _c, _d, _e, _f, _g, _h;
+    if (((_d = (_c = (_b = (_a = this.candidates) === null || _a === undefined ? undefined : _a[0]) === null || _b === undefined ? undefined : _b.content) === null || _c === undefined ? undefined : _c.parts) === null || _d === undefined ? undefined : _d.length) === 0) {
+      return;
+    }
+    if (this.candidates && this.candidates.length > 1) {
+      console.warn("there are multiple candidates in the response, returning data from the first one.");
+    }
+    let data = "";
+    const nonDataParts = [];
+    for (const part of (_h = (_g = (_f = (_e = this.candidates) === null || _e === undefined ? undefined : _e[0]) === null || _f === undefined ? undefined : _f.content) === null || _g === undefined ? undefined : _g.parts) !== null && _h !== undefined ? _h : []) {
+      for (const [fieldName, fieldValue] of Object.entries(part)) {
+        if (fieldName !== "inlineData" && (fieldValue !== null || fieldValue !== undefined)) {
+          nonDataParts.push(fieldName);
+        }
+      }
+      if (part.inlineData && typeof part.inlineData.data === "string") {
+        data += atob(part.inlineData.data);
+      }
+    }
+    if (nonDataParts.length > 0) {
+      console.warn(`there are non-data parts ${nonDataParts} in the response, returning concatenation of all data parts. Please refer to the non data parts for a full response from model.`);
+    }
+    return data.length > 0 ? btoa(data) : undefined;
+  }
+  get functionCalls() {
+    var _a, _b, _c, _d, _e, _f, _g, _h;
+    if (((_d = (_c = (_b = (_a = this.candidates) === null || _a === undefined ? undefined : _a[0]) === null || _b === undefined ? undefined : _b.content) === null || _c === undefined ? undefined : _c.parts) === null || _d === undefined ? undefined : _d.length) === 0) {
+      return;
+    }
+    if (this.candidates && this.candidates.length > 1) {
+      console.warn("there are multiple candidates in the response, returning function calls from the first one.");
+    }
+    const functionCalls = (_h = (_g = (_f = (_e = this.candidates) === null || _e === undefined ? undefined : _e[0]) === null || _f === undefined ? undefined : _f.content) === null || _g === undefined ? undefined : _g.parts) === null || _h === undefined ? undefined : _h.filter((part) => part.functionCall).map((part) => part.functionCall).filter((functionCall) => functionCall !== undefined);
+    if ((functionCalls === null || functionCalls === undefined ? undefined : functionCalls.length) === 0) {
+      return;
+    }
+    return functionCalls;
+  }
+  get executableCode() {
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+    if (((_d = (_c = (_b = (_a = this.candidates) === null || _a === undefined ? undefined : _a[0]) === null || _b === undefined ? undefined : _b.content) === null || _c === undefined ? undefined : _c.parts) === null || _d === undefined ? undefined : _d.length) === 0) {
+      return;
+    }
+    if (this.candidates && this.candidates.length > 1) {
+      console.warn("there are multiple candidates in the response, returning executable code from the first one.");
+    }
+    const executableCode = (_h = (_g = (_f = (_e = this.candidates) === null || _e === undefined ? undefined : _e[0]) === null || _f === undefined ? undefined : _f.content) === null || _g === undefined ? undefined : _g.parts) === null || _h === undefined ? undefined : _h.filter((part) => part.executableCode).map((part) => part.executableCode).filter((executableCode2) => executableCode2 !== undefined);
+    if ((executableCode === null || executableCode === undefined ? undefined : executableCode.length) === 0) {
+      return;
+    }
+    return (_j = executableCode === null || executableCode === undefined ? undefined : executableCode[0]) === null || _j === undefined ? undefined : _j.code;
+  }
+  get codeExecutionResult() {
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+    if (((_d = (_c = (_b = (_a = this.candidates) === null || _a === undefined ? undefined : _a[0]) === null || _b === undefined ? undefined : _b.content) === null || _c === undefined ? undefined : _c.parts) === null || _d === undefined ? undefined : _d.length) === 0) {
+      return;
+    }
+    if (this.candidates && this.candidates.length > 1) {
+      console.warn("there are multiple candidates in the response, returning code execution result from the first one.");
+    }
+    const codeExecutionResult = (_h = (_g = (_f = (_e = this.candidates) === null || _e === undefined ? undefined : _e[0]) === null || _f === undefined ? undefined : _f.content) === null || _g === undefined ? undefined : _g.parts) === null || _h === undefined ? undefined : _h.filter((part) => part.codeExecutionResult).map((part) => part.codeExecutionResult).filter((codeExecutionResult2) => codeExecutionResult2 !== undefined);
+    if ((codeExecutionResult === null || codeExecutionResult === undefined ? undefined : codeExecutionResult.length) === 0) {
+      return;
+    }
+    return (_j = codeExecutionResult === null || codeExecutionResult === undefined ? undefined : codeExecutionResult[0]) === null || _j === undefined ? undefined : _j.output;
+  }
+}
+
+class EmbedContentResponse {
+}
+
+class GenerateImagesResponse {
+}
+
+class EditImageResponse {
+}
+
+class UpscaleImageResponse {
+}
+
+class RecontextImageResponse {
+}
+
+class SegmentImageResponse {
+}
+
+class ListModelsResponse {
+}
+
+class DeleteModelResponse {
+}
+
+class CountTokensResponse {
+}
+
+class ComputeTokensResponse {
+}
+class GenerateVideosOperation {
+  _fromAPIResponse({ apiResponse, isVertexAI }) {
+    const operation = new GenerateVideosOperation;
+    let response;
+    const op = apiResponse;
+    if (isVertexAI) {
+      response = generateVideosOperationFromVertex$1(op);
+    } else {
+      response = generateVideosOperationFromMldev$1(op);
+    }
+    Object.assign(operation, response);
+    return operation;
+  }
+}
+
+class ListTuningJobsResponse {
+}
+
+class DeleteCachedContentResponse {
+}
+
+class ListCachedContentsResponse {
+}
+
+class ListFilesResponse {
+}
+
+class CreateFileResponse {
+}
+
+class DeleteFileResponse {
+}
+class ListBatchJobsResponse {
+}
+class LiveServerMessage {
+  get text() {
+    var _a, _b, _c;
+    let text = "";
+    let anyTextPartFound = false;
+    const nonTextParts = [];
+    for (const part of (_c = (_b = (_a = this.serverContent) === null || _a === undefined ? undefined : _a.modelTurn) === null || _b === undefined ? undefined : _b.parts) !== null && _c !== undefined ? _c : []) {
+      for (const [fieldName, fieldValue] of Object.entries(part)) {
+        if (fieldName !== "text" && fieldName !== "thought" && fieldValue !== null) {
+          nonTextParts.push(fieldName);
+        }
+      }
+      if (typeof part.text === "string") {
+        if (typeof part.thought === "boolean" && part.thought) {
+          continue;
+        }
+        anyTextPartFound = true;
+        text += part.text;
+      }
+    }
+    if (nonTextParts.length > 0) {
+      console.warn(`there are non-text parts ${nonTextParts} in the response, returning concatenation of all text parts. Please refer to the non text parts for a full response from model.`);
+    }
+    return anyTextPartFound ? text : undefined;
+  }
+  get data() {
+    var _a, _b, _c;
+    let data = "";
+    const nonDataParts = [];
+    for (const part of (_c = (_b = (_a = this.serverContent) === null || _a === undefined ? undefined : _a.modelTurn) === null || _b === undefined ? undefined : _b.parts) !== null && _c !== undefined ? _c : []) {
+      for (const [fieldName, fieldValue] of Object.entries(part)) {
+        if (fieldName !== "inlineData" && fieldValue !== null) {
+          nonDataParts.push(fieldName);
+        }
+      }
+      if (part.inlineData && typeof part.inlineData.data === "string") {
+        data += atob(part.inlineData.data);
+      }
+    }
+    if (nonDataParts.length > 0) {
+      console.warn(`there are non-data parts ${nonDataParts} in the response, returning concatenation of all data parts. Please refer to the non data parts for a full response from model.`);
+    }
+    return data.length > 0 ? btoa(data) : undefined;
+  }
+}
+class LiveMusicServerMessage {
+  get audioChunk() {
+    if (this.serverContent && this.serverContent.audioChunks && this.serverContent.audioChunks.length > 0) {
+      return this.serverContent.audioChunks[0];
+    }
+    return;
+  }
+}
+function tModel(apiClient, model) {
+  if (!model || typeof model !== "string") {
+    throw new Error("model is required and must be a string");
+  }
+  if (apiClient.isVertexAI()) {
+    if (model.startsWith("publishers/") || model.startsWith("projects/") || model.startsWith("models/")) {
+      return model;
+    } else if (model.indexOf("/") >= 0) {
+      const parts = model.split("/", 2);
+      return `publishers/${parts[0]}/models/${parts[1]}`;
+    } else {
+      return `publishers/google/models/${model}`;
+    }
+  } else {
+    if (model.startsWith("models/") || model.startsWith("tunedModels/")) {
+      return model;
+    } else {
+      return `models/${model}`;
+    }
+  }
+}
+function tCachesModel(apiClient, model) {
+  const transformedModel = tModel(apiClient, model);
+  if (!transformedModel) {
+    return "";
+  }
+  if (transformedModel.startsWith("publishers/") && apiClient.isVertexAI()) {
+    return `projects/${apiClient.getProject()}/locations/${apiClient.getLocation()}/${transformedModel}`;
+  } else if (transformedModel.startsWith("models/") && apiClient.isVertexAI()) {
+    return `projects/${apiClient.getProject()}/locations/${apiClient.getLocation()}/publishers/google/${transformedModel}`;
+  } else {
+    return transformedModel;
+  }
+}
+function tBlobs(blobs) {
+  if (Array.isArray(blobs)) {
+    return blobs.map((blob) => tBlob(blob));
+  } else {
+    return [tBlob(blobs)];
+  }
+}
+function tBlob(blob) {
+  if (typeof blob === "object" && blob !== null) {
+    return blob;
+  }
+  throw new Error(`Could not parse input as Blob. Unsupported blob type: ${typeof blob}`);
+}
+function tImageBlob(blob) {
+  const transformedBlob = tBlob(blob);
+  if (transformedBlob.mimeType && transformedBlob.mimeType.startsWith("image/")) {
+    return transformedBlob;
+  }
+  throw new Error(`Unsupported mime type: ${transformedBlob.mimeType}`);
+}
+function tAudioBlob(blob) {
+  const transformedBlob = tBlob(blob);
+  if (transformedBlob.mimeType && transformedBlob.mimeType.startsWith("audio/")) {
+    return transformedBlob;
+  }
+  throw new Error(`Unsupported mime type: ${transformedBlob.mimeType}`);
+}
+function tPart(origin) {
+  if (origin === null || origin === undefined) {
+    throw new Error("PartUnion is required");
+  }
+  if (typeof origin === "object") {
+    return origin;
+  }
+  if (typeof origin === "string") {
+    return { text: origin };
+  }
+  throw new Error(`Unsupported part type: ${typeof origin}`);
+}
+function tParts(origin) {
+  if (origin === null || origin === undefined || Array.isArray(origin) && origin.length === 0) {
+    throw new Error("PartListUnion is required");
+  }
+  if (Array.isArray(origin)) {
+    return origin.map((item) => tPart(item));
+  }
+  return [tPart(origin)];
+}
+function _isContent(origin) {
+  return origin !== null && origin !== undefined && typeof origin === "object" && "parts" in origin && Array.isArray(origin.parts);
+}
+function _isFunctionCallPart(origin) {
+  return origin !== null && origin !== undefined && typeof origin === "object" && "functionCall" in origin;
+}
+function _isFunctionResponsePart(origin) {
+  return origin !== null && origin !== undefined && typeof origin === "object" && "functionResponse" in origin;
+}
+function tContent(origin) {
+  if (origin === null || origin === undefined) {
+    throw new Error("ContentUnion is required");
+  }
+  if (_isContent(origin)) {
+    return origin;
+  }
+  return {
+    role: "user",
+    parts: tParts(origin)
+  };
+}
+function tContentsForEmbed(apiClient, origin) {
+  if (!origin) {
+    return [];
+  }
+  if (apiClient.isVertexAI() && Array.isArray(origin)) {
+    return origin.flatMap((item) => {
+      const content = tContent(item);
+      if (content.parts && content.parts.length > 0 && content.parts[0].text !== undefined) {
+        return [content.parts[0].text];
+      }
+      return [];
+    });
+  } else if (apiClient.isVertexAI()) {
+    const content = tContent(origin);
+    if (content.parts && content.parts.length > 0 && content.parts[0].text !== undefined) {
+      return [content.parts[0].text];
+    }
+    return [];
+  }
+  if (Array.isArray(origin)) {
+    return origin.map((item) => tContent(item));
+  }
+  return [tContent(origin)];
+}
+function tContents(origin) {
+  if (origin === null || origin === undefined || Array.isArray(origin) && origin.length === 0) {
+    throw new Error("contents are required");
+  }
+  if (!Array.isArray(origin)) {
+    if (_isFunctionCallPart(origin) || _isFunctionResponsePart(origin)) {
+      throw new Error("To specify functionCall or functionResponse parts, please wrap them in a Content object, specifying the role for them");
+    }
+    return [tContent(origin)];
+  }
+  const result = [];
+  const accumulatedParts = [];
+  const isContentArray = _isContent(origin[0]);
+  for (const item of origin) {
+    const isContent = _isContent(item);
+    if (isContent != isContentArray) {
+      throw new Error("Mixing Content and Parts is not supported, please group the parts into a the appropriate Content objects and specify the roles for them");
+    }
+    if (isContent) {
+      result.push(item);
+    } else if (_isFunctionCallPart(item) || _isFunctionResponsePart(item)) {
+      throw new Error("To specify functionCall or functionResponse parts, please wrap them, and any other parts, in Content objects as appropriate, specifying the role for them");
+    } else {
+      accumulatedParts.push(item);
+    }
+  }
+  if (!isContentArray) {
+    result.push({ role: "user", parts: tParts(accumulatedParts) });
+  }
+  return result;
+}
+function flattenTypeArrayToAnyOf(typeList, resultingSchema) {
+  if (typeList.includes("null")) {
+    resultingSchema["nullable"] = true;
+  }
+  const listWithoutNull = typeList.filter((type) => type !== "null");
+  if (listWithoutNull.length === 1) {
+    resultingSchema["type"] = Object.values(Type).includes(listWithoutNull[0].toUpperCase()) ? listWithoutNull[0].toUpperCase() : Type.TYPE_UNSPECIFIED;
+  } else {
+    resultingSchema["anyOf"] = [];
+    for (const i of listWithoutNull) {
+      resultingSchema["anyOf"].push({
+        type: Object.values(Type).includes(i.toUpperCase()) ? i.toUpperCase() : Type.TYPE_UNSPECIFIED
+      });
+    }
+  }
+}
+function processJsonSchema(_jsonSchema) {
+  const genAISchema = {};
+  const schemaFieldNames = ["items"];
+  const listSchemaFieldNames = ["anyOf"];
+  const dictSchemaFieldNames = ["properties"];
+  if (_jsonSchema["type"] && _jsonSchema["anyOf"]) {
+    throw new Error("type and anyOf cannot be both populated.");
+  }
+  const incomingAnyOf = _jsonSchema["anyOf"];
+  if (incomingAnyOf != null && incomingAnyOf.length == 2) {
+    if (incomingAnyOf[0]["type"] === "null") {
+      genAISchema["nullable"] = true;
+      _jsonSchema = incomingAnyOf[1];
+    } else if (incomingAnyOf[1]["type"] === "null") {
+      genAISchema["nullable"] = true;
+      _jsonSchema = incomingAnyOf[0];
+    }
+  }
+  if (_jsonSchema["type"] instanceof Array) {
+    flattenTypeArrayToAnyOf(_jsonSchema["type"], genAISchema);
+  }
+  for (const [fieldName, fieldValue] of Object.entries(_jsonSchema)) {
+    if (fieldValue == null) {
+      continue;
+    }
+    if (fieldName == "type") {
+      if (fieldValue === "null") {
+        throw new Error("type: null can not be the only possible type for the field.");
+      }
+      if (fieldValue instanceof Array) {
+        continue;
+      }
+      genAISchema["type"] = Object.values(Type).includes(fieldValue.toUpperCase()) ? fieldValue.toUpperCase() : Type.TYPE_UNSPECIFIED;
+    } else if (schemaFieldNames.includes(fieldName)) {
+      genAISchema[fieldName] = processJsonSchema(fieldValue);
+    } else if (listSchemaFieldNames.includes(fieldName)) {
+      const listSchemaFieldValue = [];
+      for (const item of fieldValue) {
+        if (item["type"] == "null") {
+          genAISchema["nullable"] = true;
+          continue;
+        }
+        listSchemaFieldValue.push(processJsonSchema(item));
+      }
+      genAISchema[fieldName] = listSchemaFieldValue;
+    } else if (dictSchemaFieldNames.includes(fieldName)) {
+      const dictSchemaFieldValue = {};
+      for (const [key, value] of Object.entries(fieldValue)) {
+        dictSchemaFieldValue[key] = processJsonSchema(value);
+      }
+      genAISchema[fieldName] = dictSchemaFieldValue;
+    } else {
+      if (fieldName === "additionalProperties") {
+        continue;
+      }
+      genAISchema[fieldName] = fieldValue;
+    }
+  }
+  return genAISchema;
+}
+function tSchema(schema) {
+  return processJsonSchema(schema);
+}
+function tSpeechConfig(speechConfig) {
+  if (typeof speechConfig === "object") {
+    return speechConfig;
+  } else if (typeof speechConfig === "string") {
+    return {
+      voiceConfig: {
+        prebuiltVoiceConfig: {
+          voiceName: speechConfig
+        }
+      }
+    };
+  } else {
+    throw new Error(`Unsupported speechConfig type: ${typeof speechConfig}`);
+  }
+}
+function tLiveSpeechConfig(speechConfig) {
+  if ("multiSpeakerVoiceConfig" in speechConfig) {
+    throw new Error("multiSpeakerVoiceConfig is not supported in the live API.");
+  }
+  return speechConfig;
+}
+function tTool(tool) {
+  if (tool.functionDeclarations) {
+    for (const functionDeclaration of tool.functionDeclarations) {
+      if (functionDeclaration.parameters) {
+        if (!Object.keys(functionDeclaration.parameters).includes("$schema")) {
+          functionDeclaration.parameters = processJsonSchema(functionDeclaration.parameters);
+        } else {
+          if (!functionDeclaration.parametersJsonSchema) {
+            functionDeclaration.parametersJsonSchema = functionDeclaration.parameters;
+            delete functionDeclaration.parameters;
+          }
+        }
+      }
+      if (functionDeclaration.response) {
+        if (!Object.keys(functionDeclaration.response).includes("$schema")) {
+          functionDeclaration.response = processJsonSchema(functionDeclaration.response);
+        } else {
+          if (!functionDeclaration.responseJsonSchema) {
+            functionDeclaration.responseJsonSchema = functionDeclaration.response;
+            delete functionDeclaration.response;
+          }
+        }
+      }
+    }
+  }
+  return tool;
+}
+function tTools(tools) {
+  if (tools === undefined || tools === null) {
+    throw new Error("tools is required");
+  }
+  if (!Array.isArray(tools)) {
+    throw new Error("tools is required and must be an array of Tools");
+  }
+  const result = [];
+  for (const tool of tools) {
+    result.push(tool);
+  }
+  return result;
+}
+function resourceName(client, resourceName2, resourcePrefix, splitsAfterPrefix = 1) {
+  const shouldAppendPrefix = !resourceName2.startsWith(`${resourcePrefix}/`) && resourceName2.split("/").length === splitsAfterPrefix;
+  if (client.isVertexAI()) {
+    if (resourceName2.startsWith("projects/")) {
+      return resourceName2;
+    } else if (resourceName2.startsWith("locations/")) {
+      return `projects/${client.getProject()}/${resourceName2}`;
+    } else if (resourceName2.startsWith(`${resourcePrefix}/`)) {
+      return `projects/${client.getProject()}/locations/${client.getLocation()}/${resourceName2}`;
+    } else if (shouldAppendPrefix) {
+      return `projects/${client.getProject()}/locations/${client.getLocation()}/${resourcePrefix}/${resourceName2}`;
+    } else {
+      return resourceName2;
+    }
+  }
+  if (shouldAppendPrefix) {
+    return `${resourcePrefix}/${resourceName2}`;
+  }
+  return resourceName2;
+}
+function tCachedContentName(apiClient, name) {
+  if (typeof name !== "string") {
+    throw new Error("name must be a string");
+  }
+  return resourceName(apiClient, name, "cachedContents");
+}
+function tTuningJobStatus(status) {
+  switch (status) {
+    case "STATE_UNSPECIFIED":
+      return "JOB_STATE_UNSPECIFIED";
+    case "CREATING":
+      return "JOB_STATE_RUNNING";
+    case "ACTIVE":
+      return "JOB_STATE_SUCCEEDED";
+    case "FAILED":
+      return "JOB_STATE_FAILED";
+    default:
+      return status;
+  }
+}
+function tBytes(fromImageBytes) {
+  return tBytes$1(fromImageBytes);
+}
+function _isFile(origin) {
+  return origin !== null && origin !== undefined && typeof origin === "object" && "name" in origin;
+}
+function isGeneratedVideo(origin) {
+  return origin !== null && origin !== undefined && typeof origin === "object" && "video" in origin;
+}
+function isVideo(origin) {
+  return origin !== null && origin !== undefined && typeof origin === "object" && "uri" in origin;
+}
+function tFileName(fromName) {
+  var _a;
+  let name;
+  if (_isFile(fromName)) {
+    name = fromName.name;
+  }
+  if (isVideo(fromName)) {
+    name = fromName.uri;
+    if (name === undefined) {
+      return;
+    }
+  }
+  if (isGeneratedVideo(fromName)) {
+    name = (_a = fromName.video) === null || _a === undefined ? undefined : _a.uri;
+    if (name === undefined) {
+      return;
+    }
+  }
+  if (typeof fromName === "string") {
+    name = fromName;
+  }
+  if (name === undefined) {
+    throw new Error("Could not extract file name from the provided input.");
+  }
+  if (name.startsWith("https://")) {
+    const suffix = name.split("files/")[1];
+    const match = suffix.match(/[a-z0-9]+/);
+    if (match === null) {
+      throw new Error(`Could not extract file name from URI ${name}`);
+    }
+    name = match[0];
+  } else if (name.startsWith("files/")) {
+    name = name.split("files/")[1];
+  }
+  return name;
+}
+function tModelsUrl(apiClient, baseModels) {
+  let res;
+  if (apiClient.isVertexAI()) {
+    res = baseModels ? "publishers/google/models" : "models";
+  } else {
+    res = baseModels ? "models" : "tunedModels";
+  }
+  return res;
+}
+function tExtractModels(response) {
+  for (const key of ["models", "tunedModels", "publisherModels"]) {
+    if (hasField(response, key)) {
+      return response[key];
+    }
+  }
+  return [];
+}
+function hasField(data, fieldName) {
+  return data !== null && typeof data === "object" && fieldName in data;
+}
+function mcpToGeminiTool(mcpTool, config = {}) {
+  const mcpToolSchema = mcpTool;
+  const functionDeclaration = {
+    name: mcpToolSchema["name"],
+    description: mcpToolSchema["description"],
+    parametersJsonSchema: mcpToolSchema["inputSchema"]
+  };
+  if (mcpToolSchema["outputSchema"]) {
+    functionDeclaration["responseJsonSchema"] = mcpToolSchema["outputSchema"];
+  }
+  if (config.behavior) {
+    functionDeclaration["behavior"] = config.behavior;
+  }
+  const geminiTool = {
+    functionDeclarations: [
+      functionDeclaration
+    ]
+  };
+  return geminiTool;
+}
+function mcpToolsToGeminiTool(mcpTools, config = {}) {
+  const functionDeclarations = [];
+  const toolNames = new Set;
+  for (const mcpTool of mcpTools) {
+    const mcpToolName = mcpTool.name;
+    if (toolNames.has(mcpToolName)) {
+      throw new Error(`Duplicate function name ${mcpToolName} found in MCP tools. Please ensure function names are unique.`);
+    }
+    toolNames.add(mcpToolName);
+    const geminiTool = mcpToGeminiTool(mcpTool, config);
+    if (geminiTool.functionDeclarations) {
+      functionDeclarations.push(...geminiTool.functionDeclarations);
+    }
+  }
+  return { functionDeclarations };
+}
+function tBatchJobSource(client, src) {
+  let sourceObj;
+  if (typeof src === "string") {
+    if (client.isVertexAI()) {
+      if (src.startsWith("gs://")) {
+        sourceObj = { format: "jsonl", gcsUri: [src] };
+      } else if (src.startsWith("bq://")) {
+        sourceObj = { format: "bigquery", bigqueryUri: src };
+      } else {
+        throw new Error(`Unsupported string source for Vertex AI: ${src}`);
+      }
+    } else {
+      if (src.startsWith("files/")) {
+        sourceObj = { fileName: src };
+      } else {
+        throw new Error(`Unsupported string source for Gemini API: ${src}`);
+      }
+    }
+  } else if (Array.isArray(src)) {
+    if (client.isVertexAI()) {
+      throw new Error("InlinedRequest[] is not supported in Vertex AI.");
+    }
+    sourceObj = { inlinedRequests: src };
+  } else {
+    sourceObj = src;
+  }
+  const vertexSourcesCount = [sourceObj.gcsUri, sourceObj.bigqueryUri].filter(Boolean).length;
+  const mldevSourcesCount = [
+    sourceObj.inlinedRequests,
+    sourceObj.fileName
+  ].filter(Boolean).length;
+  if (client.isVertexAI()) {
+    if (mldevSourcesCount > 0 || vertexSourcesCount !== 1) {
+      throw new Error("Exactly one of `gcsUri` or `bigqueryUri` must be set for Vertex AI.");
+    }
+  } else {
+    if (vertexSourcesCount > 0 || mldevSourcesCount !== 1) {
+      throw new Error("Exactly one of `inlinedRequests`, `fileName`, " + "must be set for Gemini API.");
+    }
+  }
+  return sourceObj;
+}
+function tBatchJobDestination(dest) {
+  if (typeof dest !== "string") {
+    return dest;
+  }
+  const destString = dest;
+  if (destString.startsWith("gs://")) {
+    return {
+      format: "jsonl",
+      gcsUri: destString
+    };
+  } else if (destString.startsWith("bq://")) {
+    return {
+      format: "bigquery",
+      bigqueryUri: destString
+    };
+  } else {
+    throw new Error(`Unsupported destination: ${destString}`);
+  }
+}
+function tRecvBatchJobDestination(dest) {
+  if (typeof dest !== "object" || dest === null) {
+    return {};
+  }
+  const obj = dest;
+  const inlineResponsesVal = obj["inlinedResponses"];
+  if (typeof inlineResponsesVal !== "object" || inlineResponsesVal === null) {
+    return dest;
+  }
+  const inlineResponsesObj = inlineResponsesVal;
+  const responsesArray = inlineResponsesObj["inlinedResponses"];
+  if (!Array.isArray(responsesArray) || responsesArray.length === 0) {
+    return dest;
+  }
+  let hasEmbedding = false;
+  for (const responseItem of responsesArray) {
+    if (typeof responseItem !== "object" || responseItem === null) {
+      continue;
+    }
+    const responseItemObj = responseItem;
+    const responseVal = responseItemObj["response"];
+    if (typeof responseVal !== "object" || responseVal === null) {
+      continue;
+    }
+    const responseObj = responseVal;
+    if (responseObj["embedding"] !== undefined) {
+      hasEmbedding = true;
+      break;
+    }
+  }
+  if (hasEmbedding) {
+    obj["inlinedEmbedContentResponses"] = obj["inlinedResponses"];
+    delete obj["inlinedResponses"];
+  }
+  return dest;
+}
+function tBatchJobName(apiClient, name) {
+  const nameString = name;
+  if (!apiClient.isVertexAI()) {
+    const mldevPattern = /batches\/[^/]+$/;
+    if (mldevPattern.test(nameString)) {
+      return nameString.split("/").pop();
+    } else {
+      throw new Error(`Invalid batch job name: ${nameString}.`);
+    }
+  }
+  const vertexPattern = /^projects\/[^/]+\/locations\/[^/]+\/batchPredictionJobs\/[^/]+$/;
+  if (vertexPattern.test(nameString)) {
+    return nameString.split("/").pop();
+  } else if (/^\d+$/.test(nameString)) {
+    return nameString;
+  } else {
+    throw new Error(`Invalid batch job name: ${nameString}.`);
+  }
+}
+function tJobState(state) {
+  const stateString = state;
+  if (stateString === "BATCH_STATE_UNSPECIFIED") {
+    return "JOB_STATE_UNSPECIFIED";
+  } else if (stateString === "BATCH_STATE_PENDING") {
+    return "JOB_STATE_PENDING";
+  } else if (stateString === "BATCH_STATE_RUNNING") {
+    return "JOB_STATE_RUNNING";
+  } else if (stateString === "BATCH_STATE_SUCCEEDED") {
+    return "JOB_STATE_SUCCEEDED";
+  } else if (stateString === "BATCH_STATE_FAILED") {
+    return "JOB_STATE_FAILED";
+  } else if (stateString === "BATCH_STATE_CANCELLED") {
+    return "JOB_STATE_CANCELLED";
+  } else if (stateString === "BATCH_STATE_EXPIRED") {
+    return "JOB_STATE_EXPIRED";
+  } else {
+    return stateString;
+  }
+}
+function batchJobDestinationFromMldev(fromObject) {
+  const toObject = {};
+  const fromFileName = getValueByPath(fromObject, ["responsesFile"]);
+  if (fromFileName != null) {
+    setValueByPath(toObject, ["fileName"], fromFileName);
+  }
+  const fromInlinedResponses = getValueByPath(fromObject, [
+    "inlinedResponses",
+    "inlinedResponses"
+  ]);
+  if (fromInlinedResponses != null) {
+    let transformedList = fromInlinedResponses;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return inlinedResponseFromMldev(item);
+      });
+    }
+    setValueByPath(toObject, ["inlinedResponses"], transformedList);
+  }
+  const fromInlinedEmbedContentResponses = getValueByPath(fromObject, [
+    "inlinedEmbedContentResponses",
+    "inlinedResponses"
+  ]);
+  if (fromInlinedEmbedContentResponses != null) {
+    let transformedList = fromInlinedEmbedContentResponses;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return item;
+      });
+    }
+    setValueByPath(toObject, ["inlinedEmbedContentResponses"], transformedList);
+  }
+  return toObject;
+}
+function batchJobDestinationFromVertex(fromObject) {
+  const toObject = {};
+  const fromFormat = getValueByPath(fromObject, ["predictionsFormat"]);
+  if (fromFormat != null) {
+    setValueByPath(toObject, ["format"], fromFormat);
+  }
+  const fromGcsUri = getValueByPath(fromObject, [
+    "gcsDestination",
+    "outputUriPrefix"
+  ]);
+  if (fromGcsUri != null) {
+    setValueByPath(toObject, ["gcsUri"], fromGcsUri);
+  }
+  const fromBigqueryUri = getValueByPath(fromObject, [
+    "bigqueryDestination",
+    "outputUri"
+  ]);
+  if (fromBigqueryUri != null) {
+    setValueByPath(toObject, ["bigqueryUri"], fromBigqueryUri);
+  }
+  return toObject;
+}
+function batchJobDestinationToVertex(fromObject) {
+  const toObject = {};
+  const fromFormat = getValueByPath(fromObject, ["format"]);
+  if (fromFormat != null) {
+    setValueByPath(toObject, ["predictionsFormat"], fromFormat);
+  }
+  const fromGcsUri = getValueByPath(fromObject, ["gcsUri"]);
+  if (fromGcsUri != null) {
+    setValueByPath(toObject, ["gcsDestination", "outputUriPrefix"], fromGcsUri);
+  }
+  const fromBigqueryUri = getValueByPath(fromObject, ["bigqueryUri"]);
+  if (fromBigqueryUri != null) {
+    setValueByPath(toObject, ["bigqueryDestination", "outputUri"], fromBigqueryUri);
+  }
+  if (getValueByPath(fromObject, ["fileName"]) !== undefined) {
+    throw new Error("fileName parameter is not supported in Vertex AI.");
+  }
+  if (getValueByPath(fromObject, ["inlinedResponses"]) !== undefined) {
+    throw new Error("inlinedResponses parameter is not supported in Vertex AI.");
+  }
+  if (getValueByPath(fromObject, ["inlinedEmbedContentResponses"]) !== undefined) {
+    throw new Error("inlinedEmbedContentResponses parameter is not supported in Vertex AI.");
+  }
+  return toObject;
+}
+function batchJobFromMldev(fromObject) {
+  const toObject = {};
+  const fromName = getValueByPath(fromObject, ["name"]);
+  if (fromName != null) {
+    setValueByPath(toObject, ["name"], fromName);
+  }
+  const fromDisplayName = getValueByPath(fromObject, [
+    "metadata",
+    "displayName"
+  ]);
+  if (fromDisplayName != null) {
+    setValueByPath(toObject, ["displayName"], fromDisplayName);
+  }
+  const fromState = getValueByPath(fromObject, ["metadata", "state"]);
+  if (fromState != null) {
+    setValueByPath(toObject, ["state"], tJobState(fromState));
+  }
+  const fromCreateTime = getValueByPath(fromObject, [
+    "metadata",
+    "createTime"
+  ]);
+  if (fromCreateTime != null) {
+    setValueByPath(toObject, ["createTime"], fromCreateTime);
+  }
+  const fromEndTime = getValueByPath(fromObject, [
+    "metadata",
+    "endTime"
+  ]);
+  if (fromEndTime != null) {
+    setValueByPath(toObject, ["endTime"], fromEndTime);
+  }
+  const fromUpdateTime = getValueByPath(fromObject, [
+    "metadata",
+    "updateTime"
+  ]);
+  if (fromUpdateTime != null) {
+    setValueByPath(toObject, ["updateTime"], fromUpdateTime);
+  }
+  const fromModel = getValueByPath(fromObject, ["metadata", "model"]);
+  if (fromModel != null) {
+    setValueByPath(toObject, ["model"], fromModel);
+  }
+  const fromDest = getValueByPath(fromObject, ["metadata", "output"]);
+  if (fromDest != null) {
+    setValueByPath(toObject, ["dest"], batchJobDestinationFromMldev(tRecvBatchJobDestination(fromDest)));
+  }
+  return toObject;
+}
+function batchJobFromVertex(fromObject) {
+  const toObject = {};
+  const fromName = getValueByPath(fromObject, ["name"]);
+  if (fromName != null) {
+    setValueByPath(toObject, ["name"], fromName);
+  }
+  const fromDisplayName = getValueByPath(fromObject, ["displayName"]);
+  if (fromDisplayName != null) {
+    setValueByPath(toObject, ["displayName"], fromDisplayName);
+  }
+  const fromState = getValueByPath(fromObject, ["state"]);
+  if (fromState != null) {
+    setValueByPath(toObject, ["state"], tJobState(fromState));
+  }
+  const fromError = getValueByPath(fromObject, ["error"]);
+  if (fromError != null) {
+    setValueByPath(toObject, ["error"], fromError);
+  }
+  const fromCreateTime = getValueByPath(fromObject, ["createTime"]);
+  if (fromCreateTime != null) {
+    setValueByPath(toObject, ["createTime"], fromCreateTime);
+  }
+  const fromStartTime = getValueByPath(fromObject, ["startTime"]);
+  if (fromStartTime != null) {
+    setValueByPath(toObject, ["startTime"], fromStartTime);
+  }
+  const fromEndTime = getValueByPath(fromObject, ["endTime"]);
+  if (fromEndTime != null) {
+    setValueByPath(toObject, ["endTime"], fromEndTime);
+  }
+  const fromUpdateTime = getValueByPath(fromObject, ["updateTime"]);
+  if (fromUpdateTime != null) {
+    setValueByPath(toObject, ["updateTime"], fromUpdateTime);
+  }
+  const fromModel = getValueByPath(fromObject, ["model"]);
+  if (fromModel != null) {
+    setValueByPath(toObject, ["model"], fromModel);
+  }
+  const fromSrc = getValueByPath(fromObject, ["inputConfig"]);
+  if (fromSrc != null) {
+    setValueByPath(toObject, ["src"], batchJobSourceFromVertex(fromSrc));
+  }
+  const fromDest = getValueByPath(fromObject, ["outputConfig"]);
+  if (fromDest != null) {
+    setValueByPath(toObject, ["dest"], batchJobDestinationFromVertex(tRecvBatchJobDestination(fromDest)));
+  }
+  return toObject;
+}
+function batchJobSourceFromVertex(fromObject) {
+  const toObject = {};
+  const fromFormat = getValueByPath(fromObject, ["instancesFormat"]);
+  if (fromFormat != null) {
+    setValueByPath(toObject, ["format"], fromFormat);
+  }
+  const fromGcsUri = getValueByPath(fromObject, ["gcsSource", "uris"]);
+  if (fromGcsUri != null) {
+    setValueByPath(toObject, ["gcsUri"], fromGcsUri);
+  }
+  const fromBigqueryUri = getValueByPath(fromObject, [
+    "bigquerySource",
+    "inputUri"
+  ]);
+  if (fromBigqueryUri != null) {
+    setValueByPath(toObject, ["bigqueryUri"], fromBigqueryUri);
+  }
+  return toObject;
+}
+function batchJobSourceToMldev(apiClient, fromObject) {
+  const toObject = {};
+  if (getValueByPath(fromObject, ["format"]) !== undefined) {
+    throw new Error("format parameter is not supported in Gemini API.");
+  }
+  if (getValueByPath(fromObject, ["gcsUri"]) !== undefined) {
+    throw new Error("gcsUri parameter is not supported in Gemini API.");
+  }
+  if (getValueByPath(fromObject, ["bigqueryUri"]) !== undefined) {
+    throw new Error("bigqueryUri parameter is not supported in Gemini API.");
+  }
+  const fromFileName = getValueByPath(fromObject, ["fileName"]);
+  if (fromFileName != null) {
+    setValueByPath(toObject, ["fileName"], fromFileName);
+  }
+  const fromInlinedRequests = getValueByPath(fromObject, [
+    "inlinedRequests"
+  ]);
+  if (fromInlinedRequests != null) {
+    let transformedList = fromInlinedRequests;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return inlinedRequestToMldev(apiClient, item);
+      });
+    }
+    setValueByPath(toObject, ["requests", "requests"], transformedList);
+  }
+  return toObject;
+}
+function batchJobSourceToVertex(fromObject) {
+  const toObject = {};
+  const fromFormat = getValueByPath(fromObject, ["format"]);
+  if (fromFormat != null) {
+    setValueByPath(toObject, ["instancesFormat"], fromFormat);
+  }
+  const fromGcsUri = getValueByPath(fromObject, ["gcsUri"]);
+  if (fromGcsUri != null) {
+    setValueByPath(toObject, ["gcsSource", "uris"], fromGcsUri);
+  }
+  const fromBigqueryUri = getValueByPath(fromObject, ["bigqueryUri"]);
+  if (fromBigqueryUri != null) {
+    setValueByPath(toObject, ["bigquerySource", "inputUri"], fromBigqueryUri);
+  }
+  if (getValueByPath(fromObject, ["fileName"]) !== undefined) {
+    throw new Error("fileName parameter is not supported in Vertex AI.");
+  }
+  if (getValueByPath(fromObject, ["inlinedRequests"]) !== undefined) {
+    throw new Error("inlinedRequests parameter is not supported in Vertex AI.");
+  }
+  return toObject;
+}
+function blobToMldev$4(fromObject) {
+  const toObject = {};
+  if (getValueByPath(fromObject, ["displayName"]) !== undefined) {
+    throw new Error("displayName parameter is not supported in Gemini API.");
+  }
+  const fromData = getValueByPath(fromObject, ["data"]);
+  if (fromData != null) {
+    setValueByPath(toObject, ["data"], fromData);
+  }
+  const fromMimeType = getValueByPath(fromObject, ["mimeType"]);
+  if (fromMimeType != null) {
+    setValueByPath(toObject, ["mimeType"], fromMimeType);
+  }
+  return toObject;
+}
+function cancelBatchJobParametersToMldev(apiClient, fromObject) {
+  const toObject = {};
+  const fromName = getValueByPath(fromObject, ["name"]);
+  if (fromName != null) {
+    setValueByPath(toObject, ["_url", "name"], tBatchJobName(apiClient, fromName));
+  }
+  return toObject;
+}
+function cancelBatchJobParametersToVertex(apiClient, fromObject) {
+  const toObject = {};
+  const fromName = getValueByPath(fromObject, ["name"]);
+  if (fromName != null) {
+    setValueByPath(toObject, ["_url", "name"], tBatchJobName(apiClient, fromName));
+  }
+  return toObject;
+}
+function candidateFromMldev$1(fromObject) {
+  const toObject = {};
+  const fromContent = getValueByPath(fromObject, ["content"]);
+  if (fromContent != null) {
+    setValueByPath(toObject, ["content"], fromContent);
+  }
+  const fromCitationMetadata = getValueByPath(fromObject, [
+    "citationMetadata"
+  ]);
+  if (fromCitationMetadata != null) {
+    setValueByPath(toObject, ["citationMetadata"], citationMetadataFromMldev$1(fromCitationMetadata));
+  }
+  const fromTokenCount = getValueByPath(fromObject, ["tokenCount"]);
+  if (fromTokenCount != null) {
+    setValueByPath(toObject, ["tokenCount"], fromTokenCount);
+  }
+  const fromFinishReason = getValueByPath(fromObject, ["finishReason"]);
+  if (fromFinishReason != null) {
+    setValueByPath(toObject, ["finishReason"], fromFinishReason);
+  }
+  const fromUrlContextMetadata = getValueByPath(fromObject, [
+    "urlContextMetadata"
+  ]);
+  if (fromUrlContextMetadata != null) {
+    setValueByPath(toObject, ["urlContextMetadata"], fromUrlContextMetadata);
+  }
+  const fromAvgLogprobs = getValueByPath(fromObject, ["avgLogprobs"]);
+  if (fromAvgLogprobs != null) {
+    setValueByPath(toObject, ["avgLogprobs"], fromAvgLogprobs);
+  }
+  const fromGroundingMetadata = getValueByPath(fromObject, [
+    "groundingMetadata"
+  ]);
+  if (fromGroundingMetadata != null) {
+    setValueByPath(toObject, ["groundingMetadata"], fromGroundingMetadata);
+  }
+  const fromIndex = getValueByPath(fromObject, ["index"]);
+  if (fromIndex != null) {
+    setValueByPath(toObject, ["index"], fromIndex);
+  }
+  const fromLogprobsResult = getValueByPath(fromObject, [
+    "logprobsResult"
+  ]);
+  if (fromLogprobsResult != null) {
+    setValueByPath(toObject, ["logprobsResult"], fromLogprobsResult);
+  }
+  const fromSafetyRatings = getValueByPath(fromObject, [
+    "safetyRatings"
+  ]);
+  if (fromSafetyRatings != null) {
+    let transformedList = fromSafetyRatings;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return item;
+      });
+    }
+    setValueByPath(toObject, ["safetyRatings"], transformedList);
+  }
+  return toObject;
+}
+function citationMetadataFromMldev$1(fromObject) {
+  const toObject = {};
+  const fromCitations = getValueByPath(fromObject, ["citationSources"]);
+  if (fromCitations != null) {
+    let transformedList = fromCitations;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return item;
+      });
+    }
+    setValueByPath(toObject, ["citations"], transformedList);
+  }
+  return toObject;
+}
+function contentToMldev$4(fromObject) {
+  const toObject = {};
+  const fromParts = getValueByPath(fromObject, ["parts"]);
+  if (fromParts != null) {
+    let transformedList = fromParts;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return partToMldev$4(item);
+      });
+    }
+    setValueByPath(toObject, ["parts"], transformedList);
+  }
+  const fromRole = getValueByPath(fromObject, ["role"]);
+  if (fromRole != null) {
+    setValueByPath(toObject, ["role"], fromRole);
+  }
+  return toObject;
+}
+function createBatchJobConfigToMldev(fromObject, parentObject) {
+  const toObject = {};
+  const fromDisplayName = getValueByPath(fromObject, ["displayName"]);
+  if (parentObject !== undefined && fromDisplayName != null) {
+    setValueByPath(parentObject, ["batch", "displayName"], fromDisplayName);
+  }
+  if (getValueByPath(fromObject, ["dest"]) !== undefined) {
+    throw new Error("dest parameter is not supported in Gemini API.");
+  }
+  return toObject;
+}
+function createBatchJobConfigToVertex(fromObject, parentObject) {
+  const toObject = {};
+  const fromDisplayName = getValueByPath(fromObject, ["displayName"]);
+  if (parentObject !== undefined && fromDisplayName != null) {
+    setValueByPath(parentObject, ["displayName"], fromDisplayName);
+  }
+  const fromDest = getValueByPath(fromObject, ["dest"]);
+  if (parentObject !== undefined && fromDest != null) {
+    setValueByPath(parentObject, ["outputConfig"], batchJobDestinationToVertex(tBatchJobDestination(fromDest)));
+  }
+  return toObject;
+}
+function createBatchJobParametersToMldev(apiClient, fromObject) {
+  const toObject = {};
+  const fromModel = getValueByPath(fromObject, ["model"]);
+  if (fromModel != null) {
+    setValueByPath(toObject, ["_url", "model"], tModel(apiClient, fromModel));
+  }
+  const fromSrc = getValueByPath(fromObject, ["src"]);
+  if (fromSrc != null) {
+    setValueByPath(toObject, ["batch", "inputConfig"], batchJobSourceToMldev(apiClient, tBatchJobSource(apiClient, fromSrc)));
+  }
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    createBatchJobConfigToMldev(fromConfig, toObject);
+  }
+  return toObject;
+}
+function createBatchJobParametersToVertex(apiClient, fromObject) {
+  const toObject = {};
+  const fromModel = getValueByPath(fromObject, ["model"]);
+  if (fromModel != null) {
+    setValueByPath(toObject, ["model"], tModel(apiClient, fromModel));
+  }
+  const fromSrc = getValueByPath(fromObject, ["src"]);
+  if (fromSrc != null) {
+    setValueByPath(toObject, ["inputConfig"], batchJobSourceToVertex(tBatchJobSource(apiClient, fromSrc)));
+  }
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    createBatchJobConfigToVertex(fromConfig, toObject);
+  }
+  return toObject;
+}
+function createEmbeddingsBatchJobConfigToMldev(fromObject, parentObject) {
+  const toObject = {};
+  const fromDisplayName = getValueByPath(fromObject, ["displayName"]);
+  if (parentObject !== undefined && fromDisplayName != null) {
+    setValueByPath(parentObject, ["batch", "displayName"], fromDisplayName);
+  }
+  return toObject;
+}
+function createEmbeddingsBatchJobParametersToMldev(apiClient, fromObject) {
+  const toObject = {};
+  const fromModel = getValueByPath(fromObject, ["model"]);
+  if (fromModel != null) {
+    setValueByPath(toObject, ["_url", "model"], tModel(apiClient, fromModel));
+  }
+  const fromSrc = getValueByPath(fromObject, ["src"]);
+  if (fromSrc != null) {
+    setValueByPath(toObject, ["batch", "inputConfig"], embeddingsBatchJobSourceToMldev(apiClient, fromSrc));
+  }
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    createEmbeddingsBatchJobConfigToMldev(fromConfig, toObject);
+  }
+  return toObject;
+}
+function deleteBatchJobParametersToMldev(apiClient, fromObject) {
+  const toObject = {};
+  const fromName = getValueByPath(fromObject, ["name"]);
+  if (fromName != null) {
+    setValueByPath(toObject, ["_url", "name"], tBatchJobName(apiClient, fromName));
+  }
+  return toObject;
+}
+function deleteBatchJobParametersToVertex(apiClient, fromObject) {
+  const toObject = {};
+  const fromName = getValueByPath(fromObject, ["name"]);
+  if (fromName != null) {
+    setValueByPath(toObject, ["_url", "name"], tBatchJobName(apiClient, fromName));
+  }
+  return toObject;
+}
+function deleteResourceJobFromMldev(fromObject) {
+  const toObject = {};
+  const fromSdkHttpResponse = getValueByPath(fromObject, [
+    "sdkHttpResponse"
+  ]);
+  if (fromSdkHttpResponse != null) {
+    setValueByPath(toObject, ["sdkHttpResponse"], fromSdkHttpResponse);
+  }
+  const fromName = getValueByPath(fromObject, ["name"]);
+  if (fromName != null) {
+    setValueByPath(toObject, ["name"], fromName);
+  }
+  const fromDone = getValueByPath(fromObject, ["done"]);
+  if (fromDone != null) {
+    setValueByPath(toObject, ["done"], fromDone);
+  }
+  const fromError = getValueByPath(fromObject, ["error"]);
+  if (fromError != null) {
+    setValueByPath(toObject, ["error"], fromError);
+  }
+  return toObject;
+}
+function deleteResourceJobFromVertex(fromObject) {
+  const toObject = {};
+  const fromSdkHttpResponse = getValueByPath(fromObject, [
+    "sdkHttpResponse"
+  ]);
+  if (fromSdkHttpResponse != null) {
+    setValueByPath(toObject, ["sdkHttpResponse"], fromSdkHttpResponse);
+  }
+  const fromName = getValueByPath(fromObject, ["name"]);
+  if (fromName != null) {
+    setValueByPath(toObject, ["name"], fromName);
+  }
+  const fromDone = getValueByPath(fromObject, ["done"]);
+  if (fromDone != null) {
+    setValueByPath(toObject, ["done"], fromDone);
+  }
+  const fromError = getValueByPath(fromObject, ["error"]);
+  if (fromError != null) {
+    setValueByPath(toObject, ["error"], fromError);
+  }
+  return toObject;
+}
+function embedContentBatchToMldev(apiClient, fromObject) {
+  const toObject = {};
+  const fromContents = getValueByPath(fromObject, ["contents"]);
+  if (fromContents != null) {
+    let transformedList = tContentsForEmbed(apiClient, fromContents);
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return item;
+      });
+    }
+    setValueByPath(toObject, ["requests[]", "request", "content"], transformedList);
+  }
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    setValueByPath(toObject, ["_self"], embedContentConfigToMldev$1(fromConfig, toObject));
+    moveValueByPath(toObject, { "requests[].*": "requests[].request.*" });
+  }
+  return toObject;
+}
+function embedContentConfigToMldev$1(fromObject, parentObject) {
+  const toObject = {};
+  const fromTaskType = getValueByPath(fromObject, ["taskType"]);
+  if (parentObject !== undefined && fromTaskType != null) {
+    setValueByPath(parentObject, ["requests[]", "taskType"], fromTaskType);
+  }
+  const fromTitle = getValueByPath(fromObject, ["title"]);
+  if (parentObject !== undefined && fromTitle != null) {
+    setValueByPath(parentObject, ["requests[]", "title"], fromTitle);
+  }
+  const fromOutputDimensionality = getValueByPath(fromObject, [
+    "outputDimensionality"
+  ]);
+  if (parentObject !== undefined && fromOutputDimensionality != null) {
+    setValueByPath(parentObject, ["requests[]", "outputDimensionality"], fromOutputDimensionality);
+  }
+  if (getValueByPath(fromObject, ["mimeType"]) !== undefined) {
+    throw new Error("mimeType parameter is not supported in Gemini API.");
+  }
+  if (getValueByPath(fromObject, ["autoTruncate"]) !== undefined) {
+    throw new Error("autoTruncate parameter is not supported in Gemini API.");
+  }
+  return toObject;
+}
+function embeddingsBatchJobSourceToMldev(apiClient, fromObject) {
+  const toObject = {};
+  const fromFileName = getValueByPath(fromObject, ["fileName"]);
+  if (fromFileName != null) {
+    setValueByPath(toObject, ["file_name"], fromFileName);
+  }
+  const fromInlinedRequests = getValueByPath(fromObject, [
+    "inlinedRequests"
+  ]);
+  if (fromInlinedRequests != null) {
+    setValueByPath(toObject, ["requests"], embedContentBatchToMldev(apiClient, fromInlinedRequests));
+  }
+  return toObject;
+}
+function fileDataToMldev$4(fromObject) {
+  const toObject = {};
+  if (getValueByPath(fromObject, ["displayName"]) !== undefined) {
+    throw new Error("displayName parameter is not supported in Gemini API.");
+  }
+  const fromFileUri = getValueByPath(fromObject, ["fileUri"]);
+  if (fromFileUri != null) {
+    setValueByPath(toObject, ["fileUri"], fromFileUri);
+  }
+  const fromMimeType = getValueByPath(fromObject, ["mimeType"]);
+  if (fromMimeType != null) {
+    setValueByPath(toObject, ["mimeType"], fromMimeType);
+  }
+  return toObject;
+}
+function generateContentConfigToMldev$1(apiClient, fromObject, parentObject) {
+  const toObject = {};
+  const fromSystemInstruction = getValueByPath(fromObject, [
+    "systemInstruction"
+  ]);
+  if (parentObject !== undefined && fromSystemInstruction != null) {
+    setValueByPath(parentObject, ["systemInstruction"], contentToMldev$4(tContent(fromSystemInstruction)));
+  }
+  const fromTemperature = getValueByPath(fromObject, ["temperature"]);
+  if (fromTemperature != null) {
+    setValueByPath(toObject, ["temperature"], fromTemperature);
+  }
+  const fromTopP = getValueByPath(fromObject, ["topP"]);
+  if (fromTopP != null) {
+    setValueByPath(toObject, ["topP"], fromTopP);
+  }
+  const fromTopK = getValueByPath(fromObject, ["topK"]);
+  if (fromTopK != null) {
+    setValueByPath(toObject, ["topK"], fromTopK);
+  }
+  const fromCandidateCount = getValueByPath(fromObject, [
+    "candidateCount"
+  ]);
+  if (fromCandidateCount != null) {
+    setValueByPath(toObject, ["candidateCount"], fromCandidateCount);
+  }
+  const fromMaxOutputTokens = getValueByPath(fromObject, [
+    "maxOutputTokens"
+  ]);
+  if (fromMaxOutputTokens != null) {
+    setValueByPath(toObject, ["maxOutputTokens"], fromMaxOutputTokens);
+  }
+  const fromStopSequences = getValueByPath(fromObject, [
+    "stopSequences"
+  ]);
+  if (fromStopSequences != null) {
+    setValueByPath(toObject, ["stopSequences"], fromStopSequences);
+  }
+  const fromResponseLogprobs = getValueByPath(fromObject, [
+    "responseLogprobs"
+  ]);
+  if (fromResponseLogprobs != null) {
+    setValueByPath(toObject, ["responseLogprobs"], fromResponseLogprobs);
+  }
+  const fromLogprobs = getValueByPath(fromObject, ["logprobs"]);
+  if (fromLogprobs != null) {
+    setValueByPath(toObject, ["logprobs"], fromLogprobs);
+  }
+  const fromPresencePenalty = getValueByPath(fromObject, [
+    "presencePenalty"
+  ]);
+  if (fromPresencePenalty != null) {
+    setValueByPath(toObject, ["presencePenalty"], fromPresencePenalty);
+  }
+  const fromFrequencyPenalty = getValueByPath(fromObject, [
+    "frequencyPenalty"
+  ]);
+  if (fromFrequencyPenalty != null) {
+    setValueByPath(toObject, ["frequencyPenalty"], fromFrequencyPenalty);
+  }
+  const fromSeed = getValueByPath(fromObject, ["seed"]);
+  if (fromSeed != null) {
+    setValueByPath(toObject, ["seed"], fromSeed);
+  }
+  const fromResponseMimeType = getValueByPath(fromObject, [
+    "responseMimeType"
+  ]);
+  if (fromResponseMimeType != null) {
+    setValueByPath(toObject, ["responseMimeType"], fromResponseMimeType);
+  }
+  const fromResponseSchema = getValueByPath(fromObject, [
+    "responseSchema"
+  ]);
+  if (fromResponseSchema != null) {
+    setValueByPath(toObject, ["responseSchema"], tSchema(fromResponseSchema));
+  }
+  const fromResponseJsonSchema = getValueByPath(fromObject, [
+    "responseJsonSchema"
+  ]);
+  if (fromResponseJsonSchema != null) {
+    setValueByPath(toObject, ["responseJsonSchema"], fromResponseJsonSchema);
+  }
+  if (getValueByPath(fromObject, ["routingConfig"]) !== undefined) {
+    throw new Error("routingConfig parameter is not supported in Gemini API.");
+  }
+  if (getValueByPath(fromObject, ["modelSelectionConfig"]) !== undefined) {
+    throw new Error("modelSelectionConfig parameter is not supported in Gemini API.");
+  }
+  const fromSafetySettings = getValueByPath(fromObject, [
+    "safetySettings"
+  ]);
+  if (parentObject !== undefined && fromSafetySettings != null) {
+    let transformedList = fromSafetySettings;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return safetySettingToMldev$1(item);
+      });
+    }
+    setValueByPath(parentObject, ["safetySettings"], transformedList);
+  }
+  const fromTools = getValueByPath(fromObject, ["tools"]);
+  if (parentObject !== undefined && fromTools != null) {
+    let transformedList = tTools(fromTools);
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return toolToMldev$4(tTool(item));
+      });
+    }
+    setValueByPath(parentObject, ["tools"], transformedList);
+  }
+  const fromToolConfig = getValueByPath(fromObject, ["toolConfig"]);
+  if (parentObject !== undefined && fromToolConfig != null) {
+    setValueByPath(parentObject, ["toolConfig"], fromToolConfig);
+  }
+  if (getValueByPath(fromObject, ["labels"]) !== undefined) {
+    throw new Error("labels parameter is not supported in Gemini API.");
+  }
+  const fromCachedContent = getValueByPath(fromObject, [
+    "cachedContent"
+  ]);
+  if (parentObject !== undefined && fromCachedContent != null) {
+    setValueByPath(parentObject, ["cachedContent"], tCachedContentName(apiClient, fromCachedContent));
+  }
+  const fromResponseModalities = getValueByPath(fromObject, [
+    "responseModalities"
+  ]);
+  if (fromResponseModalities != null) {
+    setValueByPath(toObject, ["responseModalities"], fromResponseModalities);
+  }
+  const fromMediaResolution = getValueByPath(fromObject, [
+    "mediaResolution"
+  ]);
+  if (fromMediaResolution != null) {
+    setValueByPath(toObject, ["mediaResolution"], fromMediaResolution);
+  }
+  const fromSpeechConfig = getValueByPath(fromObject, ["speechConfig"]);
+  if (fromSpeechConfig != null) {
+    setValueByPath(toObject, ["speechConfig"], tSpeechConfig(fromSpeechConfig));
+  }
+  if (getValueByPath(fromObject, ["audioTimestamp"]) !== undefined) {
+    throw new Error("audioTimestamp parameter is not supported in Gemini API.");
+  }
+  const fromThinkingConfig = getValueByPath(fromObject, [
+    "thinkingConfig"
+  ]);
+  if (fromThinkingConfig != null) {
+    setValueByPath(toObject, ["thinkingConfig"], fromThinkingConfig);
+  }
+  const fromImageConfig = getValueByPath(fromObject, ["imageConfig"]);
+  if (fromImageConfig != null) {
+    setValueByPath(toObject, ["imageConfig"], fromImageConfig);
+  }
+  return toObject;
+}
+function generateContentResponseFromMldev$1(fromObject) {
+  const toObject = {};
+  const fromSdkHttpResponse = getValueByPath(fromObject, [
+    "sdkHttpResponse"
+  ]);
+  if (fromSdkHttpResponse != null) {
+    setValueByPath(toObject, ["sdkHttpResponse"], fromSdkHttpResponse);
+  }
+  const fromCandidates = getValueByPath(fromObject, ["candidates"]);
+  if (fromCandidates != null) {
+    let transformedList = fromCandidates;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return candidateFromMldev$1(item);
+      });
+    }
+    setValueByPath(toObject, ["candidates"], transformedList);
+  }
+  const fromModelVersion = getValueByPath(fromObject, ["modelVersion"]);
+  if (fromModelVersion != null) {
+    setValueByPath(toObject, ["modelVersion"], fromModelVersion);
+  }
+  const fromPromptFeedback = getValueByPath(fromObject, [
+    "promptFeedback"
+  ]);
+  if (fromPromptFeedback != null) {
+    setValueByPath(toObject, ["promptFeedback"], fromPromptFeedback);
+  }
+  const fromResponseId = getValueByPath(fromObject, ["responseId"]);
+  if (fromResponseId != null) {
+    setValueByPath(toObject, ["responseId"], fromResponseId);
+  }
+  const fromUsageMetadata = getValueByPath(fromObject, [
+    "usageMetadata"
+  ]);
+  if (fromUsageMetadata != null) {
+    setValueByPath(toObject, ["usageMetadata"], fromUsageMetadata);
+  }
+  return toObject;
+}
+function getBatchJobParametersToMldev(apiClient, fromObject) {
+  const toObject = {};
+  const fromName = getValueByPath(fromObject, ["name"]);
+  if (fromName != null) {
+    setValueByPath(toObject, ["_url", "name"], tBatchJobName(apiClient, fromName));
+  }
+  return toObject;
+}
+function getBatchJobParametersToVertex(apiClient, fromObject) {
+  const toObject = {};
+  const fromName = getValueByPath(fromObject, ["name"]);
+  if (fromName != null) {
+    setValueByPath(toObject, ["_url", "name"], tBatchJobName(apiClient, fromName));
+  }
+  return toObject;
+}
+function googleMapsToMldev$4(fromObject) {
+  const toObject = {};
+  if (getValueByPath(fromObject, ["authConfig"]) !== undefined) {
+    throw new Error("authConfig parameter is not supported in Gemini API.");
+  }
+  const fromEnableWidget = getValueByPath(fromObject, ["enableWidget"]);
+  if (fromEnableWidget != null) {
+    setValueByPath(toObject, ["enableWidget"], fromEnableWidget);
+  }
+  return toObject;
+}
+function googleSearchToMldev$4(fromObject) {
+  const toObject = {};
+  const fromTimeRangeFilter = getValueByPath(fromObject, [
+    "timeRangeFilter"
+  ]);
+  if (fromTimeRangeFilter != null) {
+    setValueByPath(toObject, ["timeRangeFilter"], fromTimeRangeFilter);
+  }
+  if (getValueByPath(fromObject, ["excludeDomains"]) !== undefined) {
+    throw new Error("excludeDomains parameter is not supported in Gemini API.");
+  }
+  return toObject;
+}
+function inlinedRequestToMldev(apiClient, fromObject) {
+  const toObject = {};
+  const fromModel = getValueByPath(fromObject, ["model"]);
+  if (fromModel != null) {
+    setValueByPath(toObject, ["request", "model"], tModel(apiClient, fromModel));
+  }
+  const fromContents = getValueByPath(fromObject, ["contents"]);
+  if (fromContents != null) {
+    let transformedList = tContents(fromContents);
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return contentToMldev$4(item);
+      });
+    }
+    setValueByPath(toObject, ["request", "contents"], transformedList);
+  }
+  const fromMetadata = getValueByPath(fromObject, ["metadata"]);
+  if (fromMetadata != null) {
+    setValueByPath(toObject, ["metadata"], fromMetadata);
+  }
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    setValueByPath(toObject, ["request", "generationConfig"], generateContentConfigToMldev$1(apiClient, fromConfig, getValueByPath(toObject, ["request"], {})));
+  }
+  return toObject;
+}
+function inlinedResponseFromMldev(fromObject) {
+  const toObject = {};
+  const fromResponse = getValueByPath(fromObject, ["response"]);
+  if (fromResponse != null) {
+    setValueByPath(toObject, ["response"], generateContentResponseFromMldev$1(fromResponse));
+  }
+  const fromError = getValueByPath(fromObject, ["error"]);
+  if (fromError != null) {
+    setValueByPath(toObject, ["error"], fromError);
+  }
+  return toObject;
+}
+function listBatchJobsConfigToMldev(fromObject, parentObject) {
+  const toObject = {};
+  const fromPageSize = getValueByPath(fromObject, ["pageSize"]);
+  if (parentObject !== undefined && fromPageSize != null) {
+    setValueByPath(parentObject, ["_query", "pageSize"], fromPageSize);
+  }
+  const fromPageToken = getValueByPath(fromObject, ["pageToken"]);
+  if (parentObject !== undefined && fromPageToken != null) {
+    setValueByPath(parentObject, ["_query", "pageToken"], fromPageToken);
+  }
+  if (getValueByPath(fromObject, ["filter"]) !== undefined) {
+    throw new Error("filter parameter is not supported in Gemini API.");
+  }
+  return toObject;
+}
+function listBatchJobsConfigToVertex(fromObject, parentObject) {
+  const toObject = {};
+  const fromPageSize = getValueByPath(fromObject, ["pageSize"]);
+  if (parentObject !== undefined && fromPageSize != null) {
+    setValueByPath(parentObject, ["_query", "pageSize"], fromPageSize);
+  }
+  const fromPageToken = getValueByPath(fromObject, ["pageToken"]);
+  if (parentObject !== undefined && fromPageToken != null) {
+    setValueByPath(parentObject, ["_query", "pageToken"], fromPageToken);
+  }
+  const fromFilter = getValueByPath(fromObject, ["filter"]);
+  if (parentObject !== undefined && fromFilter != null) {
+    setValueByPath(parentObject, ["_query", "filter"], fromFilter);
+  }
+  return toObject;
+}
+function listBatchJobsParametersToMldev(fromObject) {
+  const toObject = {};
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    listBatchJobsConfigToMldev(fromConfig, toObject);
+  }
+  return toObject;
+}
+function listBatchJobsParametersToVertex(fromObject) {
+  const toObject = {};
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    listBatchJobsConfigToVertex(fromConfig, toObject);
+  }
+  return toObject;
+}
+function listBatchJobsResponseFromMldev(fromObject) {
+  const toObject = {};
+  const fromSdkHttpResponse = getValueByPath(fromObject, [
+    "sdkHttpResponse"
+  ]);
+  if (fromSdkHttpResponse != null) {
+    setValueByPath(toObject, ["sdkHttpResponse"], fromSdkHttpResponse);
+  }
+  const fromNextPageToken = getValueByPath(fromObject, [
+    "nextPageToken"
+  ]);
+  if (fromNextPageToken != null) {
+    setValueByPath(toObject, ["nextPageToken"], fromNextPageToken);
+  }
+  const fromBatchJobs = getValueByPath(fromObject, ["operations"]);
+  if (fromBatchJobs != null) {
+    let transformedList = fromBatchJobs;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return batchJobFromMldev(item);
+      });
+    }
+    setValueByPath(toObject, ["batchJobs"], transformedList);
+  }
+  return toObject;
+}
+function listBatchJobsResponseFromVertex(fromObject) {
+  const toObject = {};
+  const fromSdkHttpResponse = getValueByPath(fromObject, [
+    "sdkHttpResponse"
+  ]);
+  if (fromSdkHttpResponse != null) {
+    setValueByPath(toObject, ["sdkHttpResponse"], fromSdkHttpResponse);
+  }
+  const fromNextPageToken = getValueByPath(fromObject, [
+    "nextPageToken"
+  ]);
+  if (fromNextPageToken != null) {
+    setValueByPath(toObject, ["nextPageToken"], fromNextPageToken);
+  }
+  const fromBatchJobs = getValueByPath(fromObject, [
+    "batchPredictionJobs"
+  ]);
+  if (fromBatchJobs != null) {
+    let transformedList = fromBatchJobs;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return batchJobFromVertex(item);
+      });
+    }
+    setValueByPath(toObject, ["batchJobs"], transformedList);
+  }
+  return toObject;
+}
+function partToMldev$4(fromObject) {
+  const toObject = {};
+  const fromVideoMetadata = getValueByPath(fromObject, [
+    "videoMetadata"
+  ]);
+  if (fromVideoMetadata != null) {
+    setValueByPath(toObject, ["videoMetadata"], fromVideoMetadata);
+  }
+  const fromThought = getValueByPath(fromObject, ["thought"]);
+  if (fromThought != null) {
+    setValueByPath(toObject, ["thought"], fromThought);
+  }
+  const fromInlineData = getValueByPath(fromObject, ["inlineData"]);
+  if (fromInlineData != null) {
+    setValueByPath(toObject, ["inlineData"], blobToMldev$4(fromInlineData));
+  }
+  const fromFileData = getValueByPath(fromObject, ["fileData"]);
+  if (fromFileData != null) {
+    setValueByPath(toObject, ["fileData"], fileDataToMldev$4(fromFileData));
+  }
+  const fromThoughtSignature = getValueByPath(fromObject, [
+    "thoughtSignature"
+  ]);
+  if (fromThoughtSignature != null) {
+    setValueByPath(toObject, ["thoughtSignature"], fromThoughtSignature);
+  }
+  const fromFunctionCall = getValueByPath(fromObject, ["functionCall"]);
+  if (fromFunctionCall != null) {
+    setValueByPath(toObject, ["functionCall"], fromFunctionCall);
+  }
+  const fromCodeExecutionResult = getValueByPath(fromObject, [
+    "codeExecutionResult"
+  ]);
+  if (fromCodeExecutionResult != null) {
+    setValueByPath(toObject, ["codeExecutionResult"], fromCodeExecutionResult);
+  }
+  const fromExecutableCode = getValueByPath(fromObject, [
+    "executableCode"
+  ]);
+  if (fromExecutableCode != null) {
+    setValueByPath(toObject, ["executableCode"], fromExecutableCode);
+  }
+  const fromFunctionResponse = getValueByPath(fromObject, [
+    "functionResponse"
+  ]);
+  if (fromFunctionResponse != null) {
+    setValueByPath(toObject, ["functionResponse"], fromFunctionResponse);
+  }
+  const fromText = getValueByPath(fromObject, ["text"]);
+  if (fromText != null) {
+    setValueByPath(toObject, ["text"], fromText);
+  }
+  return toObject;
+}
+function safetySettingToMldev$1(fromObject) {
+  const toObject = {};
+  if (getValueByPath(fromObject, ["method"]) !== undefined) {
+    throw new Error("method parameter is not supported in Gemini API.");
+  }
+  const fromCategory = getValueByPath(fromObject, ["category"]);
+  if (fromCategory != null) {
+    setValueByPath(toObject, ["category"], fromCategory);
+  }
+  const fromThreshold = getValueByPath(fromObject, ["threshold"]);
+  if (fromThreshold != null) {
+    setValueByPath(toObject, ["threshold"], fromThreshold);
+  }
+  return toObject;
+}
+function toolToMldev$4(fromObject) {
+  const toObject = {};
+  const fromFunctionDeclarations = getValueByPath(fromObject, [
+    "functionDeclarations"
+  ]);
+  if (fromFunctionDeclarations != null) {
+    let transformedList = fromFunctionDeclarations;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return item;
+      });
+    }
+    setValueByPath(toObject, ["functionDeclarations"], transformedList);
+  }
+  if (getValueByPath(fromObject, ["retrieval"]) !== undefined) {
+    throw new Error("retrieval parameter is not supported in Gemini API.");
+  }
+  const fromGoogleSearch = getValueByPath(fromObject, ["googleSearch"]);
+  if (fromGoogleSearch != null) {
+    setValueByPath(toObject, ["googleSearch"], googleSearchToMldev$4(fromGoogleSearch));
+  }
+  const fromGoogleSearchRetrieval = getValueByPath(fromObject, [
+    "googleSearchRetrieval"
+  ]);
+  if (fromGoogleSearchRetrieval != null) {
+    setValueByPath(toObject, ["googleSearchRetrieval"], fromGoogleSearchRetrieval);
+  }
+  if (getValueByPath(fromObject, ["enterpriseWebSearch"]) !== undefined) {
+    throw new Error("enterpriseWebSearch parameter is not supported in Gemini API.");
+  }
+  const fromGoogleMaps = getValueByPath(fromObject, ["googleMaps"]);
+  if (fromGoogleMaps != null) {
+    setValueByPath(toObject, ["googleMaps"], googleMapsToMldev$4(fromGoogleMaps));
+  }
+  const fromUrlContext = getValueByPath(fromObject, ["urlContext"]);
+  if (fromUrlContext != null) {
+    setValueByPath(toObject, ["urlContext"], fromUrlContext);
+  }
+  const fromComputerUse = getValueByPath(fromObject, ["computerUse"]);
+  if (fromComputerUse != null) {
+    setValueByPath(toObject, ["computerUse"], fromComputerUse);
+  }
+  const fromCodeExecution = getValueByPath(fromObject, [
+    "codeExecution"
+  ]);
+  if (fromCodeExecution != null) {
+    setValueByPath(toObject, ["codeExecution"], fromCodeExecution);
+  }
+  return toObject;
+}
+var PagedItem;
+(function(PagedItem2) {
+  PagedItem2["PAGED_ITEM_BATCH_JOBS"] = "batchJobs";
+  PagedItem2["PAGED_ITEM_MODELS"] = "models";
+  PagedItem2["PAGED_ITEM_TUNING_JOBS"] = "tuningJobs";
+  PagedItem2["PAGED_ITEM_FILES"] = "files";
+  PagedItem2["PAGED_ITEM_CACHED_CONTENTS"] = "cachedContents";
+})(PagedItem || (PagedItem = {}));
+
+class Pager {
+  constructor(name, request, response, params) {
+    this.pageInternal = [];
+    this.paramsInternal = {};
+    this.requestInternal = request;
+    this.init(name, response, params);
+  }
+  init(name, response, params) {
+    var _a, _b;
+    this.nameInternal = name;
+    this.pageInternal = response[this.nameInternal] || [];
+    this.sdkHttpResponseInternal = response === null || response === undefined ? undefined : response.sdkHttpResponse;
+    this.idxInternal = 0;
+    let requestParams = { config: {} };
+    if (!params || Object.keys(params).length === 0) {
+      requestParams = { config: {} };
+    } else if (typeof params === "object") {
+      requestParams = Object.assign({}, params);
+    } else {
+      requestParams = params;
+    }
+    if (requestParams["config"]) {
+      requestParams["config"]["pageToken"] = response["nextPageToken"];
+    }
+    this.paramsInternal = requestParams;
+    this.pageInternalSize = (_b = (_a = requestParams["config"]) === null || _a === undefined ? undefined : _a["pageSize"]) !== null && _b !== undefined ? _b : this.pageInternal.length;
+  }
+  initNextPage(response) {
+    this.init(this.nameInternal, response, this.paramsInternal);
+  }
+  get page() {
+    return this.pageInternal;
+  }
+  get name() {
+    return this.nameInternal;
+  }
+  get pageSize() {
+    return this.pageInternalSize;
+  }
+  get sdkHttpResponse() {
+    return this.sdkHttpResponseInternal;
+  }
+  get params() {
+    return this.paramsInternal;
+  }
+  get pageLength() {
+    return this.pageInternal.length;
+  }
+  getItem(index) {
+    return this.pageInternal[index];
+  }
+  [Symbol.asyncIterator]() {
+    return {
+      next: async () => {
+        if (this.idxInternal >= this.pageLength) {
+          if (this.hasNextPage()) {
+            await this.nextPage();
+          } else {
+            return { value: undefined, done: true };
+          }
+        }
+        const item = this.getItem(this.idxInternal);
+        this.idxInternal += 1;
+        return { value: item, done: false };
+      },
+      return: async () => {
+        return { value: undefined, done: true };
+      }
+    };
+  }
+  async nextPage() {
+    if (!this.hasNextPage()) {
+      throw new Error("No more pages to fetch.");
+    }
+    const response = await this.requestInternal(this.params);
+    this.initNextPage(response);
+    return this.page;
+  }
+  hasNextPage() {
+    var _a;
+    if (((_a = this.params["config"]) === null || _a === undefined ? undefined : _a["pageToken"]) !== undefined) {
+      return true;
+    }
+    return false;
+  }
+}
+
+class Batches extends BaseModule {
+  constructor(apiClient) {
+    super();
+    this.apiClient = apiClient;
+    this.create = async (params) => {
+      if (this.apiClient.isVertexAI()) {
+        params.config = this.formatDestination(params.src, params.config);
+      }
+      return this.createInternal(params);
+    };
+    this.createEmbeddings = async (params) => {
+      console.warn("batches.createEmbeddings() is experimental and may change without notice.");
+      if (this.apiClient.isVertexAI()) {
+        throw new Error("Vertex AI does not support batches.createEmbeddings.");
+      }
+      return this.createEmbeddingsInternal(params);
+    };
+    this.list = async (params = {}) => {
+      return new Pager(PagedItem.PAGED_ITEM_BATCH_JOBS, (x) => this.listInternal(x), await this.listInternal(params), params);
+    };
+  }
+  createInlinedGenerateContentRequest(params) {
+    const body = createBatchJobParametersToMldev(this.apiClient, params);
+    const urlParams = body["_url"];
+    const path = formatMap("{model}:batchGenerateContent", urlParams);
+    const batch = body["batch"];
+    const inputConfig = batch["inputConfig"];
+    const requestsWrapper = inputConfig["requests"];
+    const requests = requestsWrapper["requests"];
+    const newRequests = [];
+    for (const request of requests) {
+      const requestDict = Object.assign({}, request);
+      if (requestDict["systemInstruction"]) {
+        const systemInstructionValue = requestDict["systemInstruction"];
+        delete requestDict["systemInstruction"];
+        const requestContent = requestDict["request"];
+        requestContent["systemInstruction"] = systemInstructionValue;
+        requestDict["request"] = requestContent;
+      }
+      newRequests.push(requestDict);
+    }
+    requestsWrapper["requests"] = newRequests;
+    delete body["config"];
+    delete body["_url"];
+    delete body["_query"];
+    return { path, body };
+  }
+  getGcsUri(src) {
+    if (typeof src === "string") {
+      return src.startsWith("gs://") ? src : undefined;
+    }
+    if (!Array.isArray(src) && src.gcsUri && src.gcsUri.length > 0) {
+      return src.gcsUri[0];
+    }
+    return;
+  }
+  getBigqueryUri(src) {
+    if (typeof src === "string") {
+      return src.startsWith("bq://") ? src : undefined;
+    }
+    if (!Array.isArray(src)) {
+      return src.bigqueryUri;
+    }
+    return;
+  }
+  formatDestination(src, config) {
+    const newConfig = config ? Object.assign({}, config) : {};
+    const timestampStr = Date.now().toString();
+    if (!newConfig.displayName) {
+      newConfig.displayName = `genaiBatchJob_${timestampStr}`;
+    }
+    if (newConfig.dest === undefined) {
+      const gcsUri = this.getGcsUri(src);
+      const bigqueryUri = this.getBigqueryUri(src);
+      if (gcsUri) {
+        if (gcsUri.endsWith(".jsonl")) {
+          newConfig.dest = `${gcsUri.slice(0, -6)}/dest`;
+        } else {
+          newConfig.dest = `${gcsUri}_dest_${timestampStr}`;
+        }
+      } else if (bigqueryUri) {
+        newConfig.dest = `${bigqueryUri}_dest_${timestampStr}`;
+      } else {
+        throw new Error("Unsupported source for Vertex AI: No GCS or BigQuery URI found.");
+      }
+    }
+    return newConfig;
+  }
+  async createInternal(params) {
+    var _a, _b, _c, _d;
+    let response;
+    let path = "";
+    let queryParams = {};
+    if (this.apiClient.isVertexAI()) {
+      const body = createBatchJobParametersToVertex(this.apiClient, params);
+      path = formatMap("batchPredictionJobs", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "POST",
+        httpOptions: (_a = params.config) === null || _a === undefined ? undefined : _a.httpOptions,
+        abortSignal: (_b = params.config) === null || _b === undefined ? undefined : _b.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json();
+      });
+      return response.then((apiResponse) => {
+        const resp = batchJobFromVertex(apiResponse);
+        return resp;
+      });
+    } else {
+      const body = createBatchJobParametersToMldev(this.apiClient, params);
+      path = formatMap("{model}:batchGenerateContent", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "POST",
+        httpOptions: (_c = params.config) === null || _c === undefined ? undefined : _c.httpOptions,
+        abortSignal: (_d = params.config) === null || _d === undefined ? undefined : _d.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json();
+      });
+      return response.then((apiResponse) => {
+        const resp = batchJobFromMldev(apiResponse);
+        return resp;
+      });
+    }
+  }
+  async createEmbeddingsInternal(params) {
+    var _a, _b;
+    let response;
+    let path = "";
+    let queryParams = {};
+    if (this.apiClient.isVertexAI()) {
+      throw new Error("This method is only supported by the Gemini Developer API.");
+    } else {
+      const body = createEmbeddingsBatchJobParametersToMldev(this.apiClient, params);
+      path = formatMap("{model}:asyncBatchEmbedContent", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "POST",
+        httpOptions: (_a = params.config) === null || _a === undefined ? undefined : _a.httpOptions,
+        abortSignal: (_b = params.config) === null || _b === undefined ? undefined : _b.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json();
+      });
+      return response.then((apiResponse) => {
+        const resp = batchJobFromMldev(apiResponse);
+        return resp;
+      });
+    }
+  }
+  async get(params) {
+    var _a, _b, _c, _d;
+    let response;
+    let path = "";
+    let queryParams = {};
+    if (this.apiClient.isVertexAI()) {
+      const body = getBatchJobParametersToVertex(this.apiClient, params);
+      path = formatMap("batchPredictionJobs/{name}", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "GET",
+        httpOptions: (_a = params.config) === null || _a === undefined ? undefined : _a.httpOptions,
+        abortSignal: (_b = params.config) === null || _b === undefined ? undefined : _b.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json();
+      });
+      return response.then((apiResponse) => {
+        const resp = batchJobFromVertex(apiResponse);
+        return resp;
+      });
+    } else {
+      const body = getBatchJobParametersToMldev(this.apiClient, params);
+      path = formatMap("batches/{name}", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "GET",
+        httpOptions: (_c = params.config) === null || _c === undefined ? undefined : _c.httpOptions,
+        abortSignal: (_d = params.config) === null || _d === undefined ? undefined : _d.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json();
+      });
+      return response.then((apiResponse) => {
+        const resp = batchJobFromMldev(apiResponse);
+        return resp;
+      });
+    }
+  }
+  async cancel(params) {
+    var _a, _b, _c, _d;
+    let path = "";
+    let queryParams = {};
+    if (this.apiClient.isVertexAI()) {
+      const body = cancelBatchJobParametersToVertex(this.apiClient, params);
+      path = formatMap("batchPredictionJobs/{name}:cancel", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      await this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "POST",
+        httpOptions: (_a = params.config) === null || _a === undefined ? undefined : _a.httpOptions,
+        abortSignal: (_b = params.config) === null || _b === undefined ? undefined : _b.abortSignal
+      });
+    } else {
+      const body = cancelBatchJobParametersToMldev(this.apiClient, params);
+      path = formatMap("batches/{name}:cancel", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      await this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "POST",
+        httpOptions: (_c = params.config) === null || _c === undefined ? undefined : _c.httpOptions,
+        abortSignal: (_d = params.config) === null || _d === undefined ? undefined : _d.abortSignal
+      });
+    }
+  }
+  async listInternal(params) {
+    var _a, _b, _c, _d;
+    let response;
+    let path = "";
+    let queryParams = {};
+    if (this.apiClient.isVertexAI()) {
+      const body = listBatchJobsParametersToVertex(params);
+      path = formatMap("batchPredictionJobs", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "GET",
+        httpOptions: (_a = params.config) === null || _a === undefined ? undefined : _a.httpOptions,
+        abortSignal: (_b = params.config) === null || _b === undefined ? undefined : _b.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json().then((jsonResponse) => {
+          const response2 = jsonResponse;
+          response2.sdkHttpResponse = {
+            headers: httpResponse.headers
+          };
+          return response2;
+        });
+      });
+      return response.then((apiResponse) => {
+        const resp = listBatchJobsResponseFromVertex(apiResponse);
+        const typedResp = new ListBatchJobsResponse;
+        Object.assign(typedResp, resp);
+        return typedResp;
+      });
+    } else {
+      const body = listBatchJobsParametersToMldev(params);
+      path = formatMap("batches", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "GET",
+        httpOptions: (_c = params.config) === null || _c === undefined ? undefined : _c.httpOptions,
+        abortSignal: (_d = params.config) === null || _d === undefined ? undefined : _d.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json().then((jsonResponse) => {
+          const response2 = jsonResponse;
+          response2.sdkHttpResponse = {
+            headers: httpResponse.headers
+          };
+          return response2;
+        });
+      });
+      return response.then((apiResponse) => {
+        const resp = listBatchJobsResponseFromMldev(apiResponse);
+        const typedResp = new ListBatchJobsResponse;
+        Object.assign(typedResp, resp);
+        return typedResp;
+      });
+    }
+  }
+  async delete(params) {
+    var _a, _b, _c, _d;
+    let response;
+    let path = "";
+    let queryParams = {};
+    if (this.apiClient.isVertexAI()) {
+      const body = deleteBatchJobParametersToVertex(this.apiClient, params);
+      path = formatMap("batchPredictionJobs/{name}", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "DELETE",
+        httpOptions: (_a = params.config) === null || _a === undefined ? undefined : _a.httpOptions,
+        abortSignal: (_b = params.config) === null || _b === undefined ? undefined : _b.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json().then((jsonResponse) => {
+          const response2 = jsonResponse;
+          response2.sdkHttpResponse = {
+            headers: httpResponse.headers
+          };
+          return response2;
+        });
+      });
+      return response.then((apiResponse) => {
+        const resp = deleteResourceJobFromVertex(apiResponse);
+        return resp;
+      });
+    } else {
+      const body = deleteBatchJobParametersToMldev(this.apiClient, params);
+      path = formatMap("batches/{name}", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "DELETE",
+        httpOptions: (_c = params.config) === null || _c === undefined ? undefined : _c.httpOptions,
+        abortSignal: (_d = params.config) === null || _d === undefined ? undefined : _d.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json().then((jsonResponse) => {
+          const response2 = jsonResponse;
+          response2.sdkHttpResponse = {
+            headers: httpResponse.headers
+          };
+          return response2;
+        });
+      });
+      return response.then((apiResponse) => {
+        const resp = deleteResourceJobFromMldev(apiResponse);
+        return resp;
+      });
+    }
+  }
+}
+function blobToMldev$3(fromObject) {
+  const toObject = {};
+  if (getValueByPath(fromObject, ["displayName"]) !== undefined) {
+    throw new Error("displayName parameter is not supported in Gemini API.");
+  }
+  const fromData = getValueByPath(fromObject, ["data"]);
+  if (fromData != null) {
+    setValueByPath(toObject, ["data"], fromData);
+  }
+  const fromMimeType = getValueByPath(fromObject, ["mimeType"]);
+  if (fromMimeType != null) {
+    setValueByPath(toObject, ["mimeType"], fromMimeType);
+  }
+  return toObject;
+}
+function contentToMldev$3(fromObject) {
+  const toObject = {};
+  const fromParts = getValueByPath(fromObject, ["parts"]);
+  if (fromParts != null) {
+    let transformedList = fromParts;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return partToMldev$3(item);
+      });
+    }
+    setValueByPath(toObject, ["parts"], transformedList);
+  }
+  const fromRole = getValueByPath(fromObject, ["role"]);
+  if (fromRole != null) {
+    setValueByPath(toObject, ["role"], fromRole);
+  }
+  return toObject;
+}
+function createCachedContentConfigToMldev(fromObject, parentObject) {
+  const toObject = {};
+  const fromTtl = getValueByPath(fromObject, ["ttl"]);
+  if (parentObject !== undefined && fromTtl != null) {
+    setValueByPath(parentObject, ["ttl"], fromTtl);
+  }
+  const fromExpireTime = getValueByPath(fromObject, ["expireTime"]);
+  if (parentObject !== undefined && fromExpireTime != null) {
+    setValueByPath(parentObject, ["expireTime"], fromExpireTime);
+  }
+  const fromDisplayName = getValueByPath(fromObject, ["displayName"]);
+  if (parentObject !== undefined && fromDisplayName != null) {
+    setValueByPath(parentObject, ["displayName"], fromDisplayName);
+  }
+  const fromContents = getValueByPath(fromObject, ["contents"]);
+  if (parentObject !== undefined && fromContents != null) {
+    let transformedList = tContents(fromContents);
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return contentToMldev$3(item);
+      });
+    }
+    setValueByPath(parentObject, ["contents"], transformedList);
+  }
+  const fromSystemInstruction = getValueByPath(fromObject, [
+    "systemInstruction"
+  ]);
+  if (parentObject !== undefined && fromSystemInstruction != null) {
+    setValueByPath(parentObject, ["systemInstruction"], contentToMldev$3(tContent(fromSystemInstruction)));
+  }
+  const fromTools = getValueByPath(fromObject, ["tools"]);
+  if (parentObject !== undefined && fromTools != null) {
+    let transformedList = fromTools;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return toolToMldev$3(item);
+      });
+    }
+    setValueByPath(parentObject, ["tools"], transformedList);
+  }
+  const fromToolConfig = getValueByPath(fromObject, ["toolConfig"]);
+  if (parentObject !== undefined && fromToolConfig != null) {
+    setValueByPath(parentObject, ["toolConfig"], fromToolConfig);
+  }
+  if (getValueByPath(fromObject, ["kmsKeyName"]) !== undefined) {
+    throw new Error("kmsKeyName parameter is not supported in Gemini API.");
+  }
+  return toObject;
+}
+function createCachedContentConfigToVertex(fromObject, parentObject) {
+  const toObject = {};
+  const fromTtl = getValueByPath(fromObject, ["ttl"]);
+  if (parentObject !== undefined && fromTtl != null) {
+    setValueByPath(parentObject, ["ttl"], fromTtl);
+  }
+  const fromExpireTime = getValueByPath(fromObject, ["expireTime"]);
+  if (parentObject !== undefined && fromExpireTime != null) {
+    setValueByPath(parentObject, ["expireTime"], fromExpireTime);
+  }
+  const fromDisplayName = getValueByPath(fromObject, ["displayName"]);
+  if (parentObject !== undefined && fromDisplayName != null) {
+    setValueByPath(parentObject, ["displayName"], fromDisplayName);
+  }
+  const fromContents = getValueByPath(fromObject, ["contents"]);
+  if (parentObject !== undefined && fromContents != null) {
+    let transformedList = tContents(fromContents);
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return item;
+      });
+    }
+    setValueByPath(parentObject, ["contents"], transformedList);
+  }
+  const fromSystemInstruction = getValueByPath(fromObject, [
+    "systemInstruction"
+  ]);
+  if (parentObject !== undefined && fromSystemInstruction != null) {
+    setValueByPath(parentObject, ["systemInstruction"], tContent(fromSystemInstruction));
+  }
+  const fromTools = getValueByPath(fromObject, ["tools"]);
+  if (parentObject !== undefined && fromTools != null) {
+    let transformedList = fromTools;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return toolToVertex$2(item);
+      });
+    }
+    setValueByPath(parentObject, ["tools"], transformedList);
+  }
+  const fromToolConfig = getValueByPath(fromObject, ["toolConfig"]);
+  if (parentObject !== undefined && fromToolConfig != null) {
+    setValueByPath(parentObject, ["toolConfig"], fromToolConfig);
+  }
+  const fromKmsKeyName = getValueByPath(fromObject, ["kmsKeyName"]);
+  if (parentObject !== undefined && fromKmsKeyName != null) {
+    setValueByPath(parentObject, ["encryption_spec", "kmsKeyName"], fromKmsKeyName);
+  }
+  return toObject;
+}
+function createCachedContentParametersToMldev(apiClient, fromObject) {
+  const toObject = {};
+  const fromModel = getValueByPath(fromObject, ["model"]);
+  if (fromModel != null) {
+    setValueByPath(toObject, ["model"], tCachesModel(apiClient, fromModel));
+  }
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    createCachedContentConfigToMldev(fromConfig, toObject);
+  }
+  return toObject;
+}
+function createCachedContentParametersToVertex(apiClient, fromObject) {
+  const toObject = {};
+  const fromModel = getValueByPath(fromObject, ["model"]);
+  if (fromModel != null) {
+    setValueByPath(toObject, ["model"], tCachesModel(apiClient, fromModel));
+  }
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    createCachedContentConfigToVertex(fromConfig, toObject);
+  }
+  return toObject;
+}
+function deleteCachedContentParametersToMldev(apiClient, fromObject) {
+  const toObject = {};
+  const fromName = getValueByPath(fromObject, ["name"]);
+  if (fromName != null) {
+    setValueByPath(toObject, ["_url", "name"], tCachedContentName(apiClient, fromName));
+  }
+  return toObject;
+}
+function deleteCachedContentParametersToVertex(apiClient, fromObject) {
+  const toObject = {};
+  const fromName = getValueByPath(fromObject, ["name"]);
+  if (fromName != null) {
+    setValueByPath(toObject, ["_url", "name"], tCachedContentName(apiClient, fromName));
+  }
+  return toObject;
+}
+function deleteCachedContentResponseFromMldev(fromObject) {
+  const toObject = {};
+  const fromSdkHttpResponse = getValueByPath(fromObject, [
+    "sdkHttpResponse"
+  ]);
+  if (fromSdkHttpResponse != null) {
+    setValueByPath(toObject, ["sdkHttpResponse"], fromSdkHttpResponse);
+  }
+  return toObject;
+}
+function deleteCachedContentResponseFromVertex(fromObject) {
+  const toObject = {};
+  const fromSdkHttpResponse = getValueByPath(fromObject, [
+    "sdkHttpResponse"
+  ]);
+  if (fromSdkHttpResponse != null) {
+    setValueByPath(toObject, ["sdkHttpResponse"], fromSdkHttpResponse);
+  }
+  return toObject;
+}
+function fileDataToMldev$3(fromObject) {
+  const toObject = {};
+  if (getValueByPath(fromObject, ["displayName"]) !== undefined) {
+    throw new Error("displayName parameter is not supported in Gemini API.");
+  }
+  const fromFileUri = getValueByPath(fromObject, ["fileUri"]);
+  if (fromFileUri != null) {
+    setValueByPath(toObject, ["fileUri"], fromFileUri);
+  }
+  const fromMimeType = getValueByPath(fromObject, ["mimeType"]);
+  if (fromMimeType != null) {
+    setValueByPath(toObject, ["mimeType"], fromMimeType);
+  }
+  return toObject;
+}
+function functionDeclarationToVertex$2(fromObject) {
+  const toObject = {};
+  if (getValueByPath(fromObject, ["behavior"]) !== undefined) {
+    throw new Error("behavior parameter is not supported in Vertex AI.");
+  }
+  const fromDescription = getValueByPath(fromObject, ["description"]);
+  if (fromDescription != null) {
+    setValueByPath(toObject, ["description"], fromDescription);
+  }
+  const fromName = getValueByPath(fromObject, ["name"]);
+  if (fromName != null) {
+    setValueByPath(toObject, ["name"], fromName);
+  }
+  const fromParameters = getValueByPath(fromObject, ["parameters"]);
+  if (fromParameters != null) {
+    setValueByPath(toObject, ["parameters"], fromParameters);
+  }
+  const fromParametersJsonSchema = getValueByPath(fromObject, [
+    "parametersJsonSchema"
+  ]);
+  if (fromParametersJsonSchema != null) {
+    setValueByPath(toObject, ["parametersJsonSchema"], fromParametersJsonSchema);
+  }
+  const fromResponse = getValueByPath(fromObject, ["response"]);
+  if (fromResponse != null) {
+    setValueByPath(toObject, ["response"], fromResponse);
+  }
+  const fromResponseJsonSchema = getValueByPath(fromObject, [
+    "responseJsonSchema"
+  ]);
+  if (fromResponseJsonSchema != null) {
+    setValueByPath(toObject, ["responseJsonSchema"], fromResponseJsonSchema);
+  }
+  return toObject;
+}
+function getCachedContentParametersToMldev(apiClient, fromObject) {
+  const toObject = {};
+  const fromName = getValueByPath(fromObject, ["name"]);
+  if (fromName != null) {
+    setValueByPath(toObject, ["_url", "name"], tCachedContentName(apiClient, fromName));
+  }
+  return toObject;
+}
+function getCachedContentParametersToVertex(apiClient, fromObject) {
+  const toObject = {};
+  const fromName = getValueByPath(fromObject, ["name"]);
+  if (fromName != null) {
+    setValueByPath(toObject, ["_url", "name"], tCachedContentName(apiClient, fromName));
+  }
+  return toObject;
+}
+function googleMapsToMldev$3(fromObject) {
+  const toObject = {};
+  if (getValueByPath(fromObject, ["authConfig"]) !== undefined) {
+    throw new Error("authConfig parameter is not supported in Gemini API.");
+  }
+  const fromEnableWidget = getValueByPath(fromObject, ["enableWidget"]);
+  if (fromEnableWidget != null) {
+    setValueByPath(toObject, ["enableWidget"], fromEnableWidget);
+  }
+  return toObject;
+}
+function googleSearchToMldev$3(fromObject) {
+  const toObject = {};
+  const fromTimeRangeFilter = getValueByPath(fromObject, [
+    "timeRangeFilter"
+  ]);
+  if (fromTimeRangeFilter != null) {
+    setValueByPath(toObject, ["timeRangeFilter"], fromTimeRangeFilter);
+  }
+  if (getValueByPath(fromObject, ["excludeDomains"]) !== undefined) {
+    throw new Error("excludeDomains parameter is not supported in Gemini API.");
+  }
+  return toObject;
+}
+function listCachedContentsConfigToMldev(fromObject, parentObject) {
+  const toObject = {};
+  const fromPageSize = getValueByPath(fromObject, ["pageSize"]);
+  if (parentObject !== undefined && fromPageSize != null) {
+    setValueByPath(parentObject, ["_query", "pageSize"], fromPageSize);
+  }
+  const fromPageToken = getValueByPath(fromObject, ["pageToken"]);
+  if (parentObject !== undefined && fromPageToken != null) {
+    setValueByPath(parentObject, ["_query", "pageToken"], fromPageToken);
+  }
+  return toObject;
+}
+function listCachedContentsConfigToVertex(fromObject, parentObject) {
+  const toObject = {};
+  const fromPageSize = getValueByPath(fromObject, ["pageSize"]);
+  if (parentObject !== undefined && fromPageSize != null) {
+    setValueByPath(parentObject, ["_query", "pageSize"], fromPageSize);
+  }
+  const fromPageToken = getValueByPath(fromObject, ["pageToken"]);
+  if (parentObject !== undefined && fromPageToken != null) {
+    setValueByPath(parentObject, ["_query", "pageToken"], fromPageToken);
+  }
+  return toObject;
+}
+function listCachedContentsParametersToMldev(fromObject) {
+  const toObject = {};
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    listCachedContentsConfigToMldev(fromConfig, toObject);
+  }
+  return toObject;
+}
+function listCachedContentsParametersToVertex(fromObject) {
+  const toObject = {};
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    listCachedContentsConfigToVertex(fromConfig, toObject);
+  }
+  return toObject;
+}
+function listCachedContentsResponseFromMldev(fromObject) {
+  const toObject = {};
+  const fromSdkHttpResponse = getValueByPath(fromObject, [
+    "sdkHttpResponse"
+  ]);
+  if (fromSdkHttpResponse != null) {
+    setValueByPath(toObject, ["sdkHttpResponse"], fromSdkHttpResponse);
+  }
+  const fromNextPageToken = getValueByPath(fromObject, [
+    "nextPageToken"
+  ]);
+  if (fromNextPageToken != null) {
+    setValueByPath(toObject, ["nextPageToken"], fromNextPageToken);
+  }
+  const fromCachedContents = getValueByPath(fromObject, [
+    "cachedContents"
+  ]);
+  if (fromCachedContents != null) {
+    let transformedList = fromCachedContents;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return item;
+      });
+    }
+    setValueByPath(toObject, ["cachedContents"], transformedList);
+  }
+  return toObject;
+}
+function listCachedContentsResponseFromVertex(fromObject) {
+  const toObject = {};
+  const fromSdkHttpResponse = getValueByPath(fromObject, [
+    "sdkHttpResponse"
+  ]);
+  if (fromSdkHttpResponse != null) {
+    setValueByPath(toObject, ["sdkHttpResponse"], fromSdkHttpResponse);
+  }
+  const fromNextPageToken = getValueByPath(fromObject, [
+    "nextPageToken"
+  ]);
+  if (fromNextPageToken != null) {
+    setValueByPath(toObject, ["nextPageToken"], fromNextPageToken);
+  }
+  const fromCachedContents = getValueByPath(fromObject, [
+    "cachedContents"
+  ]);
+  if (fromCachedContents != null) {
+    let transformedList = fromCachedContents;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return item;
+      });
+    }
+    setValueByPath(toObject, ["cachedContents"], transformedList);
+  }
+  return toObject;
+}
+function partToMldev$3(fromObject) {
+  const toObject = {};
+  const fromVideoMetadata = getValueByPath(fromObject, [
+    "videoMetadata"
+  ]);
+  if (fromVideoMetadata != null) {
+    setValueByPath(toObject, ["videoMetadata"], fromVideoMetadata);
+  }
+  const fromThought = getValueByPath(fromObject, ["thought"]);
+  if (fromThought != null) {
+    setValueByPath(toObject, ["thought"], fromThought);
+  }
+  const fromInlineData = getValueByPath(fromObject, ["inlineData"]);
+  if (fromInlineData != null) {
+    setValueByPath(toObject, ["inlineData"], blobToMldev$3(fromInlineData));
+  }
+  const fromFileData = getValueByPath(fromObject, ["fileData"]);
+  if (fromFileData != null) {
+    setValueByPath(toObject, ["fileData"], fileDataToMldev$3(fromFileData));
+  }
+  const fromThoughtSignature = getValueByPath(fromObject, [
+    "thoughtSignature"
+  ]);
+  if (fromThoughtSignature != null) {
+    setValueByPath(toObject, ["thoughtSignature"], fromThoughtSignature);
+  }
+  const fromFunctionCall = getValueByPath(fromObject, ["functionCall"]);
+  if (fromFunctionCall != null) {
+    setValueByPath(toObject, ["functionCall"], fromFunctionCall);
+  }
+  const fromCodeExecutionResult = getValueByPath(fromObject, [
+    "codeExecutionResult"
+  ]);
+  if (fromCodeExecutionResult != null) {
+    setValueByPath(toObject, ["codeExecutionResult"], fromCodeExecutionResult);
+  }
+  const fromExecutableCode = getValueByPath(fromObject, [
+    "executableCode"
+  ]);
+  if (fromExecutableCode != null) {
+    setValueByPath(toObject, ["executableCode"], fromExecutableCode);
+  }
+  const fromFunctionResponse = getValueByPath(fromObject, [
+    "functionResponse"
+  ]);
+  if (fromFunctionResponse != null) {
+    setValueByPath(toObject, ["functionResponse"], fromFunctionResponse);
+  }
+  const fromText = getValueByPath(fromObject, ["text"]);
+  if (fromText != null) {
+    setValueByPath(toObject, ["text"], fromText);
+  }
+  return toObject;
+}
+function toolToMldev$3(fromObject) {
+  const toObject = {};
+  const fromFunctionDeclarations = getValueByPath(fromObject, [
+    "functionDeclarations"
+  ]);
+  if (fromFunctionDeclarations != null) {
+    let transformedList = fromFunctionDeclarations;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return item;
+      });
+    }
+    setValueByPath(toObject, ["functionDeclarations"], transformedList);
+  }
+  if (getValueByPath(fromObject, ["retrieval"]) !== undefined) {
+    throw new Error("retrieval parameter is not supported in Gemini API.");
+  }
+  const fromGoogleSearch = getValueByPath(fromObject, ["googleSearch"]);
+  if (fromGoogleSearch != null) {
+    setValueByPath(toObject, ["googleSearch"], googleSearchToMldev$3(fromGoogleSearch));
+  }
+  const fromGoogleSearchRetrieval = getValueByPath(fromObject, [
+    "googleSearchRetrieval"
+  ]);
+  if (fromGoogleSearchRetrieval != null) {
+    setValueByPath(toObject, ["googleSearchRetrieval"], fromGoogleSearchRetrieval);
+  }
+  if (getValueByPath(fromObject, ["enterpriseWebSearch"]) !== undefined) {
+    throw new Error("enterpriseWebSearch parameter is not supported in Gemini API.");
+  }
+  const fromGoogleMaps = getValueByPath(fromObject, ["googleMaps"]);
+  if (fromGoogleMaps != null) {
+    setValueByPath(toObject, ["googleMaps"], googleMapsToMldev$3(fromGoogleMaps));
+  }
+  const fromUrlContext = getValueByPath(fromObject, ["urlContext"]);
+  if (fromUrlContext != null) {
+    setValueByPath(toObject, ["urlContext"], fromUrlContext);
+  }
+  const fromComputerUse = getValueByPath(fromObject, ["computerUse"]);
+  if (fromComputerUse != null) {
+    setValueByPath(toObject, ["computerUse"], fromComputerUse);
+  }
+  const fromCodeExecution = getValueByPath(fromObject, [
+    "codeExecution"
+  ]);
+  if (fromCodeExecution != null) {
+    setValueByPath(toObject, ["codeExecution"], fromCodeExecution);
+  }
+  return toObject;
+}
+function toolToVertex$2(fromObject) {
+  const toObject = {};
+  const fromFunctionDeclarations = getValueByPath(fromObject, [
+    "functionDeclarations"
+  ]);
+  if (fromFunctionDeclarations != null) {
+    let transformedList = fromFunctionDeclarations;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return functionDeclarationToVertex$2(item);
+      });
+    }
+    setValueByPath(toObject, ["functionDeclarations"], transformedList);
+  }
+  const fromRetrieval = getValueByPath(fromObject, ["retrieval"]);
+  if (fromRetrieval != null) {
+    setValueByPath(toObject, ["retrieval"], fromRetrieval);
+  }
+  const fromGoogleSearch = getValueByPath(fromObject, ["googleSearch"]);
+  if (fromGoogleSearch != null) {
+    setValueByPath(toObject, ["googleSearch"], fromGoogleSearch);
+  }
+  const fromGoogleSearchRetrieval = getValueByPath(fromObject, [
+    "googleSearchRetrieval"
+  ]);
+  if (fromGoogleSearchRetrieval != null) {
+    setValueByPath(toObject, ["googleSearchRetrieval"], fromGoogleSearchRetrieval);
+  }
+  const fromEnterpriseWebSearch = getValueByPath(fromObject, [
+    "enterpriseWebSearch"
+  ]);
+  if (fromEnterpriseWebSearch != null) {
+    setValueByPath(toObject, ["enterpriseWebSearch"], fromEnterpriseWebSearch);
+  }
+  const fromGoogleMaps = getValueByPath(fromObject, ["googleMaps"]);
+  if (fromGoogleMaps != null) {
+    setValueByPath(toObject, ["googleMaps"], fromGoogleMaps);
+  }
+  const fromUrlContext = getValueByPath(fromObject, ["urlContext"]);
+  if (fromUrlContext != null) {
+    setValueByPath(toObject, ["urlContext"], fromUrlContext);
+  }
+  const fromComputerUse = getValueByPath(fromObject, ["computerUse"]);
+  if (fromComputerUse != null) {
+    setValueByPath(toObject, ["computerUse"], fromComputerUse);
+  }
+  const fromCodeExecution = getValueByPath(fromObject, [
+    "codeExecution"
+  ]);
+  if (fromCodeExecution != null) {
+    setValueByPath(toObject, ["codeExecution"], fromCodeExecution);
+  }
+  return toObject;
+}
+function updateCachedContentConfigToMldev(fromObject, parentObject) {
+  const toObject = {};
+  const fromTtl = getValueByPath(fromObject, ["ttl"]);
+  if (parentObject !== undefined && fromTtl != null) {
+    setValueByPath(parentObject, ["ttl"], fromTtl);
+  }
+  const fromExpireTime = getValueByPath(fromObject, ["expireTime"]);
+  if (parentObject !== undefined && fromExpireTime != null) {
+    setValueByPath(parentObject, ["expireTime"], fromExpireTime);
+  }
+  return toObject;
+}
+function updateCachedContentConfigToVertex(fromObject, parentObject) {
+  const toObject = {};
+  const fromTtl = getValueByPath(fromObject, ["ttl"]);
+  if (parentObject !== undefined && fromTtl != null) {
+    setValueByPath(parentObject, ["ttl"], fromTtl);
+  }
+  const fromExpireTime = getValueByPath(fromObject, ["expireTime"]);
+  if (parentObject !== undefined && fromExpireTime != null) {
+    setValueByPath(parentObject, ["expireTime"], fromExpireTime);
+  }
+  return toObject;
+}
+function updateCachedContentParametersToMldev(apiClient, fromObject) {
+  const toObject = {};
+  const fromName = getValueByPath(fromObject, ["name"]);
+  if (fromName != null) {
+    setValueByPath(toObject, ["_url", "name"], tCachedContentName(apiClient, fromName));
+  }
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    updateCachedContentConfigToMldev(fromConfig, toObject);
+  }
+  return toObject;
+}
+function updateCachedContentParametersToVertex(apiClient, fromObject) {
+  const toObject = {};
+  const fromName = getValueByPath(fromObject, ["name"]);
+  if (fromName != null) {
+    setValueByPath(toObject, ["_url", "name"], tCachedContentName(apiClient, fromName));
+  }
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    updateCachedContentConfigToVertex(fromConfig, toObject);
+  }
+  return toObject;
+}
+
+class Caches extends BaseModule {
+  constructor(apiClient) {
+    super();
+    this.apiClient = apiClient;
+    this.list = async (params = {}) => {
+      return new Pager(PagedItem.PAGED_ITEM_CACHED_CONTENTS, (x) => this.listInternal(x), await this.listInternal(params), params);
+    };
+  }
+  async create(params) {
+    var _a, _b, _c, _d;
+    let response;
+    let path = "";
+    let queryParams = {};
+    if (this.apiClient.isVertexAI()) {
+      const body = createCachedContentParametersToVertex(this.apiClient, params);
+      path = formatMap("cachedContents", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "POST",
+        httpOptions: (_a = params.config) === null || _a === undefined ? undefined : _a.httpOptions,
+        abortSignal: (_b = params.config) === null || _b === undefined ? undefined : _b.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json();
+      });
+      return response.then((resp) => {
+        return resp;
+      });
+    } else {
+      const body = createCachedContentParametersToMldev(this.apiClient, params);
+      path = formatMap("cachedContents", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "POST",
+        httpOptions: (_c = params.config) === null || _c === undefined ? undefined : _c.httpOptions,
+        abortSignal: (_d = params.config) === null || _d === undefined ? undefined : _d.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json();
+      });
+      return response.then((resp) => {
+        return resp;
+      });
+    }
+  }
+  async get(params) {
+    var _a, _b, _c, _d;
+    let response;
+    let path = "";
+    let queryParams = {};
+    if (this.apiClient.isVertexAI()) {
+      const body = getCachedContentParametersToVertex(this.apiClient, params);
+      path = formatMap("{name}", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "GET",
+        httpOptions: (_a = params.config) === null || _a === undefined ? undefined : _a.httpOptions,
+        abortSignal: (_b = params.config) === null || _b === undefined ? undefined : _b.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json();
+      });
+      return response.then((resp) => {
+        return resp;
+      });
+    } else {
+      const body = getCachedContentParametersToMldev(this.apiClient, params);
+      path = formatMap("{name}", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "GET",
+        httpOptions: (_c = params.config) === null || _c === undefined ? undefined : _c.httpOptions,
+        abortSignal: (_d = params.config) === null || _d === undefined ? undefined : _d.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json();
+      });
+      return response.then((resp) => {
+        return resp;
+      });
+    }
+  }
+  async delete(params) {
+    var _a, _b, _c, _d;
+    let response;
+    let path = "";
+    let queryParams = {};
+    if (this.apiClient.isVertexAI()) {
+      const body = deleteCachedContentParametersToVertex(this.apiClient, params);
+      path = formatMap("{name}", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "DELETE",
+        httpOptions: (_a = params.config) === null || _a === undefined ? undefined : _a.httpOptions,
+        abortSignal: (_b = params.config) === null || _b === undefined ? undefined : _b.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json().then((jsonResponse) => {
+          const response2 = jsonResponse;
+          response2.sdkHttpResponse = {
+            headers: httpResponse.headers
+          };
+          return response2;
+        });
+      });
+      return response.then((apiResponse) => {
+        const resp = deleteCachedContentResponseFromVertex(apiResponse);
+        const typedResp = new DeleteCachedContentResponse;
+        Object.assign(typedResp, resp);
+        return typedResp;
+      });
+    } else {
+      const body = deleteCachedContentParametersToMldev(this.apiClient, params);
+      path = formatMap("{name}", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "DELETE",
+        httpOptions: (_c = params.config) === null || _c === undefined ? undefined : _c.httpOptions,
+        abortSignal: (_d = params.config) === null || _d === undefined ? undefined : _d.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json().then((jsonResponse) => {
+          const response2 = jsonResponse;
+          response2.sdkHttpResponse = {
+            headers: httpResponse.headers
+          };
+          return response2;
+        });
+      });
+      return response.then((apiResponse) => {
+        const resp = deleteCachedContentResponseFromMldev(apiResponse);
+        const typedResp = new DeleteCachedContentResponse;
+        Object.assign(typedResp, resp);
+        return typedResp;
+      });
+    }
+  }
+  async update(params) {
+    var _a, _b, _c, _d;
+    let response;
+    let path = "";
+    let queryParams = {};
+    if (this.apiClient.isVertexAI()) {
+      const body = updateCachedContentParametersToVertex(this.apiClient, params);
+      path = formatMap("{name}", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "PATCH",
+        httpOptions: (_a = params.config) === null || _a === undefined ? undefined : _a.httpOptions,
+        abortSignal: (_b = params.config) === null || _b === undefined ? undefined : _b.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json();
+      });
+      return response.then((resp) => {
+        return resp;
+      });
+    } else {
+      const body = updateCachedContentParametersToMldev(this.apiClient, params);
+      path = formatMap("{name}", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "PATCH",
+        httpOptions: (_c = params.config) === null || _c === undefined ? undefined : _c.httpOptions,
+        abortSignal: (_d = params.config) === null || _d === undefined ? undefined : _d.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json();
+      });
+      return response.then((resp) => {
+        return resp;
+      });
+    }
+  }
+  async listInternal(params) {
+    var _a, _b, _c, _d;
+    let response;
+    let path = "";
+    let queryParams = {};
+    if (this.apiClient.isVertexAI()) {
+      const body = listCachedContentsParametersToVertex(params);
+      path = formatMap("cachedContents", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "GET",
+        httpOptions: (_a = params.config) === null || _a === undefined ? undefined : _a.httpOptions,
+        abortSignal: (_b = params.config) === null || _b === undefined ? undefined : _b.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json().then((jsonResponse) => {
+          const response2 = jsonResponse;
+          response2.sdkHttpResponse = {
+            headers: httpResponse.headers
+          };
+          return response2;
+        });
+      });
+      return response.then((apiResponse) => {
+        const resp = listCachedContentsResponseFromVertex(apiResponse);
+        const typedResp = new ListCachedContentsResponse;
+        Object.assign(typedResp, resp);
+        return typedResp;
+      });
+    } else {
+      const body = listCachedContentsParametersToMldev(params);
+      path = formatMap("cachedContents", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "GET",
+        httpOptions: (_c = params.config) === null || _c === undefined ? undefined : _c.httpOptions,
+        abortSignal: (_d = params.config) === null || _d === undefined ? undefined : _d.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json().then((jsonResponse) => {
+          const response2 = jsonResponse;
+          response2.sdkHttpResponse = {
+            headers: httpResponse.headers
+          };
+          return response2;
+        });
+      });
+      return response.then((apiResponse) => {
+        const resp = listCachedContentsResponseFromMldev(apiResponse);
+        const typedResp = new ListCachedContentsResponse;
+        Object.assign(typedResp, resp);
+        return typedResp;
+      });
+    }
+  }
+}
+function __values(o) {
+  var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+  if (m)
+    return m.call(o);
+  if (o && typeof o.length === "number")
+    return {
+      next: function() {
+        if (o && i >= o.length)
+          o = undefined;
+        return { value: o && o[i++], done: !o };
+      }
+    };
+  throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+}
+function __await(v) {
+  return this instanceof __await ? (this.v = v, this) : new __await(v);
+}
+function __asyncGenerator(thisArg, _arguments, generator) {
+  if (!Symbol.asyncIterator)
+    throw new TypeError("Symbol.asyncIterator is not defined.");
+  var g = generator.apply(thisArg, _arguments || []), i, q = [];
+  return i = Object.create((typeof AsyncIterator === "function" ? AsyncIterator : Object).prototype), verb("next"), verb("throw"), verb("return", awaitReturn), i[Symbol.asyncIterator] = function() {
+    return this;
+  }, i;
+  function awaitReturn(f) {
+    return function(v) {
+      return Promise.resolve(v).then(f, reject);
+    };
+  }
+  function verb(n, f) {
+    if (g[n]) {
+      i[n] = function(v) {
+        return new Promise(function(a, b) {
+          q.push([n, v, a, b]) > 1 || resume(n, v);
+        });
+      };
+      if (f)
+        i[n] = f(i[n]);
+    }
+  }
+  function resume(n, v) {
+    try {
+      step(g[n](v));
+    } catch (e) {
+      settle(q[0][3], e);
+    }
+  }
+  function step(r) {
+    r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r);
+  }
+  function fulfill(value) {
+    resume("next", value);
+  }
+  function reject(value) {
+    resume("throw", value);
+  }
+  function settle(f, v) {
+    if (f(v), q.shift(), q.length)
+      resume(q[0][0], q[0][1]);
+  }
+}
+function __asyncValues(o) {
+  if (!Symbol.asyncIterator)
+    throw new TypeError("Symbol.asyncIterator is not defined.");
+  var m = o[Symbol.asyncIterator], i;
+  return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function() {
+    return this;
+  }, i);
+  function verb(n) {
+    i[n] = o[n] && function(v) {
+      return new Promise(function(resolve, reject) {
+        v = o[n](v), settle(resolve, reject, v.done, v.value);
+      });
+    };
+  }
+  function settle(resolve, reject, d, v) {
+    Promise.resolve(v).then(function(v2) {
+      resolve({ value: v2, done: d });
+    }, reject);
+  }
+}
+function isValidResponse(response) {
+  var _a;
+  if (response.candidates == undefined || response.candidates.length === 0) {
+    return false;
+  }
+  const content = (_a = response.candidates[0]) === null || _a === undefined ? undefined : _a.content;
+  if (content === undefined) {
+    return false;
+  }
+  return isValidContent(content);
+}
+function isValidContent(content) {
+  if (content.parts === undefined || content.parts.length === 0) {
+    return false;
+  }
+  for (const part of content.parts) {
+    if (part === undefined || Object.keys(part).length === 0) {
+      return false;
+    }
+  }
+  return true;
+}
+function validateHistory(history) {
+  if (history.length === 0) {
+    return;
+  }
+  for (const content of history) {
+    if (content.role !== "user" && content.role !== "model") {
+      throw new Error(`Role must be user or model, but got ${content.role}.`);
+    }
+  }
+}
+function extractCuratedHistory(comprehensiveHistory) {
+  if (comprehensiveHistory === undefined || comprehensiveHistory.length === 0) {
+    return [];
+  }
+  const curatedHistory = [];
+  const length = comprehensiveHistory.length;
+  let i = 0;
+  while (i < length) {
+    if (comprehensiveHistory[i].role === "user") {
+      curatedHistory.push(comprehensiveHistory[i]);
+      i++;
+    } else {
+      const modelOutput = [];
+      let isValid = true;
+      while (i < length && comprehensiveHistory[i].role === "model") {
+        modelOutput.push(comprehensiveHistory[i]);
+        if (isValid && !isValidContent(comprehensiveHistory[i])) {
+          isValid = false;
+        }
+        i++;
+      }
+      if (isValid) {
+        curatedHistory.push(...modelOutput);
+      } else {
+        curatedHistory.pop();
+      }
+    }
+  }
+  return curatedHistory;
+}
+
+class Chats {
+  constructor(modelsModule, apiClient) {
+    this.modelsModule = modelsModule;
+    this.apiClient = apiClient;
+  }
+  create(params) {
+    return new Chat(this.apiClient, this.modelsModule, params.model, params.config, structuredClone(params.history));
+  }
+}
+
+class Chat {
+  constructor(apiClient, modelsModule, model, config = {}, history = []) {
+    this.apiClient = apiClient;
+    this.modelsModule = modelsModule;
+    this.model = model;
+    this.config = config;
+    this.history = history;
+    this.sendPromise = Promise.resolve();
+    validateHistory(history);
+  }
+  async sendMessage(params) {
+    var _a;
+    await this.sendPromise;
+    const inputContent = tContent(params.message);
+    const responsePromise = this.modelsModule.generateContent({
+      model: this.model,
+      contents: this.getHistory(true).concat(inputContent),
+      config: (_a = params.config) !== null && _a !== undefined ? _a : this.config
+    });
+    this.sendPromise = (async () => {
+      var _a2, _b, _c;
+      const response = await responsePromise;
+      const outputContent = (_b = (_a2 = response.candidates) === null || _a2 === undefined ? undefined : _a2[0]) === null || _b === undefined ? undefined : _b.content;
+      const fullAutomaticFunctionCallingHistory = response.automaticFunctionCallingHistory;
+      const index = this.getHistory(true).length;
+      let automaticFunctionCallingHistory = [];
+      if (fullAutomaticFunctionCallingHistory != null) {
+        automaticFunctionCallingHistory = (_c = fullAutomaticFunctionCallingHistory.slice(index)) !== null && _c !== undefined ? _c : [];
+      }
+      const modelOutput = outputContent ? [outputContent] : [];
+      this.recordHistory(inputContent, modelOutput, automaticFunctionCallingHistory);
+      return;
+    })();
+    await this.sendPromise.catch(() => {
+      this.sendPromise = Promise.resolve();
+    });
+    return responsePromise;
+  }
+  async sendMessageStream(params) {
+    var _a;
+    await this.sendPromise;
+    const inputContent = tContent(params.message);
+    const streamResponse = this.modelsModule.generateContentStream({
+      model: this.model,
+      contents: this.getHistory(true).concat(inputContent),
+      config: (_a = params.config) !== null && _a !== undefined ? _a : this.config
+    });
+    this.sendPromise = streamResponse.then(() => {
+      return;
+    }).catch(() => {
+      return;
+    });
+    const response = await streamResponse;
+    const result = this.processStreamResponse(response, inputContent);
+    return result;
+  }
+  getHistory(curated = false) {
+    const history = curated ? extractCuratedHistory(this.history) : this.history;
+    return structuredClone(history);
+  }
+  processStreamResponse(streamResponse, inputContent) {
+    var _a, _b;
+    return __asyncGenerator(this, arguments, function* processStreamResponse_1() {
+      var _c, e_1, _d, _e;
+      const outputContent = [];
+      try {
+        for (var _f = true, streamResponse_1 = __asyncValues(streamResponse), streamResponse_1_1;streamResponse_1_1 = yield __await(streamResponse_1.next()), _c = streamResponse_1_1.done, !_c; _f = true) {
+          _e = streamResponse_1_1.value;
+          _f = false;
+          const chunk = _e;
+          if (isValidResponse(chunk)) {
+            const content = (_b = (_a = chunk.candidates) === null || _a === undefined ? undefined : _a[0]) === null || _b === undefined ? undefined : _b.content;
+            if (content !== undefined) {
+              outputContent.push(content);
+            }
+          }
+          yield yield __await(chunk);
+        }
+      } catch (e_1_1) {
+        e_1 = { error: e_1_1 };
+      } finally {
+        try {
+          if (!_f && !_c && (_d = streamResponse_1.return))
+            yield __await(_d.call(streamResponse_1));
+        } finally {
+          if (e_1)
+            throw e_1.error;
+        }
+      }
+      this.recordHistory(inputContent, outputContent);
+    });
+  }
+  recordHistory(userInput, modelOutput, automaticFunctionCallingHistory) {
+    let outputContents = [];
+    if (modelOutput.length > 0 && modelOutput.every((content) => content.role !== undefined)) {
+      outputContents = modelOutput;
+    } else {
+      outputContents.push({
+        role: "model",
+        parts: []
+      });
+    }
+    if (automaticFunctionCallingHistory && automaticFunctionCallingHistory.length > 0) {
+      this.history.push(...extractCuratedHistory(automaticFunctionCallingHistory));
+    } else {
+      this.history.push(userInput);
+    }
+    this.history.push(...outputContents);
+  }
+}
+
+class ApiError extends Error {
+  constructor(options) {
+    super(options.message);
+    this.name = "ApiError";
+    this.status = options.status;
+    Object.setPrototypeOf(this, ApiError.prototype);
+  }
+}
+function createFileParametersToMldev(fromObject) {
+  const toObject = {};
+  const fromFile = getValueByPath(fromObject, ["file"]);
+  if (fromFile != null) {
+    setValueByPath(toObject, ["file"], fromFile);
+  }
+  return toObject;
+}
+function createFileResponseFromMldev(fromObject) {
+  const toObject = {};
+  const fromSdkHttpResponse = getValueByPath(fromObject, [
+    "sdkHttpResponse"
+  ]);
+  if (fromSdkHttpResponse != null) {
+    setValueByPath(toObject, ["sdkHttpResponse"], fromSdkHttpResponse);
+  }
+  return toObject;
+}
+function deleteFileParametersToMldev(fromObject) {
+  const toObject = {};
+  const fromName = getValueByPath(fromObject, ["name"]);
+  if (fromName != null) {
+    setValueByPath(toObject, ["_url", "file"], tFileName(fromName));
+  }
+  return toObject;
+}
+function deleteFileResponseFromMldev(fromObject) {
+  const toObject = {};
+  const fromSdkHttpResponse = getValueByPath(fromObject, [
+    "sdkHttpResponse"
+  ]);
+  if (fromSdkHttpResponse != null) {
+    setValueByPath(toObject, ["sdkHttpResponse"], fromSdkHttpResponse);
+  }
+  return toObject;
+}
+function getFileParametersToMldev(fromObject) {
+  const toObject = {};
+  const fromName = getValueByPath(fromObject, ["name"]);
+  if (fromName != null) {
+    setValueByPath(toObject, ["_url", "file"], tFileName(fromName));
+  }
+  return toObject;
+}
+function listFilesConfigToMldev(fromObject, parentObject) {
+  const toObject = {};
+  const fromPageSize = getValueByPath(fromObject, ["pageSize"]);
+  if (parentObject !== undefined && fromPageSize != null) {
+    setValueByPath(parentObject, ["_query", "pageSize"], fromPageSize);
+  }
+  const fromPageToken = getValueByPath(fromObject, ["pageToken"]);
+  if (parentObject !== undefined && fromPageToken != null) {
+    setValueByPath(parentObject, ["_query", "pageToken"], fromPageToken);
+  }
+  return toObject;
+}
+function listFilesParametersToMldev(fromObject) {
+  const toObject = {};
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    listFilesConfigToMldev(fromConfig, toObject);
+  }
+  return toObject;
+}
+function listFilesResponseFromMldev(fromObject) {
+  const toObject = {};
+  const fromSdkHttpResponse = getValueByPath(fromObject, [
+    "sdkHttpResponse"
+  ]);
+  if (fromSdkHttpResponse != null) {
+    setValueByPath(toObject, ["sdkHttpResponse"], fromSdkHttpResponse);
+  }
+  const fromNextPageToken = getValueByPath(fromObject, [
+    "nextPageToken"
+  ]);
+  if (fromNextPageToken != null) {
+    setValueByPath(toObject, ["nextPageToken"], fromNextPageToken);
+  }
+  const fromFiles = getValueByPath(fromObject, ["files"]);
+  if (fromFiles != null) {
+    let transformedList = fromFiles;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return item;
+      });
+    }
+    setValueByPath(toObject, ["files"], transformedList);
+  }
+  return toObject;
+}
+
+class Files extends BaseModule {
+  constructor(apiClient) {
+    super();
+    this.apiClient = apiClient;
+    this.list = async (params = {}) => {
+      return new Pager(PagedItem.PAGED_ITEM_FILES, (x) => this.listInternal(x), await this.listInternal(params), params);
+    };
+  }
+  async upload(params) {
+    if (this.apiClient.isVertexAI()) {
+      throw new Error("Vertex AI does not support uploading files. You can share files through a GCS bucket.");
+    }
+    return this.apiClient.uploadFile(params.file, params.config).then((resp) => {
+      return resp;
+    });
+  }
+  async download(params) {
+    await this.apiClient.downloadFile(params);
+  }
+  async listInternal(params) {
+    var _a, _b;
+    let response;
+    let path = "";
+    let queryParams = {};
+    if (this.apiClient.isVertexAI()) {
+      throw new Error("This method is only supported by the Gemini Developer API.");
+    } else {
+      const body = listFilesParametersToMldev(params);
+      path = formatMap("files", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "GET",
+        httpOptions: (_a = params.config) === null || _a === undefined ? undefined : _a.httpOptions,
+        abortSignal: (_b = params.config) === null || _b === undefined ? undefined : _b.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json().then((jsonResponse) => {
+          const response2 = jsonResponse;
+          response2.sdkHttpResponse = {
+            headers: httpResponse.headers
+          };
+          return response2;
+        });
+      });
+      return response.then((apiResponse) => {
+        const resp = listFilesResponseFromMldev(apiResponse);
+        const typedResp = new ListFilesResponse;
+        Object.assign(typedResp, resp);
+        return typedResp;
+      });
+    }
+  }
+  async createInternal(params) {
+    var _a, _b;
+    let response;
+    let path = "";
+    let queryParams = {};
+    if (this.apiClient.isVertexAI()) {
+      throw new Error("This method is only supported by the Gemini Developer API.");
+    } else {
+      const body = createFileParametersToMldev(params);
+      path = formatMap("upload/v1beta/files", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "POST",
+        httpOptions: (_a = params.config) === null || _a === undefined ? undefined : _a.httpOptions,
+        abortSignal: (_b = params.config) === null || _b === undefined ? undefined : _b.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json();
+      });
+      return response.then((apiResponse) => {
+        const resp = createFileResponseFromMldev(apiResponse);
+        const typedResp = new CreateFileResponse;
+        Object.assign(typedResp, resp);
+        return typedResp;
+      });
+    }
+  }
+  async get(params) {
+    var _a, _b;
+    let response;
+    let path = "";
+    let queryParams = {};
+    if (this.apiClient.isVertexAI()) {
+      throw new Error("This method is only supported by the Gemini Developer API.");
+    } else {
+      const body = getFileParametersToMldev(params);
+      path = formatMap("files/{file}", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "GET",
+        httpOptions: (_a = params.config) === null || _a === undefined ? undefined : _a.httpOptions,
+        abortSignal: (_b = params.config) === null || _b === undefined ? undefined : _b.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json();
+      });
+      return response.then((resp) => {
+        return resp;
+      });
+    }
+  }
+  async delete(params) {
+    var _a, _b;
+    let response;
+    let path = "";
+    let queryParams = {};
+    if (this.apiClient.isVertexAI()) {
+      throw new Error("This method is only supported by the Gemini Developer API.");
+    } else {
+      const body = deleteFileParametersToMldev(params);
+      path = formatMap("files/{file}", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "DELETE",
+        httpOptions: (_a = params.config) === null || _a === undefined ? undefined : _a.httpOptions,
+        abortSignal: (_b = params.config) === null || _b === undefined ? undefined : _b.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json().then((jsonResponse) => {
+          const response2 = jsonResponse;
+          response2.sdkHttpResponse = {
+            headers: httpResponse.headers
+          };
+          return response2;
+        });
+      });
+      return response.then((apiResponse) => {
+        const resp = deleteFileResponseFromMldev(apiResponse);
+        const typedResp = new DeleteFileResponse;
+        Object.assign(typedResp, resp);
+        return typedResp;
+      });
+    }
+  }
+}
+function blobToMldev$2(fromObject) {
+  const toObject = {};
+  if (getValueByPath(fromObject, ["displayName"]) !== undefined) {
+    throw new Error("displayName parameter is not supported in Gemini API.");
+  }
+  const fromData = getValueByPath(fromObject, ["data"]);
+  if (fromData != null) {
+    setValueByPath(toObject, ["data"], fromData);
+  }
+  const fromMimeType = getValueByPath(fromObject, ["mimeType"]);
+  if (fromMimeType != null) {
+    setValueByPath(toObject, ["mimeType"], fromMimeType);
+  }
+  return toObject;
+}
+function contentToMldev$2(fromObject) {
+  const toObject = {};
+  const fromParts = getValueByPath(fromObject, ["parts"]);
+  if (fromParts != null) {
+    let transformedList = fromParts;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return partToMldev$2(item);
+      });
+    }
+    setValueByPath(toObject, ["parts"], transformedList);
+  }
+  const fromRole = getValueByPath(fromObject, ["role"]);
+  if (fromRole != null) {
+    setValueByPath(toObject, ["role"], fromRole);
+  }
+  return toObject;
+}
+function fileDataToMldev$2(fromObject) {
+  const toObject = {};
+  if (getValueByPath(fromObject, ["displayName"]) !== undefined) {
+    throw new Error("displayName parameter is not supported in Gemini API.");
+  }
+  const fromFileUri = getValueByPath(fromObject, ["fileUri"]);
+  if (fromFileUri != null) {
+    setValueByPath(toObject, ["fileUri"], fromFileUri);
+  }
+  const fromMimeType = getValueByPath(fromObject, ["mimeType"]);
+  if (fromMimeType != null) {
+    setValueByPath(toObject, ["mimeType"], fromMimeType);
+  }
+  return toObject;
+}
+function functionDeclarationToVertex$1(fromObject) {
+  const toObject = {};
+  if (getValueByPath(fromObject, ["behavior"]) !== undefined) {
+    throw new Error("behavior parameter is not supported in Vertex AI.");
+  }
+  const fromDescription = getValueByPath(fromObject, ["description"]);
+  if (fromDescription != null) {
+    setValueByPath(toObject, ["description"], fromDescription);
+  }
+  const fromName = getValueByPath(fromObject, ["name"]);
+  if (fromName != null) {
+    setValueByPath(toObject, ["name"], fromName);
+  }
+  const fromParameters = getValueByPath(fromObject, ["parameters"]);
+  if (fromParameters != null) {
+    setValueByPath(toObject, ["parameters"], fromParameters);
+  }
+  const fromParametersJsonSchema = getValueByPath(fromObject, [
+    "parametersJsonSchema"
+  ]);
+  if (fromParametersJsonSchema != null) {
+    setValueByPath(toObject, ["parametersJsonSchema"], fromParametersJsonSchema);
+  }
+  const fromResponse = getValueByPath(fromObject, ["response"]);
+  if (fromResponse != null) {
+    setValueByPath(toObject, ["response"], fromResponse);
+  }
+  const fromResponseJsonSchema = getValueByPath(fromObject, [
+    "responseJsonSchema"
+  ]);
+  if (fromResponseJsonSchema != null) {
+    setValueByPath(toObject, ["responseJsonSchema"], fromResponseJsonSchema);
+  }
+  return toObject;
+}
+function generationConfigToVertex$1(fromObject) {
+  const toObject = {};
+  const fromModelSelectionConfig = getValueByPath(fromObject, [
+    "modelSelectionConfig"
+  ]);
+  if (fromModelSelectionConfig != null) {
+    setValueByPath(toObject, ["modelConfig"], fromModelSelectionConfig);
+  }
+  const fromAudioTimestamp = getValueByPath(fromObject, [
+    "audioTimestamp"
+  ]);
+  if (fromAudioTimestamp != null) {
+    setValueByPath(toObject, ["audioTimestamp"], fromAudioTimestamp);
+  }
+  const fromCandidateCount = getValueByPath(fromObject, [
+    "candidateCount"
+  ]);
+  if (fromCandidateCount != null) {
+    setValueByPath(toObject, ["candidateCount"], fromCandidateCount);
+  }
+  const fromEnableAffectiveDialog = getValueByPath(fromObject, [
+    "enableAffectiveDialog"
+  ]);
+  if (fromEnableAffectiveDialog != null) {
+    setValueByPath(toObject, ["enableAffectiveDialog"], fromEnableAffectiveDialog);
+  }
+  const fromFrequencyPenalty = getValueByPath(fromObject, [
+    "frequencyPenalty"
+  ]);
+  if (fromFrequencyPenalty != null) {
+    setValueByPath(toObject, ["frequencyPenalty"], fromFrequencyPenalty);
+  }
+  const fromLogprobs = getValueByPath(fromObject, ["logprobs"]);
+  if (fromLogprobs != null) {
+    setValueByPath(toObject, ["logprobs"], fromLogprobs);
+  }
+  const fromMaxOutputTokens = getValueByPath(fromObject, [
+    "maxOutputTokens"
+  ]);
+  if (fromMaxOutputTokens != null) {
+    setValueByPath(toObject, ["maxOutputTokens"], fromMaxOutputTokens);
+  }
+  const fromMediaResolution = getValueByPath(fromObject, [
+    "mediaResolution"
+  ]);
+  if (fromMediaResolution != null) {
+    setValueByPath(toObject, ["mediaResolution"], fromMediaResolution);
+  }
+  const fromPresencePenalty = getValueByPath(fromObject, [
+    "presencePenalty"
+  ]);
+  if (fromPresencePenalty != null) {
+    setValueByPath(toObject, ["presencePenalty"], fromPresencePenalty);
+  }
+  const fromResponseJsonSchema = getValueByPath(fromObject, [
+    "responseJsonSchema"
+  ]);
+  if (fromResponseJsonSchema != null) {
+    setValueByPath(toObject, ["responseJsonSchema"], fromResponseJsonSchema);
+  }
+  const fromResponseLogprobs = getValueByPath(fromObject, [
+    "responseLogprobs"
+  ]);
+  if (fromResponseLogprobs != null) {
+    setValueByPath(toObject, ["responseLogprobs"], fromResponseLogprobs);
+  }
+  const fromResponseMimeType = getValueByPath(fromObject, [
+    "responseMimeType"
+  ]);
+  if (fromResponseMimeType != null) {
+    setValueByPath(toObject, ["responseMimeType"], fromResponseMimeType);
+  }
+  const fromResponseModalities = getValueByPath(fromObject, [
+    "responseModalities"
+  ]);
+  if (fromResponseModalities != null) {
+    setValueByPath(toObject, ["responseModalities"], fromResponseModalities);
+  }
+  const fromResponseSchema = getValueByPath(fromObject, [
+    "responseSchema"
+  ]);
+  if (fromResponseSchema != null) {
+    setValueByPath(toObject, ["responseSchema"], fromResponseSchema);
+  }
+  const fromRoutingConfig = getValueByPath(fromObject, [
+    "routingConfig"
+  ]);
+  if (fromRoutingConfig != null) {
+    setValueByPath(toObject, ["routingConfig"], fromRoutingConfig);
+  }
+  const fromSeed = getValueByPath(fromObject, ["seed"]);
+  if (fromSeed != null) {
+    setValueByPath(toObject, ["seed"], fromSeed);
+  }
+  const fromSpeechConfig = getValueByPath(fromObject, ["speechConfig"]);
+  if (fromSpeechConfig != null) {
+    setValueByPath(toObject, ["speechConfig"], speechConfigToVertex$1(fromSpeechConfig));
+  }
+  const fromStopSequences = getValueByPath(fromObject, [
+    "stopSequences"
+  ]);
+  if (fromStopSequences != null) {
+    setValueByPath(toObject, ["stopSequences"], fromStopSequences);
+  }
+  const fromTemperature = getValueByPath(fromObject, ["temperature"]);
+  if (fromTemperature != null) {
+    setValueByPath(toObject, ["temperature"], fromTemperature);
+  }
+  const fromThinkingConfig = getValueByPath(fromObject, [
+    "thinkingConfig"
+  ]);
+  if (fromThinkingConfig != null) {
+    setValueByPath(toObject, ["thinkingConfig"], fromThinkingConfig);
+  }
+  const fromTopK = getValueByPath(fromObject, ["topK"]);
+  if (fromTopK != null) {
+    setValueByPath(toObject, ["topK"], fromTopK);
+  }
+  const fromTopP = getValueByPath(fromObject, ["topP"]);
+  if (fromTopP != null) {
+    setValueByPath(toObject, ["topP"], fromTopP);
+  }
+  if (getValueByPath(fromObject, ["enableEnhancedCivicAnswers"]) !== undefined) {
+    throw new Error("enableEnhancedCivicAnswers parameter is not supported in Vertex AI.");
+  }
+  return toObject;
+}
+function googleMapsToMldev$2(fromObject) {
+  const toObject = {};
+  if (getValueByPath(fromObject, ["authConfig"]) !== undefined) {
+    throw new Error("authConfig parameter is not supported in Gemini API.");
+  }
+  const fromEnableWidget = getValueByPath(fromObject, ["enableWidget"]);
+  if (fromEnableWidget != null) {
+    setValueByPath(toObject, ["enableWidget"], fromEnableWidget);
+  }
+  return toObject;
+}
+function googleSearchToMldev$2(fromObject) {
+  const toObject = {};
+  const fromTimeRangeFilter = getValueByPath(fromObject, [
+    "timeRangeFilter"
+  ]);
+  if (fromTimeRangeFilter != null) {
+    setValueByPath(toObject, ["timeRangeFilter"], fromTimeRangeFilter);
+  }
+  if (getValueByPath(fromObject, ["excludeDomains"]) !== undefined) {
+    throw new Error("excludeDomains parameter is not supported in Gemini API.");
+  }
+  return toObject;
+}
+function liveConnectConfigToMldev$1(fromObject, parentObject) {
+  const toObject = {};
+  const fromGenerationConfig = getValueByPath(fromObject, [
+    "generationConfig"
+  ]);
+  if (parentObject !== undefined && fromGenerationConfig != null) {
+    setValueByPath(parentObject, ["setup", "generationConfig"], fromGenerationConfig);
+  }
+  const fromResponseModalities = getValueByPath(fromObject, [
+    "responseModalities"
+  ]);
+  if (parentObject !== undefined && fromResponseModalities != null) {
+    setValueByPath(parentObject, ["setup", "generationConfig", "responseModalities"], fromResponseModalities);
+  }
+  const fromTemperature = getValueByPath(fromObject, ["temperature"]);
+  if (parentObject !== undefined && fromTemperature != null) {
+    setValueByPath(parentObject, ["setup", "generationConfig", "temperature"], fromTemperature);
+  }
+  const fromTopP = getValueByPath(fromObject, ["topP"]);
+  if (parentObject !== undefined && fromTopP != null) {
+    setValueByPath(parentObject, ["setup", "generationConfig", "topP"], fromTopP);
+  }
+  const fromTopK = getValueByPath(fromObject, ["topK"]);
+  if (parentObject !== undefined && fromTopK != null) {
+    setValueByPath(parentObject, ["setup", "generationConfig", "topK"], fromTopK);
+  }
+  const fromMaxOutputTokens = getValueByPath(fromObject, [
+    "maxOutputTokens"
+  ]);
+  if (parentObject !== undefined && fromMaxOutputTokens != null) {
+    setValueByPath(parentObject, ["setup", "generationConfig", "maxOutputTokens"], fromMaxOutputTokens);
+  }
+  const fromMediaResolution = getValueByPath(fromObject, [
+    "mediaResolution"
+  ]);
+  if (parentObject !== undefined && fromMediaResolution != null) {
+    setValueByPath(parentObject, ["setup", "generationConfig", "mediaResolution"], fromMediaResolution);
+  }
+  const fromSeed = getValueByPath(fromObject, ["seed"]);
+  if (parentObject !== undefined && fromSeed != null) {
+    setValueByPath(parentObject, ["setup", "generationConfig", "seed"], fromSeed);
+  }
+  const fromSpeechConfig = getValueByPath(fromObject, ["speechConfig"]);
+  if (parentObject !== undefined && fromSpeechConfig != null) {
+    setValueByPath(parentObject, ["setup", "generationConfig", "speechConfig"], tLiveSpeechConfig(fromSpeechConfig));
+  }
+  const fromThinkingConfig = getValueByPath(fromObject, [
+    "thinkingConfig"
+  ]);
+  if (parentObject !== undefined && fromThinkingConfig != null) {
+    setValueByPath(parentObject, ["setup", "generationConfig", "thinkingConfig"], fromThinkingConfig);
+  }
+  const fromEnableAffectiveDialog = getValueByPath(fromObject, [
+    "enableAffectiveDialog"
+  ]);
+  if (parentObject !== undefined && fromEnableAffectiveDialog != null) {
+    setValueByPath(parentObject, ["setup", "generationConfig", "enableAffectiveDialog"], fromEnableAffectiveDialog);
+  }
+  const fromSystemInstruction = getValueByPath(fromObject, [
+    "systemInstruction"
+  ]);
+  if (parentObject !== undefined && fromSystemInstruction != null) {
+    setValueByPath(parentObject, ["setup", "systemInstruction"], contentToMldev$2(tContent(fromSystemInstruction)));
+  }
+  const fromTools = getValueByPath(fromObject, ["tools"]);
+  if (parentObject !== undefined && fromTools != null) {
+    let transformedList = tTools(fromTools);
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return toolToMldev$2(tTool(item));
+      });
+    }
+    setValueByPath(parentObject, ["setup", "tools"], transformedList);
+  }
+  const fromSessionResumption = getValueByPath(fromObject, [
+    "sessionResumption"
+  ]);
+  if (parentObject !== undefined && fromSessionResumption != null) {
+    setValueByPath(parentObject, ["setup", "sessionResumption"], sessionResumptionConfigToMldev$1(fromSessionResumption));
+  }
+  const fromInputAudioTranscription = getValueByPath(fromObject, [
+    "inputAudioTranscription"
+  ]);
+  if (parentObject !== undefined && fromInputAudioTranscription != null) {
+    setValueByPath(parentObject, ["setup", "inputAudioTranscription"], fromInputAudioTranscription);
+  }
+  const fromOutputAudioTranscription = getValueByPath(fromObject, [
+    "outputAudioTranscription"
+  ]);
+  if (parentObject !== undefined && fromOutputAudioTranscription != null) {
+    setValueByPath(parentObject, ["setup", "outputAudioTranscription"], fromOutputAudioTranscription);
+  }
+  const fromRealtimeInputConfig = getValueByPath(fromObject, [
+    "realtimeInputConfig"
+  ]);
+  if (parentObject !== undefined && fromRealtimeInputConfig != null) {
+    setValueByPath(parentObject, ["setup", "realtimeInputConfig"], fromRealtimeInputConfig);
+  }
+  const fromContextWindowCompression = getValueByPath(fromObject, [
+    "contextWindowCompression"
+  ]);
+  if (parentObject !== undefined && fromContextWindowCompression != null) {
+    setValueByPath(parentObject, ["setup", "contextWindowCompression"], fromContextWindowCompression);
+  }
+  const fromProactivity = getValueByPath(fromObject, ["proactivity"]);
+  if (parentObject !== undefined && fromProactivity != null) {
+    setValueByPath(parentObject, ["setup", "proactivity"], fromProactivity);
+  }
+  return toObject;
+}
+function liveConnectConfigToVertex(fromObject, parentObject) {
+  const toObject = {};
+  const fromGenerationConfig = getValueByPath(fromObject, [
+    "generationConfig"
+  ]);
+  if (parentObject !== undefined && fromGenerationConfig != null) {
+    setValueByPath(parentObject, ["setup", "generationConfig"], generationConfigToVertex$1(fromGenerationConfig));
+  }
+  const fromResponseModalities = getValueByPath(fromObject, [
+    "responseModalities"
+  ]);
+  if (parentObject !== undefined && fromResponseModalities != null) {
+    setValueByPath(parentObject, ["setup", "generationConfig", "responseModalities"], fromResponseModalities);
+  }
+  const fromTemperature = getValueByPath(fromObject, ["temperature"]);
+  if (parentObject !== undefined && fromTemperature != null) {
+    setValueByPath(parentObject, ["setup", "generationConfig", "temperature"], fromTemperature);
+  }
+  const fromTopP = getValueByPath(fromObject, ["topP"]);
+  if (parentObject !== undefined && fromTopP != null) {
+    setValueByPath(parentObject, ["setup", "generationConfig", "topP"], fromTopP);
+  }
+  const fromTopK = getValueByPath(fromObject, ["topK"]);
+  if (parentObject !== undefined && fromTopK != null) {
+    setValueByPath(parentObject, ["setup", "generationConfig", "topK"], fromTopK);
+  }
+  const fromMaxOutputTokens = getValueByPath(fromObject, [
+    "maxOutputTokens"
+  ]);
+  if (parentObject !== undefined && fromMaxOutputTokens != null) {
+    setValueByPath(parentObject, ["setup", "generationConfig", "maxOutputTokens"], fromMaxOutputTokens);
+  }
+  const fromMediaResolution = getValueByPath(fromObject, [
+    "mediaResolution"
+  ]);
+  if (parentObject !== undefined && fromMediaResolution != null) {
+    setValueByPath(parentObject, ["setup", "generationConfig", "mediaResolution"], fromMediaResolution);
+  }
+  const fromSeed = getValueByPath(fromObject, ["seed"]);
+  if (parentObject !== undefined && fromSeed != null) {
+    setValueByPath(parentObject, ["setup", "generationConfig", "seed"], fromSeed);
+  }
+  const fromSpeechConfig = getValueByPath(fromObject, ["speechConfig"]);
+  if (parentObject !== undefined && fromSpeechConfig != null) {
+    setValueByPath(parentObject, ["setup", "generationConfig", "speechConfig"], speechConfigToVertex$1(tLiveSpeechConfig(fromSpeechConfig)));
+  }
+  const fromThinkingConfig = getValueByPath(fromObject, [
+    "thinkingConfig"
+  ]);
+  if (parentObject !== undefined && fromThinkingConfig != null) {
+    setValueByPath(parentObject, ["setup", "generationConfig", "thinkingConfig"], fromThinkingConfig);
+  }
+  const fromEnableAffectiveDialog = getValueByPath(fromObject, [
+    "enableAffectiveDialog"
+  ]);
+  if (parentObject !== undefined && fromEnableAffectiveDialog != null) {
+    setValueByPath(parentObject, ["setup", "generationConfig", "enableAffectiveDialog"], fromEnableAffectiveDialog);
+  }
+  const fromSystemInstruction = getValueByPath(fromObject, [
+    "systemInstruction"
+  ]);
+  if (parentObject !== undefined && fromSystemInstruction != null) {
+    setValueByPath(parentObject, ["setup", "systemInstruction"], tContent(fromSystemInstruction));
+  }
+  const fromTools = getValueByPath(fromObject, ["tools"]);
+  if (parentObject !== undefined && fromTools != null) {
+    let transformedList = tTools(fromTools);
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return toolToVertex$1(tTool(item));
+      });
+    }
+    setValueByPath(parentObject, ["setup", "tools"], transformedList);
+  }
+  const fromSessionResumption = getValueByPath(fromObject, [
+    "sessionResumption"
+  ]);
+  if (parentObject !== undefined && fromSessionResumption != null) {
+    setValueByPath(parentObject, ["setup", "sessionResumption"], fromSessionResumption);
+  }
+  const fromInputAudioTranscription = getValueByPath(fromObject, [
+    "inputAudioTranscription"
+  ]);
+  if (parentObject !== undefined && fromInputAudioTranscription != null) {
+    setValueByPath(parentObject, ["setup", "inputAudioTranscription"], fromInputAudioTranscription);
+  }
+  const fromOutputAudioTranscription = getValueByPath(fromObject, [
+    "outputAudioTranscription"
+  ]);
+  if (parentObject !== undefined && fromOutputAudioTranscription != null) {
+    setValueByPath(parentObject, ["setup", "outputAudioTranscription"], fromOutputAudioTranscription);
+  }
+  const fromRealtimeInputConfig = getValueByPath(fromObject, [
+    "realtimeInputConfig"
+  ]);
+  if (parentObject !== undefined && fromRealtimeInputConfig != null) {
+    setValueByPath(parentObject, ["setup", "realtimeInputConfig"], fromRealtimeInputConfig);
+  }
+  const fromContextWindowCompression = getValueByPath(fromObject, [
+    "contextWindowCompression"
+  ]);
+  if (parentObject !== undefined && fromContextWindowCompression != null) {
+    setValueByPath(parentObject, ["setup", "contextWindowCompression"], fromContextWindowCompression);
+  }
+  const fromProactivity = getValueByPath(fromObject, ["proactivity"]);
+  if (parentObject !== undefined && fromProactivity != null) {
+    setValueByPath(parentObject, ["setup", "proactivity"], fromProactivity);
+  }
+  return toObject;
+}
+function liveConnectParametersToMldev(apiClient, fromObject) {
+  const toObject = {};
+  const fromModel = getValueByPath(fromObject, ["model"]);
+  if (fromModel != null) {
+    setValueByPath(toObject, ["setup", "model"], tModel(apiClient, fromModel));
+  }
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    setValueByPath(toObject, ["config"], liveConnectConfigToMldev$1(fromConfig, toObject));
+  }
+  return toObject;
+}
+function liveConnectParametersToVertex(apiClient, fromObject) {
+  const toObject = {};
+  const fromModel = getValueByPath(fromObject, ["model"]);
+  if (fromModel != null) {
+    setValueByPath(toObject, ["setup", "model"], tModel(apiClient, fromModel));
+  }
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    setValueByPath(toObject, ["config"], liveConnectConfigToVertex(fromConfig, toObject));
+  }
+  return toObject;
+}
+function liveMusicSetConfigParametersToMldev(fromObject) {
+  const toObject = {};
+  const fromMusicGenerationConfig = getValueByPath(fromObject, [
+    "musicGenerationConfig"
+  ]);
+  if (fromMusicGenerationConfig != null) {
+    setValueByPath(toObject, ["musicGenerationConfig"], fromMusicGenerationConfig);
+  }
+  return toObject;
+}
+function liveMusicSetWeightedPromptsParametersToMldev(fromObject) {
+  const toObject = {};
+  const fromWeightedPrompts = getValueByPath(fromObject, [
+    "weightedPrompts"
+  ]);
+  if (fromWeightedPrompts != null) {
+    let transformedList = fromWeightedPrompts;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return item;
+      });
+    }
+    setValueByPath(toObject, ["weightedPrompts"], transformedList);
+  }
+  return toObject;
+}
+function liveSendRealtimeInputParametersToMldev(fromObject) {
+  const toObject = {};
+  const fromMedia = getValueByPath(fromObject, ["media"]);
+  if (fromMedia != null) {
+    let transformedList = tBlobs(fromMedia);
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return blobToMldev$2(item);
+      });
+    }
+    setValueByPath(toObject, ["mediaChunks"], transformedList);
+  }
+  const fromAudio = getValueByPath(fromObject, ["audio"]);
+  if (fromAudio != null) {
+    setValueByPath(toObject, ["audio"], blobToMldev$2(tAudioBlob(fromAudio)));
+  }
+  const fromAudioStreamEnd = getValueByPath(fromObject, [
+    "audioStreamEnd"
+  ]);
+  if (fromAudioStreamEnd != null) {
+    setValueByPath(toObject, ["audioStreamEnd"], fromAudioStreamEnd);
+  }
+  const fromVideo = getValueByPath(fromObject, ["video"]);
+  if (fromVideo != null) {
+    setValueByPath(toObject, ["video"], blobToMldev$2(tImageBlob(fromVideo)));
+  }
+  const fromText = getValueByPath(fromObject, ["text"]);
+  if (fromText != null) {
+    setValueByPath(toObject, ["text"], fromText);
+  }
+  const fromActivityStart = getValueByPath(fromObject, [
+    "activityStart"
+  ]);
+  if (fromActivityStart != null) {
+    setValueByPath(toObject, ["activityStart"], fromActivityStart);
+  }
+  const fromActivityEnd = getValueByPath(fromObject, ["activityEnd"]);
+  if (fromActivityEnd != null) {
+    setValueByPath(toObject, ["activityEnd"], fromActivityEnd);
+  }
+  return toObject;
+}
+function liveSendRealtimeInputParametersToVertex(fromObject) {
+  const toObject = {};
+  const fromMedia = getValueByPath(fromObject, ["media"]);
+  if (fromMedia != null) {
+    let transformedList = tBlobs(fromMedia);
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return item;
+      });
+    }
+    setValueByPath(toObject, ["mediaChunks"], transformedList);
+  }
+  const fromAudio = getValueByPath(fromObject, ["audio"]);
+  if (fromAudio != null) {
+    setValueByPath(toObject, ["audio"], tAudioBlob(fromAudio));
+  }
+  const fromAudioStreamEnd = getValueByPath(fromObject, [
+    "audioStreamEnd"
+  ]);
+  if (fromAudioStreamEnd != null) {
+    setValueByPath(toObject, ["audioStreamEnd"], fromAudioStreamEnd);
+  }
+  const fromVideo = getValueByPath(fromObject, ["video"]);
+  if (fromVideo != null) {
+    setValueByPath(toObject, ["video"], tImageBlob(fromVideo));
+  }
+  const fromText = getValueByPath(fromObject, ["text"]);
+  if (fromText != null) {
+    setValueByPath(toObject, ["text"], fromText);
+  }
+  const fromActivityStart = getValueByPath(fromObject, [
+    "activityStart"
+  ]);
+  if (fromActivityStart != null) {
+    setValueByPath(toObject, ["activityStart"], fromActivityStart);
+  }
+  const fromActivityEnd = getValueByPath(fromObject, ["activityEnd"]);
+  if (fromActivityEnd != null) {
+    setValueByPath(toObject, ["activityEnd"], fromActivityEnd);
+  }
+  return toObject;
+}
+function liveServerMessageFromVertex(fromObject) {
+  const toObject = {};
+  const fromSetupComplete = getValueByPath(fromObject, [
+    "setupComplete"
+  ]);
+  if (fromSetupComplete != null) {
+    setValueByPath(toObject, ["setupComplete"], fromSetupComplete);
+  }
+  const fromServerContent = getValueByPath(fromObject, [
+    "serverContent"
+  ]);
+  if (fromServerContent != null) {
+    setValueByPath(toObject, ["serverContent"], fromServerContent);
+  }
+  const fromToolCall = getValueByPath(fromObject, ["toolCall"]);
+  if (fromToolCall != null) {
+    setValueByPath(toObject, ["toolCall"], fromToolCall);
+  }
+  const fromToolCallCancellation = getValueByPath(fromObject, [
+    "toolCallCancellation"
+  ]);
+  if (fromToolCallCancellation != null) {
+    setValueByPath(toObject, ["toolCallCancellation"], fromToolCallCancellation);
+  }
+  const fromUsageMetadata = getValueByPath(fromObject, [
+    "usageMetadata"
+  ]);
+  if (fromUsageMetadata != null) {
+    setValueByPath(toObject, ["usageMetadata"], usageMetadataFromVertex(fromUsageMetadata));
+  }
+  const fromGoAway = getValueByPath(fromObject, ["goAway"]);
+  if (fromGoAway != null) {
+    setValueByPath(toObject, ["goAway"], fromGoAway);
+  }
+  const fromSessionResumptionUpdate = getValueByPath(fromObject, [
+    "sessionResumptionUpdate"
+  ]);
+  if (fromSessionResumptionUpdate != null) {
+    setValueByPath(toObject, ["sessionResumptionUpdate"], fromSessionResumptionUpdate);
+  }
+  return toObject;
+}
+function partToMldev$2(fromObject) {
+  const toObject = {};
+  const fromVideoMetadata = getValueByPath(fromObject, [
+    "videoMetadata"
+  ]);
+  if (fromVideoMetadata != null) {
+    setValueByPath(toObject, ["videoMetadata"], fromVideoMetadata);
+  }
+  const fromThought = getValueByPath(fromObject, ["thought"]);
+  if (fromThought != null) {
+    setValueByPath(toObject, ["thought"], fromThought);
+  }
+  const fromInlineData = getValueByPath(fromObject, ["inlineData"]);
+  if (fromInlineData != null) {
+    setValueByPath(toObject, ["inlineData"], blobToMldev$2(fromInlineData));
+  }
+  const fromFileData = getValueByPath(fromObject, ["fileData"]);
+  if (fromFileData != null) {
+    setValueByPath(toObject, ["fileData"], fileDataToMldev$2(fromFileData));
+  }
+  const fromThoughtSignature = getValueByPath(fromObject, [
+    "thoughtSignature"
+  ]);
+  if (fromThoughtSignature != null) {
+    setValueByPath(toObject, ["thoughtSignature"], fromThoughtSignature);
+  }
+  const fromFunctionCall = getValueByPath(fromObject, ["functionCall"]);
+  if (fromFunctionCall != null) {
+    setValueByPath(toObject, ["functionCall"], fromFunctionCall);
+  }
+  const fromCodeExecutionResult = getValueByPath(fromObject, [
+    "codeExecutionResult"
+  ]);
+  if (fromCodeExecutionResult != null) {
+    setValueByPath(toObject, ["codeExecutionResult"], fromCodeExecutionResult);
+  }
+  const fromExecutableCode = getValueByPath(fromObject, [
+    "executableCode"
+  ]);
+  if (fromExecutableCode != null) {
+    setValueByPath(toObject, ["executableCode"], fromExecutableCode);
+  }
+  const fromFunctionResponse = getValueByPath(fromObject, [
+    "functionResponse"
+  ]);
+  if (fromFunctionResponse != null) {
+    setValueByPath(toObject, ["functionResponse"], fromFunctionResponse);
+  }
+  const fromText = getValueByPath(fromObject, ["text"]);
+  if (fromText != null) {
+    setValueByPath(toObject, ["text"], fromText);
+  }
+  return toObject;
+}
+function sessionResumptionConfigToMldev$1(fromObject) {
+  const toObject = {};
+  const fromHandle = getValueByPath(fromObject, ["handle"]);
+  if (fromHandle != null) {
+    setValueByPath(toObject, ["handle"], fromHandle);
+  }
+  if (getValueByPath(fromObject, ["transparent"]) !== undefined) {
+    throw new Error("transparent parameter is not supported in Gemini API.");
+  }
+  return toObject;
+}
+function speechConfigToVertex$1(fromObject) {
+  const toObject = {};
+  const fromVoiceConfig = getValueByPath(fromObject, ["voiceConfig"]);
+  if (fromVoiceConfig != null) {
+    setValueByPath(toObject, ["voiceConfig"], fromVoiceConfig);
+  }
+  if (getValueByPath(fromObject, ["multiSpeakerVoiceConfig"]) !== undefined) {
+    throw new Error("multiSpeakerVoiceConfig parameter is not supported in Vertex AI.");
+  }
+  const fromLanguageCode = getValueByPath(fromObject, ["languageCode"]);
+  if (fromLanguageCode != null) {
+    setValueByPath(toObject, ["languageCode"], fromLanguageCode);
+  }
+  return toObject;
+}
+function toolToMldev$2(fromObject) {
+  const toObject = {};
+  const fromFunctionDeclarations = getValueByPath(fromObject, [
+    "functionDeclarations"
+  ]);
+  if (fromFunctionDeclarations != null) {
+    let transformedList = fromFunctionDeclarations;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return item;
+      });
+    }
+    setValueByPath(toObject, ["functionDeclarations"], transformedList);
+  }
+  if (getValueByPath(fromObject, ["retrieval"]) !== undefined) {
+    throw new Error("retrieval parameter is not supported in Gemini API.");
+  }
+  const fromGoogleSearch = getValueByPath(fromObject, ["googleSearch"]);
+  if (fromGoogleSearch != null) {
+    setValueByPath(toObject, ["googleSearch"], googleSearchToMldev$2(fromGoogleSearch));
+  }
+  const fromGoogleSearchRetrieval = getValueByPath(fromObject, [
+    "googleSearchRetrieval"
+  ]);
+  if (fromGoogleSearchRetrieval != null) {
+    setValueByPath(toObject, ["googleSearchRetrieval"], fromGoogleSearchRetrieval);
+  }
+  if (getValueByPath(fromObject, ["enterpriseWebSearch"]) !== undefined) {
+    throw new Error("enterpriseWebSearch parameter is not supported in Gemini API.");
+  }
+  const fromGoogleMaps = getValueByPath(fromObject, ["googleMaps"]);
+  if (fromGoogleMaps != null) {
+    setValueByPath(toObject, ["googleMaps"], googleMapsToMldev$2(fromGoogleMaps));
+  }
+  const fromUrlContext = getValueByPath(fromObject, ["urlContext"]);
+  if (fromUrlContext != null) {
+    setValueByPath(toObject, ["urlContext"], fromUrlContext);
+  }
+  const fromComputerUse = getValueByPath(fromObject, ["computerUse"]);
+  if (fromComputerUse != null) {
+    setValueByPath(toObject, ["computerUse"], fromComputerUse);
+  }
+  const fromCodeExecution = getValueByPath(fromObject, [
+    "codeExecution"
+  ]);
+  if (fromCodeExecution != null) {
+    setValueByPath(toObject, ["codeExecution"], fromCodeExecution);
+  }
+  return toObject;
+}
+function toolToVertex$1(fromObject) {
+  const toObject = {};
+  const fromFunctionDeclarations = getValueByPath(fromObject, [
+    "functionDeclarations"
+  ]);
+  if (fromFunctionDeclarations != null) {
+    let transformedList = fromFunctionDeclarations;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return functionDeclarationToVertex$1(item);
+      });
+    }
+    setValueByPath(toObject, ["functionDeclarations"], transformedList);
+  }
+  const fromRetrieval = getValueByPath(fromObject, ["retrieval"]);
+  if (fromRetrieval != null) {
+    setValueByPath(toObject, ["retrieval"], fromRetrieval);
+  }
+  const fromGoogleSearch = getValueByPath(fromObject, ["googleSearch"]);
+  if (fromGoogleSearch != null) {
+    setValueByPath(toObject, ["googleSearch"], fromGoogleSearch);
+  }
+  const fromGoogleSearchRetrieval = getValueByPath(fromObject, [
+    "googleSearchRetrieval"
+  ]);
+  if (fromGoogleSearchRetrieval != null) {
+    setValueByPath(toObject, ["googleSearchRetrieval"], fromGoogleSearchRetrieval);
+  }
+  const fromEnterpriseWebSearch = getValueByPath(fromObject, [
+    "enterpriseWebSearch"
+  ]);
+  if (fromEnterpriseWebSearch != null) {
+    setValueByPath(toObject, ["enterpriseWebSearch"], fromEnterpriseWebSearch);
+  }
+  const fromGoogleMaps = getValueByPath(fromObject, ["googleMaps"]);
+  if (fromGoogleMaps != null) {
+    setValueByPath(toObject, ["googleMaps"], fromGoogleMaps);
+  }
+  const fromUrlContext = getValueByPath(fromObject, ["urlContext"]);
+  if (fromUrlContext != null) {
+    setValueByPath(toObject, ["urlContext"], fromUrlContext);
+  }
+  const fromComputerUse = getValueByPath(fromObject, ["computerUse"]);
+  if (fromComputerUse != null) {
+    setValueByPath(toObject, ["computerUse"], fromComputerUse);
+  }
+  const fromCodeExecution = getValueByPath(fromObject, [
+    "codeExecution"
+  ]);
+  if (fromCodeExecution != null) {
+    setValueByPath(toObject, ["codeExecution"], fromCodeExecution);
+  }
+  return toObject;
+}
+function usageMetadataFromVertex(fromObject) {
+  const toObject = {};
+  const fromPromptTokenCount = getValueByPath(fromObject, [
+    "promptTokenCount"
+  ]);
+  if (fromPromptTokenCount != null) {
+    setValueByPath(toObject, ["promptTokenCount"], fromPromptTokenCount);
+  }
+  const fromCachedContentTokenCount = getValueByPath(fromObject, [
+    "cachedContentTokenCount"
+  ]);
+  if (fromCachedContentTokenCount != null) {
+    setValueByPath(toObject, ["cachedContentTokenCount"], fromCachedContentTokenCount);
+  }
+  const fromResponseTokenCount = getValueByPath(fromObject, [
+    "candidatesTokenCount"
+  ]);
+  if (fromResponseTokenCount != null) {
+    setValueByPath(toObject, ["responseTokenCount"], fromResponseTokenCount);
+  }
+  const fromToolUsePromptTokenCount = getValueByPath(fromObject, [
+    "toolUsePromptTokenCount"
+  ]);
+  if (fromToolUsePromptTokenCount != null) {
+    setValueByPath(toObject, ["toolUsePromptTokenCount"], fromToolUsePromptTokenCount);
+  }
+  const fromThoughtsTokenCount = getValueByPath(fromObject, [
+    "thoughtsTokenCount"
+  ]);
+  if (fromThoughtsTokenCount != null) {
+    setValueByPath(toObject, ["thoughtsTokenCount"], fromThoughtsTokenCount);
+  }
+  const fromTotalTokenCount = getValueByPath(fromObject, [
+    "totalTokenCount"
+  ]);
+  if (fromTotalTokenCount != null) {
+    setValueByPath(toObject, ["totalTokenCount"], fromTotalTokenCount);
+  }
+  const fromPromptTokensDetails = getValueByPath(fromObject, [
+    "promptTokensDetails"
+  ]);
+  if (fromPromptTokensDetails != null) {
+    let transformedList = fromPromptTokensDetails;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return item;
+      });
+    }
+    setValueByPath(toObject, ["promptTokensDetails"], transformedList);
+  }
+  const fromCacheTokensDetails = getValueByPath(fromObject, [
+    "cacheTokensDetails"
+  ]);
+  if (fromCacheTokensDetails != null) {
+    let transformedList = fromCacheTokensDetails;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return item;
+      });
+    }
+    setValueByPath(toObject, ["cacheTokensDetails"], transformedList);
+  }
+  const fromResponseTokensDetails = getValueByPath(fromObject, [
+    "candidatesTokensDetails"
+  ]);
+  if (fromResponseTokensDetails != null) {
+    let transformedList = fromResponseTokensDetails;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return item;
+      });
+    }
+    setValueByPath(toObject, ["responseTokensDetails"], transformedList);
+  }
+  const fromToolUsePromptTokensDetails = getValueByPath(fromObject, [
+    "toolUsePromptTokensDetails"
+  ]);
+  if (fromToolUsePromptTokensDetails != null) {
+    let transformedList = fromToolUsePromptTokensDetails;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return item;
+      });
+    }
+    setValueByPath(toObject, ["toolUsePromptTokensDetails"], transformedList);
+  }
+  const fromTrafficType = getValueByPath(fromObject, ["trafficType"]);
+  if (fromTrafficType != null) {
+    setValueByPath(toObject, ["trafficType"], fromTrafficType);
+  }
+  return toObject;
+}
+function blobToMldev$1(fromObject) {
+  const toObject = {};
+  if (getValueByPath(fromObject, ["displayName"]) !== undefined) {
+    throw new Error("displayName parameter is not supported in Gemini API.");
+  }
+  const fromData = getValueByPath(fromObject, ["data"]);
+  if (fromData != null) {
+    setValueByPath(toObject, ["data"], fromData);
+  }
+  const fromMimeType = getValueByPath(fromObject, ["mimeType"]);
+  if (fromMimeType != null) {
+    setValueByPath(toObject, ["mimeType"], fromMimeType);
+  }
+  return toObject;
+}
+function candidateFromMldev(fromObject) {
+  const toObject = {};
+  const fromContent = getValueByPath(fromObject, ["content"]);
+  if (fromContent != null) {
+    setValueByPath(toObject, ["content"], fromContent);
+  }
+  const fromCitationMetadata = getValueByPath(fromObject, [
+    "citationMetadata"
+  ]);
+  if (fromCitationMetadata != null) {
+    setValueByPath(toObject, ["citationMetadata"], citationMetadataFromMldev(fromCitationMetadata));
+  }
+  const fromTokenCount = getValueByPath(fromObject, ["tokenCount"]);
+  if (fromTokenCount != null) {
+    setValueByPath(toObject, ["tokenCount"], fromTokenCount);
+  }
+  const fromFinishReason = getValueByPath(fromObject, ["finishReason"]);
+  if (fromFinishReason != null) {
+    setValueByPath(toObject, ["finishReason"], fromFinishReason);
+  }
+  const fromUrlContextMetadata = getValueByPath(fromObject, [
+    "urlContextMetadata"
+  ]);
+  if (fromUrlContextMetadata != null) {
+    setValueByPath(toObject, ["urlContextMetadata"], fromUrlContextMetadata);
+  }
+  const fromAvgLogprobs = getValueByPath(fromObject, ["avgLogprobs"]);
+  if (fromAvgLogprobs != null) {
+    setValueByPath(toObject, ["avgLogprobs"], fromAvgLogprobs);
+  }
+  const fromGroundingMetadata = getValueByPath(fromObject, [
+    "groundingMetadata"
+  ]);
+  if (fromGroundingMetadata != null) {
+    setValueByPath(toObject, ["groundingMetadata"], fromGroundingMetadata);
+  }
+  const fromIndex = getValueByPath(fromObject, ["index"]);
+  if (fromIndex != null) {
+    setValueByPath(toObject, ["index"], fromIndex);
+  }
+  const fromLogprobsResult = getValueByPath(fromObject, [
+    "logprobsResult"
+  ]);
+  if (fromLogprobsResult != null) {
+    setValueByPath(toObject, ["logprobsResult"], fromLogprobsResult);
+  }
+  const fromSafetyRatings = getValueByPath(fromObject, [
+    "safetyRatings"
+  ]);
+  if (fromSafetyRatings != null) {
+    let transformedList = fromSafetyRatings;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return item;
+      });
+    }
+    setValueByPath(toObject, ["safetyRatings"], transformedList);
+  }
+  return toObject;
+}
+function citationMetadataFromMldev(fromObject) {
+  const toObject = {};
+  const fromCitations = getValueByPath(fromObject, ["citationSources"]);
+  if (fromCitations != null) {
+    let transformedList = fromCitations;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return item;
+      });
+    }
+    setValueByPath(toObject, ["citations"], transformedList);
+  }
+  return toObject;
+}
+function computeTokensParametersToVertex(apiClient, fromObject) {
+  const toObject = {};
+  const fromModel = getValueByPath(fromObject, ["model"]);
+  if (fromModel != null) {
+    setValueByPath(toObject, ["_url", "model"], tModel(apiClient, fromModel));
+  }
+  const fromContents = getValueByPath(fromObject, ["contents"]);
+  if (fromContents != null) {
+    let transformedList = tContents(fromContents);
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return item;
+      });
+    }
+    setValueByPath(toObject, ["contents"], transformedList);
+  }
+  return toObject;
+}
+function computeTokensResponseFromVertex(fromObject) {
+  const toObject = {};
+  const fromSdkHttpResponse = getValueByPath(fromObject, [
+    "sdkHttpResponse"
+  ]);
+  if (fromSdkHttpResponse != null) {
+    setValueByPath(toObject, ["sdkHttpResponse"], fromSdkHttpResponse);
+  }
+  const fromTokensInfo = getValueByPath(fromObject, ["tokensInfo"]);
+  if (fromTokensInfo != null) {
+    let transformedList = fromTokensInfo;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return item;
+      });
+    }
+    setValueByPath(toObject, ["tokensInfo"], transformedList);
+  }
+  return toObject;
+}
+function contentEmbeddingFromVertex(fromObject) {
+  const toObject = {};
+  const fromValues = getValueByPath(fromObject, ["values"]);
+  if (fromValues != null) {
+    setValueByPath(toObject, ["values"], fromValues);
+  }
+  const fromStatistics = getValueByPath(fromObject, ["statistics"]);
+  if (fromStatistics != null) {
+    setValueByPath(toObject, ["statistics"], contentEmbeddingStatisticsFromVertex(fromStatistics));
+  }
+  return toObject;
+}
+function contentEmbeddingStatisticsFromVertex(fromObject) {
+  const toObject = {};
+  const fromTruncated = getValueByPath(fromObject, ["truncated"]);
+  if (fromTruncated != null) {
+    setValueByPath(toObject, ["truncated"], fromTruncated);
+  }
+  const fromTokenCount = getValueByPath(fromObject, ["token_count"]);
+  if (fromTokenCount != null) {
+    setValueByPath(toObject, ["tokenCount"], fromTokenCount);
+  }
+  return toObject;
+}
+function contentToMldev$1(fromObject) {
+  const toObject = {};
+  const fromParts = getValueByPath(fromObject, ["parts"]);
+  if (fromParts != null) {
+    let transformedList = fromParts;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return partToMldev$1(item);
+      });
+    }
+    setValueByPath(toObject, ["parts"], transformedList);
+  }
+  const fromRole = getValueByPath(fromObject, ["role"]);
+  if (fromRole != null) {
+    setValueByPath(toObject, ["role"], fromRole);
+  }
+  return toObject;
+}
+function controlReferenceConfigToVertex(fromObject) {
+  const toObject = {};
+  const fromControlType = getValueByPath(fromObject, ["controlType"]);
+  if (fromControlType != null) {
+    setValueByPath(toObject, ["controlType"], fromControlType);
+  }
+  const fromEnableControlImageComputation = getValueByPath(fromObject, [
+    "enableControlImageComputation"
+  ]);
+  if (fromEnableControlImageComputation != null) {
+    setValueByPath(toObject, ["computeControl"], fromEnableControlImageComputation);
+  }
+  return toObject;
+}
+function countTokensConfigToMldev(fromObject) {
+  const toObject = {};
+  if (getValueByPath(fromObject, ["systemInstruction"]) !== undefined) {
+    throw new Error("systemInstruction parameter is not supported in Gemini API.");
+  }
+  if (getValueByPath(fromObject, ["tools"]) !== undefined) {
+    throw new Error("tools parameter is not supported in Gemini API.");
+  }
+  if (getValueByPath(fromObject, ["generationConfig"]) !== undefined) {
+    throw new Error("generationConfig parameter is not supported in Gemini API.");
+  }
+  return toObject;
+}
+function countTokensConfigToVertex(fromObject, parentObject) {
+  const toObject = {};
+  const fromSystemInstruction = getValueByPath(fromObject, [
+    "systemInstruction"
+  ]);
+  if (parentObject !== undefined && fromSystemInstruction != null) {
+    setValueByPath(parentObject, ["systemInstruction"], tContent(fromSystemInstruction));
+  }
+  const fromTools = getValueByPath(fromObject, ["tools"]);
+  if (parentObject !== undefined && fromTools != null) {
+    let transformedList = fromTools;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return toolToVertex(item);
+      });
+    }
+    setValueByPath(parentObject, ["tools"], transformedList);
+  }
+  const fromGenerationConfig = getValueByPath(fromObject, [
+    "generationConfig"
+  ]);
+  if (parentObject !== undefined && fromGenerationConfig != null) {
+    setValueByPath(parentObject, ["generationConfig"], generationConfigToVertex(fromGenerationConfig));
+  }
+  return toObject;
+}
+function countTokensParametersToMldev(apiClient, fromObject) {
+  const toObject = {};
+  const fromModel = getValueByPath(fromObject, ["model"]);
+  if (fromModel != null) {
+    setValueByPath(toObject, ["_url", "model"], tModel(apiClient, fromModel));
+  }
+  const fromContents = getValueByPath(fromObject, ["contents"]);
+  if (fromContents != null) {
+    let transformedList = tContents(fromContents);
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return contentToMldev$1(item);
+      });
+    }
+    setValueByPath(toObject, ["contents"], transformedList);
+  }
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    countTokensConfigToMldev(fromConfig);
+  }
+  return toObject;
+}
+function countTokensParametersToVertex(apiClient, fromObject) {
+  const toObject = {};
+  const fromModel = getValueByPath(fromObject, ["model"]);
+  if (fromModel != null) {
+    setValueByPath(toObject, ["_url", "model"], tModel(apiClient, fromModel));
+  }
+  const fromContents = getValueByPath(fromObject, ["contents"]);
+  if (fromContents != null) {
+    let transformedList = tContents(fromContents);
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return item;
+      });
+    }
+    setValueByPath(toObject, ["contents"], transformedList);
+  }
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    countTokensConfigToVertex(fromConfig, toObject);
+  }
+  return toObject;
+}
+function countTokensResponseFromMldev(fromObject) {
+  const toObject = {};
+  const fromSdkHttpResponse = getValueByPath(fromObject, [
+    "sdkHttpResponse"
+  ]);
+  if (fromSdkHttpResponse != null) {
+    setValueByPath(toObject, ["sdkHttpResponse"], fromSdkHttpResponse);
+  }
+  const fromTotalTokens = getValueByPath(fromObject, ["totalTokens"]);
+  if (fromTotalTokens != null) {
+    setValueByPath(toObject, ["totalTokens"], fromTotalTokens);
+  }
+  const fromCachedContentTokenCount = getValueByPath(fromObject, [
+    "cachedContentTokenCount"
+  ]);
+  if (fromCachedContentTokenCount != null) {
+    setValueByPath(toObject, ["cachedContentTokenCount"], fromCachedContentTokenCount);
+  }
+  return toObject;
+}
+function countTokensResponseFromVertex(fromObject) {
+  const toObject = {};
+  const fromSdkHttpResponse = getValueByPath(fromObject, [
+    "sdkHttpResponse"
+  ]);
+  if (fromSdkHttpResponse != null) {
+    setValueByPath(toObject, ["sdkHttpResponse"], fromSdkHttpResponse);
+  }
+  const fromTotalTokens = getValueByPath(fromObject, ["totalTokens"]);
+  if (fromTotalTokens != null) {
+    setValueByPath(toObject, ["totalTokens"], fromTotalTokens);
+  }
+  return toObject;
+}
+function deleteModelParametersToMldev(apiClient, fromObject) {
+  const toObject = {};
+  const fromModel = getValueByPath(fromObject, ["model"]);
+  if (fromModel != null) {
+    setValueByPath(toObject, ["_url", "name"], tModel(apiClient, fromModel));
+  }
+  return toObject;
+}
+function deleteModelParametersToVertex(apiClient, fromObject) {
+  const toObject = {};
+  const fromModel = getValueByPath(fromObject, ["model"]);
+  if (fromModel != null) {
+    setValueByPath(toObject, ["_url", "name"], tModel(apiClient, fromModel));
+  }
+  return toObject;
+}
+function deleteModelResponseFromMldev(fromObject) {
+  const toObject = {};
+  const fromSdkHttpResponse = getValueByPath(fromObject, [
+    "sdkHttpResponse"
+  ]);
+  if (fromSdkHttpResponse != null) {
+    setValueByPath(toObject, ["sdkHttpResponse"], fromSdkHttpResponse);
+  }
+  return toObject;
+}
+function deleteModelResponseFromVertex(fromObject) {
+  const toObject = {};
+  const fromSdkHttpResponse = getValueByPath(fromObject, [
+    "sdkHttpResponse"
+  ]);
+  if (fromSdkHttpResponse != null) {
+    setValueByPath(toObject, ["sdkHttpResponse"], fromSdkHttpResponse);
+  }
+  return toObject;
+}
+function editImageConfigToVertex(fromObject, parentObject) {
+  const toObject = {};
+  const fromOutputGcsUri = getValueByPath(fromObject, ["outputGcsUri"]);
+  if (parentObject !== undefined && fromOutputGcsUri != null) {
+    setValueByPath(parentObject, ["parameters", "storageUri"], fromOutputGcsUri);
+  }
+  const fromNegativePrompt = getValueByPath(fromObject, [
+    "negativePrompt"
+  ]);
+  if (parentObject !== undefined && fromNegativePrompt != null) {
+    setValueByPath(parentObject, ["parameters", "negativePrompt"], fromNegativePrompt);
+  }
+  const fromNumberOfImages = getValueByPath(fromObject, [
+    "numberOfImages"
+  ]);
+  if (parentObject !== undefined && fromNumberOfImages != null) {
+    setValueByPath(parentObject, ["parameters", "sampleCount"], fromNumberOfImages);
+  }
+  const fromAspectRatio = getValueByPath(fromObject, ["aspectRatio"]);
+  if (parentObject !== undefined && fromAspectRatio != null) {
+    setValueByPath(parentObject, ["parameters", "aspectRatio"], fromAspectRatio);
+  }
+  const fromGuidanceScale = getValueByPath(fromObject, [
+    "guidanceScale"
+  ]);
+  if (parentObject !== undefined && fromGuidanceScale != null) {
+    setValueByPath(parentObject, ["parameters", "guidanceScale"], fromGuidanceScale);
+  }
+  const fromSeed = getValueByPath(fromObject, ["seed"]);
+  if (parentObject !== undefined && fromSeed != null) {
+    setValueByPath(parentObject, ["parameters", "seed"], fromSeed);
+  }
+  const fromSafetyFilterLevel = getValueByPath(fromObject, [
+    "safetyFilterLevel"
+  ]);
+  if (parentObject !== undefined && fromSafetyFilterLevel != null) {
+    setValueByPath(parentObject, ["parameters", "safetySetting"], fromSafetyFilterLevel);
+  }
+  const fromPersonGeneration = getValueByPath(fromObject, [
+    "personGeneration"
+  ]);
+  if (parentObject !== undefined && fromPersonGeneration != null) {
+    setValueByPath(parentObject, ["parameters", "personGeneration"], fromPersonGeneration);
+  }
+  const fromIncludeSafetyAttributes = getValueByPath(fromObject, [
+    "includeSafetyAttributes"
+  ]);
+  if (parentObject !== undefined && fromIncludeSafetyAttributes != null) {
+    setValueByPath(parentObject, ["parameters", "includeSafetyAttributes"], fromIncludeSafetyAttributes);
+  }
+  const fromIncludeRaiReason = getValueByPath(fromObject, [
+    "includeRaiReason"
+  ]);
+  if (parentObject !== undefined && fromIncludeRaiReason != null) {
+    setValueByPath(parentObject, ["parameters", "includeRaiReason"], fromIncludeRaiReason);
+  }
+  const fromLanguage = getValueByPath(fromObject, ["language"]);
+  if (parentObject !== undefined && fromLanguage != null) {
+    setValueByPath(parentObject, ["parameters", "language"], fromLanguage);
+  }
+  const fromOutputMimeType = getValueByPath(fromObject, [
+    "outputMimeType"
+  ]);
+  if (parentObject !== undefined && fromOutputMimeType != null) {
+    setValueByPath(parentObject, ["parameters", "outputOptions", "mimeType"], fromOutputMimeType);
+  }
+  const fromOutputCompressionQuality = getValueByPath(fromObject, [
+    "outputCompressionQuality"
+  ]);
+  if (parentObject !== undefined && fromOutputCompressionQuality != null) {
+    setValueByPath(parentObject, ["parameters", "outputOptions", "compressionQuality"], fromOutputCompressionQuality);
+  }
+  const fromAddWatermark = getValueByPath(fromObject, ["addWatermark"]);
+  if (parentObject !== undefined && fromAddWatermark != null) {
+    setValueByPath(parentObject, ["parameters", "addWatermark"], fromAddWatermark);
+  }
+  const fromLabels = getValueByPath(fromObject, ["labels"]);
+  if (parentObject !== undefined && fromLabels != null) {
+    setValueByPath(parentObject, ["labels"], fromLabels);
+  }
+  const fromEditMode = getValueByPath(fromObject, ["editMode"]);
+  if (parentObject !== undefined && fromEditMode != null) {
+    setValueByPath(parentObject, ["parameters", "editMode"], fromEditMode);
+  }
+  const fromBaseSteps = getValueByPath(fromObject, ["baseSteps"]);
+  if (parentObject !== undefined && fromBaseSteps != null) {
+    setValueByPath(parentObject, ["parameters", "editConfig", "baseSteps"], fromBaseSteps);
+  }
+  return toObject;
+}
+function editImageParametersInternalToVertex(apiClient, fromObject) {
+  const toObject = {};
+  const fromModel = getValueByPath(fromObject, ["model"]);
+  if (fromModel != null) {
+    setValueByPath(toObject, ["_url", "model"], tModel(apiClient, fromModel));
+  }
+  const fromPrompt = getValueByPath(fromObject, ["prompt"]);
+  if (fromPrompt != null) {
+    setValueByPath(toObject, ["instances[0]", "prompt"], fromPrompt);
+  }
+  const fromReferenceImages = getValueByPath(fromObject, [
+    "referenceImages"
+  ]);
+  if (fromReferenceImages != null) {
+    let transformedList = fromReferenceImages;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return referenceImageAPIInternalToVertex(item);
+      });
+    }
+    setValueByPath(toObject, ["instances[0]", "referenceImages"], transformedList);
+  }
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    editImageConfigToVertex(fromConfig, toObject);
+  }
+  return toObject;
+}
+function editImageResponseFromVertex(fromObject) {
+  const toObject = {};
+  const fromSdkHttpResponse = getValueByPath(fromObject, [
+    "sdkHttpResponse"
+  ]);
+  if (fromSdkHttpResponse != null) {
+    setValueByPath(toObject, ["sdkHttpResponse"], fromSdkHttpResponse);
+  }
+  const fromGeneratedImages = getValueByPath(fromObject, [
+    "predictions"
+  ]);
+  if (fromGeneratedImages != null) {
+    let transformedList = fromGeneratedImages;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return generatedImageFromVertex(item);
+      });
+    }
+    setValueByPath(toObject, ["generatedImages"], transformedList);
+  }
+  return toObject;
+}
+function embedContentConfigToMldev(fromObject, parentObject) {
+  const toObject = {};
+  const fromTaskType = getValueByPath(fromObject, ["taskType"]);
+  if (parentObject !== undefined && fromTaskType != null) {
+    setValueByPath(parentObject, ["requests[]", "taskType"], fromTaskType);
+  }
+  const fromTitle = getValueByPath(fromObject, ["title"]);
+  if (parentObject !== undefined && fromTitle != null) {
+    setValueByPath(parentObject, ["requests[]", "title"], fromTitle);
+  }
+  const fromOutputDimensionality = getValueByPath(fromObject, [
+    "outputDimensionality"
+  ]);
+  if (parentObject !== undefined && fromOutputDimensionality != null) {
+    setValueByPath(parentObject, ["requests[]", "outputDimensionality"], fromOutputDimensionality);
+  }
+  if (getValueByPath(fromObject, ["mimeType"]) !== undefined) {
+    throw new Error("mimeType parameter is not supported in Gemini API.");
+  }
+  if (getValueByPath(fromObject, ["autoTruncate"]) !== undefined) {
+    throw new Error("autoTruncate parameter is not supported in Gemini API.");
+  }
+  return toObject;
+}
+function embedContentConfigToVertex(fromObject, parentObject) {
+  const toObject = {};
+  const fromTaskType = getValueByPath(fromObject, ["taskType"]);
+  if (parentObject !== undefined && fromTaskType != null) {
+    setValueByPath(parentObject, ["instances[]", "task_type"], fromTaskType);
+  }
+  const fromTitle = getValueByPath(fromObject, ["title"]);
+  if (parentObject !== undefined && fromTitle != null) {
+    setValueByPath(parentObject, ["instances[]", "title"], fromTitle);
+  }
+  const fromOutputDimensionality = getValueByPath(fromObject, [
+    "outputDimensionality"
+  ]);
+  if (parentObject !== undefined && fromOutputDimensionality != null) {
+    setValueByPath(parentObject, ["parameters", "outputDimensionality"], fromOutputDimensionality);
+  }
+  const fromMimeType = getValueByPath(fromObject, ["mimeType"]);
+  if (parentObject !== undefined && fromMimeType != null) {
+    setValueByPath(parentObject, ["instances[]", "mimeType"], fromMimeType);
+  }
+  const fromAutoTruncate = getValueByPath(fromObject, ["autoTruncate"]);
+  if (parentObject !== undefined && fromAutoTruncate != null) {
+    setValueByPath(parentObject, ["parameters", "autoTruncate"], fromAutoTruncate);
+  }
+  return toObject;
+}
+function embedContentParametersToMldev(apiClient, fromObject) {
+  const toObject = {};
+  const fromModel = getValueByPath(fromObject, ["model"]);
+  if (fromModel != null) {
+    setValueByPath(toObject, ["_url", "model"], tModel(apiClient, fromModel));
+  }
+  const fromContents = getValueByPath(fromObject, ["contents"]);
+  if (fromContents != null) {
+    let transformedList = tContentsForEmbed(apiClient, fromContents);
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return item;
+      });
+    }
+    setValueByPath(toObject, ["requests[]", "content"], transformedList);
+  }
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    embedContentConfigToMldev(fromConfig, toObject);
+  }
+  const fromModelForEmbedContent = getValueByPath(fromObject, ["model"]);
+  if (fromModelForEmbedContent !== undefined) {
+    setValueByPath(toObject, ["requests[]", "model"], tModel(apiClient, fromModelForEmbedContent));
+  }
+  return toObject;
+}
+function embedContentParametersToVertex(apiClient, fromObject) {
+  const toObject = {};
+  const fromModel = getValueByPath(fromObject, ["model"]);
+  if (fromModel != null) {
+    setValueByPath(toObject, ["_url", "model"], tModel(apiClient, fromModel));
+  }
+  const fromContents = getValueByPath(fromObject, ["contents"]);
+  if (fromContents != null) {
+    let transformedList = tContentsForEmbed(apiClient, fromContents);
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return item;
+      });
+    }
+    setValueByPath(toObject, ["instances[]", "content"], transformedList);
+  }
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    embedContentConfigToVertex(fromConfig, toObject);
+  }
+  return toObject;
+}
+function embedContentResponseFromMldev(fromObject) {
+  const toObject = {};
+  const fromSdkHttpResponse = getValueByPath(fromObject, [
+    "sdkHttpResponse"
+  ]);
+  if (fromSdkHttpResponse != null) {
+    setValueByPath(toObject, ["sdkHttpResponse"], fromSdkHttpResponse);
+  }
+  const fromEmbeddings = getValueByPath(fromObject, ["embeddings"]);
+  if (fromEmbeddings != null) {
+    let transformedList = fromEmbeddings;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return item;
+      });
+    }
+    setValueByPath(toObject, ["embeddings"], transformedList);
+  }
+  const fromMetadata = getValueByPath(fromObject, ["metadata"]);
+  if (fromMetadata != null) {
+    setValueByPath(toObject, ["metadata"], fromMetadata);
+  }
+  return toObject;
+}
+function embedContentResponseFromVertex(fromObject) {
+  const toObject = {};
+  const fromSdkHttpResponse = getValueByPath(fromObject, [
+    "sdkHttpResponse"
+  ]);
+  if (fromSdkHttpResponse != null) {
+    setValueByPath(toObject, ["sdkHttpResponse"], fromSdkHttpResponse);
+  }
+  const fromEmbeddings = getValueByPath(fromObject, [
+    "predictions[]",
+    "embeddings"
+  ]);
+  if (fromEmbeddings != null) {
+    let transformedList = fromEmbeddings;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return contentEmbeddingFromVertex(item);
+      });
+    }
+    setValueByPath(toObject, ["embeddings"], transformedList);
+  }
+  const fromMetadata = getValueByPath(fromObject, ["metadata"]);
+  if (fromMetadata != null) {
+    setValueByPath(toObject, ["metadata"], fromMetadata);
+  }
+  return toObject;
+}
+function endpointFromVertex(fromObject) {
+  const toObject = {};
+  const fromName = getValueByPath(fromObject, ["endpoint"]);
+  if (fromName != null) {
+    setValueByPath(toObject, ["name"], fromName);
+  }
+  const fromDeployedModelId = getValueByPath(fromObject, [
+    "deployedModelId"
+  ]);
+  if (fromDeployedModelId != null) {
+    setValueByPath(toObject, ["deployedModelId"], fromDeployedModelId);
+  }
+  return toObject;
+}
+function fileDataToMldev$1(fromObject) {
+  const toObject = {};
+  if (getValueByPath(fromObject, ["displayName"]) !== undefined) {
+    throw new Error("displayName parameter is not supported in Gemini API.");
+  }
+  const fromFileUri = getValueByPath(fromObject, ["fileUri"]);
+  if (fromFileUri != null) {
+    setValueByPath(toObject, ["fileUri"], fromFileUri);
+  }
+  const fromMimeType = getValueByPath(fromObject, ["mimeType"]);
+  if (fromMimeType != null) {
+    setValueByPath(toObject, ["mimeType"], fromMimeType);
+  }
+  return toObject;
+}
+function functionDeclarationToVertex(fromObject) {
+  const toObject = {};
+  if (getValueByPath(fromObject, ["behavior"]) !== undefined) {
+    throw new Error("behavior parameter is not supported in Vertex AI.");
+  }
+  const fromDescription = getValueByPath(fromObject, ["description"]);
+  if (fromDescription != null) {
+    setValueByPath(toObject, ["description"], fromDescription);
+  }
+  const fromName = getValueByPath(fromObject, ["name"]);
+  if (fromName != null) {
+    setValueByPath(toObject, ["name"], fromName);
+  }
+  const fromParameters = getValueByPath(fromObject, ["parameters"]);
+  if (fromParameters != null) {
+    setValueByPath(toObject, ["parameters"], fromParameters);
+  }
+  const fromParametersJsonSchema = getValueByPath(fromObject, [
+    "parametersJsonSchema"
+  ]);
+  if (fromParametersJsonSchema != null) {
+    setValueByPath(toObject, ["parametersJsonSchema"], fromParametersJsonSchema);
+  }
+  const fromResponse = getValueByPath(fromObject, ["response"]);
+  if (fromResponse != null) {
+    setValueByPath(toObject, ["response"], fromResponse);
+  }
+  const fromResponseJsonSchema = getValueByPath(fromObject, [
+    "responseJsonSchema"
+  ]);
+  if (fromResponseJsonSchema != null) {
+    setValueByPath(toObject, ["responseJsonSchema"], fromResponseJsonSchema);
+  }
+  return toObject;
+}
+function generateContentConfigToMldev(apiClient, fromObject, parentObject) {
+  const toObject = {};
+  const fromSystemInstruction = getValueByPath(fromObject, [
+    "systemInstruction"
+  ]);
+  if (parentObject !== undefined && fromSystemInstruction != null) {
+    setValueByPath(parentObject, ["systemInstruction"], contentToMldev$1(tContent(fromSystemInstruction)));
+  }
+  const fromTemperature = getValueByPath(fromObject, ["temperature"]);
+  if (fromTemperature != null) {
+    setValueByPath(toObject, ["temperature"], fromTemperature);
+  }
+  const fromTopP = getValueByPath(fromObject, ["topP"]);
+  if (fromTopP != null) {
+    setValueByPath(toObject, ["topP"], fromTopP);
+  }
+  const fromTopK = getValueByPath(fromObject, ["topK"]);
+  if (fromTopK != null) {
+    setValueByPath(toObject, ["topK"], fromTopK);
+  }
+  const fromCandidateCount = getValueByPath(fromObject, [
+    "candidateCount"
+  ]);
+  if (fromCandidateCount != null) {
+    setValueByPath(toObject, ["candidateCount"], fromCandidateCount);
+  }
+  const fromMaxOutputTokens = getValueByPath(fromObject, [
+    "maxOutputTokens"
+  ]);
+  if (fromMaxOutputTokens != null) {
+    setValueByPath(toObject, ["maxOutputTokens"], fromMaxOutputTokens);
+  }
+  const fromStopSequences = getValueByPath(fromObject, [
+    "stopSequences"
+  ]);
+  if (fromStopSequences != null) {
+    setValueByPath(toObject, ["stopSequences"], fromStopSequences);
+  }
+  const fromResponseLogprobs = getValueByPath(fromObject, [
+    "responseLogprobs"
+  ]);
+  if (fromResponseLogprobs != null) {
+    setValueByPath(toObject, ["responseLogprobs"], fromResponseLogprobs);
+  }
+  const fromLogprobs = getValueByPath(fromObject, ["logprobs"]);
+  if (fromLogprobs != null) {
+    setValueByPath(toObject, ["logprobs"], fromLogprobs);
+  }
+  const fromPresencePenalty = getValueByPath(fromObject, [
+    "presencePenalty"
+  ]);
+  if (fromPresencePenalty != null) {
+    setValueByPath(toObject, ["presencePenalty"], fromPresencePenalty);
+  }
+  const fromFrequencyPenalty = getValueByPath(fromObject, [
+    "frequencyPenalty"
+  ]);
+  if (fromFrequencyPenalty != null) {
+    setValueByPath(toObject, ["frequencyPenalty"], fromFrequencyPenalty);
+  }
+  const fromSeed = getValueByPath(fromObject, ["seed"]);
+  if (fromSeed != null) {
+    setValueByPath(toObject, ["seed"], fromSeed);
+  }
+  const fromResponseMimeType = getValueByPath(fromObject, [
+    "responseMimeType"
+  ]);
+  if (fromResponseMimeType != null) {
+    setValueByPath(toObject, ["responseMimeType"], fromResponseMimeType);
+  }
+  const fromResponseSchema = getValueByPath(fromObject, [
+    "responseSchema"
+  ]);
+  if (fromResponseSchema != null) {
+    setValueByPath(toObject, ["responseSchema"], tSchema(fromResponseSchema));
+  }
+  const fromResponseJsonSchema = getValueByPath(fromObject, [
+    "responseJsonSchema"
+  ]);
+  if (fromResponseJsonSchema != null) {
+    setValueByPath(toObject, ["responseJsonSchema"], fromResponseJsonSchema);
+  }
+  if (getValueByPath(fromObject, ["routingConfig"]) !== undefined) {
+    throw new Error("routingConfig parameter is not supported in Gemini API.");
+  }
+  if (getValueByPath(fromObject, ["modelSelectionConfig"]) !== undefined) {
+    throw new Error("modelSelectionConfig parameter is not supported in Gemini API.");
+  }
+  const fromSafetySettings = getValueByPath(fromObject, [
+    "safetySettings"
+  ]);
+  if (parentObject !== undefined && fromSafetySettings != null) {
+    let transformedList = fromSafetySettings;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return safetySettingToMldev(item);
+      });
+    }
+    setValueByPath(parentObject, ["safetySettings"], transformedList);
+  }
+  const fromTools = getValueByPath(fromObject, ["tools"]);
+  if (parentObject !== undefined && fromTools != null) {
+    let transformedList = tTools(fromTools);
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return toolToMldev$1(tTool(item));
+      });
+    }
+    setValueByPath(parentObject, ["tools"], transformedList);
+  }
+  const fromToolConfig = getValueByPath(fromObject, ["toolConfig"]);
+  if (parentObject !== undefined && fromToolConfig != null) {
+    setValueByPath(parentObject, ["toolConfig"], fromToolConfig);
+  }
+  if (getValueByPath(fromObject, ["labels"]) !== undefined) {
+    throw new Error("labels parameter is not supported in Gemini API.");
+  }
+  const fromCachedContent = getValueByPath(fromObject, [
+    "cachedContent"
+  ]);
+  if (parentObject !== undefined && fromCachedContent != null) {
+    setValueByPath(parentObject, ["cachedContent"], tCachedContentName(apiClient, fromCachedContent));
+  }
+  const fromResponseModalities = getValueByPath(fromObject, [
+    "responseModalities"
+  ]);
+  if (fromResponseModalities != null) {
+    setValueByPath(toObject, ["responseModalities"], fromResponseModalities);
+  }
+  const fromMediaResolution = getValueByPath(fromObject, [
+    "mediaResolution"
+  ]);
+  if (fromMediaResolution != null) {
+    setValueByPath(toObject, ["mediaResolution"], fromMediaResolution);
+  }
+  const fromSpeechConfig = getValueByPath(fromObject, ["speechConfig"]);
+  if (fromSpeechConfig != null) {
+    setValueByPath(toObject, ["speechConfig"], tSpeechConfig(fromSpeechConfig));
+  }
+  if (getValueByPath(fromObject, ["audioTimestamp"]) !== undefined) {
+    throw new Error("audioTimestamp parameter is not supported in Gemini API.");
+  }
+  const fromThinkingConfig = getValueByPath(fromObject, [
+    "thinkingConfig"
+  ]);
+  if (fromThinkingConfig != null) {
+    setValueByPath(toObject, ["thinkingConfig"], fromThinkingConfig);
+  }
+  const fromImageConfig = getValueByPath(fromObject, ["imageConfig"]);
+  if (fromImageConfig != null) {
+    setValueByPath(toObject, ["imageConfig"], fromImageConfig);
+  }
+  return toObject;
+}
+function generateContentConfigToVertex(apiClient, fromObject, parentObject) {
+  const toObject = {};
+  const fromSystemInstruction = getValueByPath(fromObject, [
+    "systemInstruction"
+  ]);
+  if (parentObject !== undefined && fromSystemInstruction != null) {
+    setValueByPath(parentObject, ["systemInstruction"], tContent(fromSystemInstruction));
+  }
+  const fromTemperature = getValueByPath(fromObject, ["temperature"]);
+  if (fromTemperature != null) {
+    setValueByPath(toObject, ["temperature"], fromTemperature);
+  }
+  const fromTopP = getValueByPath(fromObject, ["topP"]);
+  if (fromTopP != null) {
+    setValueByPath(toObject, ["topP"], fromTopP);
+  }
+  const fromTopK = getValueByPath(fromObject, ["topK"]);
+  if (fromTopK != null) {
+    setValueByPath(toObject, ["topK"], fromTopK);
+  }
+  const fromCandidateCount = getValueByPath(fromObject, [
+    "candidateCount"
+  ]);
+  if (fromCandidateCount != null) {
+    setValueByPath(toObject, ["candidateCount"], fromCandidateCount);
+  }
+  const fromMaxOutputTokens = getValueByPath(fromObject, [
+    "maxOutputTokens"
+  ]);
+  if (fromMaxOutputTokens != null) {
+    setValueByPath(toObject, ["maxOutputTokens"], fromMaxOutputTokens);
+  }
+  const fromStopSequences = getValueByPath(fromObject, [
+    "stopSequences"
+  ]);
+  if (fromStopSequences != null) {
+    setValueByPath(toObject, ["stopSequences"], fromStopSequences);
+  }
+  const fromResponseLogprobs = getValueByPath(fromObject, [
+    "responseLogprobs"
+  ]);
+  if (fromResponseLogprobs != null) {
+    setValueByPath(toObject, ["responseLogprobs"], fromResponseLogprobs);
+  }
+  const fromLogprobs = getValueByPath(fromObject, ["logprobs"]);
+  if (fromLogprobs != null) {
+    setValueByPath(toObject, ["logprobs"], fromLogprobs);
+  }
+  const fromPresencePenalty = getValueByPath(fromObject, [
+    "presencePenalty"
+  ]);
+  if (fromPresencePenalty != null) {
+    setValueByPath(toObject, ["presencePenalty"], fromPresencePenalty);
+  }
+  const fromFrequencyPenalty = getValueByPath(fromObject, [
+    "frequencyPenalty"
+  ]);
+  if (fromFrequencyPenalty != null) {
+    setValueByPath(toObject, ["frequencyPenalty"], fromFrequencyPenalty);
+  }
+  const fromSeed = getValueByPath(fromObject, ["seed"]);
+  if (fromSeed != null) {
+    setValueByPath(toObject, ["seed"], fromSeed);
+  }
+  const fromResponseMimeType = getValueByPath(fromObject, [
+    "responseMimeType"
+  ]);
+  if (fromResponseMimeType != null) {
+    setValueByPath(toObject, ["responseMimeType"], fromResponseMimeType);
+  }
+  const fromResponseSchema = getValueByPath(fromObject, [
+    "responseSchema"
+  ]);
+  if (fromResponseSchema != null) {
+    setValueByPath(toObject, ["responseSchema"], tSchema(fromResponseSchema));
+  }
+  const fromResponseJsonSchema = getValueByPath(fromObject, [
+    "responseJsonSchema"
+  ]);
+  if (fromResponseJsonSchema != null) {
+    setValueByPath(toObject, ["responseJsonSchema"], fromResponseJsonSchema);
+  }
+  const fromRoutingConfig = getValueByPath(fromObject, [
+    "routingConfig"
+  ]);
+  if (fromRoutingConfig != null) {
+    setValueByPath(toObject, ["routingConfig"], fromRoutingConfig);
+  }
+  const fromModelSelectionConfig = getValueByPath(fromObject, [
+    "modelSelectionConfig"
+  ]);
+  if (fromModelSelectionConfig != null) {
+    setValueByPath(toObject, ["modelConfig"], fromModelSelectionConfig);
+  }
+  const fromSafetySettings = getValueByPath(fromObject, [
+    "safetySettings"
+  ]);
+  if (parentObject !== undefined && fromSafetySettings != null) {
+    let transformedList = fromSafetySettings;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return item;
+      });
+    }
+    setValueByPath(parentObject, ["safetySettings"], transformedList);
+  }
+  const fromTools = getValueByPath(fromObject, ["tools"]);
+  if (parentObject !== undefined && fromTools != null) {
+    let transformedList = tTools(fromTools);
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return toolToVertex(tTool(item));
+      });
+    }
+    setValueByPath(parentObject, ["tools"], transformedList);
+  }
+  const fromToolConfig = getValueByPath(fromObject, ["toolConfig"]);
+  if (parentObject !== undefined && fromToolConfig != null) {
+    setValueByPath(parentObject, ["toolConfig"], fromToolConfig);
+  }
+  const fromLabels = getValueByPath(fromObject, ["labels"]);
+  if (parentObject !== undefined && fromLabels != null) {
+    setValueByPath(parentObject, ["labels"], fromLabels);
+  }
+  const fromCachedContent = getValueByPath(fromObject, [
+    "cachedContent"
+  ]);
+  if (parentObject !== undefined && fromCachedContent != null) {
+    setValueByPath(parentObject, ["cachedContent"], tCachedContentName(apiClient, fromCachedContent));
+  }
+  const fromResponseModalities = getValueByPath(fromObject, [
+    "responseModalities"
+  ]);
+  if (fromResponseModalities != null) {
+    setValueByPath(toObject, ["responseModalities"], fromResponseModalities);
+  }
+  const fromMediaResolution = getValueByPath(fromObject, [
+    "mediaResolution"
+  ]);
+  if (fromMediaResolution != null) {
+    setValueByPath(toObject, ["mediaResolution"], fromMediaResolution);
+  }
+  const fromSpeechConfig = getValueByPath(fromObject, ["speechConfig"]);
+  if (fromSpeechConfig != null) {
+    setValueByPath(toObject, ["speechConfig"], speechConfigToVertex(tSpeechConfig(fromSpeechConfig)));
+  }
+  const fromAudioTimestamp = getValueByPath(fromObject, [
+    "audioTimestamp"
+  ]);
+  if (fromAudioTimestamp != null) {
+    setValueByPath(toObject, ["audioTimestamp"], fromAudioTimestamp);
+  }
+  const fromThinkingConfig = getValueByPath(fromObject, [
+    "thinkingConfig"
+  ]);
+  if (fromThinkingConfig != null) {
+    setValueByPath(toObject, ["thinkingConfig"], fromThinkingConfig);
+  }
+  const fromImageConfig = getValueByPath(fromObject, ["imageConfig"]);
+  if (fromImageConfig != null) {
+    setValueByPath(toObject, ["imageConfig"], fromImageConfig);
+  }
+  return toObject;
+}
+function generateContentParametersToMldev(apiClient, fromObject) {
+  const toObject = {};
+  const fromModel = getValueByPath(fromObject, ["model"]);
+  if (fromModel != null) {
+    setValueByPath(toObject, ["_url", "model"], tModel(apiClient, fromModel));
+  }
+  const fromContents = getValueByPath(fromObject, ["contents"]);
+  if (fromContents != null) {
+    let transformedList = tContents(fromContents);
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return contentToMldev$1(item);
+      });
+    }
+    setValueByPath(toObject, ["contents"], transformedList);
+  }
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    setValueByPath(toObject, ["generationConfig"], generateContentConfigToMldev(apiClient, fromConfig, toObject));
+  }
+  return toObject;
+}
+function generateContentParametersToVertex(apiClient, fromObject) {
+  const toObject = {};
+  const fromModel = getValueByPath(fromObject, ["model"]);
+  if (fromModel != null) {
+    setValueByPath(toObject, ["_url", "model"], tModel(apiClient, fromModel));
+  }
+  const fromContents = getValueByPath(fromObject, ["contents"]);
+  if (fromContents != null) {
+    let transformedList = tContents(fromContents);
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return item;
+      });
+    }
+    setValueByPath(toObject, ["contents"], transformedList);
+  }
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    setValueByPath(toObject, ["generationConfig"], generateContentConfigToVertex(apiClient, fromConfig, toObject));
+  }
+  return toObject;
+}
+function generateContentResponseFromMldev(fromObject) {
+  const toObject = {};
+  const fromSdkHttpResponse = getValueByPath(fromObject, [
+    "sdkHttpResponse"
+  ]);
+  if (fromSdkHttpResponse != null) {
+    setValueByPath(toObject, ["sdkHttpResponse"], fromSdkHttpResponse);
+  }
+  const fromCandidates = getValueByPath(fromObject, ["candidates"]);
+  if (fromCandidates != null) {
+    let transformedList = fromCandidates;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return candidateFromMldev(item);
+      });
+    }
+    setValueByPath(toObject, ["candidates"], transformedList);
+  }
+  const fromModelVersion = getValueByPath(fromObject, ["modelVersion"]);
+  if (fromModelVersion != null) {
+    setValueByPath(toObject, ["modelVersion"], fromModelVersion);
+  }
+  const fromPromptFeedback = getValueByPath(fromObject, [
+    "promptFeedback"
+  ]);
+  if (fromPromptFeedback != null) {
+    setValueByPath(toObject, ["promptFeedback"], fromPromptFeedback);
+  }
+  const fromResponseId = getValueByPath(fromObject, ["responseId"]);
+  if (fromResponseId != null) {
+    setValueByPath(toObject, ["responseId"], fromResponseId);
+  }
+  const fromUsageMetadata = getValueByPath(fromObject, [
+    "usageMetadata"
+  ]);
+  if (fromUsageMetadata != null) {
+    setValueByPath(toObject, ["usageMetadata"], fromUsageMetadata);
+  }
+  return toObject;
+}
+function generateContentResponseFromVertex(fromObject) {
+  const toObject = {};
+  const fromSdkHttpResponse = getValueByPath(fromObject, [
+    "sdkHttpResponse"
+  ]);
+  if (fromSdkHttpResponse != null) {
+    setValueByPath(toObject, ["sdkHttpResponse"], fromSdkHttpResponse);
+  }
+  const fromCandidates = getValueByPath(fromObject, ["candidates"]);
+  if (fromCandidates != null) {
+    let transformedList = fromCandidates;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return item;
+      });
+    }
+    setValueByPath(toObject, ["candidates"], transformedList);
+  }
+  const fromCreateTime = getValueByPath(fromObject, ["createTime"]);
+  if (fromCreateTime != null) {
+    setValueByPath(toObject, ["createTime"], fromCreateTime);
+  }
+  const fromModelVersion = getValueByPath(fromObject, ["modelVersion"]);
+  if (fromModelVersion != null) {
+    setValueByPath(toObject, ["modelVersion"], fromModelVersion);
+  }
+  const fromPromptFeedback = getValueByPath(fromObject, [
+    "promptFeedback"
+  ]);
+  if (fromPromptFeedback != null) {
+    setValueByPath(toObject, ["promptFeedback"], fromPromptFeedback);
+  }
+  const fromResponseId = getValueByPath(fromObject, ["responseId"]);
+  if (fromResponseId != null) {
+    setValueByPath(toObject, ["responseId"], fromResponseId);
+  }
+  const fromUsageMetadata = getValueByPath(fromObject, [
+    "usageMetadata"
+  ]);
+  if (fromUsageMetadata != null) {
+    setValueByPath(toObject, ["usageMetadata"], fromUsageMetadata);
+  }
+  return toObject;
+}
+function generateImagesConfigToMldev(fromObject, parentObject) {
+  const toObject = {};
+  if (getValueByPath(fromObject, ["outputGcsUri"]) !== undefined) {
+    throw new Error("outputGcsUri parameter is not supported in Gemini API.");
+  }
+  if (getValueByPath(fromObject, ["negativePrompt"]) !== undefined) {
+    throw new Error("negativePrompt parameter is not supported in Gemini API.");
+  }
+  const fromNumberOfImages = getValueByPath(fromObject, [
+    "numberOfImages"
+  ]);
+  if (parentObject !== undefined && fromNumberOfImages != null) {
+    setValueByPath(parentObject, ["parameters", "sampleCount"], fromNumberOfImages);
+  }
+  const fromAspectRatio = getValueByPath(fromObject, ["aspectRatio"]);
+  if (parentObject !== undefined && fromAspectRatio != null) {
+    setValueByPath(parentObject, ["parameters", "aspectRatio"], fromAspectRatio);
+  }
+  const fromGuidanceScale = getValueByPath(fromObject, [
+    "guidanceScale"
+  ]);
+  if (parentObject !== undefined && fromGuidanceScale != null) {
+    setValueByPath(parentObject, ["parameters", "guidanceScale"], fromGuidanceScale);
+  }
+  if (getValueByPath(fromObject, ["seed"]) !== undefined) {
+    throw new Error("seed parameter is not supported in Gemini API.");
+  }
+  const fromSafetyFilterLevel = getValueByPath(fromObject, [
+    "safetyFilterLevel"
+  ]);
+  if (parentObject !== undefined && fromSafetyFilterLevel != null) {
+    setValueByPath(parentObject, ["parameters", "safetySetting"], fromSafetyFilterLevel);
+  }
+  const fromPersonGeneration = getValueByPath(fromObject, [
+    "personGeneration"
+  ]);
+  if (parentObject !== undefined && fromPersonGeneration != null) {
+    setValueByPath(parentObject, ["parameters", "personGeneration"], fromPersonGeneration);
+  }
+  const fromIncludeSafetyAttributes = getValueByPath(fromObject, [
+    "includeSafetyAttributes"
+  ]);
+  if (parentObject !== undefined && fromIncludeSafetyAttributes != null) {
+    setValueByPath(parentObject, ["parameters", "includeSafetyAttributes"], fromIncludeSafetyAttributes);
+  }
+  const fromIncludeRaiReason = getValueByPath(fromObject, [
+    "includeRaiReason"
+  ]);
+  if (parentObject !== undefined && fromIncludeRaiReason != null) {
+    setValueByPath(parentObject, ["parameters", "includeRaiReason"], fromIncludeRaiReason);
+  }
+  const fromLanguage = getValueByPath(fromObject, ["language"]);
+  if (parentObject !== undefined && fromLanguage != null) {
+    setValueByPath(parentObject, ["parameters", "language"], fromLanguage);
+  }
+  const fromOutputMimeType = getValueByPath(fromObject, [
+    "outputMimeType"
+  ]);
+  if (parentObject !== undefined && fromOutputMimeType != null) {
+    setValueByPath(parentObject, ["parameters", "outputOptions", "mimeType"], fromOutputMimeType);
+  }
+  const fromOutputCompressionQuality = getValueByPath(fromObject, [
+    "outputCompressionQuality"
+  ]);
+  if (parentObject !== undefined && fromOutputCompressionQuality != null) {
+    setValueByPath(parentObject, ["parameters", "outputOptions", "compressionQuality"], fromOutputCompressionQuality);
+  }
+  if (getValueByPath(fromObject, ["addWatermark"]) !== undefined) {
+    throw new Error("addWatermark parameter is not supported in Gemini API.");
+  }
+  if (getValueByPath(fromObject, ["labels"]) !== undefined) {
+    throw new Error("labels parameter is not supported in Gemini API.");
+  }
+  const fromImageSize = getValueByPath(fromObject, ["imageSize"]);
+  if (parentObject !== undefined && fromImageSize != null) {
+    setValueByPath(parentObject, ["parameters", "sampleImageSize"], fromImageSize);
+  }
+  if (getValueByPath(fromObject, ["enhancePrompt"]) !== undefined) {
+    throw new Error("enhancePrompt parameter is not supported in Gemini API.");
+  }
+  return toObject;
+}
+function generateImagesConfigToVertex(fromObject, parentObject) {
+  const toObject = {};
+  const fromOutputGcsUri = getValueByPath(fromObject, ["outputGcsUri"]);
+  if (parentObject !== undefined && fromOutputGcsUri != null) {
+    setValueByPath(parentObject, ["parameters", "storageUri"], fromOutputGcsUri);
+  }
+  const fromNegativePrompt = getValueByPath(fromObject, [
+    "negativePrompt"
+  ]);
+  if (parentObject !== undefined && fromNegativePrompt != null) {
+    setValueByPath(parentObject, ["parameters", "negativePrompt"], fromNegativePrompt);
+  }
+  const fromNumberOfImages = getValueByPath(fromObject, [
+    "numberOfImages"
+  ]);
+  if (parentObject !== undefined && fromNumberOfImages != null) {
+    setValueByPath(parentObject, ["parameters", "sampleCount"], fromNumberOfImages);
+  }
+  const fromAspectRatio = getValueByPath(fromObject, ["aspectRatio"]);
+  if (parentObject !== undefined && fromAspectRatio != null) {
+    setValueByPath(parentObject, ["parameters", "aspectRatio"], fromAspectRatio);
+  }
+  const fromGuidanceScale = getValueByPath(fromObject, [
+    "guidanceScale"
+  ]);
+  if (parentObject !== undefined && fromGuidanceScale != null) {
+    setValueByPath(parentObject, ["parameters", "guidanceScale"], fromGuidanceScale);
+  }
+  const fromSeed = getValueByPath(fromObject, ["seed"]);
+  if (parentObject !== undefined && fromSeed != null) {
+    setValueByPath(parentObject, ["parameters", "seed"], fromSeed);
+  }
+  const fromSafetyFilterLevel = getValueByPath(fromObject, [
+    "safetyFilterLevel"
+  ]);
+  if (parentObject !== undefined && fromSafetyFilterLevel != null) {
+    setValueByPath(parentObject, ["parameters", "safetySetting"], fromSafetyFilterLevel);
+  }
+  const fromPersonGeneration = getValueByPath(fromObject, [
+    "personGeneration"
+  ]);
+  if (parentObject !== undefined && fromPersonGeneration != null) {
+    setValueByPath(parentObject, ["parameters", "personGeneration"], fromPersonGeneration);
+  }
+  const fromIncludeSafetyAttributes = getValueByPath(fromObject, [
+    "includeSafetyAttributes"
+  ]);
+  if (parentObject !== undefined && fromIncludeSafetyAttributes != null) {
+    setValueByPath(parentObject, ["parameters", "includeSafetyAttributes"], fromIncludeSafetyAttributes);
+  }
+  const fromIncludeRaiReason = getValueByPath(fromObject, [
+    "includeRaiReason"
+  ]);
+  if (parentObject !== undefined && fromIncludeRaiReason != null) {
+    setValueByPath(parentObject, ["parameters", "includeRaiReason"], fromIncludeRaiReason);
+  }
+  const fromLanguage = getValueByPath(fromObject, ["language"]);
+  if (parentObject !== undefined && fromLanguage != null) {
+    setValueByPath(parentObject, ["parameters", "language"], fromLanguage);
+  }
+  const fromOutputMimeType = getValueByPath(fromObject, [
+    "outputMimeType"
+  ]);
+  if (parentObject !== undefined && fromOutputMimeType != null) {
+    setValueByPath(parentObject, ["parameters", "outputOptions", "mimeType"], fromOutputMimeType);
+  }
+  const fromOutputCompressionQuality = getValueByPath(fromObject, [
+    "outputCompressionQuality"
+  ]);
+  if (parentObject !== undefined && fromOutputCompressionQuality != null) {
+    setValueByPath(parentObject, ["parameters", "outputOptions", "compressionQuality"], fromOutputCompressionQuality);
+  }
+  const fromAddWatermark = getValueByPath(fromObject, ["addWatermark"]);
+  if (parentObject !== undefined && fromAddWatermark != null) {
+    setValueByPath(parentObject, ["parameters", "addWatermark"], fromAddWatermark);
+  }
+  const fromLabels = getValueByPath(fromObject, ["labels"]);
+  if (parentObject !== undefined && fromLabels != null) {
+    setValueByPath(parentObject, ["labels"], fromLabels);
+  }
+  const fromImageSize = getValueByPath(fromObject, ["imageSize"]);
+  if (parentObject !== undefined && fromImageSize != null) {
+    setValueByPath(parentObject, ["parameters", "sampleImageSize"], fromImageSize);
+  }
+  const fromEnhancePrompt = getValueByPath(fromObject, [
+    "enhancePrompt"
+  ]);
+  if (parentObject !== undefined && fromEnhancePrompt != null) {
+    setValueByPath(parentObject, ["parameters", "enhancePrompt"], fromEnhancePrompt);
+  }
+  return toObject;
+}
+function generateImagesParametersToMldev(apiClient, fromObject) {
+  const toObject = {};
+  const fromModel = getValueByPath(fromObject, ["model"]);
+  if (fromModel != null) {
+    setValueByPath(toObject, ["_url", "model"], tModel(apiClient, fromModel));
+  }
+  const fromPrompt = getValueByPath(fromObject, ["prompt"]);
+  if (fromPrompt != null) {
+    setValueByPath(toObject, ["instances[0]", "prompt"], fromPrompt);
+  }
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    generateImagesConfigToMldev(fromConfig, toObject);
+  }
+  return toObject;
+}
+function generateImagesParametersToVertex(apiClient, fromObject) {
+  const toObject = {};
+  const fromModel = getValueByPath(fromObject, ["model"]);
+  if (fromModel != null) {
+    setValueByPath(toObject, ["_url", "model"], tModel(apiClient, fromModel));
+  }
+  const fromPrompt = getValueByPath(fromObject, ["prompt"]);
+  if (fromPrompt != null) {
+    setValueByPath(toObject, ["instances[0]", "prompt"], fromPrompt);
+  }
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    generateImagesConfigToVertex(fromConfig, toObject);
+  }
+  return toObject;
+}
+function generateImagesResponseFromMldev(fromObject) {
+  const toObject = {};
+  const fromSdkHttpResponse = getValueByPath(fromObject, [
+    "sdkHttpResponse"
+  ]);
+  if (fromSdkHttpResponse != null) {
+    setValueByPath(toObject, ["sdkHttpResponse"], fromSdkHttpResponse);
+  }
+  const fromGeneratedImages = getValueByPath(fromObject, [
+    "predictions"
+  ]);
+  if (fromGeneratedImages != null) {
+    let transformedList = fromGeneratedImages;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return generatedImageFromMldev(item);
+      });
+    }
+    setValueByPath(toObject, ["generatedImages"], transformedList);
+  }
+  const fromPositivePromptSafetyAttributes = getValueByPath(fromObject, [
+    "positivePromptSafetyAttributes"
+  ]);
+  if (fromPositivePromptSafetyAttributes != null) {
+    setValueByPath(toObject, ["positivePromptSafetyAttributes"], safetyAttributesFromMldev(fromPositivePromptSafetyAttributes));
+  }
+  return toObject;
+}
+function generateImagesResponseFromVertex(fromObject) {
+  const toObject = {};
+  const fromSdkHttpResponse = getValueByPath(fromObject, [
+    "sdkHttpResponse"
+  ]);
+  if (fromSdkHttpResponse != null) {
+    setValueByPath(toObject, ["sdkHttpResponse"], fromSdkHttpResponse);
+  }
+  const fromGeneratedImages = getValueByPath(fromObject, [
+    "predictions"
+  ]);
+  if (fromGeneratedImages != null) {
+    let transformedList = fromGeneratedImages;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return generatedImageFromVertex(item);
+      });
+    }
+    setValueByPath(toObject, ["generatedImages"], transformedList);
+  }
+  const fromPositivePromptSafetyAttributes = getValueByPath(fromObject, [
+    "positivePromptSafetyAttributes"
+  ]);
+  if (fromPositivePromptSafetyAttributes != null) {
+    setValueByPath(toObject, ["positivePromptSafetyAttributes"], safetyAttributesFromVertex(fromPositivePromptSafetyAttributes));
+  }
+  return toObject;
+}
+function generateVideosConfigToMldev(fromObject, parentObject) {
+  const toObject = {};
+  const fromNumberOfVideos = getValueByPath(fromObject, [
+    "numberOfVideos"
+  ]);
+  if (parentObject !== undefined && fromNumberOfVideos != null) {
+    setValueByPath(parentObject, ["parameters", "sampleCount"], fromNumberOfVideos);
+  }
+  if (getValueByPath(fromObject, ["outputGcsUri"]) !== undefined) {
+    throw new Error("outputGcsUri parameter is not supported in Gemini API.");
+  }
+  if (getValueByPath(fromObject, ["fps"]) !== undefined) {
+    throw new Error("fps parameter is not supported in Gemini API.");
+  }
+  const fromDurationSeconds = getValueByPath(fromObject, [
+    "durationSeconds"
+  ]);
+  if (parentObject !== undefined && fromDurationSeconds != null) {
+    setValueByPath(parentObject, ["parameters", "durationSeconds"], fromDurationSeconds);
+  }
+  if (getValueByPath(fromObject, ["seed"]) !== undefined) {
+    throw new Error("seed parameter is not supported in Gemini API.");
+  }
+  const fromAspectRatio = getValueByPath(fromObject, ["aspectRatio"]);
+  if (parentObject !== undefined && fromAspectRatio != null) {
+    setValueByPath(parentObject, ["parameters", "aspectRatio"], fromAspectRatio);
+  }
+  const fromResolution = getValueByPath(fromObject, ["resolution"]);
+  if (parentObject !== undefined && fromResolution != null) {
+    setValueByPath(parentObject, ["parameters", "resolution"], fromResolution);
+  }
+  const fromPersonGeneration = getValueByPath(fromObject, [
+    "personGeneration"
+  ]);
+  if (parentObject !== undefined && fromPersonGeneration != null) {
+    setValueByPath(parentObject, ["parameters", "personGeneration"], fromPersonGeneration);
+  }
+  if (getValueByPath(fromObject, ["pubsubTopic"]) !== undefined) {
+    throw new Error("pubsubTopic parameter is not supported in Gemini API.");
+  }
+  const fromNegativePrompt = getValueByPath(fromObject, [
+    "negativePrompt"
+  ]);
+  if (parentObject !== undefined && fromNegativePrompt != null) {
+    setValueByPath(parentObject, ["parameters", "negativePrompt"], fromNegativePrompt);
+  }
+  const fromEnhancePrompt = getValueByPath(fromObject, [
+    "enhancePrompt"
+  ]);
+  if (parentObject !== undefined && fromEnhancePrompt != null) {
+    setValueByPath(parentObject, ["parameters", "enhancePrompt"], fromEnhancePrompt);
+  }
+  if (getValueByPath(fromObject, ["generateAudio"]) !== undefined) {
+    throw new Error("generateAudio parameter is not supported in Gemini API.");
+  }
+  const fromLastFrame = getValueByPath(fromObject, ["lastFrame"]);
+  if (parentObject !== undefined && fromLastFrame != null) {
+    setValueByPath(parentObject, ["instances[0]", "lastFrame"], imageToMldev(fromLastFrame));
+  }
+  const fromReferenceImages = getValueByPath(fromObject, [
+    "referenceImages"
+  ]);
+  if (parentObject !== undefined && fromReferenceImages != null) {
+    let transformedList = fromReferenceImages;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return videoGenerationReferenceImageToMldev(item);
+      });
+    }
+    setValueByPath(parentObject, ["instances[0]", "referenceImages"], transformedList);
+  }
+  if (getValueByPath(fromObject, ["mask"]) !== undefined) {
+    throw new Error("mask parameter is not supported in Gemini API.");
+  }
+  if (getValueByPath(fromObject, ["compressionQuality"]) !== undefined) {
+    throw new Error("compressionQuality parameter is not supported in Gemini API.");
+  }
+  return toObject;
+}
+function generateVideosConfigToVertex(fromObject, parentObject) {
+  const toObject = {};
+  const fromNumberOfVideos = getValueByPath(fromObject, [
+    "numberOfVideos"
+  ]);
+  if (parentObject !== undefined && fromNumberOfVideos != null) {
+    setValueByPath(parentObject, ["parameters", "sampleCount"], fromNumberOfVideos);
+  }
+  const fromOutputGcsUri = getValueByPath(fromObject, ["outputGcsUri"]);
+  if (parentObject !== undefined && fromOutputGcsUri != null) {
+    setValueByPath(parentObject, ["parameters", "storageUri"], fromOutputGcsUri);
+  }
+  const fromFps = getValueByPath(fromObject, ["fps"]);
+  if (parentObject !== undefined && fromFps != null) {
+    setValueByPath(parentObject, ["parameters", "fps"], fromFps);
+  }
+  const fromDurationSeconds = getValueByPath(fromObject, [
+    "durationSeconds"
+  ]);
+  if (parentObject !== undefined && fromDurationSeconds != null) {
+    setValueByPath(parentObject, ["parameters", "durationSeconds"], fromDurationSeconds);
+  }
+  const fromSeed = getValueByPath(fromObject, ["seed"]);
+  if (parentObject !== undefined && fromSeed != null) {
+    setValueByPath(parentObject, ["parameters", "seed"], fromSeed);
+  }
+  const fromAspectRatio = getValueByPath(fromObject, ["aspectRatio"]);
+  if (parentObject !== undefined && fromAspectRatio != null) {
+    setValueByPath(parentObject, ["parameters", "aspectRatio"], fromAspectRatio);
+  }
+  const fromResolution = getValueByPath(fromObject, ["resolution"]);
+  if (parentObject !== undefined && fromResolution != null) {
+    setValueByPath(parentObject, ["parameters", "resolution"], fromResolution);
+  }
+  const fromPersonGeneration = getValueByPath(fromObject, [
+    "personGeneration"
+  ]);
+  if (parentObject !== undefined && fromPersonGeneration != null) {
+    setValueByPath(parentObject, ["parameters", "personGeneration"], fromPersonGeneration);
+  }
+  const fromPubsubTopic = getValueByPath(fromObject, ["pubsubTopic"]);
+  if (parentObject !== undefined && fromPubsubTopic != null) {
+    setValueByPath(parentObject, ["parameters", "pubsubTopic"], fromPubsubTopic);
+  }
+  const fromNegativePrompt = getValueByPath(fromObject, [
+    "negativePrompt"
+  ]);
+  if (parentObject !== undefined && fromNegativePrompt != null) {
+    setValueByPath(parentObject, ["parameters", "negativePrompt"], fromNegativePrompt);
+  }
+  const fromEnhancePrompt = getValueByPath(fromObject, [
+    "enhancePrompt"
+  ]);
+  if (parentObject !== undefined && fromEnhancePrompt != null) {
+    setValueByPath(parentObject, ["parameters", "enhancePrompt"], fromEnhancePrompt);
+  }
+  const fromGenerateAudio = getValueByPath(fromObject, [
+    "generateAudio"
+  ]);
+  if (parentObject !== undefined && fromGenerateAudio != null) {
+    setValueByPath(parentObject, ["parameters", "generateAudio"], fromGenerateAudio);
+  }
+  const fromLastFrame = getValueByPath(fromObject, ["lastFrame"]);
+  if (parentObject !== undefined && fromLastFrame != null) {
+    setValueByPath(parentObject, ["instances[0]", "lastFrame"], imageToVertex(fromLastFrame));
+  }
+  const fromReferenceImages = getValueByPath(fromObject, [
+    "referenceImages"
+  ]);
+  if (parentObject !== undefined && fromReferenceImages != null) {
+    let transformedList = fromReferenceImages;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return videoGenerationReferenceImageToVertex(item);
+      });
+    }
+    setValueByPath(parentObject, ["instances[0]", "referenceImages"], transformedList);
+  }
+  const fromMask = getValueByPath(fromObject, ["mask"]);
+  if (parentObject !== undefined && fromMask != null) {
+    setValueByPath(parentObject, ["instances[0]", "mask"], videoGenerationMaskToVertex(fromMask));
+  }
+  const fromCompressionQuality = getValueByPath(fromObject, [
+    "compressionQuality"
+  ]);
+  if (parentObject !== undefined && fromCompressionQuality != null) {
+    setValueByPath(parentObject, ["parameters", "compressionQuality"], fromCompressionQuality);
+  }
+  return toObject;
+}
+function generateVideosOperationFromMldev(fromObject) {
+  const toObject = {};
+  const fromName = getValueByPath(fromObject, ["name"]);
+  if (fromName != null) {
+    setValueByPath(toObject, ["name"], fromName);
+  }
+  const fromMetadata = getValueByPath(fromObject, ["metadata"]);
+  if (fromMetadata != null) {
+    setValueByPath(toObject, ["metadata"], fromMetadata);
+  }
+  const fromDone = getValueByPath(fromObject, ["done"]);
+  if (fromDone != null) {
+    setValueByPath(toObject, ["done"], fromDone);
+  }
+  const fromError = getValueByPath(fromObject, ["error"]);
+  if (fromError != null) {
+    setValueByPath(toObject, ["error"], fromError);
+  }
+  const fromResponse = getValueByPath(fromObject, [
+    "response",
+    "generateVideoResponse"
+  ]);
+  if (fromResponse != null) {
+    setValueByPath(toObject, ["response"], generateVideosResponseFromMldev(fromResponse));
+  }
+  return toObject;
+}
+function generateVideosOperationFromVertex(fromObject) {
+  const toObject = {};
+  const fromName = getValueByPath(fromObject, ["name"]);
+  if (fromName != null) {
+    setValueByPath(toObject, ["name"], fromName);
+  }
+  const fromMetadata = getValueByPath(fromObject, ["metadata"]);
+  if (fromMetadata != null) {
+    setValueByPath(toObject, ["metadata"], fromMetadata);
+  }
+  const fromDone = getValueByPath(fromObject, ["done"]);
+  if (fromDone != null) {
+    setValueByPath(toObject, ["done"], fromDone);
+  }
+  const fromError = getValueByPath(fromObject, ["error"]);
+  if (fromError != null) {
+    setValueByPath(toObject, ["error"], fromError);
+  }
+  const fromResponse = getValueByPath(fromObject, ["response"]);
+  if (fromResponse != null) {
+    setValueByPath(toObject, ["response"], generateVideosResponseFromVertex(fromResponse));
+  }
+  return toObject;
+}
+function generateVideosParametersToMldev(apiClient, fromObject) {
+  const toObject = {};
+  const fromModel = getValueByPath(fromObject, ["model"]);
+  if (fromModel != null) {
+    setValueByPath(toObject, ["_url", "model"], tModel(apiClient, fromModel));
+  }
+  const fromPrompt = getValueByPath(fromObject, ["prompt"]);
+  if (fromPrompt != null) {
+    setValueByPath(toObject, ["instances[0]", "prompt"], fromPrompt);
+  }
+  const fromImage = getValueByPath(fromObject, ["image"]);
+  if (fromImage != null) {
+    setValueByPath(toObject, ["instances[0]", "image"], imageToMldev(fromImage));
+  }
+  const fromVideo = getValueByPath(fromObject, ["video"]);
+  if (fromVideo != null) {
+    setValueByPath(toObject, ["instances[0]", "video"], videoToMldev(fromVideo));
+  }
+  const fromSource = getValueByPath(fromObject, ["source"]);
+  if (fromSource != null) {
+    generateVideosSourceToMldev(fromSource, toObject);
+  }
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    generateVideosConfigToMldev(fromConfig, toObject);
+  }
+  return toObject;
+}
+function generateVideosParametersToVertex(apiClient, fromObject) {
+  const toObject = {};
+  const fromModel = getValueByPath(fromObject, ["model"]);
+  if (fromModel != null) {
+    setValueByPath(toObject, ["_url", "model"], tModel(apiClient, fromModel));
+  }
+  const fromPrompt = getValueByPath(fromObject, ["prompt"]);
+  if (fromPrompt != null) {
+    setValueByPath(toObject, ["instances[0]", "prompt"], fromPrompt);
+  }
+  const fromImage = getValueByPath(fromObject, ["image"]);
+  if (fromImage != null) {
+    setValueByPath(toObject, ["instances[0]", "image"], imageToVertex(fromImage));
+  }
+  const fromVideo = getValueByPath(fromObject, ["video"]);
+  if (fromVideo != null) {
+    setValueByPath(toObject, ["instances[0]", "video"], videoToVertex(fromVideo));
+  }
+  const fromSource = getValueByPath(fromObject, ["source"]);
+  if (fromSource != null) {
+    generateVideosSourceToVertex(fromSource, toObject);
+  }
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    generateVideosConfigToVertex(fromConfig, toObject);
+  }
+  return toObject;
+}
+function generateVideosResponseFromMldev(fromObject) {
+  const toObject = {};
+  const fromGeneratedVideos = getValueByPath(fromObject, [
+    "generatedSamples"
+  ]);
+  if (fromGeneratedVideos != null) {
+    let transformedList = fromGeneratedVideos;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return generatedVideoFromMldev(item);
+      });
+    }
+    setValueByPath(toObject, ["generatedVideos"], transformedList);
+  }
+  const fromRaiMediaFilteredCount = getValueByPath(fromObject, [
+    "raiMediaFilteredCount"
+  ]);
+  if (fromRaiMediaFilteredCount != null) {
+    setValueByPath(toObject, ["raiMediaFilteredCount"], fromRaiMediaFilteredCount);
+  }
+  const fromRaiMediaFilteredReasons = getValueByPath(fromObject, [
+    "raiMediaFilteredReasons"
+  ]);
+  if (fromRaiMediaFilteredReasons != null) {
+    setValueByPath(toObject, ["raiMediaFilteredReasons"], fromRaiMediaFilteredReasons);
+  }
+  return toObject;
+}
+function generateVideosResponseFromVertex(fromObject) {
+  const toObject = {};
+  const fromGeneratedVideos = getValueByPath(fromObject, ["videos"]);
+  if (fromGeneratedVideos != null) {
+    let transformedList = fromGeneratedVideos;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return generatedVideoFromVertex(item);
+      });
+    }
+    setValueByPath(toObject, ["generatedVideos"], transformedList);
+  }
+  const fromRaiMediaFilteredCount = getValueByPath(fromObject, [
+    "raiMediaFilteredCount"
+  ]);
+  if (fromRaiMediaFilteredCount != null) {
+    setValueByPath(toObject, ["raiMediaFilteredCount"], fromRaiMediaFilteredCount);
+  }
+  const fromRaiMediaFilteredReasons = getValueByPath(fromObject, [
+    "raiMediaFilteredReasons"
+  ]);
+  if (fromRaiMediaFilteredReasons != null) {
+    setValueByPath(toObject, ["raiMediaFilteredReasons"], fromRaiMediaFilteredReasons);
+  }
+  return toObject;
+}
+function generateVideosSourceToMldev(fromObject, parentObject) {
+  const toObject = {};
+  const fromPrompt = getValueByPath(fromObject, ["prompt"]);
+  if (parentObject !== undefined && fromPrompt != null) {
+    setValueByPath(parentObject, ["instances[0]", "prompt"], fromPrompt);
+  }
+  const fromImage = getValueByPath(fromObject, ["image"]);
+  if (parentObject !== undefined && fromImage != null) {
+    setValueByPath(parentObject, ["instances[0]", "image"], imageToMldev(fromImage));
+  }
+  const fromVideo = getValueByPath(fromObject, ["video"]);
+  if (parentObject !== undefined && fromVideo != null) {
+    setValueByPath(parentObject, ["instances[0]", "video"], videoToMldev(fromVideo));
+  }
+  return toObject;
+}
+function generateVideosSourceToVertex(fromObject, parentObject) {
+  const toObject = {};
+  const fromPrompt = getValueByPath(fromObject, ["prompt"]);
+  if (parentObject !== undefined && fromPrompt != null) {
+    setValueByPath(parentObject, ["instances[0]", "prompt"], fromPrompt);
+  }
+  const fromImage = getValueByPath(fromObject, ["image"]);
+  if (parentObject !== undefined && fromImage != null) {
+    setValueByPath(parentObject, ["instances[0]", "image"], imageToVertex(fromImage));
+  }
+  const fromVideo = getValueByPath(fromObject, ["video"]);
+  if (parentObject !== undefined && fromVideo != null) {
+    setValueByPath(parentObject, ["instances[0]", "video"], videoToVertex(fromVideo));
+  }
+  return toObject;
+}
+function generatedImageFromMldev(fromObject) {
+  const toObject = {};
+  const fromImage = getValueByPath(fromObject, ["_self"]);
+  if (fromImage != null) {
+    setValueByPath(toObject, ["image"], imageFromMldev(fromImage));
+  }
+  const fromRaiFilteredReason = getValueByPath(fromObject, [
+    "raiFilteredReason"
+  ]);
+  if (fromRaiFilteredReason != null) {
+    setValueByPath(toObject, ["raiFilteredReason"], fromRaiFilteredReason);
+  }
+  const fromSafetyAttributes = getValueByPath(fromObject, ["_self"]);
+  if (fromSafetyAttributes != null) {
+    setValueByPath(toObject, ["safetyAttributes"], safetyAttributesFromMldev(fromSafetyAttributes));
+  }
+  return toObject;
+}
+function generatedImageFromVertex(fromObject) {
+  const toObject = {};
+  const fromImage = getValueByPath(fromObject, ["_self"]);
+  if (fromImage != null) {
+    setValueByPath(toObject, ["image"], imageFromVertex(fromImage));
+  }
+  const fromRaiFilteredReason = getValueByPath(fromObject, [
+    "raiFilteredReason"
+  ]);
+  if (fromRaiFilteredReason != null) {
+    setValueByPath(toObject, ["raiFilteredReason"], fromRaiFilteredReason);
+  }
+  const fromSafetyAttributes = getValueByPath(fromObject, ["_self"]);
+  if (fromSafetyAttributes != null) {
+    setValueByPath(toObject, ["safetyAttributes"], safetyAttributesFromVertex(fromSafetyAttributes));
+  }
+  const fromEnhancedPrompt = getValueByPath(fromObject, ["prompt"]);
+  if (fromEnhancedPrompt != null) {
+    setValueByPath(toObject, ["enhancedPrompt"], fromEnhancedPrompt);
+  }
+  return toObject;
+}
+function generatedImageMaskFromVertex(fromObject) {
+  const toObject = {};
+  const fromMask = getValueByPath(fromObject, ["_self"]);
+  if (fromMask != null) {
+    setValueByPath(toObject, ["mask"], imageFromVertex(fromMask));
+  }
+  const fromLabels = getValueByPath(fromObject, ["labels"]);
+  if (fromLabels != null) {
+    let transformedList = fromLabels;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return item;
+      });
+    }
+    setValueByPath(toObject, ["labels"], transformedList);
+  }
+  return toObject;
+}
+function generatedVideoFromMldev(fromObject) {
+  const toObject = {};
+  const fromVideo = getValueByPath(fromObject, ["video"]);
+  if (fromVideo != null) {
+    setValueByPath(toObject, ["video"], videoFromMldev(fromVideo));
+  }
+  return toObject;
+}
+function generatedVideoFromVertex(fromObject) {
+  const toObject = {};
+  const fromVideo = getValueByPath(fromObject, ["_self"]);
+  if (fromVideo != null) {
+    setValueByPath(toObject, ["video"], videoFromVertex(fromVideo));
+  }
+  return toObject;
+}
+function generationConfigToVertex(fromObject) {
+  const toObject = {};
+  const fromModelSelectionConfig = getValueByPath(fromObject, [
+    "modelSelectionConfig"
+  ]);
+  if (fromModelSelectionConfig != null) {
+    setValueByPath(toObject, ["modelConfig"], fromModelSelectionConfig);
+  }
+  const fromAudioTimestamp = getValueByPath(fromObject, [
+    "audioTimestamp"
+  ]);
+  if (fromAudioTimestamp != null) {
+    setValueByPath(toObject, ["audioTimestamp"], fromAudioTimestamp);
+  }
+  const fromCandidateCount = getValueByPath(fromObject, [
+    "candidateCount"
+  ]);
+  if (fromCandidateCount != null) {
+    setValueByPath(toObject, ["candidateCount"], fromCandidateCount);
+  }
+  const fromEnableAffectiveDialog = getValueByPath(fromObject, [
+    "enableAffectiveDialog"
+  ]);
+  if (fromEnableAffectiveDialog != null) {
+    setValueByPath(toObject, ["enableAffectiveDialog"], fromEnableAffectiveDialog);
+  }
+  const fromFrequencyPenalty = getValueByPath(fromObject, [
+    "frequencyPenalty"
+  ]);
+  if (fromFrequencyPenalty != null) {
+    setValueByPath(toObject, ["frequencyPenalty"], fromFrequencyPenalty);
+  }
+  const fromLogprobs = getValueByPath(fromObject, ["logprobs"]);
+  if (fromLogprobs != null) {
+    setValueByPath(toObject, ["logprobs"], fromLogprobs);
+  }
+  const fromMaxOutputTokens = getValueByPath(fromObject, [
+    "maxOutputTokens"
+  ]);
+  if (fromMaxOutputTokens != null) {
+    setValueByPath(toObject, ["maxOutputTokens"], fromMaxOutputTokens);
+  }
+  const fromMediaResolution = getValueByPath(fromObject, [
+    "mediaResolution"
+  ]);
+  if (fromMediaResolution != null) {
+    setValueByPath(toObject, ["mediaResolution"], fromMediaResolution);
+  }
+  const fromPresencePenalty = getValueByPath(fromObject, [
+    "presencePenalty"
+  ]);
+  if (fromPresencePenalty != null) {
+    setValueByPath(toObject, ["presencePenalty"], fromPresencePenalty);
+  }
+  const fromResponseJsonSchema = getValueByPath(fromObject, [
+    "responseJsonSchema"
+  ]);
+  if (fromResponseJsonSchema != null) {
+    setValueByPath(toObject, ["responseJsonSchema"], fromResponseJsonSchema);
+  }
+  const fromResponseLogprobs = getValueByPath(fromObject, [
+    "responseLogprobs"
+  ]);
+  if (fromResponseLogprobs != null) {
+    setValueByPath(toObject, ["responseLogprobs"], fromResponseLogprobs);
+  }
+  const fromResponseMimeType = getValueByPath(fromObject, [
+    "responseMimeType"
+  ]);
+  if (fromResponseMimeType != null) {
+    setValueByPath(toObject, ["responseMimeType"], fromResponseMimeType);
+  }
+  const fromResponseModalities = getValueByPath(fromObject, [
+    "responseModalities"
+  ]);
+  if (fromResponseModalities != null) {
+    setValueByPath(toObject, ["responseModalities"], fromResponseModalities);
+  }
+  const fromResponseSchema = getValueByPath(fromObject, [
+    "responseSchema"
+  ]);
+  if (fromResponseSchema != null) {
+    setValueByPath(toObject, ["responseSchema"], fromResponseSchema);
+  }
+  const fromRoutingConfig = getValueByPath(fromObject, [
+    "routingConfig"
+  ]);
+  if (fromRoutingConfig != null) {
+    setValueByPath(toObject, ["routingConfig"], fromRoutingConfig);
+  }
+  const fromSeed = getValueByPath(fromObject, ["seed"]);
+  if (fromSeed != null) {
+    setValueByPath(toObject, ["seed"], fromSeed);
+  }
+  const fromSpeechConfig = getValueByPath(fromObject, ["speechConfig"]);
+  if (fromSpeechConfig != null) {
+    setValueByPath(toObject, ["speechConfig"], speechConfigToVertex(fromSpeechConfig));
+  }
+  const fromStopSequences = getValueByPath(fromObject, [
+    "stopSequences"
+  ]);
+  if (fromStopSequences != null) {
+    setValueByPath(toObject, ["stopSequences"], fromStopSequences);
+  }
+  const fromTemperature = getValueByPath(fromObject, ["temperature"]);
+  if (fromTemperature != null) {
+    setValueByPath(toObject, ["temperature"], fromTemperature);
+  }
+  const fromThinkingConfig = getValueByPath(fromObject, [
+    "thinkingConfig"
+  ]);
+  if (fromThinkingConfig != null) {
+    setValueByPath(toObject, ["thinkingConfig"], fromThinkingConfig);
+  }
+  const fromTopK = getValueByPath(fromObject, ["topK"]);
+  if (fromTopK != null) {
+    setValueByPath(toObject, ["topK"], fromTopK);
+  }
+  const fromTopP = getValueByPath(fromObject, ["topP"]);
+  if (fromTopP != null) {
+    setValueByPath(toObject, ["topP"], fromTopP);
+  }
+  if (getValueByPath(fromObject, ["enableEnhancedCivicAnswers"]) !== undefined) {
+    throw new Error("enableEnhancedCivicAnswers parameter is not supported in Vertex AI.");
+  }
+  return toObject;
+}
+function getModelParametersToMldev(apiClient, fromObject) {
+  const toObject = {};
+  const fromModel = getValueByPath(fromObject, ["model"]);
+  if (fromModel != null) {
+    setValueByPath(toObject, ["_url", "name"], tModel(apiClient, fromModel));
+  }
+  return toObject;
+}
+function getModelParametersToVertex(apiClient, fromObject) {
+  const toObject = {};
+  const fromModel = getValueByPath(fromObject, ["model"]);
+  if (fromModel != null) {
+    setValueByPath(toObject, ["_url", "name"], tModel(apiClient, fromModel));
+  }
+  return toObject;
+}
+function googleMapsToMldev$1(fromObject) {
+  const toObject = {};
+  if (getValueByPath(fromObject, ["authConfig"]) !== undefined) {
+    throw new Error("authConfig parameter is not supported in Gemini API.");
+  }
+  const fromEnableWidget = getValueByPath(fromObject, ["enableWidget"]);
+  if (fromEnableWidget != null) {
+    setValueByPath(toObject, ["enableWidget"], fromEnableWidget);
+  }
+  return toObject;
+}
+function googleSearchToMldev$1(fromObject) {
+  const toObject = {};
+  const fromTimeRangeFilter = getValueByPath(fromObject, [
+    "timeRangeFilter"
+  ]);
+  if (fromTimeRangeFilter != null) {
+    setValueByPath(toObject, ["timeRangeFilter"], fromTimeRangeFilter);
+  }
+  if (getValueByPath(fromObject, ["excludeDomains"]) !== undefined) {
+    throw new Error("excludeDomains parameter is not supported in Gemini API.");
+  }
+  return toObject;
+}
+function imageFromMldev(fromObject) {
+  const toObject = {};
+  const fromImageBytes = getValueByPath(fromObject, [
+    "bytesBase64Encoded"
+  ]);
+  if (fromImageBytes != null) {
+    setValueByPath(toObject, ["imageBytes"], tBytes(fromImageBytes));
+  }
+  const fromMimeType = getValueByPath(fromObject, ["mimeType"]);
+  if (fromMimeType != null) {
+    setValueByPath(toObject, ["mimeType"], fromMimeType);
+  }
+  return toObject;
+}
+function imageFromVertex(fromObject) {
+  const toObject = {};
+  const fromGcsUri = getValueByPath(fromObject, ["gcsUri"]);
+  if (fromGcsUri != null) {
+    setValueByPath(toObject, ["gcsUri"], fromGcsUri);
+  }
+  const fromImageBytes = getValueByPath(fromObject, [
+    "bytesBase64Encoded"
+  ]);
+  if (fromImageBytes != null) {
+    setValueByPath(toObject, ["imageBytes"], tBytes(fromImageBytes));
+  }
+  const fromMimeType = getValueByPath(fromObject, ["mimeType"]);
+  if (fromMimeType != null) {
+    setValueByPath(toObject, ["mimeType"], fromMimeType);
+  }
+  return toObject;
+}
+function imageToMldev(fromObject) {
+  const toObject = {};
+  if (getValueByPath(fromObject, ["gcsUri"]) !== undefined) {
+    throw new Error("gcsUri parameter is not supported in Gemini API.");
+  }
+  const fromImageBytes = getValueByPath(fromObject, ["imageBytes"]);
+  if (fromImageBytes != null) {
+    setValueByPath(toObject, ["bytesBase64Encoded"], tBytes(fromImageBytes));
+  }
+  const fromMimeType = getValueByPath(fromObject, ["mimeType"]);
+  if (fromMimeType != null) {
+    setValueByPath(toObject, ["mimeType"], fromMimeType);
+  }
+  return toObject;
+}
+function imageToVertex(fromObject) {
+  const toObject = {};
+  const fromGcsUri = getValueByPath(fromObject, ["gcsUri"]);
+  if (fromGcsUri != null) {
+    setValueByPath(toObject, ["gcsUri"], fromGcsUri);
+  }
+  const fromImageBytes = getValueByPath(fromObject, ["imageBytes"]);
+  if (fromImageBytes != null) {
+    setValueByPath(toObject, ["bytesBase64Encoded"], tBytes(fromImageBytes));
+  }
+  const fromMimeType = getValueByPath(fromObject, ["mimeType"]);
+  if (fromMimeType != null) {
+    setValueByPath(toObject, ["mimeType"], fromMimeType);
+  }
+  return toObject;
+}
+function listModelsConfigToMldev(apiClient, fromObject, parentObject) {
+  const toObject = {};
+  const fromPageSize = getValueByPath(fromObject, ["pageSize"]);
+  if (parentObject !== undefined && fromPageSize != null) {
+    setValueByPath(parentObject, ["_query", "pageSize"], fromPageSize);
+  }
+  const fromPageToken = getValueByPath(fromObject, ["pageToken"]);
+  if (parentObject !== undefined && fromPageToken != null) {
+    setValueByPath(parentObject, ["_query", "pageToken"], fromPageToken);
+  }
+  const fromFilter = getValueByPath(fromObject, ["filter"]);
+  if (parentObject !== undefined && fromFilter != null) {
+    setValueByPath(parentObject, ["_query", "filter"], fromFilter);
+  }
+  const fromQueryBase = getValueByPath(fromObject, ["queryBase"]);
+  if (parentObject !== undefined && fromQueryBase != null) {
+    setValueByPath(parentObject, ["_url", "models_url"], tModelsUrl(apiClient, fromQueryBase));
+  }
+  return toObject;
+}
+function listModelsConfigToVertex(apiClient, fromObject, parentObject) {
+  const toObject = {};
+  const fromPageSize = getValueByPath(fromObject, ["pageSize"]);
+  if (parentObject !== undefined && fromPageSize != null) {
+    setValueByPath(parentObject, ["_query", "pageSize"], fromPageSize);
+  }
+  const fromPageToken = getValueByPath(fromObject, ["pageToken"]);
+  if (parentObject !== undefined && fromPageToken != null) {
+    setValueByPath(parentObject, ["_query", "pageToken"], fromPageToken);
+  }
+  const fromFilter = getValueByPath(fromObject, ["filter"]);
+  if (parentObject !== undefined && fromFilter != null) {
+    setValueByPath(parentObject, ["_query", "filter"], fromFilter);
+  }
+  const fromQueryBase = getValueByPath(fromObject, ["queryBase"]);
+  if (parentObject !== undefined && fromQueryBase != null) {
+    setValueByPath(parentObject, ["_url", "models_url"], tModelsUrl(apiClient, fromQueryBase));
+  }
+  return toObject;
+}
+function listModelsParametersToMldev(apiClient, fromObject) {
+  const toObject = {};
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    listModelsConfigToMldev(apiClient, fromConfig, toObject);
+  }
+  return toObject;
+}
+function listModelsParametersToVertex(apiClient, fromObject) {
+  const toObject = {};
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    listModelsConfigToVertex(apiClient, fromConfig, toObject);
+  }
+  return toObject;
+}
+function listModelsResponseFromMldev(fromObject) {
+  const toObject = {};
+  const fromSdkHttpResponse = getValueByPath(fromObject, [
+    "sdkHttpResponse"
+  ]);
+  if (fromSdkHttpResponse != null) {
+    setValueByPath(toObject, ["sdkHttpResponse"], fromSdkHttpResponse);
+  }
+  const fromNextPageToken = getValueByPath(fromObject, [
+    "nextPageToken"
+  ]);
+  if (fromNextPageToken != null) {
+    setValueByPath(toObject, ["nextPageToken"], fromNextPageToken);
+  }
+  const fromModels = getValueByPath(fromObject, ["_self"]);
+  if (fromModels != null) {
+    let transformedList = tExtractModels(fromModels);
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return modelFromMldev(item);
+      });
+    }
+    setValueByPath(toObject, ["models"], transformedList);
+  }
+  return toObject;
+}
+function listModelsResponseFromVertex(fromObject) {
+  const toObject = {};
+  const fromSdkHttpResponse = getValueByPath(fromObject, [
+    "sdkHttpResponse"
+  ]);
+  if (fromSdkHttpResponse != null) {
+    setValueByPath(toObject, ["sdkHttpResponse"], fromSdkHttpResponse);
+  }
+  const fromNextPageToken = getValueByPath(fromObject, [
+    "nextPageToken"
+  ]);
+  if (fromNextPageToken != null) {
+    setValueByPath(toObject, ["nextPageToken"], fromNextPageToken);
+  }
+  const fromModels = getValueByPath(fromObject, ["_self"]);
+  if (fromModels != null) {
+    let transformedList = tExtractModels(fromModels);
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return modelFromVertex(item);
+      });
+    }
+    setValueByPath(toObject, ["models"], transformedList);
+  }
+  return toObject;
+}
+function maskReferenceConfigToVertex(fromObject) {
+  const toObject = {};
+  const fromMaskMode = getValueByPath(fromObject, ["maskMode"]);
+  if (fromMaskMode != null) {
+    setValueByPath(toObject, ["maskMode"], fromMaskMode);
+  }
+  const fromSegmentationClasses = getValueByPath(fromObject, [
+    "segmentationClasses"
+  ]);
+  if (fromSegmentationClasses != null) {
+    setValueByPath(toObject, ["maskClasses"], fromSegmentationClasses);
+  }
+  const fromMaskDilation = getValueByPath(fromObject, ["maskDilation"]);
+  if (fromMaskDilation != null) {
+    setValueByPath(toObject, ["dilation"], fromMaskDilation);
+  }
+  return toObject;
+}
+function modelFromMldev(fromObject) {
+  const toObject = {};
+  const fromName = getValueByPath(fromObject, ["name"]);
+  if (fromName != null) {
+    setValueByPath(toObject, ["name"], fromName);
+  }
+  const fromDisplayName = getValueByPath(fromObject, ["displayName"]);
+  if (fromDisplayName != null) {
+    setValueByPath(toObject, ["displayName"], fromDisplayName);
+  }
+  const fromDescription = getValueByPath(fromObject, ["description"]);
+  if (fromDescription != null) {
+    setValueByPath(toObject, ["description"], fromDescription);
+  }
+  const fromVersion = getValueByPath(fromObject, ["version"]);
+  if (fromVersion != null) {
+    setValueByPath(toObject, ["version"], fromVersion);
+  }
+  const fromTunedModelInfo = getValueByPath(fromObject, ["_self"]);
+  if (fromTunedModelInfo != null) {
+    setValueByPath(toObject, ["tunedModelInfo"], tunedModelInfoFromMldev(fromTunedModelInfo));
+  }
+  const fromInputTokenLimit = getValueByPath(fromObject, [
+    "inputTokenLimit"
+  ]);
+  if (fromInputTokenLimit != null) {
+    setValueByPath(toObject, ["inputTokenLimit"], fromInputTokenLimit);
+  }
+  const fromOutputTokenLimit = getValueByPath(fromObject, [
+    "outputTokenLimit"
+  ]);
+  if (fromOutputTokenLimit != null) {
+    setValueByPath(toObject, ["outputTokenLimit"], fromOutputTokenLimit);
+  }
+  const fromSupportedActions = getValueByPath(fromObject, [
+    "supportedGenerationMethods"
+  ]);
+  if (fromSupportedActions != null) {
+    setValueByPath(toObject, ["supportedActions"], fromSupportedActions);
+  }
+  return toObject;
+}
+function modelFromVertex(fromObject) {
+  const toObject = {};
+  const fromName = getValueByPath(fromObject, ["name"]);
+  if (fromName != null) {
+    setValueByPath(toObject, ["name"], fromName);
+  }
+  const fromDisplayName = getValueByPath(fromObject, ["displayName"]);
+  if (fromDisplayName != null) {
+    setValueByPath(toObject, ["displayName"], fromDisplayName);
+  }
+  const fromDescription = getValueByPath(fromObject, ["description"]);
+  if (fromDescription != null) {
+    setValueByPath(toObject, ["description"], fromDescription);
+  }
+  const fromVersion = getValueByPath(fromObject, ["versionId"]);
+  if (fromVersion != null) {
+    setValueByPath(toObject, ["version"], fromVersion);
+  }
+  const fromEndpoints = getValueByPath(fromObject, ["deployedModels"]);
+  if (fromEndpoints != null) {
+    let transformedList = fromEndpoints;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return endpointFromVertex(item);
+      });
+    }
+    setValueByPath(toObject, ["endpoints"], transformedList);
+  }
+  const fromLabels = getValueByPath(fromObject, ["labels"]);
+  if (fromLabels != null) {
+    setValueByPath(toObject, ["labels"], fromLabels);
+  }
+  const fromTunedModelInfo = getValueByPath(fromObject, ["_self"]);
+  if (fromTunedModelInfo != null) {
+    setValueByPath(toObject, ["tunedModelInfo"], tunedModelInfoFromVertex(fromTunedModelInfo));
+  }
+  const fromDefaultCheckpointId = getValueByPath(fromObject, [
+    "defaultCheckpointId"
+  ]);
+  if (fromDefaultCheckpointId != null) {
+    setValueByPath(toObject, ["defaultCheckpointId"], fromDefaultCheckpointId);
+  }
+  const fromCheckpoints = getValueByPath(fromObject, ["checkpoints"]);
+  if (fromCheckpoints != null) {
+    let transformedList = fromCheckpoints;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return item;
+      });
+    }
+    setValueByPath(toObject, ["checkpoints"], transformedList);
+  }
+  return toObject;
+}
+function partToMldev$1(fromObject) {
+  const toObject = {};
+  const fromVideoMetadata = getValueByPath(fromObject, [
+    "videoMetadata"
+  ]);
+  if (fromVideoMetadata != null) {
+    setValueByPath(toObject, ["videoMetadata"], fromVideoMetadata);
+  }
+  const fromThought = getValueByPath(fromObject, ["thought"]);
+  if (fromThought != null) {
+    setValueByPath(toObject, ["thought"], fromThought);
+  }
+  const fromInlineData = getValueByPath(fromObject, ["inlineData"]);
+  if (fromInlineData != null) {
+    setValueByPath(toObject, ["inlineData"], blobToMldev$1(fromInlineData));
+  }
+  const fromFileData = getValueByPath(fromObject, ["fileData"]);
+  if (fromFileData != null) {
+    setValueByPath(toObject, ["fileData"], fileDataToMldev$1(fromFileData));
+  }
+  const fromThoughtSignature = getValueByPath(fromObject, [
+    "thoughtSignature"
+  ]);
+  if (fromThoughtSignature != null) {
+    setValueByPath(toObject, ["thoughtSignature"], fromThoughtSignature);
+  }
+  const fromFunctionCall = getValueByPath(fromObject, ["functionCall"]);
+  if (fromFunctionCall != null) {
+    setValueByPath(toObject, ["functionCall"], fromFunctionCall);
+  }
+  const fromCodeExecutionResult = getValueByPath(fromObject, [
+    "codeExecutionResult"
+  ]);
+  if (fromCodeExecutionResult != null) {
+    setValueByPath(toObject, ["codeExecutionResult"], fromCodeExecutionResult);
+  }
+  const fromExecutableCode = getValueByPath(fromObject, [
+    "executableCode"
+  ]);
+  if (fromExecutableCode != null) {
+    setValueByPath(toObject, ["executableCode"], fromExecutableCode);
+  }
+  const fromFunctionResponse = getValueByPath(fromObject, [
+    "functionResponse"
+  ]);
+  if (fromFunctionResponse != null) {
+    setValueByPath(toObject, ["functionResponse"], fromFunctionResponse);
+  }
+  const fromText = getValueByPath(fromObject, ["text"]);
+  if (fromText != null) {
+    setValueByPath(toObject, ["text"], fromText);
+  }
+  return toObject;
+}
+function productImageToVertex(fromObject) {
+  const toObject = {};
+  const fromProductImage = getValueByPath(fromObject, ["productImage"]);
+  if (fromProductImage != null) {
+    setValueByPath(toObject, ["image"], imageToVertex(fromProductImage));
+  }
+  return toObject;
+}
+function recontextImageConfigToVertex(fromObject, parentObject) {
+  const toObject = {};
+  const fromNumberOfImages = getValueByPath(fromObject, [
+    "numberOfImages"
+  ]);
+  if (parentObject !== undefined && fromNumberOfImages != null) {
+    setValueByPath(parentObject, ["parameters", "sampleCount"], fromNumberOfImages);
+  }
+  const fromBaseSteps = getValueByPath(fromObject, ["baseSteps"]);
+  if (parentObject !== undefined && fromBaseSteps != null) {
+    setValueByPath(parentObject, ["parameters", "editConfig", "baseSteps"], fromBaseSteps);
+  }
+  const fromOutputGcsUri = getValueByPath(fromObject, ["outputGcsUri"]);
+  if (parentObject !== undefined && fromOutputGcsUri != null) {
+    setValueByPath(parentObject, ["parameters", "storageUri"], fromOutputGcsUri);
+  }
+  const fromSeed = getValueByPath(fromObject, ["seed"]);
+  if (parentObject !== undefined && fromSeed != null) {
+    setValueByPath(parentObject, ["parameters", "seed"], fromSeed);
+  }
+  const fromSafetyFilterLevel = getValueByPath(fromObject, [
+    "safetyFilterLevel"
+  ]);
+  if (parentObject !== undefined && fromSafetyFilterLevel != null) {
+    setValueByPath(parentObject, ["parameters", "safetySetting"], fromSafetyFilterLevel);
+  }
+  const fromPersonGeneration = getValueByPath(fromObject, [
+    "personGeneration"
+  ]);
+  if (parentObject !== undefined && fromPersonGeneration != null) {
+    setValueByPath(parentObject, ["parameters", "personGeneration"], fromPersonGeneration);
+  }
+  const fromAddWatermark = getValueByPath(fromObject, ["addWatermark"]);
+  if (parentObject !== undefined && fromAddWatermark != null) {
+    setValueByPath(parentObject, ["parameters", "addWatermark"], fromAddWatermark);
+  }
+  const fromOutputMimeType = getValueByPath(fromObject, [
+    "outputMimeType"
+  ]);
+  if (parentObject !== undefined && fromOutputMimeType != null) {
+    setValueByPath(parentObject, ["parameters", "outputOptions", "mimeType"], fromOutputMimeType);
+  }
+  const fromOutputCompressionQuality = getValueByPath(fromObject, [
+    "outputCompressionQuality"
+  ]);
+  if (parentObject !== undefined && fromOutputCompressionQuality != null) {
+    setValueByPath(parentObject, ["parameters", "outputOptions", "compressionQuality"], fromOutputCompressionQuality);
+  }
+  const fromEnhancePrompt = getValueByPath(fromObject, [
+    "enhancePrompt"
+  ]);
+  if (parentObject !== undefined && fromEnhancePrompt != null) {
+    setValueByPath(parentObject, ["parameters", "enhancePrompt"], fromEnhancePrompt);
+  }
+  const fromLabels = getValueByPath(fromObject, ["labels"]);
+  if (parentObject !== undefined && fromLabels != null) {
+    setValueByPath(parentObject, ["labels"], fromLabels);
+  }
+  return toObject;
+}
+function recontextImageParametersToVertex(apiClient, fromObject) {
+  const toObject = {};
+  const fromModel = getValueByPath(fromObject, ["model"]);
+  if (fromModel != null) {
+    setValueByPath(toObject, ["_url", "model"], tModel(apiClient, fromModel));
+  }
+  const fromSource = getValueByPath(fromObject, ["source"]);
+  if (fromSource != null) {
+    recontextImageSourceToVertex(fromSource, toObject);
+  }
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    recontextImageConfigToVertex(fromConfig, toObject);
+  }
+  return toObject;
+}
+function recontextImageResponseFromVertex(fromObject) {
+  const toObject = {};
+  const fromGeneratedImages = getValueByPath(fromObject, [
+    "predictions"
+  ]);
+  if (fromGeneratedImages != null) {
+    let transformedList = fromGeneratedImages;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return generatedImageFromVertex(item);
+      });
+    }
+    setValueByPath(toObject, ["generatedImages"], transformedList);
+  }
+  return toObject;
+}
+function recontextImageSourceToVertex(fromObject, parentObject) {
+  const toObject = {};
+  const fromPrompt = getValueByPath(fromObject, ["prompt"]);
+  if (parentObject !== undefined && fromPrompt != null) {
+    setValueByPath(parentObject, ["instances[0]", "prompt"], fromPrompt);
+  }
+  const fromPersonImage = getValueByPath(fromObject, ["personImage"]);
+  if (parentObject !== undefined && fromPersonImage != null) {
+    setValueByPath(parentObject, ["instances[0]", "personImage", "image"], imageToVertex(fromPersonImage));
+  }
+  const fromProductImages = getValueByPath(fromObject, [
+    "productImages"
+  ]);
+  if (parentObject !== undefined && fromProductImages != null) {
+    let transformedList = fromProductImages;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return productImageToVertex(item);
+      });
+    }
+    setValueByPath(parentObject, ["instances[0]", "productImages"], transformedList);
+  }
+  return toObject;
+}
+function referenceImageAPIInternalToVertex(fromObject) {
+  const toObject = {};
+  const fromReferenceImage = getValueByPath(fromObject, [
+    "referenceImage"
+  ]);
+  if (fromReferenceImage != null) {
+    setValueByPath(toObject, ["referenceImage"], imageToVertex(fromReferenceImage));
+  }
+  const fromReferenceId = getValueByPath(fromObject, ["referenceId"]);
+  if (fromReferenceId != null) {
+    setValueByPath(toObject, ["referenceId"], fromReferenceId);
+  }
+  const fromReferenceType = getValueByPath(fromObject, [
+    "referenceType"
+  ]);
+  if (fromReferenceType != null) {
+    setValueByPath(toObject, ["referenceType"], fromReferenceType);
+  }
+  const fromMaskImageConfig = getValueByPath(fromObject, [
+    "maskImageConfig"
+  ]);
+  if (fromMaskImageConfig != null) {
+    setValueByPath(toObject, ["maskImageConfig"], maskReferenceConfigToVertex(fromMaskImageConfig));
+  }
+  const fromControlImageConfig = getValueByPath(fromObject, [
+    "controlImageConfig"
+  ]);
+  if (fromControlImageConfig != null) {
+    setValueByPath(toObject, ["controlImageConfig"], controlReferenceConfigToVertex(fromControlImageConfig));
+  }
+  const fromStyleImageConfig = getValueByPath(fromObject, [
+    "styleImageConfig"
+  ]);
+  if (fromStyleImageConfig != null) {
+    setValueByPath(toObject, ["styleImageConfig"], fromStyleImageConfig);
+  }
+  const fromSubjectImageConfig = getValueByPath(fromObject, [
+    "subjectImageConfig"
+  ]);
+  if (fromSubjectImageConfig != null) {
+    setValueByPath(toObject, ["subjectImageConfig"], fromSubjectImageConfig);
+  }
+  return toObject;
+}
+function safetyAttributesFromMldev(fromObject) {
+  const toObject = {};
+  const fromCategories = getValueByPath(fromObject, [
+    "safetyAttributes",
+    "categories"
+  ]);
+  if (fromCategories != null) {
+    setValueByPath(toObject, ["categories"], fromCategories);
+  }
+  const fromScores = getValueByPath(fromObject, [
+    "safetyAttributes",
+    "scores"
+  ]);
+  if (fromScores != null) {
+    setValueByPath(toObject, ["scores"], fromScores);
+  }
+  const fromContentType = getValueByPath(fromObject, ["contentType"]);
+  if (fromContentType != null) {
+    setValueByPath(toObject, ["contentType"], fromContentType);
+  }
+  return toObject;
+}
+function safetyAttributesFromVertex(fromObject) {
+  const toObject = {};
+  const fromCategories = getValueByPath(fromObject, [
+    "safetyAttributes",
+    "categories"
+  ]);
+  if (fromCategories != null) {
+    setValueByPath(toObject, ["categories"], fromCategories);
+  }
+  const fromScores = getValueByPath(fromObject, [
+    "safetyAttributes",
+    "scores"
+  ]);
+  if (fromScores != null) {
+    setValueByPath(toObject, ["scores"], fromScores);
+  }
+  const fromContentType = getValueByPath(fromObject, ["contentType"]);
+  if (fromContentType != null) {
+    setValueByPath(toObject, ["contentType"], fromContentType);
+  }
+  return toObject;
+}
+function safetySettingToMldev(fromObject) {
+  const toObject = {};
+  if (getValueByPath(fromObject, ["method"]) !== undefined) {
+    throw new Error("method parameter is not supported in Gemini API.");
+  }
+  const fromCategory = getValueByPath(fromObject, ["category"]);
+  if (fromCategory != null) {
+    setValueByPath(toObject, ["category"], fromCategory);
+  }
+  const fromThreshold = getValueByPath(fromObject, ["threshold"]);
+  if (fromThreshold != null) {
+    setValueByPath(toObject, ["threshold"], fromThreshold);
+  }
+  return toObject;
+}
+function scribbleImageToVertex(fromObject) {
+  const toObject = {};
+  const fromImage = getValueByPath(fromObject, ["image"]);
+  if (fromImage != null) {
+    setValueByPath(toObject, ["image"], imageToVertex(fromImage));
+  }
+  return toObject;
+}
+function segmentImageConfigToVertex(fromObject, parentObject) {
+  const toObject = {};
+  const fromMode = getValueByPath(fromObject, ["mode"]);
+  if (parentObject !== undefined && fromMode != null) {
+    setValueByPath(parentObject, ["parameters", "mode"], fromMode);
+  }
+  const fromMaxPredictions = getValueByPath(fromObject, [
+    "maxPredictions"
+  ]);
+  if (parentObject !== undefined && fromMaxPredictions != null) {
+    setValueByPath(parentObject, ["parameters", "maxPredictions"], fromMaxPredictions);
+  }
+  const fromConfidenceThreshold = getValueByPath(fromObject, [
+    "confidenceThreshold"
+  ]);
+  if (parentObject !== undefined && fromConfidenceThreshold != null) {
+    setValueByPath(parentObject, ["parameters", "confidenceThreshold"], fromConfidenceThreshold);
+  }
+  const fromMaskDilation = getValueByPath(fromObject, ["maskDilation"]);
+  if (parentObject !== undefined && fromMaskDilation != null) {
+    setValueByPath(parentObject, ["parameters", "maskDilation"], fromMaskDilation);
+  }
+  const fromBinaryColorThreshold = getValueByPath(fromObject, [
+    "binaryColorThreshold"
+  ]);
+  if (parentObject !== undefined && fromBinaryColorThreshold != null) {
+    setValueByPath(parentObject, ["parameters", "binaryColorThreshold"], fromBinaryColorThreshold);
+  }
+  const fromLabels = getValueByPath(fromObject, ["labels"]);
+  if (parentObject !== undefined && fromLabels != null) {
+    setValueByPath(parentObject, ["labels"], fromLabels);
+  }
+  return toObject;
+}
+function segmentImageParametersToVertex(apiClient, fromObject) {
+  const toObject = {};
+  const fromModel = getValueByPath(fromObject, ["model"]);
+  if (fromModel != null) {
+    setValueByPath(toObject, ["_url", "model"], tModel(apiClient, fromModel));
+  }
+  const fromSource = getValueByPath(fromObject, ["source"]);
+  if (fromSource != null) {
+    segmentImageSourceToVertex(fromSource, toObject);
+  }
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    segmentImageConfigToVertex(fromConfig, toObject);
+  }
+  return toObject;
+}
+function segmentImageResponseFromVertex(fromObject) {
+  const toObject = {};
+  const fromGeneratedMasks = getValueByPath(fromObject, ["predictions"]);
+  if (fromGeneratedMasks != null) {
+    let transformedList = fromGeneratedMasks;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return generatedImageMaskFromVertex(item);
+      });
+    }
+    setValueByPath(toObject, ["generatedMasks"], transformedList);
+  }
+  return toObject;
+}
+function segmentImageSourceToVertex(fromObject, parentObject) {
+  const toObject = {};
+  const fromPrompt = getValueByPath(fromObject, ["prompt"]);
+  if (parentObject !== undefined && fromPrompt != null) {
+    setValueByPath(parentObject, ["instances[0]", "prompt"], fromPrompt);
+  }
+  const fromImage = getValueByPath(fromObject, ["image"]);
+  if (parentObject !== undefined && fromImage != null) {
+    setValueByPath(parentObject, ["instances[0]", "image"], imageToVertex(fromImage));
+  }
+  const fromScribbleImage = getValueByPath(fromObject, [
+    "scribbleImage"
+  ]);
+  if (parentObject !== undefined && fromScribbleImage != null) {
+    setValueByPath(parentObject, ["instances[0]", "scribble"], scribbleImageToVertex(fromScribbleImage));
+  }
+  return toObject;
+}
+function speechConfigToVertex(fromObject) {
+  const toObject = {};
+  const fromVoiceConfig = getValueByPath(fromObject, ["voiceConfig"]);
+  if (fromVoiceConfig != null) {
+    setValueByPath(toObject, ["voiceConfig"], fromVoiceConfig);
+  }
+  if (getValueByPath(fromObject, ["multiSpeakerVoiceConfig"]) !== undefined) {
+    throw new Error("multiSpeakerVoiceConfig parameter is not supported in Vertex AI.");
+  }
+  const fromLanguageCode = getValueByPath(fromObject, ["languageCode"]);
+  if (fromLanguageCode != null) {
+    setValueByPath(toObject, ["languageCode"], fromLanguageCode);
+  }
+  return toObject;
+}
+function toolToMldev$1(fromObject) {
+  const toObject = {};
+  const fromFunctionDeclarations = getValueByPath(fromObject, [
+    "functionDeclarations"
+  ]);
+  if (fromFunctionDeclarations != null) {
+    let transformedList = fromFunctionDeclarations;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return item;
+      });
+    }
+    setValueByPath(toObject, ["functionDeclarations"], transformedList);
+  }
+  if (getValueByPath(fromObject, ["retrieval"]) !== undefined) {
+    throw new Error("retrieval parameter is not supported in Gemini API.");
+  }
+  const fromGoogleSearch = getValueByPath(fromObject, ["googleSearch"]);
+  if (fromGoogleSearch != null) {
+    setValueByPath(toObject, ["googleSearch"], googleSearchToMldev$1(fromGoogleSearch));
+  }
+  const fromGoogleSearchRetrieval = getValueByPath(fromObject, [
+    "googleSearchRetrieval"
+  ]);
+  if (fromGoogleSearchRetrieval != null) {
+    setValueByPath(toObject, ["googleSearchRetrieval"], fromGoogleSearchRetrieval);
+  }
+  if (getValueByPath(fromObject, ["enterpriseWebSearch"]) !== undefined) {
+    throw new Error("enterpriseWebSearch parameter is not supported in Gemini API.");
+  }
+  const fromGoogleMaps = getValueByPath(fromObject, ["googleMaps"]);
+  if (fromGoogleMaps != null) {
+    setValueByPath(toObject, ["googleMaps"], googleMapsToMldev$1(fromGoogleMaps));
+  }
+  const fromUrlContext = getValueByPath(fromObject, ["urlContext"]);
+  if (fromUrlContext != null) {
+    setValueByPath(toObject, ["urlContext"], fromUrlContext);
+  }
+  const fromComputerUse = getValueByPath(fromObject, ["computerUse"]);
+  if (fromComputerUse != null) {
+    setValueByPath(toObject, ["computerUse"], fromComputerUse);
+  }
+  const fromCodeExecution = getValueByPath(fromObject, [
+    "codeExecution"
+  ]);
+  if (fromCodeExecution != null) {
+    setValueByPath(toObject, ["codeExecution"], fromCodeExecution);
+  }
+  return toObject;
+}
+function toolToVertex(fromObject) {
+  const toObject = {};
+  const fromFunctionDeclarations = getValueByPath(fromObject, [
+    "functionDeclarations"
+  ]);
+  if (fromFunctionDeclarations != null) {
+    let transformedList = fromFunctionDeclarations;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return functionDeclarationToVertex(item);
+      });
+    }
+    setValueByPath(toObject, ["functionDeclarations"], transformedList);
+  }
+  const fromRetrieval = getValueByPath(fromObject, ["retrieval"]);
+  if (fromRetrieval != null) {
+    setValueByPath(toObject, ["retrieval"], fromRetrieval);
+  }
+  const fromGoogleSearch = getValueByPath(fromObject, ["googleSearch"]);
+  if (fromGoogleSearch != null) {
+    setValueByPath(toObject, ["googleSearch"], fromGoogleSearch);
+  }
+  const fromGoogleSearchRetrieval = getValueByPath(fromObject, [
+    "googleSearchRetrieval"
+  ]);
+  if (fromGoogleSearchRetrieval != null) {
+    setValueByPath(toObject, ["googleSearchRetrieval"], fromGoogleSearchRetrieval);
+  }
+  const fromEnterpriseWebSearch = getValueByPath(fromObject, [
+    "enterpriseWebSearch"
+  ]);
+  if (fromEnterpriseWebSearch != null) {
+    setValueByPath(toObject, ["enterpriseWebSearch"], fromEnterpriseWebSearch);
+  }
+  const fromGoogleMaps = getValueByPath(fromObject, ["googleMaps"]);
+  if (fromGoogleMaps != null) {
+    setValueByPath(toObject, ["googleMaps"], fromGoogleMaps);
+  }
+  const fromUrlContext = getValueByPath(fromObject, ["urlContext"]);
+  if (fromUrlContext != null) {
+    setValueByPath(toObject, ["urlContext"], fromUrlContext);
+  }
+  const fromComputerUse = getValueByPath(fromObject, ["computerUse"]);
+  if (fromComputerUse != null) {
+    setValueByPath(toObject, ["computerUse"], fromComputerUse);
+  }
+  const fromCodeExecution = getValueByPath(fromObject, [
+    "codeExecution"
+  ]);
+  if (fromCodeExecution != null) {
+    setValueByPath(toObject, ["codeExecution"], fromCodeExecution);
+  }
+  return toObject;
+}
+function tunedModelInfoFromMldev(fromObject) {
+  const toObject = {};
+  const fromBaseModel = getValueByPath(fromObject, ["baseModel"]);
+  if (fromBaseModel != null) {
+    setValueByPath(toObject, ["baseModel"], fromBaseModel);
+  }
+  const fromCreateTime = getValueByPath(fromObject, ["createTime"]);
+  if (fromCreateTime != null) {
+    setValueByPath(toObject, ["createTime"], fromCreateTime);
+  }
+  const fromUpdateTime = getValueByPath(fromObject, ["updateTime"]);
+  if (fromUpdateTime != null) {
+    setValueByPath(toObject, ["updateTime"], fromUpdateTime);
+  }
+  return toObject;
+}
+function tunedModelInfoFromVertex(fromObject) {
+  const toObject = {};
+  const fromBaseModel = getValueByPath(fromObject, [
+    "labels",
+    "google-vertex-llm-tuning-base-model-id"
+  ]);
+  if (fromBaseModel != null) {
+    setValueByPath(toObject, ["baseModel"], fromBaseModel);
+  }
+  const fromCreateTime = getValueByPath(fromObject, ["createTime"]);
+  if (fromCreateTime != null) {
+    setValueByPath(toObject, ["createTime"], fromCreateTime);
+  }
+  const fromUpdateTime = getValueByPath(fromObject, ["updateTime"]);
+  if (fromUpdateTime != null) {
+    setValueByPath(toObject, ["updateTime"], fromUpdateTime);
+  }
+  return toObject;
+}
+function updateModelConfigToMldev(fromObject, parentObject) {
+  const toObject = {};
+  const fromDisplayName = getValueByPath(fromObject, ["displayName"]);
+  if (parentObject !== undefined && fromDisplayName != null) {
+    setValueByPath(parentObject, ["displayName"], fromDisplayName);
+  }
+  const fromDescription = getValueByPath(fromObject, ["description"]);
+  if (parentObject !== undefined && fromDescription != null) {
+    setValueByPath(parentObject, ["description"], fromDescription);
+  }
+  const fromDefaultCheckpointId = getValueByPath(fromObject, [
+    "defaultCheckpointId"
+  ]);
+  if (parentObject !== undefined && fromDefaultCheckpointId != null) {
+    setValueByPath(parentObject, ["defaultCheckpointId"], fromDefaultCheckpointId);
+  }
+  return toObject;
+}
+function updateModelConfigToVertex(fromObject, parentObject) {
+  const toObject = {};
+  const fromDisplayName = getValueByPath(fromObject, ["displayName"]);
+  if (parentObject !== undefined && fromDisplayName != null) {
+    setValueByPath(parentObject, ["displayName"], fromDisplayName);
+  }
+  const fromDescription = getValueByPath(fromObject, ["description"]);
+  if (parentObject !== undefined && fromDescription != null) {
+    setValueByPath(parentObject, ["description"], fromDescription);
+  }
+  const fromDefaultCheckpointId = getValueByPath(fromObject, [
+    "defaultCheckpointId"
+  ]);
+  if (parentObject !== undefined && fromDefaultCheckpointId != null) {
+    setValueByPath(parentObject, ["defaultCheckpointId"], fromDefaultCheckpointId);
+  }
+  return toObject;
+}
+function updateModelParametersToMldev(apiClient, fromObject) {
+  const toObject = {};
+  const fromModel = getValueByPath(fromObject, ["model"]);
+  if (fromModel != null) {
+    setValueByPath(toObject, ["_url", "name"], tModel(apiClient, fromModel));
+  }
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    updateModelConfigToMldev(fromConfig, toObject);
+  }
+  return toObject;
+}
+function updateModelParametersToVertex(apiClient, fromObject) {
+  const toObject = {};
+  const fromModel = getValueByPath(fromObject, ["model"]);
+  if (fromModel != null) {
+    setValueByPath(toObject, ["_url", "model"], tModel(apiClient, fromModel));
+  }
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    updateModelConfigToVertex(fromConfig, toObject);
+  }
+  return toObject;
+}
+function upscaleImageAPIConfigInternalToVertex(fromObject, parentObject) {
+  const toObject = {};
+  const fromOutputGcsUri = getValueByPath(fromObject, ["outputGcsUri"]);
+  if (parentObject !== undefined && fromOutputGcsUri != null) {
+    setValueByPath(parentObject, ["parameters", "storageUri"], fromOutputGcsUri);
+  }
+  const fromIncludeRaiReason = getValueByPath(fromObject, [
+    "includeRaiReason"
+  ]);
+  if (parentObject !== undefined && fromIncludeRaiReason != null) {
+    setValueByPath(parentObject, ["parameters", "includeRaiReason"], fromIncludeRaiReason);
+  }
+  const fromOutputMimeType = getValueByPath(fromObject, [
+    "outputMimeType"
+  ]);
+  if (parentObject !== undefined && fromOutputMimeType != null) {
+    setValueByPath(parentObject, ["parameters", "outputOptions", "mimeType"], fromOutputMimeType);
+  }
+  const fromOutputCompressionQuality = getValueByPath(fromObject, [
+    "outputCompressionQuality"
+  ]);
+  if (parentObject !== undefined && fromOutputCompressionQuality != null) {
+    setValueByPath(parentObject, ["parameters", "outputOptions", "compressionQuality"], fromOutputCompressionQuality);
+  }
+  const fromEnhanceInputImage = getValueByPath(fromObject, [
+    "enhanceInputImage"
+  ]);
+  if (parentObject !== undefined && fromEnhanceInputImage != null) {
+    setValueByPath(parentObject, ["parameters", "upscaleConfig", "enhanceInputImage"], fromEnhanceInputImage);
+  }
+  const fromImagePreservationFactor = getValueByPath(fromObject, [
+    "imagePreservationFactor"
+  ]);
+  if (parentObject !== undefined && fromImagePreservationFactor != null) {
+    setValueByPath(parentObject, ["parameters", "upscaleConfig", "imagePreservationFactor"], fromImagePreservationFactor);
+  }
+  const fromLabels = getValueByPath(fromObject, ["labels"]);
+  if (parentObject !== undefined && fromLabels != null) {
+    setValueByPath(parentObject, ["labels"], fromLabels);
+  }
+  const fromNumberOfImages = getValueByPath(fromObject, [
+    "numberOfImages"
+  ]);
+  if (parentObject !== undefined && fromNumberOfImages != null) {
+    setValueByPath(parentObject, ["parameters", "sampleCount"], fromNumberOfImages);
+  }
+  const fromMode = getValueByPath(fromObject, ["mode"]);
+  if (parentObject !== undefined && fromMode != null) {
+    setValueByPath(parentObject, ["parameters", "mode"], fromMode);
+  }
+  return toObject;
+}
+function upscaleImageAPIParametersInternalToVertex(apiClient, fromObject) {
+  const toObject = {};
+  const fromModel = getValueByPath(fromObject, ["model"]);
+  if (fromModel != null) {
+    setValueByPath(toObject, ["_url", "model"], tModel(apiClient, fromModel));
+  }
+  const fromImage = getValueByPath(fromObject, ["image"]);
+  if (fromImage != null) {
+    setValueByPath(toObject, ["instances[0]", "image"], imageToVertex(fromImage));
+  }
+  const fromUpscaleFactor = getValueByPath(fromObject, [
+    "upscaleFactor"
+  ]);
+  if (fromUpscaleFactor != null) {
+    setValueByPath(toObject, ["parameters", "upscaleConfig", "upscaleFactor"], fromUpscaleFactor);
+  }
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    upscaleImageAPIConfigInternalToVertex(fromConfig, toObject);
+  }
+  return toObject;
+}
+function upscaleImageResponseFromVertex(fromObject) {
+  const toObject = {};
+  const fromSdkHttpResponse = getValueByPath(fromObject, [
+    "sdkHttpResponse"
+  ]);
+  if (fromSdkHttpResponse != null) {
+    setValueByPath(toObject, ["sdkHttpResponse"], fromSdkHttpResponse);
+  }
+  const fromGeneratedImages = getValueByPath(fromObject, [
+    "predictions"
+  ]);
+  if (fromGeneratedImages != null) {
+    let transformedList = fromGeneratedImages;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return generatedImageFromVertex(item);
+      });
+    }
+    setValueByPath(toObject, ["generatedImages"], transformedList);
+  }
+  return toObject;
+}
+function videoFromMldev(fromObject) {
+  const toObject = {};
+  const fromUri = getValueByPath(fromObject, ["uri"]);
+  if (fromUri != null) {
+    setValueByPath(toObject, ["uri"], fromUri);
+  }
+  const fromVideoBytes = getValueByPath(fromObject, ["encodedVideo"]);
+  if (fromVideoBytes != null) {
+    setValueByPath(toObject, ["videoBytes"], tBytes(fromVideoBytes));
+  }
+  const fromMimeType = getValueByPath(fromObject, ["encoding"]);
+  if (fromMimeType != null) {
+    setValueByPath(toObject, ["mimeType"], fromMimeType);
+  }
+  return toObject;
+}
+function videoFromVertex(fromObject) {
+  const toObject = {};
+  const fromUri = getValueByPath(fromObject, ["gcsUri"]);
+  if (fromUri != null) {
+    setValueByPath(toObject, ["uri"], fromUri);
+  }
+  const fromVideoBytes = getValueByPath(fromObject, [
+    "bytesBase64Encoded"
+  ]);
+  if (fromVideoBytes != null) {
+    setValueByPath(toObject, ["videoBytes"], tBytes(fromVideoBytes));
+  }
+  const fromMimeType = getValueByPath(fromObject, ["mimeType"]);
+  if (fromMimeType != null) {
+    setValueByPath(toObject, ["mimeType"], fromMimeType);
+  }
+  return toObject;
+}
+function videoGenerationMaskToVertex(fromObject) {
+  const toObject = {};
+  const fromImage = getValueByPath(fromObject, ["image"]);
+  if (fromImage != null) {
+    setValueByPath(toObject, ["_self"], imageToVertex(fromImage));
+  }
+  const fromMaskMode = getValueByPath(fromObject, ["maskMode"]);
+  if (fromMaskMode != null) {
+    setValueByPath(toObject, ["maskMode"], fromMaskMode);
+  }
+  return toObject;
+}
+function videoGenerationReferenceImageToMldev(fromObject) {
+  const toObject = {};
+  const fromImage = getValueByPath(fromObject, ["image"]);
+  if (fromImage != null) {
+    setValueByPath(toObject, ["image"], imageToMldev(fromImage));
+  }
+  const fromReferenceType = getValueByPath(fromObject, [
+    "referenceType"
+  ]);
+  if (fromReferenceType != null) {
+    setValueByPath(toObject, ["referenceType"], fromReferenceType);
+  }
+  return toObject;
+}
+function videoGenerationReferenceImageToVertex(fromObject) {
+  const toObject = {};
+  const fromImage = getValueByPath(fromObject, ["image"]);
+  if (fromImage != null) {
+    setValueByPath(toObject, ["image"], imageToVertex(fromImage));
+  }
+  const fromReferenceType = getValueByPath(fromObject, [
+    "referenceType"
+  ]);
+  if (fromReferenceType != null) {
+    setValueByPath(toObject, ["referenceType"], fromReferenceType);
+  }
+  return toObject;
+}
+function videoToMldev(fromObject) {
+  const toObject = {};
+  const fromUri = getValueByPath(fromObject, ["uri"]);
+  if (fromUri != null) {
+    setValueByPath(toObject, ["uri"], fromUri);
+  }
+  const fromVideoBytes = getValueByPath(fromObject, ["videoBytes"]);
+  if (fromVideoBytes != null) {
+    setValueByPath(toObject, ["encodedVideo"], tBytes(fromVideoBytes));
+  }
+  const fromMimeType = getValueByPath(fromObject, ["mimeType"]);
+  if (fromMimeType != null) {
+    setValueByPath(toObject, ["encoding"], fromMimeType);
+  }
+  return toObject;
+}
+function videoToVertex(fromObject) {
+  const toObject = {};
+  const fromUri = getValueByPath(fromObject, ["uri"]);
+  if (fromUri != null) {
+    setValueByPath(toObject, ["gcsUri"], fromUri);
+  }
+  const fromVideoBytes = getValueByPath(fromObject, ["videoBytes"]);
+  if (fromVideoBytes != null) {
+    setValueByPath(toObject, ["bytesBase64Encoded"], tBytes(fromVideoBytes));
+  }
+  const fromMimeType = getValueByPath(fromObject, ["mimeType"]);
+  if (fromMimeType != null) {
+    setValueByPath(toObject, ["mimeType"], fromMimeType);
+  }
+  return toObject;
+}
+var CONTENT_TYPE_HEADER = "Content-Type";
+var SERVER_TIMEOUT_HEADER = "X-Server-Timeout";
+var USER_AGENT_HEADER = "User-Agent";
+var GOOGLE_API_CLIENT_HEADER = "x-goog-api-client";
+var SDK_VERSION = "1.26.0";
+var LIBRARY_LABEL = `google-genai-sdk/${SDK_VERSION}`;
+var VERTEX_AI_API_DEFAULT_VERSION = "v1beta1";
+var GOOGLE_AI_API_DEFAULT_VERSION = "v1beta";
+var responseLineRE = /^\s*data: (.*)(?:\n\n|\r\r|\r\n\r\n)/;
+
+class ApiClient {
+  constructor(opts) {
+    var _a, _b;
+    this.clientOptions = Object.assign(Object.assign({}, opts), { project: opts.project, location: opts.location, apiKey: opts.apiKey, vertexai: opts.vertexai });
+    const initHttpOptions = {};
+    if (this.clientOptions.vertexai) {
+      initHttpOptions.apiVersion = (_a = this.clientOptions.apiVersion) !== null && _a !== undefined ? _a : VERTEX_AI_API_DEFAULT_VERSION;
+      initHttpOptions.baseUrl = this.baseUrlFromProjectLocation();
+      this.normalizeAuthParameters();
+    } else {
+      initHttpOptions.apiVersion = (_b = this.clientOptions.apiVersion) !== null && _b !== undefined ? _b : GOOGLE_AI_API_DEFAULT_VERSION;
+      initHttpOptions.baseUrl = `https://generativelanguage.googleapis.com/`;
+    }
+    initHttpOptions.headers = this.getDefaultHeaders();
+    this.clientOptions.httpOptions = initHttpOptions;
+    if (opts.httpOptions) {
+      this.clientOptions.httpOptions = this.patchHttpOptions(initHttpOptions, opts.httpOptions);
+    }
+  }
+  baseUrlFromProjectLocation() {
+    if (this.clientOptions.project && this.clientOptions.location && this.clientOptions.location !== "global") {
+      return `https://${this.clientOptions.location}-aiplatform.googleapis.com/`;
+    }
+    return `https://aiplatform.googleapis.com/`;
+  }
+  normalizeAuthParameters() {
+    if (this.clientOptions.project && this.clientOptions.location) {
+      this.clientOptions.apiKey = undefined;
+      return;
+    }
+    this.clientOptions.project = undefined;
+    this.clientOptions.location = undefined;
+  }
+  isVertexAI() {
+    var _a;
+    return (_a = this.clientOptions.vertexai) !== null && _a !== undefined ? _a : false;
+  }
+  getProject() {
+    return this.clientOptions.project;
+  }
+  getLocation() {
+    return this.clientOptions.location;
+  }
+  getApiVersion() {
+    if (this.clientOptions.httpOptions && this.clientOptions.httpOptions.apiVersion !== undefined) {
+      return this.clientOptions.httpOptions.apiVersion;
+    }
+    throw new Error("API version is not set.");
+  }
+  getBaseUrl() {
+    if (this.clientOptions.httpOptions && this.clientOptions.httpOptions.baseUrl !== undefined) {
+      return this.clientOptions.httpOptions.baseUrl;
+    }
+    throw new Error("Base URL is not set.");
+  }
+  getRequestUrl() {
+    return this.getRequestUrlInternal(this.clientOptions.httpOptions);
+  }
+  getHeaders() {
+    if (this.clientOptions.httpOptions && this.clientOptions.httpOptions.headers !== undefined) {
+      return this.clientOptions.httpOptions.headers;
+    } else {
+      throw new Error("Headers are not set.");
+    }
+  }
+  getRequestUrlInternal(httpOptions) {
+    if (!httpOptions || httpOptions.baseUrl === undefined || httpOptions.apiVersion === undefined) {
+      throw new Error("HTTP options are not correctly set.");
+    }
+    const baseUrl = httpOptions.baseUrl.endsWith("/") ? httpOptions.baseUrl.slice(0, -1) : httpOptions.baseUrl;
+    const urlElement = [baseUrl];
+    if (httpOptions.apiVersion && httpOptions.apiVersion !== "") {
+      urlElement.push(httpOptions.apiVersion);
+    }
+    return urlElement.join("/");
+  }
+  getBaseResourcePath() {
+    return `projects/${this.clientOptions.project}/locations/${this.clientOptions.location}`;
+  }
+  getApiKey() {
+    return this.clientOptions.apiKey;
+  }
+  getWebsocketBaseUrl() {
+    const baseUrl = this.getBaseUrl();
+    const urlParts = new URL(baseUrl);
+    urlParts.protocol = urlParts.protocol == "http:" ? "ws" : "wss";
+    return urlParts.toString();
+  }
+  setBaseUrl(url) {
+    if (this.clientOptions.httpOptions) {
+      this.clientOptions.httpOptions.baseUrl = url;
+    } else {
+      throw new Error("HTTP options are not correctly set.");
+    }
+  }
+  constructUrl(path, httpOptions, prependProjectLocation) {
+    const urlElement = [this.getRequestUrlInternal(httpOptions)];
+    if (prependProjectLocation) {
+      urlElement.push(this.getBaseResourcePath());
+    }
+    if (path !== "") {
+      urlElement.push(path);
+    }
+    const url = new URL(`${urlElement.join("/")}`);
+    return url;
+  }
+  shouldPrependVertexProjectPath(request) {
+    if (this.clientOptions.apiKey) {
+      return false;
+    }
+    if (!this.clientOptions.vertexai) {
+      return false;
+    }
+    if (request.path.startsWith("projects/")) {
+      return false;
+    }
+    if (request.httpMethod === "GET" && request.path.startsWith("publishers/google/models")) {
+      return false;
+    }
+    return true;
+  }
+  async request(request) {
+    let patchedHttpOptions = this.clientOptions.httpOptions;
+    if (request.httpOptions) {
+      patchedHttpOptions = this.patchHttpOptions(this.clientOptions.httpOptions, request.httpOptions);
+    }
+    const prependProjectLocation = this.shouldPrependVertexProjectPath(request);
+    const url = this.constructUrl(request.path, patchedHttpOptions, prependProjectLocation);
+    if (request.queryParams) {
+      for (const [key, value] of Object.entries(request.queryParams)) {
+        url.searchParams.append(key, String(value));
+      }
+    }
+    let requestInit = {};
+    if (request.httpMethod === "GET") {
+      if (request.body && request.body !== "{}") {
+        throw new Error("Request body should be empty for GET request, but got non empty request body");
+      }
+    } else {
+      requestInit.body = request.body;
+    }
+    requestInit = await this.includeExtraHttpOptionsToRequestInit(requestInit, patchedHttpOptions, request.abortSignal);
+    return this.unaryApiCall(url, requestInit, request.httpMethod);
+  }
+  patchHttpOptions(baseHttpOptions, requestHttpOptions) {
+    const patchedHttpOptions = JSON.parse(JSON.stringify(baseHttpOptions));
+    for (const [key, value] of Object.entries(requestHttpOptions)) {
+      if (typeof value === "object") {
+        patchedHttpOptions[key] = Object.assign(Object.assign({}, patchedHttpOptions[key]), value);
+      } else if (value !== undefined) {
+        patchedHttpOptions[key] = value;
+      }
+    }
+    return patchedHttpOptions;
+  }
+  async requestStream(request) {
+    let patchedHttpOptions = this.clientOptions.httpOptions;
+    if (request.httpOptions) {
+      patchedHttpOptions = this.patchHttpOptions(this.clientOptions.httpOptions, request.httpOptions);
+    }
+    const prependProjectLocation = this.shouldPrependVertexProjectPath(request);
+    const url = this.constructUrl(request.path, patchedHttpOptions, prependProjectLocation);
+    if (!url.searchParams.has("alt") || url.searchParams.get("alt") !== "sse") {
+      url.searchParams.set("alt", "sse");
+    }
+    let requestInit = {};
+    requestInit.body = request.body;
+    requestInit = await this.includeExtraHttpOptionsToRequestInit(requestInit, patchedHttpOptions, request.abortSignal);
+    return this.streamApiCall(url, requestInit, request.httpMethod);
+  }
+  async includeExtraHttpOptionsToRequestInit(requestInit, httpOptions, abortSignal) {
+    if (httpOptions && httpOptions.timeout || abortSignal) {
+      const abortController = new AbortController;
+      const signal = abortController.signal;
+      if (httpOptions.timeout && (httpOptions === null || httpOptions === undefined ? undefined : httpOptions.timeout) > 0) {
+        const timeoutHandle = setTimeout(() => abortController.abort(), httpOptions.timeout);
+        if (timeoutHandle && typeof timeoutHandle.unref === "function") {
+          timeoutHandle.unref();
+        }
+      }
+      if (abortSignal) {
+        abortSignal.addEventListener("abort", () => {
+          abortController.abort();
+        });
+      }
+      requestInit.signal = signal;
+    }
+    if (httpOptions && httpOptions.extraBody !== null) {
+      includeExtraBodyToRequestInit(requestInit, httpOptions.extraBody);
+    }
+    requestInit.headers = await this.getHeadersInternal(httpOptions);
+    return requestInit;
+  }
+  async unaryApiCall(url, requestInit, httpMethod) {
+    return this.apiCall(url.toString(), Object.assign(Object.assign({}, requestInit), { method: httpMethod })).then(async (response) => {
+      await throwErrorIfNotOK(response);
+      return new HttpResponse(response);
+    }).catch((e) => {
+      if (e instanceof Error) {
+        throw e;
+      } else {
+        throw new Error(JSON.stringify(e));
+      }
+    });
+  }
+  async streamApiCall(url, requestInit, httpMethod) {
+    return this.apiCall(url.toString(), Object.assign(Object.assign({}, requestInit), { method: httpMethod })).then(async (response) => {
+      await throwErrorIfNotOK(response);
+      return this.processStreamResponse(response);
+    }).catch((e) => {
+      if (e instanceof Error) {
+        throw e;
+      } else {
+        throw new Error(JSON.stringify(e));
+      }
+    });
+  }
+  processStreamResponse(response) {
+    var _a;
+    return __asyncGenerator(this, arguments, function* processStreamResponse_1() {
+      const reader = (_a = response === null || response === undefined ? undefined : response.body) === null || _a === undefined ? undefined : _a.getReader();
+      const decoder = new TextDecoder("utf-8");
+      if (!reader) {
+        throw new Error("Response body is empty");
+      }
+      try {
+        let buffer = "";
+        while (true) {
+          const { done, value } = yield __await(reader.read());
+          if (done) {
+            if (buffer.trim().length > 0) {
+              throw new Error("Incomplete JSON segment at the end");
+            }
+            break;
+          }
+          const chunkString = decoder.decode(value, { stream: true });
+          try {
+            const chunkJson = JSON.parse(chunkString);
+            if ("error" in chunkJson) {
+              const errorJson = JSON.parse(JSON.stringify(chunkJson["error"]));
+              const status = errorJson["status"];
+              const code = errorJson["code"];
+              const errorMessage = `got status: ${status}. ${JSON.stringify(chunkJson)}`;
+              if (code >= 400 && code < 600) {
+                const apiError = new ApiError({
+                  message: errorMessage,
+                  status: code
+                });
+                throw apiError;
+              }
+            }
+          } catch (e) {
+            const error = e;
+            if (error.name === "ApiError") {
+              throw e;
+            }
+          }
+          buffer += chunkString;
+          let match = buffer.match(responseLineRE);
+          while (match) {
+            const processedChunkString = match[1];
+            try {
+              const partialResponse = new Response(processedChunkString, {
+                headers: response === null || response === undefined ? undefined : response.headers,
+                status: response === null || response === undefined ? undefined : response.status,
+                statusText: response === null || response === undefined ? undefined : response.statusText
+              });
+              yield yield __await(new HttpResponse(partialResponse));
+              buffer = buffer.slice(match[0].length);
+              match = buffer.match(responseLineRE);
+            } catch (e) {
+              throw new Error(`exception parsing stream chunk ${processedChunkString}. ${e}`);
+            }
+          }
+        }
+      } finally {
+        reader.releaseLock();
+      }
+    });
+  }
+  async apiCall(url, requestInit) {
+    return fetch(url, requestInit).catch((e) => {
+      throw new Error(`exception ${e} sending request`);
+    });
+  }
+  getDefaultHeaders() {
+    const headers = {};
+    const versionHeaderValue = LIBRARY_LABEL + " " + this.clientOptions.userAgentExtra;
+    headers[USER_AGENT_HEADER] = versionHeaderValue;
+    headers[GOOGLE_API_CLIENT_HEADER] = versionHeaderValue;
+    headers[CONTENT_TYPE_HEADER] = "application/json";
+    return headers;
+  }
+  async getHeadersInternal(httpOptions) {
+    const headers = new Headers;
+    if (httpOptions && httpOptions.headers) {
+      for (const [key, value] of Object.entries(httpOptions.headers)) {
+        headers.append(key, value);
+      }
+      if (httpOptions.timeout && httpOptions.timeout > 0) {
+        headers.append(SERVER_TIMEOUT_HEADER, String(Math.ceil(httpOptions.timeout / 1000)));
+      }
+    }
+    await this.clientOptions.auth.addAuthHeaders(headers);
+    return headers;
+  }
+  async uploadFile(file, config) {
+    var _a;
+    const fileToUpload = {};
+    if (config != null) {
+      fileToUpload.mimeType = config.mimeType;
+      fileToUpload.name = config.name;
+      fileToUpload.displayName = config.displayName;
+    }
+    if (fileToUpload.name && !fileToUpload.name.startsWith("files/")) {
+      fileToUpload.name = `files/${fileToUpload.name}`;
+    }
+    const uploader = this.clientOptions.uploader;
+    const fileStat = await uploader.stat(file);
+    fileToUpload.sizeBytes = String(fileStat.size);
+    const mimeType = (_a = config === null || config === undefined ? undefined : config.mimeType) !== null && _a !== undefined ? _a : fileStat.type;
+    if (mimeType === undefined || mimeType === "") {
+      throw new Error("Can not determine mimeType. Please provide mimeType in the config.");
+    }
+    fileToUpload.mimeType = mimeType;
+    const uploadUrl = await this.fetchUploadUrl(fileToUpload, config);
+    return uploader.upload(file, uploadUrl, this);
+  }
+  async downloadFile(params) {
+    const downloader = this.clientOptions.downloader;
+    await downloader.download(params, this);
+  }
+  async fetchUploadUrl(file, config) {
+    var _a;
+    let httpOptions = {};
+    if (config === null || config === undefined ? undefined : config.httpOptions) {
+      httpOptions = config.httpOptions;
+    } else {
+      httpOptions = {
+        apiVersion: "",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Goog-Upload-Protocol": "resumable",
+          "X-Goog-Upload-Command": "start",
+          "X-Goog-Upload-Header-Content-Length": `${file.sizeBytes}`,
+          "X-Goog-Upload-Header-Content-Type": `${file.mimeType}`
+        }
+      };
+    }
+    const body = {
+      file
+    };
+    const httpResponse = await this.request({
+      path: formatMap("upload/v1beta/files", body["_url"]),
+      body: JSON.stringify(body),
+      httpMethod: "POST",
+      httpOptions
+    });
+    if (!httpResponse || !(httpResponse === null || httpResponse === undefined ? undefined : httpResponse.headers)) {
+      throw new Error("Server did not return an HttpResponse or the returned HttpResponse did not have headers.");
+    }
+    const uploadUrl = (_a = httpResponse === null || httpResponse === undefined ? undefined : httpResponse.headers) === null || _a === undefined ? undefined : _a["x-goog-upload-url"];
+    if (uploadUrl === undefined) {
+      throw new Error("Failed to get upload url. Server did not return the x-google-upload-url in the headers");
+    }
+    return uploadUrl;
+  }
+}
+async function throwErrorIfNotOK(response) {
+  var _a;
+  if (response === undefined) {
+    throw new Error("response is undefined");
+  }
+  if (!response.ok) {
+    const status = response.status;
+    let errorBody;
+    if ((_a = response.headers.get("content-type")) === null || _a === undefined ? undefined : _a.includes("application/json")) {
+      errorBody = await response.json();
+    } else {
+      errorBody = {
+        error: {
+          message: await response.text(),
+          code: response.status,
+          status: response.statusText
+        }
+      };
+    }
+    const errorMessage = JSON.stringify(errorBody);
+    if (status >= 400 && status < 600) {
+      const apiError = new ApiError({
+        message: errorMessage,
+        status
+      });
+      throw apiError;
+    }
+    throw new Error(errorMessage);
+  }
+}
+function includeExtraBodyToRequestInit(requestInit, extraBody) {
+  if (!extraBody || Object.keys(extraBody).length === 0) {
+    return;
+  }
+  if (requestInit.body instanceof Blob) {
+    console.warn("includeExtraBodyToRequestInit: extraBody provided but current request body is a Blob. extraBody will be ignored as merging is not supported for Blob bodies.");
+    return;
+  }
+  let currentBodyObject = {};
+  if (typeof requestInit.body === "string" && requestInit.body.length > 0) {
+    try {
+      const parsedBody = JSON.parse(requestInit.body);
+      if (typeof parsedBody === "object" && parsedBody !== null && !Array.isArray(parsedBody)) {
+        currentBodyObject = parsedBody;
+      } else {
+        console.warn("includeExtraBodyToRequestInit: Original request body is valid JSON but not a non-array object. Skip applying extraBody to the request body.");
+        return;
+      }
+    } catch (e) {
+      console.warn("includeExtraBodyToRequestInit: Original request body is not valid JSON. Skip applying extraBody to the request body.");
+      return;
+    }
+  }
+  function deepMerge(target, source) {
+    const output = Object.assign({}, target);
+    for (const key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        const sourceValue = source[key];
+        const targetValue = output[key];
+        if (sourceValue && typeof sourceValue === "object" && !Array.isArray(sourceValue) && targetValue && typeof targetValue === "object" && !Array.isArray(targetValue)) {
+          output[key] = deepMerge(targetValue, sourceValue);
+        } else {
+          if (targetValue && sourceValue && typeof targetValue !== typeof sourceValue) {
+            console.warn(`includeExtraBodyToRequestInit:deepMerge: Type mismatch for key "${key}". Original type: ${typeof targetValue}, New type: ${typeof sourceValue}. Overwriting.`);
+          }
+          output[key] = sourceValue;
+        }
+      }
+    }
+    return output;
+  }
+  const mergedBody = deepMerge(currentBodyObject, extraBody);
+  requestInit.body = JSON.stringify(mergedBody);
+}
+var MCP_LABEL = "mcp_used/unknown";
+var hasMcpToolUsageFromMcpToTool = false;
+function hasMcpToolUsage(tools) {
+  for (const tool of tools) {
+    if (isMcpCallableTool(tool)) {
+      return true;
+    }
+    if (typeof tool === "object" && "inputSchema" in tool) {
+      return true;
+    }
+  }
+  return hasMcpToolUsageFromMcpToTool;
+}
+function setMcpUsageHeader(headers) {
+  var _a;
+  const existingHeader = (_a = headers[GOOGLE_API_CLIENT_HEADER]) !== null && _a !== undefined ? _a : "";
+  headers[GOOGLE_API_CLIENT_HEADER] = (existingHeader + ` ${MCP_LABEL}`).trimStart();
+}
+function isMcpCallableTool(object) {
+  return object !== null && typeof object === "object" && object instanceof McpCallableTool;
+}
+function listAllTools(mcpClient, maxTools = 100) {
+  return __asyncGenerator(this, arguments, function* listAllTools_1() {
+    let cursor = undefined;
+    let numTools = 0;
+    while (numTools < maxTools) {
+      const t = yield __await(mcpClient.listTools({ cursor }));
+      for (const tool of t.tools) {
+        yield yield __await(tool);
+        numTools++;
+      }
+      if (!t.nextCursor) {
+        break;
+      }
+      cursor = t.nextCursor;
+    }
+  });
+}
+
+class McpCallableTool {
+  constructor(mcpClients = [], config) {
+    this.mcpTools = [];
+    this.functionNameToMcpClient = {};
+    this.mcpClients = mcpClients;
+    this.config = config;
+  }
+  static create(mcpClients, config) {
+    return new McpCallableTool(mcpClients, config);
+  }
+  async initialize() {
+    var _a, e_1, _b, _c;
+    if (this.mcpTools.length > 0) {
+      return;
+    }
+    const functionMap = {};
+    const mcpTools = [];
+    for (const mcpClient of this.mcpClients) {
+      try {
+        for (var _d = true, _e = (e_1 = undefined, __asyncValues(listAllTools(mcpClient))), _f;_f = await _e.next(), _a = _f.done, !_a; _d = true) {
+          _c = _f.value;
+          _d = false;
+          const mcpTool = _c;
+          mcpTools.push(mcpTool);
+          const mcpToolName = mcpTool.name;
+          if (functionMap[mcpToolName]) {
+            throw new Error(`Duplicate function name ${mcpToolName} found in MCP tools. Please ensure function names are unique.`);
+          }
+          functionMap[mcpToolName] = mcpClient;
+        }
+      } catch (e_1_1) {
+        e_1 = { error: e_1_1 };
+      } finally {
+        try {
+          if (!_d && !_a && (_b = _e.return))
+            await _b.call(_e);
+        } finally {
+          if (e_1)
+            throw e_1.error;
+        }
+      }
+    }
+    this.mcpTools = mcpTools;
+    this.functionNameToMcpClient = functionMap;
+  }
+  async tool() {
+    await this.initialize();
+    return mcpToolsToGeminiTool(this.mcpTools, this.config);
+  }
+  async callTool(functionCalls) {
+    await this.initialize();
+    const functionCallResponseParts = [];
+    for (const functionCall of functionCalls) {
+      if (functionCall.name in this.functionNameToMcpClient) {
+        const mcpClient = this.functionNameToMcpClient[functionCall.name];
+        let requestOptions = undefined;
+        if (this.config.timeout) {
+          requestOptions = {
+            timeout: this.config.timeout
+          };
+        }
+        const callToolResponse = await mcpClient.callTool({
+          name: functionCall.name,
+          arguments: functionCall.args
+        }, undefined, requestOptions);
+        functionCallResponseParts.push({
+          functionResponse: {
+            name: functionCall.name,
+            response: callToolResponse.isError ? { error: callToolResponse } : callToolResponse
+          }
+        });
+      }
+    }
+    return functionCallResponseParts;
+  }
+}
+async function handleWebSocketMessage$1(apiClient, onmessage, event) {
+  const serverMessage = new LiveMusicServerMessage;
+  let data;
+  if (event.data instanceof Blob) {
+    data = JSON.parse(await event.data.text());
+  } else {
+    data = JSON.parse(event.data);
+  }
+  Object.assign(serverMessage, data);
+  onmessage(serverMessage);
+}
+
+class LiveMusic {
+  constructor(apiClient, auth, webSocketFactory) {
+    this.apiClient = apiClient;
+    this.auth = auth;
+    this.webSocketFactory = webSocketFactory;
+  }
+  async connect(params) {
+    var _a, _b;
+    if (this.apiClient.isVertexAI()) {
+      throw new Error("Live music is not supported for Vertex AI.");
+    }
+    console.warn("Live music generation is experimental and may change in future versions.");
+    const websocketBaseUrl = this.apiClient.getWebsocketBaseUrl();
+    const apiVersion = this.apiClient.getApiVersion();
+    const headers = mapToHeaders$1(this.apiClient.getDefaultHeaders());
+    const apiKey = this.apiClient.getApiKey();
+    const url = `${websocketBaseUrl}/ws/google.ai.generativelanguage.${apiVersion}.GenerativeService.BidiGenerateMusic?key=${apiKey}`;
+    let onopenResolve = () => {};
+    const onopenPromise = new Promise((resolve) => {
+      onopenResolve = resolve;
+    });
+    const callbacks = params.callbacks;
+    const onopenAwaitedCallback = function() {
+      onopenResolve({});
+    };
+    const apiClient = this.apiClient;
+    const websocketCallbacks = {
+      onopen: onopenAwaitedCallback,
+      onmessage: (event) => {
+        handleWebSocketMessage$1(apiClient, callbacks.onmessage, event);
+      },
+      onerror: (_a = callbacks === null || callbacks === undefined ? undefined : callbacks.onerror) !== null && _a !== undefined ? _a : function(e) {},
+      onclose: (_b = callbacks === null || callbacks === undefined ? undefined : callbacks.onclose) !== null && _b !== undefined ? _b : function(e) {}
+    };
+    const conn = this.webSocketFactory.create(url, headersToMap$1(headers), websocketCallbacks);
+    conn.connect();
+    await onopenPromise;
+    const model = tModel(this.apiClient, params.model);
+    const setup = { model };
+    const clientMessage = { setup };
+    conn.send(JSON.stringify(clientMessage));
+    return new LiveMusicSession(conn, this.apiClient);
+  }
+}
+
+class LiveMusicSession {
+  constructor(conn, apiClient) {
+    this.conn = conn;
+    this.apiClient = apiClient;
+  }
+  async setWeightedPrompts(params) {
+    if (!params.weightedPrompts || Object.keys(params.weightedPrompts).length === 0) {
+      throw new Error("Weighted prompts must be set and contain at least one entry.");
+    }
+    const clientContent = liveMusicSetWeightedPromptsParametersToMldev(params);
+    this.conn.send(JSON.stringify({ clientContent }));
+  }
+  async setMusicGenerationConfig(params) {
+    if (!params.musicGenerationConfig) {
+      params.musicGenerationConfig = {};
+    }
+    const setConfigParameters = liveMusicSetConfigParametersToMldev(params);
+    this.conn.send(JSON.stringify(setConfigParameters));
+  }
+  sendPlaybackControl(playbackControl) {
+    const clientMessage = { playbackControl };
+    this.conn.send(JSON.stringify(clientMessage));
+  }
+  play() {
+    this.sendPlaybackControl(LiveMusicPlaybackControl.PLAY);
+  }
+  pause() {
+    this.sendPlaybackControl(LiveMusicPlaybackControl.PAUSE);
+  }
+  stop() {
+    this.sendPlaybackControl(LiveMusicPlaybackControl.STOP);
+  }
+  resetContext() {
+    this.sendPlaybackControl(LiveMusicPlaybackControl.RESET_CONTEXT);
+  }
+  close() {
+    this.conn.close();
+  }
+}
+function headersToMap$1(headers) {
+  const headerMap = {};
+  headers.forEach((value, key) => {
+    headerMap[key] = value;
+  });
+  return headerMap;
+}
+function mapToHeaders$1(map) {
+  const headers = new Headers;
+  for (const [key, value] of Object.entries(map)) {
+    headers.append(key, value);
+  }
+  return headers;
+}
+var FUNCTION_RESPONSE_REQUIRES_ID = "FunctionResponse request must have an `id` field from the response of a ToolCall.FunctionalCalls in Google AI.";
+async function handleWebSocketMessage(apiClient, onmessage, event) {
+  const serverMessage = new LiveServerMessage;
+  let jsonData;
+  if (event.data instanceof Blob) {
+    jsonData = await event.data.text();
+  } else if (event.data instanceof ArrayBuffer) {
+    jsonData = new TextDecoder().decode(event.data);
+  } else {
+    jsonData = event.data;
+  }
+  const data = JSON.parse(jsonData);
+  if (apiClient.isVertexAI()) {
+    const resp = liveServerMessageFromVertex(data);
+    Object.assign(serverMessage, resp);
+  } else {
+    const resp = data;
+    Object.assign(serverMessage, resp);
+  }
+  onmessage(serverMessage);
+}
+
+class Live {
+  constructor(apiClient, auth, webSocketFactory) {
+    this.apiClient = apiClient;
+    this.auth = auth;
+    this.webSocketFactory = webSocketFactory;
+    this.music = new LiveMusic(this.apiClient, this.auth, this.webSocketFactory);
+  }
+  async connect(params) {
+    var _a, _b, _c, _d, _e, _f;
+    if (params.config && params.config.httpOptions) {
+      throw new Error("The Live module does not support httpOptions at request-level in" + " LiveConnectConfig yet. Please use the client-level httpOptions" + " configuration instead.");
+    }
+    const websocketBaseUrl = this.apiClient.getWebsocketBaseUrl();
+    const apiVersion = this.apiClient.getApiVersion();
+    let url;
+    const clientHeaders = this.apiClient.getHeaders();
+    if (params.config && params.config.tools && hasMcpToolUsage(params.config.tools)) {
+      setMcpUsageHeader(clientHeaders);
+    }
+    const headers = mapToHeaders(clientHeaders);
+    if (this.apiClient.isVertexAI()) {
+      url = `${websocketBaseUrl}/ws/google.cloud.aiplatform.${apiVersion}.LlmBidiService/BidiGenerateContent`;
+      await this.auth.addAuthHeaders(headers);
+    } else {
+      const apiKey = this.apiClient.getApiKey();
+      let method = "BidiGenerateContent";
+      let keyName = "key";
+      if (apiKey === null || apiKey === undefined ? undefined : apiKey.startsWith("auth_tokens/")) {
+        console.warn("Warning: Ephemeral token support is experimental and may change in future versions.");
+        if (apiVersion !== "v1alpha") {
+          console.warn("Warning: The SDK's ephemeral token support is in v1alpha only. Please use const ai = new GoogleGenAI({apiKey: token.name, httpOptions: { apiVersion: 'v1alpha' }}); before session connection.");
+        }
+        method = "BidiGenerateContentConstrained";
+        keyName = "access_token";
+      }
+      url = `${websocketBaseUrl}/ws/google.ai.generativelanguage.${apiVersion}.GenerativeService.${method}?${keyName}=${apiKey}`;
+    }
+    let onopenResolve = () => {};
+    const onopenPromise = new Promise((resolve) => {
+      onopenResolve = resolve;
+    });
+    const callbacks = params.callbacks;
+    const onopenAwaitedCallback = function() {
+      var _a2;
+      (_a2 = callbacks === null || callbacks === undefined ? undefined : callbacks.onopen) === null || _a2 === undefined || _a2.call(callbacks);
+      onopenResolve({});
+    };
+    const apiClient = this.apiClient;
+    const websocketCallbacks = {
+      onopen: onopenAwaitedCallback,
+      onmessage: (event) => {
+        handleWebSocketMessage(apiClient, callbacks.onmessage, event);
+      },
+      onerror: (_a = callbacks === null || callbacks === undefined ? undefined : callbacks.onerror) !== null && _a !== undefined ? _a : function(e) {},
+      onclose: (_b = callbacks === null || callbacks === undefined ? undefined : callbacks.onclose) !== null && _b !== undefined ? _b : function(e) {}
+    };
+    const conn = this.webSocketFactory.create(url, headersToMap(headers), websocketCallbacks);
+    conn.connect();
+    await onopenPromise;
+    let transformedModel = tModel(this.apiClient, params.model);
+    if (this.apiClient.isVertexAI() && transformedModel.startsWith("publishers/")) {
+      const project = this.apiClient.getProject();
+      const location = this.apiClient.getLocation();
+      transformedModel = `projects/${project}/locations/${location}/` + transformedModel;
+    }
+    let clientMessage = {};
+    if (this.apiClient.isVertexAI() && ((_c = params.config) === null || _c === undefined ? undefined : _c.responseModalities) === undefined) {
+      if (params.config === undefined) {
+        params.config = { responseModalities: [Modality.AUDIO] };
+      } else {
+        params.config.responseModalities = [Modality.AUDIO];
+      }
+    }
+    if ((_d = params.config) === null || _d === undefined ? undefined : _d.generationConfig) {
+      console.warn("Setting `LiveConnectConfig.generation_config` is deprecated, please set the fields on `LiveConnectConfig` directly. This will become an error in a future version (not before Q3 2025).");
+    }
+    const inputTools = (_f = (_e = params.config) === null || _e === undefined ? undefined : _e.tools) !== null && _f !== undefined ? _f : [];
+    const convertedTools = [];
+    for (const tool of inputTools) {
+      if (this.isCallableTool(tool)) {
+        const callableTool = tool;
+        convertedTools.push(await callableTool.tool());
+      } else {
+        convertedTools.push(tool);
+      }
+    }
+    if (convertedTools.length > 0) {
+      params.config.tools = convertedTools;
+    }
+    const liveConnectParameters = {
+      model: transformedModel,
+      config: params.config,
+      callbacks: params.callbacks
+    };
+    if (this.apiClient.isVertexAI()) {
+      clientMessage = liveConnectParametersToVertex(this.apiClient, liveConnectParameters);
+    } else {
+      clientMessage = liveConnectParametersToMldev(this.apiClient, liveConnectParameters);
+    }
+    delete clientMessage["config"];
+    conn.send(JSON.stringify(clientMessage));
+    return new Session(conn, this.apiClient);
+  }
+  isCallableTool(tool) {
+    return "callTool" in tool && typeof tool.callTool === "function";
+  }
+}
+var defaultLiveSendClientContentParamerters = {
+  turnComplete: true
+};
+
+class Session {
+  constructor(conn, apiClient) {
+    this.conn = conn;
+    this.apiClient = apiClient;
+  }
+  tLiveClientContent(apiClient, params) {
+    if (params.turns !== null && params.turns !== undefined) {
+      let contents = [];
+      try {
+        contents = tContents(params.turns);
+        if (!apiClient.isVertexAI()) {
+          contents = contents.map((item) => contentToMldev$1(item));
+        }
+      } catch (_a) {
+        throw new Error(`Failed to parse client content "turns", type: '${typeof params.turns}'`);
+      }
+      return {
+        clientContent: { turns: contents, turnComplete: params.turnComplete }
+      };
+    }
+    return {
+      clientContent: { turnComplete: params.turnComplete }
+    };
+  }
+  tLiveClienttToolResponse(apiClient, params) {
+    let functionResponses = [];
+    if (params.functionResponses == null) {
+      throw new Error("functionResponses is required.");
+    }
+    if (!Array.isArray(params.functionResponses)) {
+      functionResponses = [params.functionResponses];
+    } else {
+      functionResponses = params.functionResponses;
+    }
+    if (functionResponses.length === 0) {
+      throw new Error("functionResponses is required.");
+    }
+    for (const functionResponse of functionResponses) {
+      if (typeof functionResponse !== "object" || functionResponse === null || !("name" in functionResponse) || !("response" in functionResponse)) {
+        throw new Error(`Could not parse function response, type '${typeof functionResponse}'.`);
+      }
+      if (!apiClient.isVertexAI() && !("id" in functionResponse)) {
+        throw new Error(FUNCTION_RESPONSE_REQUIRES_ID);
+      }
+    }
+    const clientMessage = {
+      toolResponse: { functionResponses }
+    };
+    return clientMessage;
+  }
+  sendClientContent(params) {
+    params = Object.assign(Object.assign({}, defaultLiveSendClientContentParamerters), params);
+    const clientMessage = this.tLiveClientContent(this.apiClient, params);
+    this.conn.send(JSON.stringify(clientMessage));
+  }
+  sendRealtimeInput(params) {
+    let clientMessage = {};
+    if (this.apiClient.isVertexAI()) {
+      clientMessage = {
+        realtimeInput: liveSendRealtimeInputParametersToVertex(params)
+      };
+    } else {
+      clientMessage = {
+        realtimeInput: liveSendRealtimeInputParametersToMldev(params)
+      };
+    }
+    this.conn.send(JSON.stringify(clientMessage));
+  }
+  sendToolResponse(params) {
+    if (params.functionResponses == null) {
+      throw new Error("Tool response parameters are required.");
+    }
+    const clientMessage = this.tLiveClienttToolResponse(this.apiClient, params);
+    this.conn.send(JSON.stringify(clientMessage));
+  }
+  close() {
+    this.conn.close();
+  }
+}
+function headersToMap(headers) {
+  const headerMap = {};
+  headers.forEach((value, key) => {
+    headerMap[key] = value;
+  });
+  return headerMap;
+}
+function mapToHeaders(map) {
+  const headers = new Headers;
+  for (const [key, value] of Object.entries(map)) {
+    headers.append(key, value);
+  }
+  return headers;
+}
+var DEFAULT_MAX_REMOTE_CALLS = 10;
+function shouldDisableAfc(config) {
+  var _a, _b, _c;
+  if ((_a = config === null || config === undefined ? undefined : config.automaticFunctionCalling) === null || _a === undefined ? undefined : _a.disable) {
+    return true;
+  }
+  let callableToolsPresent = false;
+  for (const tool of (_b = config === null || config === undefined ? undefined : config.tools) !== null && _b !== undefined ? _b : []) {
+    if (isCallableTool(tool)) {
+      callableToolsPresent = true;
+      break;
+    }
+  }
+  if (!callableToolsPresent) {
+    return true;
+  }
+  const maxCalls = (_c = config === null || config === undefined ? undefined : config.automaticFunctionCalling) === null || _c === undefined ? undefined : _c.maximumRemoteCalls;
+  if (maxCalls && (maxCalls < 0 || !Number.isInteger(maxCalls)) || maxCalls == 0) {
+    console.warn("Invalid maximumRemoteCalls value provided for automatic function calling. Disabled automatic function calling. Please provide a valid integer value greater than 0. maximumRemoteCalls provided:", maxCalls);
+    return true;
+  }
+  return false;
+}
+function isCallableTool(tool) {
+  return "callTool" in tool && typeof tool.callTool === "function";
+}
+function hasCallableTools(params) {
+  var _a, _b, _c;
+  return (_c = (_b = (_a = params.config) === null || _a === undefined ? undefined : _a.tools) === null || _b === undefined ? undefined : _b.some((tool) => isCallableTool(tool))) !== null && _c !== undefined ? _c : false;
+}
+function hasNonCallableTools(params) {
+  var _a, _b, _c;
+  return (_c = (_b = (_a = params.config) === null || _a === undefined ? undefined : _a.tools) === null || _b === undefined ? undefined : _b.some((tool) => !isCallableTool(tool))) !== null && _c !== undefined ? _c : false;
+}
+function shouldAppendAfcHistory(config) {
+  var _a;
+  return !((_a = config === null || config === undefined ? undefined : config.automaticFunctionCalling) === null || _a === undefined ? undefined : _a.ignoreCallHistory);
+}
+
+class Models extends BaseModule {
+  constructor(apiClient) {
+    super();
+    this.apiClient = apiClient;
+    this.generateContent = async (params) => {
+      var _a, _b, _c, _d, _e;
+      const transformedParams = await this.processParamsMaybeAddMcpUsage(params);
+      this.maybeMoveToResponseJsonSchem(params);
+      if (!hasCallableTools(params) || shouldDisableAfc(params.config)) {
+        return await this.generateContentInternal(transformedParams);
+      }
+      if (hasNonCallableTools(params)) {
+        throw new Error("Automatic function calling with CallableTools and Tools is not yet supported.");
+      }
+      let response;
+      let functionResponseContent;
+      const automaticFunctionCallingHistory = tContents(transformedParams.contents);
+      const maxRemoteCalls = (_c = (_b = (_a = transformedParams.config) === null || _a === undefined ? undefined : _a.automaticFunctionCalling) === null || _b === undefined ? undefined : _b.maximumRemoteCalls) !== null && _c !== undefined ? _c : DEFAULT_MAX_REMOTE_CALLS;
+      let remoteCalls = 0;
+      while (remoteCalls < maxRemoteCalls) {
+        response = await this.generateContentInternal(transformedParams);
+        if (!response.functionCalls || response.functionCalls.length === 0) {
+          break;
+        }
+        const responseContent = response.candidates[0].content;
+        const functionResponseParts = [];
+        for (const tool of (_e = (_d = params.config) === null || _d === undefined ? undefined : _d.tools) !== null && _e !== undefined ? _e : []) {
+          if (isCallableTool(tool)) {
+            const callableTool = tool;
+            const parts = await callableTool.callTool(response.functionCalls);
+            functionResponseParts.push(...parts);
+          }
+        }
+        remoteCalls++;
+        functionResponseContent = {
+          role: "user",
+          parts: functionResponseParts
+        };
+        transformedParams.contents = tContents(transformedParams.contents);
+        transformedParams.contents.push(responseContent);
+        transformedParams.contents.push(functionResponseContent);
+        if (shouldAppendAfcHistory(transformedParams.config)) {
+          automaticFunctionCallingHistory.push(responseContent);
+          automaticFunctionCallingHistory.push(functionResponseContent);
+        }
+      }
+      if (shouldAppendAfcHistory(transformedParams.config)) {
+        response.automaticFunctionCallingHistory = automaticFunctionCallingHistory;
+      }
+      return response;
+    };
+    this.generateContentStream = async (params) => {
+      this.maybeMoveToResponseJsonSchem(params);
+      if (shouldDisableAfc(params.config)) {
+        const transformedParams = await this.processParamsMaybeAddMcpUsage(params);
+        return await this.generateContentStreamInternal(transformedParams);
+      } else {
+        return await this.processAfcStream(params);
+      }
+    };
+    this.generateImages = async (params) => {
+      return await this.generateImagesInternal(params).then((apiResponse) => {
+        var _a;
+        let positivePromptSafetyAttributes;
+        const generatedImages = [];
+        if (apiResponse === null || apiResponse === undefined ? undefined : apiResponse.generatedImages) {
+          for (const generatedImage of apiResponse.generatedImages) {
+            if (generatedImage && (generatedImage === null || generatedImage === undefined ? undefined : generatedImage.safetyAttributes) && ((_a = generatedImage === null || generatedImage === undefined ? undefined : generatedImage.safetyAttributes) === null || _a === undefined ? undefined : _a.contentType) === "Positive Prompt") {
+              positivePromptSafetyAttributes = generatedImage === null || generatedImage === undefined ? undefined : generatedImage.safetyAttributes;
+            } else {
+              generatedImages.push(generatedImage);
+            }
+          }
+        }
+        let response;
+        if (positivePromptSafetyAttributes) {
+          response = {
+            generatedImages,
+            positivePromptSafetyAttributes,
+            sdkHttpResponse: apiResponse.sdkHttpResponse
+          };
+        } else {
+          response = {
+            generatedImages,
+            sdkHttpResponse: apiResponse.sdkHttpResponse
+          };
+        }
+        return response;
+      });
+    };
+    this.list = async (params) => {
+      var _a;
+      const defaultConfig = {
+        queryBase: true
+      };
+      const actualConfig = Object.assign(Object.assign({}, defaultConfig), params === null || params === undefined ? undefined : params.config);
+      const actualParams = {
+        config: actualConfig
+      };
+      if (this.apiClient.isVertexAI()) {
+        if (!actualParams.config.queryBase) {
+          if ((_a = actualParams.config) === null || _a === undefined ? undefined : _a.filter) {
+            throw new Error("Filtering tuned models list for Vertex AI is not currently supported");
+          } else {
+            actualParams.config.filter = "labels.tune-type:*";
+          }
+        }
+      }
+      return new Pager(PagedItem.PAGED_ITEM_MODELS, (x) => this.listInternal(x), await this.listInternal(actualParams), actualParams);
+    };
+    this.editImage = async (params) => {
+      const paramsInternal = {
+        model: params.model,
+        prompt: params.prompt,
+        referenceImages: [],
+        config: params.config
+      };
+      if (params.referenceImages) {
+        if (params.referenceImages) {
+          paramsInternal.referenceImages = params.referenceImages.map((img) => img.toReferenceImageAPI());
+        }
+      }
+      return await this.editImageInternal(paramsInternal);
+    };
+    this.upscaleImage = async (params) => {
+      let apiConfig = {
+        numberOfImages: 1,
+        mode: "upscale"
+      };
+      if (params.config) {
+        apiConfig = Object.assign(Object.assign({}, apiConfig), params.config);
+      }
+      const apiParams = {
+        model: params.model,
+        image: params.image,
+        upscaleFactor: params.upscaleFactor,
+        config: apiConfig
+      };
+      return await this.upscaleImageInternal(apiParams);
+    };
+    this.generateVideos = async (params) => {
+      var _a, _b, _c, _d, _e, _f;
+      if ((params.prompt || params.image || params.video) && params.source) {
+        throw new Error("Source and prompt/image/video are mutually exclusive. Please only use source.");
+      }
+      if (!this.apiClient.isVertexAI()) {
+        if (((_a = params.video) === null || _a === undefined ? undefined : _a.uri) && ((_b = params.video) === null || _b === undefined ? undefined : _b.videoBytes)) {
+          params.video = {
+            uri: params.video.uri,
+            mimeType: params.video.mimeType
+          };
+        } else if (((_d = (_c = params.source) === null || _c === undefined ? undefined : _c.video) === null || _d === undefined ? undefined : _d.uri) && ((_f = (_e = params.source) === null || _e === undefined ? undefined : _e.video) === null || _f === undefined ? undefined : _f.videoBytes)) {
+          params.source.video = {
+            uri: params.source.video.uri,
+            mimeType: params.source.video.mimeType
+          };
+        }
+      }
+      return await this.generateVideosInternal(params);
+    };
+  }
+  maybeMoveToResponseJsonSchem(params) {
+    if (params.config && params.config.responseSchema) {
+      if (!params.config.responseJsonSchema) {
+        if (Object.keys(params.config.responseSchema).includes("$schema")) {
+          params.config.responseJsonSchema = params.config.responseSchema;
+          delete params.config.responseSchema;
+        }
+      }
+    }
+    return;
+  }
+  async processParamsMaybeAddMcpUsage(params) {
+    var _a, _b, _c;
+    const tools = (_a = params.config) === null || _a === undefined ? undefined : _a.tools;
+    if (!tools) {
+      return params;
+    }
+    const transformedTools = await Promise.all(tools.map(async (tool) => {
+      if (isCallableTool(tool)) {
+        const callableTool = tool;
+        return await callableTool.tool();
+      }
+      return tool;
+    }));
+    const newParams = {
+      model: params.model,
+      contents: params.contents,
+      config: Object.assign(Object.assign({}, params.config), { tools: transformedTools })
+    };
+    newParams.config.tools = transformedTools;
+    if (params.config && params.config.tools && hasMcpToolUsage(params.config.tools)) {
+      const headers = (_c = (_b = params.config.httpOptions) === null || _b === undefined ? undefined : _b.headers) !== null && _c !== undefined ? _c : {};
+      let newHeaders = Object.assign({}, headers);
+      if (Object.keys(newHeaders).length === 0) {
+        newHeaders = this.apiClient.getDefaultHeaders();
+      }
+      setMcpUsageHeader(newHeaders);
+      newParams.config.httpOptions = Object.assign(Object.assign({}, params.config.httpOptions), { headers: newHeaders });
+    }
+    return newParams;
+  }
+  async initAfcToolsMap(params) {
+    var _a, _b, _c;
+    const afcTools = new Map;
+    for (const tool of (_b = (_a = params.config) === null || _a === undefined ? undefined : _a.tools) !== null && _b !== undefined ? _b : []) {
+      if (isCallableTool(tool)) {
+        const callableTool = tool;
+        const toolDeclaration = await callableTool.tool();
+        for (const declaration of (_c = toolDeclaration.functionDeclarations) !== null && _c !== undefined ? _c : []) {
+          if (!declaration.name) {
+            throw new Error("Function declaration name is required.");
+          }
+          if (afcTools.has(declaration.name)) {
+            throw new Error(`Duplicate tool declaration name: ${declaration.name}`);
+          }
+          afcTools.set(declaration.name, callableTool);
+        }
+      }
+    }
+    return afcTools;
+  }
+  async processAfcStream(params) {
+    var _a, _b, _c;
+    const maxRemoteCalls = (_c = (_b = (_a = params.config) === null || _a === undefined ? undefined : _a.automaticFunctionCalling) === null || _b === undefined ? undefined : _b.maximumRemoteCalls) !== null && _c !== undefined ? _c : DEFAULT_MAX_REMOTE_CALLS;
+    let wereFunctionsCalled = false;
+    let remoteCallCount = 0;
+    const afcToolsMap = await this.initAfcToolsMap(params);
+    return function(models, afcTools, params2) {
+      var _a2, _b2;
+      return __asyncGenerator(this, arguments, function* () {
+        var _c2, e_1, _d, _e;
+        while (remoteCallCount < maxRemoteCalls) {
+          if (wereFunctionsCalled) {
+            remoteCallCount++;
+            wereFunctionsCalled = false;
+          }
+          const transformedParams = yield __await(models.processParamsMaybeAddMcpUsage(params2));
+          const response = yield __await(models.generateContentStreamInternal(transformedParams));
+          const functionResponses = [];
+          const responseContents = [];
+          try {
+            for (var _f = true, response_1 = (e_1 = undefined, __asyncValues(response)), response_1_1;response_1_1 = yield __await(response_1.next()), _c2 = response_1_1.done, !_c2; _f = true) {
+              _e = response_1_1.value;
+              _f = false;
+              const chunk = _e;
+              yield yield __await(chunk);
+              if (chunk.candidates && ((_a2 = chunk.candidates[0]) === null || _a2 === undefined ? undefined : _a2.content)) {
+                responseContents.push(chunk.candidates[0].content);
+                for (const part of (_b2 = chunk.candidates[0].content.parts) !== null && _b2 !== undefined ? _b2 : []) {
+                  if (remoteCallCount < maxRemoteCalls && part.functionCall) {
+                    if (!part.functionCall.name) {
+                      throw new Error("Function call name was not returned by the model.");
+                    }
+                    if (!afcTools.has(part.functionCall.name)) {
+                      throw new Error(`Automatic function calling was requested, but not all the tools the model used implement the CallableTool interface. Available tools: ${afcTools.keys()}, mising tool: ${part.functionCall.name}`);
+                    } else {
+                      const responseParts = yield __await(afcTools.get(part.functionCall.name).callTool([part.functionCall]));
+                      functionResponses.push(...responseParts);
+                    }
+                  }
+                }
+              }
+            }
+          } catch (e_1_1) {
+            e_1 = { error: e_1_1 };
+          } finally {
+            try {
+              if (!_f && !_c2 && (_d = response_1.return))
+                yield __await(_d.call(response_1));
+            } finally {
+              if (e_1)
+                throw e_1.error;
+            }
+          }
+          if (functionResponses.length > 0) {
+            wereFunctionsCalled = true;
+            const typedResponseChunk = new GenerateContentResponse;
+            typedResponseChunk.candidates = [
+              {
+                content: {
+                  role: "user",
+                  parts: functionResponses
+                }
+              }
+            ];
+            yield yield __await(typedResponseChunk);
+            const newContents = [];
+            newContents.push(...responseContents);
+            newContents.push({
+              role: "user",
+              parts: functionResponses
+            });
+            const updatedContents = tContents(params2.contents).concat(newContents);
+            params2.contents = updatedContents;
+          } else {
+            break;
+          }
+        }
+      });
+    }(this, afcToolsMap, params);
+  }
+  async generateContentInternal(params) {
+    var _a, _b, _c, _d;
+    let response;
+    let path = "";
+    let queryParams = {};
+    if (this.apiClient.isVertexAI()) {
+      const body = generateContentParametersToVertex(this.apiClient, params);
+      path = formatMap("{model}:generateContent", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "POST",
+        httpOptions: (_a = params.config) === null || _a === undefined ? undefined : _a.httpOptions,
+        abortSignal: (_b = params.config) === null || _b === undefined ? undefined : _b.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json().then((jsonResponse) => {
+          const response2 = jsonResponse;
+          response2.sdkHttpResponse = {
+            headers: httpResponse.headers
+          };
+          return response2;
+        });
+      });
+      return response.then((apiResponse) => {
+        const resp = generateContentResponseFromVertex(apiResponse);
+        const typedResp = new GenerateContentResponse;
+        Object.assign(typedResp, resp);
+        return typedResp;
+      });
+    } else {
+      const body = generateContentParametersToMldev(this.apiClient, params);
+      path = formatMap("{model}:generateContent", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "POST",
+        httpOptions: (_c = params.config) === null || _c === undefined ? undefined : _c.httpOptions,
+        abortSignal: (_d = params.config) === null || _d === undefined ? undefined : _d.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json().then((jsonResponse) => {
+          const response2 = jsonResponse;
+          response2.sdkHttpResponse = {
+            headers: httpResponse.headers
+          };
+          return response2;
+        });
+      });
+      return response.then((apiResponse) => {
+        const resp = generateContentResponseFromMldev(apiResponse);
+        const typedResp = new GenerateContentResponse;
+        Object.assign(typedResp, resp);
+        return typedResp;
+      });
+    }
+  }
+  async generateContentStreamInternal(params) {
+    var _a, _b, _c, _d;
+    let response;
+    let path = "";
+    let queryParams = {};
+    if (this.apiClient.isVertexAI()) {
+      const body = generateContentParametersToVertex(this.apiClient, params);
+      path = formatMap("{model}:streamGenerateContent?alt=sse", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      const apiClient = this.apiClient;
+      response = apiClient.requestStream({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "POST",
+        httpOptions: (_a = params.config) === null || _a === undefined ? undefined : _a.httpOptions,
+        abortSignal: (_b = params.config) === null || _b === undefined ? undefined : _b.abortSignal
+      });
+      return response.then(function(apiResponse) {
+        return __asyncGenerator(this, arguments, function* () {
+          var _a2, e_2, _b2, _c2;
+          try {
+            for (var _d2 = true, apiResponse_1 = __asyncValues(apiResponse), apiResponse_1_1;apiResponse_1_1 = yield __await(apiResponse_1.next()), _a2 = apiResponse_1_1.done, !_a2; _d2 = true) {
+              _c2 = apiResponse_1_1.value;
+              _d2 = false;
+              const chunk = _c2;
+              const resp = generateContentResponseFromVertex(yield __await(chunk.json()));
+              resp["sdkHttpResponse"] = {
+                headers: chunk.headers
+              };
+              const typedResp = new GenerateContentResponse;
+              Object.assign(typedResp, resp);
+              yield yield __await(typedResp);
+            }
+          } catch (e_2_1) {
+            e_2 = { error: e_2_1 };
+          } finally {
+            try {
+              if (!_d2 && !_a2 && (_b2 = apiResponse_1.return))
+                yield __await(_b2.call(apiResponse_1));
+            } finally {
+              if (e_2)
+                throw e_2.error;
+            }
+          }
+        });
+      });
+    } else {
+      const body = generateContentParametersToMldev(this.apiClient, params);
+      path = formatMap("{model}:streamGenerateContent?alt=sse", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      const apiClient = this.apiClient;
+      response = apiClient.requestStream({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "POST",
+        httpOptions: (_c = params.config) === null || _c === undefined ? undefined : _c.httpOptions,
+        abortSignal: (_d = params.config) === null || _d === undefined ? undefined : _d.abortSignal
+      });
+      return response.then(function(apiResponse) {
+        return __asyncGenerator(this, arguments, function* () {
+          var _a2, e_3, _b2, _c2;
+          try {
+            for (var _d2 = true, apiResponse_2 = __asyncValues(apiResponse), apiResponse_2_1;apiResponse_2_1 = yield __await(apiResponse_2.next()), _a2 = apiResponse_2_1.done, !_a2; _d2 = true) {
+              _c2 = apiResponse_2_1.value;
+              _d2 = false;
+              const chunk = _c2;
+              const resp = generateContentResponseFromMldev(yield __await(chunk.json()));
+              resp["sdkHttpResponse"] = {
+                headers: chunk.headers
+              };
+              const typedResp = new GenerateContentResponse;
+              Object.assign(typedResp, resp);
+              yield yield __await(typedResp);
+            }
+          } catch (e_3_1) {
+            e_3 = { error: e_3_1 };
+          } finally {
+            try {
+              if (!_d2 && !_a2 && (_b2 = apiResponse_2.return))
+                yield __await(_b2.call(apiResponse_2));
+            } finally {
+              if (e_3)
+                throw e_3.error;
+            }
+          }
+        });
+      });
+    }
+  }
+  async embedContent(params) {
+    var _a, _b, _c, _d;
+    let response;
+    let path = "";
+    let queryParams = {};
+    if (this.apiClient.isVertexAI()) {
+      const body = embedContentParametersToVertex(this.apiClient, params);
+      path = formatMap("{model}:predict", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "POST",
+        httpOptions: (_a = params.config) === null || _a === undefined ? undefined : _a.httpOptions,
+        abortSignal: (_b = params.config) === null || _b === undefined ? undefined : _b.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json().then((jsonResponse) => {
+          const response2 = jsonResponse;
+          response2.sdkHttpResponse = {
+            headers: httpResponse.headers
+          };
+          return response2;
+        });
+      });
+      return response.then((apiResponse) => {
+        const resp = embedContentResponseFromVertex(apiResponse);
+        const typedResp = new EmbedContentResponse;
+        Object.assign(typedResp, resp);
+        return typedResp;
+      });
+    } else {
+      const body = embedContentParametersToMldev(this.apiClient, params);
+      path = formatMap("{model}:batchEmbedContents", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "POST",
+        httpOptions: (_c = params.config) === null || _c === undefined ? undefined : _c.httpOptions,
+        abortSignal: (_d = params.config) === null || _d === undefined ? undefined : _d.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json().then((jsonResponse) => {
+          const response2 = jsonResponse;
+          response2.sdkHttpResponse = {
+            headers: httpResponse.headers
+          };
+          return response2;
+        });
+      });
+      return response.then((apiResponse) => {
+        const resp = embedContentResponseFromMldev(apiResponse);
+        const typedResp = new EmbedContentResponse;
+        Object.assign(typedResp, resp);
+        return typedResp;
+      });
+    }
+  }
+  async generateImagesInternal(params) {
+    var _a, _b, _c, _d;
+    let response;
+    let path = "";
+    let queryParams = {};
+    if (this.apiClient.isVertexAI()) {
+      const body = generateImagesParametersToVertex(this.apiClient, params);
+      path = formatMap("{model}:predict", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "POST",
+        httpOptions: (_a = params.config) === null || _a === undefined ? undefined : _a.httpOptions,
+        abortSignal: (_b = params.config) === null || _b === undefined ? undefined : _b.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json().then((jsonResponse) => {
+          const response2 = jsonResponse;
+          response2.sdkHttpResponse = {
+            headers: httpResponse.headers
+          };
+          return response2;
+        });
+      });
+      return response.then((apiResponse) => {
+        const resp = generateImagesResponseFromVertex(apiResponse);
+        const typedResp = new GenerateImagesResponse;
+        Object.assign(typedResp, resp);
+        return typedResp;
+      });
+    } else {
+      const body = generateImagesParametersToMldev(this.apiClient, params);
+      path = formatMap("{model}:predict", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "POST",
+        httpOptions: (_c = params.config) === null || _c === undefined ? undefined : _c.httpOptions,
+        abortSignal: (_d = params.config) === null || _d === undefined ? undefined : _d.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json().then((jsonResponse) => {
+          const response2 = jsonResponse;
+          response2.sdkHttpResponse = {
+            headers: httpResponse.headers
+          };
+          return response2;
+        });
+      });
+      return response.then((apiResponse) => {
+        const resp = generateImagesResponseFromMldev(apiResponse);
+        const typedResp = new GenerateImagesResponse;
+        Object.assign(typedResp, resp);
+        return typedResp;
+      });
+    }
+  }
+  async editImageInternal(params) {
+    var _a, _b;
+    let response;
+    let path = "";
+    let queryParams = {};
+    if (this.apiClient.isVertexAI()) {
+      const body = editImageParametersInternalToVertex(this.apiClient, params);
+      path = formatMap("{model}:predict", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "POST",
+        httpOptions: (_a = params.config) === null || _a === undefined ? undefined : _a.httpOptions,
+        abortSignal: (_b = params.config) === null || _b === undefined ? undefined : _b.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json().then((jsonResponse) => {
+          const response2 = jsonResponse;
+          response2.sdkHttpResponse = {
+            headers: httpResponse.headers
+          };
+          return response2;
+        });
+      });
+      return response.then((apiResponse) => {
+        const resp = editImageResponseFromVertex(apiResponse);
+        const typedResp = new EditImageResponse;
+        Object.assign(typedResp, resp);
+        return typedResp;
+      });
+    } else {
+      throw new Error("This method is only supported by the Vertex AI.");
+    }
+  }
+  async upscaleImageInternal(params) {
+    var _a, _b;
+    let response;
+    let path = "";
+    let queryParams = {};
+    if (this.apiClient.isVertexAI()) {
+      const body = upscaleImageAPIParametersInternalToVertex(this.apiClient, params);
+      path = formatMap("{model}:predict", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "POST",
+        httpOptions: (_a = params.config) === null || _a === undefined ? undefined : _a.httpOptions,
+        abortSignal: (_b = params.config) === null || _b === undefined ? undefined : _b.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json().then((jsonResponse) => {
+          const response2 = jsonResponse;
+          response2.sdkHttpResponse = {
+            headers: httpResponse.headers
+          };
+          return response2;
+        });
+      });
+      return response.then((apiResponse) => {
+        const resp = upscaleImageResponseFromVertex(apiResponse);
+        const typedResp = new UpscaleImageResponse;
+        Object.assign(typedResp, resp);
+        return typedResp;
+      });
+    } else {
+      throw new Error("This method is only supported by the Vertex AI.");
+    }
+  }
+  async recontextImage(params) {
+    var _a, _b;
+    let response;
+    let path = "";
+    let queryParams = {};
+    if (this.apiClient.isVertexAI()) {
+      const body = recontextImageParametersToVertex(this.apiClient, params);
+      path = formatMap("{model}:predict", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "POST",
+        httpOptions: (_a = params.config) === null || _a === undefined ? undefined : _a.httpOptions,
+        abortSignal: (_b = params.config) === null || _b === undefined ? undefined : _b.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json();
+      });
+      return response.then((apiResponse) => {
+        const resp = recontextImageResponseFromVertex(apiResponse);
+        const typedResp = new RecontextImageResponse;
+        Object.assign(typedResp, resp);
+        return typedResp;
+      });
+    } else {
+      throw new Error("This method is only supported by the Vertex AI.");
+    }
+  }
+  async segmentImage(params) {
+    var _a, _b;
+    let response;
+    let path = "";
+    let queryParams = {};
+    if (this.apiClient.isVertexAI()) {
+      const body = segmentImageParametersToVertex(this.apiClient, params);
+      path = formatMap("{model}:predict", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "POST",
+        httpOptions: (_a = params.config) === null || _a === undefined ? undefined : _a.httpOptions,
+        abortSignal: (_b = params.config) === null || _b === undefined ? undefined : _b.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json();
+      });
+      return response.then((apiResponse) => {
+        const resp = segmentImageResponseFromVertex(apiResponse);
+        const typedResp = new SegmentImageResponse;
+        Object.assign(typedResp, resp);
+        return typedResp;
+      });
+    } else {
+      throw new Error("This method is only supported by the Vertex AI.");
+    }
+  }
+  async get(params) {
+    var _a, _b, _c, _d;
+    let response;
+    let path = "";
+    let queryParams = {};
+    if (this.apiClient.isVertexAI()) {
+      const body = getModelParametersToVertex(this.apiClient, params);
+      path = formatMap("{name}", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "GET",
+        httpOptions: (_a = params.config) === null || _a === undefined ? undefined : _a.httpOptions,
+        abortSignal: (_b = params.config) === null || _b === undefined ? undefined : _b.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json();
+      });
+      return response.then((apiResponse) => {
+        const resp = modelFromVertex(apiResponse);
+        return resp;
+      });
+    } else {
+      const body = getModelParametersToMldev(this.apiClient, params);
+      path = formatMap("{name}", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "GET",
+        httpOptions: (_c = params.config) === null || _c === undefined ? undefined : _c.httpOptions,
+        abortSignal: (_d = params.config) === null || _d === undefined ? undefined : _d.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json();
+      });
+      return response.then((apiResponse) => {
+        const resp = modelFromMldev(apiResponse);
+        return resp;
+      });
+    }
+  }
+  async listInternal(params) {
+    var _a, _b, _c, _d;
+    let response;
+    let path = "";
+    let queryParams = {};
+    if (this.apiClient.isVertexAI()) {
+      const body = listModelsParametersToVertex(this.apiClient, params);
+      path = formatMap("{models_url}", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "GET",
+        httpOptions: (_a = params.config) === null || _a === undefined ? undefined : _a.httpOptions,
+        abortSignal: (_b = params.config) === null || _b === undefined ? undefined : _b.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json().then((jsonResponse) => {
+          const response2 = jsonResponse;
+          response2.sdkHttpResponse = {
+            headers: httpResponse.headers
+          };
+          return response2;
+        });
+      });
+      return response.then((apiResponse) => {
+        const resp = listModelsResponseFromVertex(apiResponse);
+        const typedResp = new ListModelsResponse;
+        Object.assign(typedResp, resp);
+        return typedResp;
+      });
+    } else {
+      const body = listModelsParametersToMldev(this.apiClient, params);
+      path = formatMap("{models_url}", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "GET",
+        httpOptions: (_c = params.config) === null || _c === undefined ? undefined : _c.httpOptions,
+        abortSignal: (_d = params.config) === null || _d === undefined ? undefined : _d.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json().then((jsonResponse) => {
+          const response2 = jsonResponse;
+          response2.sdkHttpResponse = {
+            headers: httpResponse.headers
+          };
+          return response2;
+        });
+      });
+      return response.then((apiResponse) => {
+        const resp = listModelsResponseFromMldev(apiResponse);
+        const typedResp = new ListModelsResponse;
+        Object.assign(typedResp, resp);
+        return typedResp;
+      });
+    }
+  }
+  async update(params) {
+    var _a, _b, _c, _d;
+    let response;
+    let path = "";
+    let queryParams = {};
+    if (this.apiClient.isVertexAI()) {
+      const body = updateModelParametersToVertex(this.apiClient, params);
+      path = formatMap("{model}", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "PATCH",
+        httpOptions: (_a = params.config) === null || _a === undefined ? undefined : _a.httpOptions,
+        abortSignal: (_b = params.config) === null || _b === undefined ? undefined : _b.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json();
+      });
+      return response.then((apiResponse) => {
+        const resp = modelFromVertex(apiResponse);
+        return resp;
+      });
+    } else {
+      const body = updateModelParametersToMldev(this.apiClient, params);
+      path = formatMap("{name}", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "PATCH",
+        httpOptions: (_c = params.config) === null || _c === undefined ? undefined : _c.httpOptions,
+        abortSignal: (_d = params.config) === null || _d === undefined ? undefined : _d.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json();
+      });
+      return response.then((apiResponse) => {
+        const resp = modelFromMldev(apiResponse);
+        return resp;
+      });
+    }
+  }
+  async delete(params) {
+    var _a, _b, _c, _d;
+    let response;
+    let path = "";
+    let queryParams = {};
+    if (this.apiClient.isVertexAI()) {
+      const body = deleteModelParametersToVertex(this.apiClient, params);
+      path = formatMap("{name}", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "DELETE",
+        httpOptions: (_a = params.config) === null || _a === undefined ? undefined : _a.httpOptions,
+        abortSignal: (_b = params.config) === null || _b === undefined ? undefined : _b.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json().then((jsonResponse) => {
+          const response2 = jsonResponse;
+          response2.sdkHttpResponse = {
+            headers: httpResponse.headers
+          };
+          return response2;
+        });
+      });
+      return response.then((apiResponse) => {
+        const resp = deleteModelResponseFromVertex(apiResponse);
+        const typedResp = new DeleteModelResponse;
+        Object.assign(typedResp, resp);
+        return typedResp;
+      });
+    } else {
+      const body = deleteModelParametersToMldev(this.apiClient, params);
+      path = formatMap("{name}", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "DELETE",
+        httpOptions: (_c = params.config) === null || _c === undefined ? undefined : _c.httpOptions,
+        abortSignal: (_d = params.config) === null || _d === undefined ? undefined : _d.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json().then((jsonResponse) => {
+          const response2 = jsonResponse;
+          response2.sdkHttpResponse = {
+            headers: httpResponse.headers
+          };
+          return response2;
+        });
+      });
+      return response.then((apiResponse) => {
+        const resp = deleteModelResponseFromMldev(apiResponse);
+        const typedResp = new DeleteModelResponse;
+        Object.assign(typedResp, resp);
+        return typedResp;
+      });
+    }
+  }
+  async countTokens(params) {
+    var _a, _b, _c, _d;
+    let response;
+    let path = "";
+    let queryParams = {};
+    if (this.apiClient.isVertexAI()) {
+      const body = countTokensParametersToVertex(this.apiClient, params);
+      path = formatMap("{model}:countTokens", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "POST",
+        httpOptions: (_a = params.config) === null || _a === undefined ? undefined : _a.httpOptions,
+        abortSignal: (_b = params.config) === null || _b === undefined ? undefined : _b.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json().then((jsonResponse) => {
+          const response2 = jsonResponse;
+          response2.sdkHttpResponse = {
+            headers: httpResponse.headers
+          };
+          return response2;
+        });
+      });
+      return response.then((apiResponse) => {
+        const resp = countTokensResponseFromVertex(apiResponse);
+        const typedResp = new CountTokensResponse;
+        Object.assign(typedResp, resp);
+        return typedResp;
+      });
+    } else {
+      const body = countTokensParametersToMldev(this.apiClient, params);
+      path = formatMap("{model}:countTokens", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "POST",
+        httpOptions: (_c = params.config) === null || _c === undefined ? undefined : _c.httpOptions,
+        abortSignal: (_d = params.config) === null || _d === undefined ? undefined : _d.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json().then((jsonResponse) => {
+          const response2 = jsonResponse;
+          response2.sdkHttpResponse = {
+            headers: httpResponse.headers
+          };
+          return response2;
+        });
+      });
+      return response.then((apiResponse) => {
+        const resp = countTokensResponseFromMldev(apiResponse);
+        const typedResp = new CountTokensResponse;
+        Object.assign(typedResp, resp);
+        return typedResp;
+      });
+    }
+  }
+  async computeTokens(params) {
+    var _a, _b;
+    let response;
+    let path = "";
+    let queryParams = {};
+    if (this.apiClient.isVertexAI()) {
+      const body = computeTokensParametersToVertex(this.apiClient, params);
+      path = formatMap("{model}:computeTokens", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "POST",
+        httpOptions: (_a = params.config) === null || _a === undefined ? undefined : _a.httpOptions,
+        abortSignal: (_b = params.config) === null || _b === undefined ? undefined : _b.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json().then((jsonResponse) => {
+          const response2 = jsonResponse;
+          response2.sdkHttpResponse = {
+            headers: httpResponse.headers
+          };
+          return response2;
+        });
+      });
+      return response.then((apiResponse) => {
+        const resp = computeTokensResponseFromVertex(apiResponse);
+        const typedResp = new ComputeTokensResponse;
+        Object.assign(typedResp, resp);
+        return typedResp;
+      });
+    } else {
+      throw new Error("This method is only supported by the Vertex AI.");
+    }
+  }
+  async generateVideosInternal(params) {
+    var _a, _b, _c, _d;
+    let response;
+    let path = "";
+    let queryParams = {};
+    if (this.apiClient.isVertexAI()) {
+      const body = generateVideosParametersToVertex(this.apiClient, params);
+      path = formatMap("{model}:predictLongRunning", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "POST",
+        httpOptions: (_a = params.config) === null || _a === undefined ? undefined : _a.httpOptions,
+        abortSignal: (_b = params.config) === null || _b === undefined ? undefined : _b.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json();
+      });
+      return response.then((apiResponse) => {
+        const resp = generateVideosOperationFromVertex(apiResponse);
+        const typedResp = new GenerateVideosOperation;
+        Object.assign(typedResp, resp);
+        return typedResp;
+      });
+    } else {
+      const body = generateVideosParametersToMldev(this.apiClient, params);
+      path = formatMap("{model}:predictLongRunning", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "POST",
+        httpOptions: (_c = params.config) === null || _c === undefined ? undefined : _c.httpOptions,
+        abortSignal: (_d = params.config) === null || _d === undefined ? undefined : _d.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json();
+      });
+      return response.then((apiResponse) => {
+        const resp = generateVideosOperationFromMldev(apiResponse);
+        const typedResp = new GenerateVideosOperation;
+        Object.assign(typedResp, resp);
+        return typedResp;
+      });
+    }
+  }
+}
+
+class Operations extends BaseModule {
+  constructor(apiClient) {
+    super();
+    this.apiClient = apiClient;
+  }
+  async getVideosOperation(parameters) {
+    const operation = parameters.operation;
+    const config = parameters.config;
+    if (operation.name === undefined || operation.name === "") {
+      throw new Error("Operation name is required.");
+    }
+    if (this.apiClient.isVertexAI()) {
+      const resourceName2 = operation.name.split("/operations/")[0];
+      let httpOptions = undefined;
+      if (config && "httpOptions" in config) {
+        httpOptions = config.httpOptions;
+      }
+      const rawOperation = await this.fetchPredictVideosOperationInternal({
+        operationName: operation.name,
+        resourceName: resourceName2,
+        config: { httpOptions }
+      });
+      return operation._fromAPIResponse({
+        apiResponse: rawOperation,
+        isVertexAI: true
+      });
+    } else {
+      const rawOperation = await this.getVideosOperationInternal({
+        operationName: operation.name,
+        config
+      });
+      return operation._fromAPIResponse({
+        apiResponse: rawOperation,
+        isVertexAI: false
+      });
+    }
+  }
+  async get(parameters) {
+    const operation = parameters.operation;
+    const config = parameters.config;
+    if (operation.name === undefined || operation.name === "") {
+      throw new Error("Operation name is required.");
+    }
+    if (this.apiClient.isVertexAI()) {
+      const resourceName2 = operation.name.split("/operations/")[0];
+      let httpOptions = undefined;
+      if (config && "httpOptions" in config) {
+        httpOptions = config.httpOptions;
+      }
+      const rawOperation = await this.fetchPredictVideosOperationInternal({
+        operationName: operation.name,
+        resourceName: resourceName2,
+        config: { httpOptions }
+      });
+      return operation._fromAPIResponse({
+        apiResponse: rawOperation,
+        isVertexAI: true
+      });
+    } else {
+      const rawOperation = await this.getVideosOperationInternal({
+        operationName: operation.name,
+        config
+      });
+      return operation._fromAPIResponse({
+        apiResponse: rawOperation,
+        isVertexAI: false
+      });
+    }
+  }
+  async getVideosOperationInternal(params) {
+    var _a, _b, _c, _d;
+    let response;
+    let path = "";
+    let queryParams = {};
+    if (this.apiClient.isVertexAI()) {
+      const body = getOperationParametersToVertex(params);
+      path = formatMap("{operationName}", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "GET",
+        httpOptions: (_a = params.config) === null || _a === undefined ? undefined : _a.httpOptions,
+        abortSignal: (_b = params.config) === null || _b === undefined ? undefined : _b.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json();
+      });
+      return response;
+    } else {
+      const body = getOperationParametersToMldev(params);
+      path = formatMap("{operationName}", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "GET",
+        httpOptions: (_c = params.config) === null || _c === undefined ? undefined : _c.httpOptions,
+        abortSignal: (_d = params.config) === null || _d === undefined ? undefined : _d.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json();
+      });
+      return response;
+    }
+  }
+  async fetchPredictVideosOperationInternal(params) {
+    var _a, _b;
+    let response;
+    let path = "";
+    let queryParams = {};
+    if (this.apiClient.isVertexAI()) {
+      const body = fetchPredictOperationParametersToVertex(params);
+      path = formatMap("{resourceName}:fetchPredictOperation", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "POST",
+        httpOptions: (_a = params.config) === null || _a === undefined ? undefined : _a.httpOptions,
+        abortSignal: (_b = params.config) === null || _b === undefined ? undefined : _b.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json();
+      });
+      return response;
+    } else {
+      throw new Error("This method is only supported by the Vertex AI.");
+    }
+  }
+}
+function blobToMldev(fromObject) {
+  const toObject = {};
+  if (getValueByPath(fromObject, ["displayName"]) !== undefined) {
+    throw new Error("displayName parameter is not supported in Gemini API.");
+  }
+  const fromData = getValueByPath(fromObject, ["data"]);
+  if (fromData != null) {
+    setValueByPath(toObject, ["data"], fromData);
+  }
+  const fromMimeType = getValueByPath(fromObject, ["mimeType"]);
+  if (fromMimeType != null) {
+    setValueByPath(toObject, ["mimeType"], fromMimeType);
+  }
+  return toObject;
+}
+function contentToMldev(fromObject) {
+  const toObject = {};
+  const fromParts = getValueByPath(fromObject, ["parts"]);
+  if (fromParts != null) {
+    let transformedList = fromParts;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return partToMldev(item);
+      });
+    }
+    setValueByPath(toObject, ["parts"], transformedList);
+  }
+  const fromRole = getValueByPath(fromObject, ["role"]);
+  if (fromRole != null) {
+    setValueByPath(toObject, ["role"], fromRole);
+  }
+  return toObject;
+}
+function createAuthTokenConfigToMldev(apiClient, fromObject, parentObject) {
+  const toObject = {};
+  const fromExpireTime = getValueByPath(fromObject, ["expireTime"]);
+  if (parentObject !== undefined && fromExpireTime != null) {
+    setValueByPath(parentObject, ["expireTime"], fromExpireTime);
+  }
+  const fromNewSessionExpireTime = getValueByPath(fromObject, [
+    "newSessionExpireTime"
+  ]);
+  if (parentObject !== undefined && fromNewSessionExpireTime != null) {
+    setValueByPath(parentObject, ["newSessionExpireTime"], fromNewSessionExpireTime);
+  }
+  const fromUses = getValueByPath(fromObject, ["uses"]);
+  if (parentObject !== undefined && fromUses != null) {
+    setValueByPath(parentObject, ["uses"], fromUses);
+  }
+  const fromLiveConnectConstraints = getValueByPath(fromObject, [
+    "liveConnectConstraints"
+  ]);
+  if (parentObject !== undefined && fromLiveConnectConstraints != null) {
+    setValueByPath(parentObject, ["bidiGenerateContentSetup"], liveConnectConstraintsToMldev(apiClient, fromLiveConnectConstraints));
+  }
+  const fromLockAdditionalFields = getValueByPath(fromObject, [
+    "lockAdditionalFields"
+  ]);
+  if (parentObject !== undefined && fromLockAdditionalFields != null) {
+    setValueByPath(parentObject, ["fieldMask"], fromLockAdditionalFields);
+  }
+  return toObject;
+}
+function createAuthTokenParametersToMldev(apiClient, fromObject) {
+  const toObject = {};
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    setValueByPath(toObject, ["config"], createAuthTokenConfigToMldev(apiClient, fromConfig, toObject));
+  }
+  return toObject;
+}
+function fileDataToMldev(fromObject) {
+  const toObject = {};
+  if (getValueByPath(fromObject, ["displayName"]) !== undefined) {
+    throw new Error("displayName parameter is not supported in Gemini API.");
+  }
+  const fromFileUri = getValueByPath(fromObject, ["fileUri"]);
+  if (fromFileUri != null) {
+    setValueByPath(toObject, ["fileUri"], fromFileUri);
+  }
+  const fromMimeType = getValueByPath(fromObject, ["mimeType"]);
+  if (fromMimeType != null) {
+    setValueByPath(toObject, ["mimeType"], fromMimeType);
+  }
+  return toObject;
+}
+function googleMapsToMldev(fromObject) {
+  const toObject = {};
+  if (getValueByPath(fromObject, ["authConfig"]) !== undefined) {
+    throw new Error("authConfig parameter is not supported in Gemini API.");
+  }
+  const fromEnableWidget = getValueByPath(fromObject, ["enableWidget"]);
+  if (fromEnableWidget != null) {
+    setValueByPath(toObject, ["enableWidget"], fromEnableWidget);
+  }
+  return toObject;
+}
+function googleSearchToMldev(fromObject) {
+  const toObject = {};
+  const fromTimeRangeFilter = getValueByPath(fromObject, [
+    "timeRangeFilter"
+  ]);
+  if (fromTimeRangeFilter != null) {
+    setValueByPath(toObject, ["timeRangeFilter"], fromTimeRangeFilter);
+  }
+  if (getValueByPath(fromObject, ["excludeDomains"]) !== undefined) {
+    throw new Error("excludeDomains parameter is not supported in Gemini API.");
+  }
+  return toObject;
+}
+function liveConnectConfigToMldev(fromObject, parentObject) {
+  const toObject = {};
+  const fromGenerationConfig = getValueByPath(fromObject, [
+    "generationConfig"
+  ]);
+  if (parentObject !== undefined && fromGenerationConfig != null) {
+    setValueByPath(parentObject, ["setup", "generationConfig"], fromGenerationConfig);
+  }
+  const fromResponseModalities = getValueByPath(fromObject, [
+    "responseModalities"
+  ]);
+  if (parentObject !== undefined && fromResponseModalities != null) {
+    setValueByPath(parentObject, ["setup", "generationConfig", "responseModalities"], fromResponseModalities);
+  }
+  const fromTemperature = getValueByPath(fromObject, ["temperature"]);
+  if (parentObject !== undefined && fromTemperature != null) {
+    setValueByPath(parentObject, ["setup", "generationConfig", "temperature"], fromTemperature);
+  }
+  const fromTopP = getValueByPath(fromObject, ["topP"]);
+  if (parentObject !== undefined && fromTopP != null) {
+    setValueByPath(parentObject, ["setup", "generationConfig", "topP"], fromTopP);
+  }
+  const fromTopK = getValueByPath(fromObject, ["topK"]);
+  if (parentObject !== undefined && fromTopK != null) {
+    setValueByPath(parentObject, ["setup", "generationConfig", "topK"], fromTopK);
+  }
+  const fromMaxOutputTokens = getValueByPath(fromObject, [
+    "maxOutputTokens"
+  ]);
+  if (parentObject !== undefined && fromMaxOutputTokens != null) {
+    setValueByPath(parentObject, ["setup", "generationConfig", "maxOutputTokens"], fromMaxOutputTokens);
+  }
+  const fromMediaResolution = getValueByPath(fromObject, [
+    "mediaResolution"
+  ]);
+  if (parentObject !== undefined && fromMediaResolution != null) {
+    setValueByPath(parentObject, ["setup", "generationConfig", "mediaResolution"], fromMediaResolution);
+  }
+  const fromSeed = getValueByPath(fromObject, ["seed"]);
+  if (parentObject !== undefined && fromSeed != null) {
+    setValueByPath(parentObject, ["setup", "generationConfig", "seed"], fromSeed);
+  }
+  const fromSpeechConfig = getValueByPath(fromObject, ["speechConfig"]);
+  if (parentObject !== undefined && fromSpeechConfig != null) {
+    setValueByPath(parentObject, ["setup", "generationConfig", "speechConfig"], tLiveSpeechConfig(fromSpeechConfig));
+  }
+  const fromThinkingConfig = getValueByPath(fromObject, [
+    "thinkingConfig"
+  ]);
+  if (parentObject !== undefined && fromThinkingConfig != null) {
+    setValueByPath(parentObject, ["setup", "generationConfig", "thinkingConfig"], fromThinkingConfig);
+  }
+  const fromEnableAffectiveDialog = getValueByPath(fromObject, [
+    "enableAffectiveDialog"
+  ]);
+  if (parentObject !== undefined && fromEnableAffectiveDialog != null) {
+    setValueByPath(parentObject, ["setup", "generationConfig", "enableAffectiveDialog"], fromEnableAffectiveDialog);
+  }
+  const fromSystemInstruction = getValueByPath(fromObject, [
+    "systemInstruction"
+  ]);
+  if (parentObject !== undefined && fromSystemInstruction != null) {
+    setValueByPath(parentObject, ["setup", "systemInstruction"], contentToMldev(tContent(fromSystemInstruction)));
+  }
+  const fromTools = getValueByPath(fromObject, ["tools"]);
+  if (parentObject !== undefined && fromTools != null) {
+    let transformedList = tTools(fromTools);
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return toolToMldev(tTool(item));
+      });
+    }
+    setValueByPath(parentObject, ["setup", "tools"], transformedList);
+  }
+  const fromSessionResumption = getValueByPath(fromObject, [
+    "sessionResumption"
+  ]);
+  if (parentObject !== undefined && fromSessionResumption != null) {
+    setValueByPath(parentObject, ["setup", "sessionResumption"], sessionResumptionConfigToMldev(fromSessionResumption));
+  }
+  const fromInputAudioTranscription = getValueByPath(fromObject, [
+    "inputAudioTranscription"
+  ]);
+  if (parentObject !== undefined && fromInputAudioTranscription != null) {
+    setValueByPath(parentObject, ["setup", "inputAudioTranscription"], fromInputAudioTranscription);
+  }
+  const fromOutputAudioTranscription = getValueByPath(fromObject, [
+    "outputAudioTranscription"
+  ]);
+  if (parentObject !== undefined && fromOutputAudioTranscription != null) {
+    setValueByPath(parentObject, ["setup", "outputAudioTranscription"], fromOutputAudioTranscription);
+  }
+  const fromRealtimeInputConfig = getValueByPath(fromObject, [
+    "realtimeInputConfig"
+  ]);
+  if (parentObject !== undefined && fromRealtimeInputConfig != null) {
+    setValueByPath(parentObject, ["setup", "realtimeInputConfig"], fromRealtimeInputConfig);
+  }
+  const fromContextWindowCompression = getValueByPath(fromObject, [
+    "contextWindowCompression"
+  ]);
+  if (parentObject !== undefined && fromContextWindowCompression != null) {
+    setValueByPath(parentObject, ["setup", "contextWindowCompression"], fromContextWindowCompression);
+  }
+  const fromProactivity = getValueByPath(fromObject, ["proactivity"]);
+  if (parentObject !== undefined && fromProactivity != null) {
+    setValueByPath(parentObject, ["setup", "proactivity"], fromProactivity);
+  }
+  return toObject;
+}
+function liveConnectConstraintsToMldev(apiClient, fromObject) {
+  const toObject = {};
+  const fromModel = getValueByPath(fromObject, ["model"]);
+  if (fromModel != null) {
+    setValueByPath(toObject, ["setup", "model"], tModel(apiClient, fromModel));
+  }
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    setValueByPath(toObject, ["config"], liveConnectConfigToMldev(fromConfig, toObject));
+  }
+  return toObject;
+}
+function partToMldev(fromObject) {
+  const toObject = {};
+  const fromVideoMetadata = getValueByPath(fromObject, [
+    "videoMetadata"
+  ]);
+  if (fromVideoMetadata != null) {
+    setValueByPath(toObject, ["videoMetadata"], fromVideoMetadata);
+  }
+  const fromThought = getValueByPath(fromObject, ["thought"]);
+  if (fromThought != null) {
+    setValueByPath(toObject, ["thought"], fromThought);
+  }
+  const fromInlineData = getValueByPath(fromObject, ["inlineData"]);
+  if (fromInlineData != null) {
+    setValueByPath(toObject, ["inlineData"], blobToMldev(fromInlineData));
+  }
+  const fromFileData = getValueByPath(fromObject, ["fileData"]);
+  if (fromFileData != null) {
+    setValueByPath(toObject, ["fileData"], fileDataToMldev(fromFileData));
+  }
+  const fromThoughtSignature = getValueByPath(fromObject, [
+    "thoughtSignature"
+  ]);
+  if (fromThoughtSignature != null) {
+    setValueByPath(toObject, ["thoughtSignature"], fromThoughtSignature);
+  }
+  const fromFunctionCall = getValueByPath(fromObject, ["functionCall"]);
+  if (fromFunctionCall != null) {
+    setValueByPath(toObject, ["functionCall"], fromFunctionCall);
+  }
+  const fromCodeExecutionResult = getValueByPath(fromObject, [
+    "codeExecutionResult"
+  ]);
+  if (fromCodeExecutionResult != null) {
+    setValueByPath(toObject, ["codeExecutionResult"], fromCodeExecutionResult);
+  }
+  const fromExecutableCode = getValueByPath(fromObject, [
+    "executableCode"
+  ]);
+  if (fromExecutableCode != null) {
+    setValueByPath(toObject, ["executableCode"], fromExecutableCode);
+  }
+  const fromFunctionResponse = getValueByPath(fromObject, [
+    "functionResponse"
+  ]);
+  if (fromFunctionResponse != null) {
+    setValueByPath(toObject, ["functionResponse"], fromFunctionResponse);
+  }
+  const fromText = getValueByPath(fromObject, ["text"]);
+  if (fromText != null) {
+    setValueByPath(toObject, ["text"], fromText);
+  }
+  return toObject;
+}
+function sessionResumptionConfigToMldev(fromObject) {
+  const toObject = {};
+  const fromHandle = getValueByPath(fromObject, ["handle"]);
+  if (fromHandle != null) {
+    setValueByPath(toObject, ["handle"], fromHandle);
+  }
+  if (getValueByPath(fromObject, ["transparent"]) !== undefined) {
+    throw new Error("transparent parameter is not supported in Gemini API.");
+  }
+  return toObject;
+}
+function toolToMldev(fromObject) {
+  const toObject = {};
+  const fromFunctionDeclarations = getValueByPath(fromObject, [
+    "functionDeclarations"
+  ]);
+  if (fromFunctionDeclarations != null) {
+    let transformedList = fromFunctionDeclarations;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return item;
+      });
+    }
+    setValueByPath(toObject, ["functionDeclarations"], transformedList);
+  }
+  if (getValueByPath(fromObject, ["retrieval"]) !== undefined) {
+    throw new Error("retrieval parameter is not supported in Gemini API.");
+  }
+  const fromGoogleSearch = getValueByPath(fromObject, ["googleSearch"]);
+  if (fromGoogleSearch != null) {
+    setValueByPath(toObject, ["googleSearch"], googleSearchToMldev(fromGoogleSearch));
+  }
+  const fromGoogleSearchRetrieval = getValueByPath(fromObject, [
+    "googleSearchRetrieval"
+  ]);
+  if (fromGoogleSearchRetrieval != null) {
+    setValueByPath(toObject, ["googleSearchRetrieval"], fromGoogleSearchRetrieval);
+  }
+  if (getValueByPath(fromObject, ["enterpriseWebSearch"]) !== undefined) {
+    throw new Error("enterpriseWebSearch parameter is not supported in Gemini API.");
+  }
+  const fromGoogleMaps = getValueByPath(fromObject, ["googleMaps"]);
+  if (fromGoogleMaps != null) {
+    setValueByPath(toObject, ["googleMaps"], googleMapsToMldev(fromGoogleMaps));
+  }
+  const fromUrlContext = getValueByPath(fromObject, ["urlContext"]);
+  if (fromUrlContext != null) {
+    setValueByPath(toObject, ["urlContext"], fromUrlContext);
+  }
+  const fromComputerUse = getValueByPath(fromObject, ["computerUse"]);
+  if (fromComputerUse != null) {
+    setValueByPath(toObject, ["computerUse"], fromComputerUse);
+  }
+  const fromCodeExecution = getValueByPath(fromObject, [
+    "codeExecution"
+  ]);
+  if (fromCodeExecution != null) {
+    setValueByPath(toObject, ["codeExecution"], fromCodeExecution);
+  }
+  return toObject;
+}
+function getFieldMasks(setup) {
+  const fields = [];
+  for (const key in setup) {
+    if (Object.prototype.hasOwnProperty.call(setup, key)) {
+      const value = setup[key];
+      if (typeof value === "object" && value != null && Object.keys(value).length > 0) {
+        const field = Object.keys(value).map((kk) => `${key}.${kk}`);
+        fields.push(...field);
+      } else {
+        fields.push(key);
+      }
+    }
+  }
+  return fields.join(",");
+}
+function convertBidiSetupToTokenSetup(requestDict, config) {
+  let setupForMaskGeneration = null;
+  const bidiGenerateContentSetupValue = requestDict["bidiGenerateContentSetup"];
+  if (typeof bidiGenerateContentSetupValue === "object" && bidiGenerateContentSetupValue !== null && "setup" in bidiGenerateContentSetupValue) {
+    const innerSetup = bidiGenerateContentSetupValue.setup;
+    if (typeof innerSetup === "object" && innerSetup !== null) {
+      requestDict["bidiGenerateContentSetup"] = innerSetup;
+      setupForMaskGeneration = innerSetup;
+    } else {
+      delete requestDict["bidiGenerateContentSetup"];
+    }
+  } else if (bidiGenerateContentSetupValue !== undefined) {
+    delete requestDict["bidiGenerateContentSetup"];
+  }
+  const preExistingFieldMask = requestDict["fieldMask"];
+  if (setupForMaskGeneration) {
+    const generatedMaskFromBidi = getFieldMasks(setupForMaskGeneration);
+    if (Array.isArray(config === null || config === undefined ? undefined : config.lockAdditionalFields) && (config === null || config === undefined ? undefined : config.lockAdditionalFields.length) === 0) {
+      if (generatedMaskFromBidi) {
+        requestDict["fieldMask"] = generatedMaskFromBidi;
+      } else {
+        delete requestDict["fieldMask"];
+      }
+    } else if ((config === null || config === undefined ? undefined : config.lockAdditionalFields) && config.lockAdditionalFields.length > 0 && preExistingFieldMask !== null && Array.isArray(preExistingFieldMask) && preExistingFieldMask.length > 0) {
+      const generationConfigFields = [
+        "temperature",
+        "topK",
+        "topP",
+        "maxOutputTokens",
+        "responseModalities",
+        "seed",
+        "speechConfig"
+      ];
+      let mappedFieldsFromPreExisting = [];
+      if (preExistingFieldMask.length > 0) {
+        mappedFieldsFromPreExisting = preExistingFieldMask.map((field) => {
+          if (generationConfigFields.includes(field)) {
+            return `generationConfig.${field}`;
+          }
+          return field;
+        });
+      }
+      const finalMaskParts = [];
+      if (generatedMaskFromBidi) {
+        finalMaskParts.push(generatedMaskFromBidi);
+      }
+      if (mappedFieldsFromPreExisting.length > 0) {
+        finalMaskParts.push(...mappedFieldsFromPreExisting);
+      }
+      if (finalMaskParts.length > 0) {
+        requestDict["fieldMask"] = finalMaskParts.join(",");
+      } else {
+        delete requestDict["fieldMask"];
+      }
+    } else {
+      delete requestDict["fieldMask"];
+    }
+  } else {
+    if (preExistingFieldMask !== null && Array.isArray(preExistingFieldMask) && preExistingFieldMask.length > 0) {
+      requestDict["fieldMask"] = preExistingFieldMask.join(",");
+    } else {
+      delete requestDict["fieldMask"];
+    }
+  }
+  return requestDict;
+}
+
+class Tokens extends BaseModule {
+  constructor(apiClient) {
+    super();
+    this.apiClient = apiClient;
+  }
+  async create(params) {
+    var _a, _b;
+    let response;
+    let path = "";
+    let queryParams = {};
+    if (this.apiClient.isVertexAI()) {
+      throw new Error("The client.tokens.create method is only supported by the Gemini Developer API.");
+    } else {
+      const body = createAuthTokenParametersToMldev(this.apiClient, params);
+      path = formatMap("auth_tokens", body["_url"]);
+      queryParams = body["_query"];
+      delete body["config"];
+      delete body["_url"];
+      delete body["_query"];
+      const transformedBody = convertBidiSetupToTokenSetup(body, params.config);
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(transformedBody),
+        httpMethod: "POST",
+        httpOptions: (_a = params.config) === null || _a === undefined ? undefined : _a.httpOptions,
+        abortSignal: (_b = params.config) === null || _b === undefined ? undefined : _b.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json();
+      });
+      return response.then((resp) => {
+        return resp;
+      });
+    }
+  }
+}
+var GOOGLE_API_KEY_HEADER = "x-goog-api-key";
+var REQUIRED_VERTEX_AI_SCOPE = "https://www.googleapis.com/auth/cloud-platform";
+
+class NodeAuth {
+  constructor(opts) {
+    if (opts.apiKey !== undefined) {
+      this.apiKey = opts.apiKey;
+      return;
+    }
+    const vertexAuthOptions = buildGoogleAuthOptions(opts.googleAuthOptions);
+    this.googleAuth = new import_google_auth_library.GoogleAuth(vertexAuthOptions);
+  }
+  async addAuthHeaders(headers) {
+    if (this.apiKey !== undefined) {
+      if (this.apiKey.startsWith("auth_tokens/")) {
+        throw new Error("Ephemeral tokens are only supported by the live API.");
+      }
+      this.addKeyHeader(headers);
+      return;
+    }
+    return this.addGoogleAuthHeaders(headers);
+  }
+  addKeyHeader(headers) {
+    if (headers.get(GOOGLE_API_KEY_HEADER) !== null) {
+      return;
+    }
+    if (this.apiKey === undefined) {
+      throw new Error("Trying to set API key header but apiKey is not set");
+    }
+    headers.append(GOOGLE_API_KEY_HEADER, this.apiKey);
+  }
+  async addGoogleAuthHeaders(headers) {
+    if (this.googleAuth === undefined) {
+      throw new Error("Trying to set google-auth headers but googleAuth is unset");
+    }
+    const authHeaders = await this.googleAuth.getRequestHeaders();
+    for (const [key, value] of Object.entries(authHeaders)) {
+      if (headers.get(key) !== null) {
+        continue;
+      }
+      headers.append(key, value);
+    }
+  }
+}
+function buildGoogleAuthOptions(googleAuthOptions) {
+  let authOptions;
+  if (!googleAuthOptions) {
+    authOptions = {
+      scopes: [REQUIRED_VERTEX_AI_SCOPE]
+    };
+    return authOptions;
+  } else {
+    authOptions = googleAuthOptions;
+    if (!authOptions.scopes) {
+      authOptions.scopes = [REQUIRED_VERTEX_AI_SCOPE];
+      return authOptions;
+    } else if (typeof authOptions.scopes === "string" && authOptions.scopes !== REQUIRED_VERTEX_AI_SCOPE || Array.isArray(authOptions.scopes) && authOptions.scopes.indexOf(REQUIRED_VERTEX_AI_SCOPE) < 0) {
+      throw new Error(`Invalid auth scopes. Scopes must include: ${REQUIRED_VERTEX_AI_SCOPE}`);
+    }
+    return authOptions;
+  }
+}
+
+class NodeDownloader {
+  async download(params, apiClient) {
+    if (params.downloadPath) {
+      const response = await downloadFile(params, apiClient);
+      if (response instanceof HttpResponse) {
+        const writer = createWriteStream(params.downloadPath);
+        Readable.fromWeb(response.responseInternal.body).pipe(writer);
+      } else {
+        writeFile(params.downloadPath, response, { encoding: "base64" }, (error) => {
+          if (error) {
+            throw new Error(`Failed to write file to ${params.downloadPath}: ${error}`);
+          }
+        });
+      }
+    }
+  }
+}
+async function downloadFile(params, apiClient) {
+  var _a, _b, _c;
+  const name = tFileName(params.file);
+  if (name !== undefined) {
+    return await apiClient.request({
+      path: `files/${name}:download`,
+      httpMethod: "GET",
+      queryParams: {
+        alt: "media"
+      },
+      httpOptions: (_a = params.config) === null || _a === undefined ? undefined : _a.httpOptions,
+      abortSignal: (_b = params.config) === null || _b === undefined ? undefined : _b.abortSignal
+    });
+  } else if (isGeneratedVideo(params.file)) {
+    const videoBytes = (_c = params.file.video) === null || _c === undefined ? undefined : _c.videoBytes;
+    if (typeof videoBytes === "string") {
+      return videoBytes;
+    } else {
+      throw new Error("Failed to download generated video, Uri or videoBytes not found.");
+    }
+  } else if (isVideo(params.file)) {
+    const videoBytes = params.file.videoBytes;
+    if (typeof videoBytes === "string") {
+      return videoBytes;
+    } else {
+      throw new Error("Failed to download video, Uri or videoBytes not found.");
+    }
+  } else {
+    throw new Error("Unsupported file type");
+  }
+}
+
+class NodeWebSocketFactory {
+  create(url, headers, callbacks) {
+    return new NodeWebSocket(url, headers, callbacks);
+  }
+}
+
+class NodeWebSocket {
+  constructor(url, headers, callbacks) {
+    this.url = url;
+    this.headers = headers;
+    this.callbacks = callbacks;
+  }
+  connect() {
+    this.ws = new NodeWs.WebSocket(this.url, { headers: this.headers });
+    this.ws.onopen = this.callbacks.onopen;
+    this.ws.onerror = this.callbacks.onerror;
+    this.ws.onclose = this.callbacks.onclose;
+    this.ws.onmessage = this.callbacks.onmessage;
+  }
+  send(message) {
+    if (this.ws === undefined) {
+      throw new Error("WebSocket is not connected");
+    }
+    this.ws.send(message);
+  }
+  close() {
+    if (this.ws === undefined) {
+      throw new Error("WebSocket is not connected");
+    }
+    this.ws.close();
+  }
+}
+function cancelTuningJobParametersToMldev(fromObject) {
+  const toObject = {};
+  const fromName = getValueByPath(fromObject, ["name"]);
+  if (fromName != null) {
+    setValueByPath(toObject, ["_url", "name"], fromName);
+  }
+  return toObject;
+}
+function cancelTuningJobParametersToVertex(fromObject) {
+  const toObject = {};
+  const fromName = getValueByPath(fromObject, ["name"]);
+  if (fromName != null) {
+    setValueByPath(toObject, ["_url", "name"], fromName);
+  }
+  return toObject;
+}
+function createTuningJobConfigToMldev(fromObject, parentObject) {
+  const toObject = {};
+  if (getValueByPath(fromObject, ["validationDataset"]) !== undefined) {
+    throw new Error("validationDataset parameter is not supported in Gemini API.");
+  }
+  const fromTunedModelDisplayName = getValueByPath(fromObject, [
+    "tunedModelDisplayName"
+  ]);
+  if (parentObject !== undefined && fromTunedModelDisplayName != null) {
+    setValueByPath(parentObject, ["displayName"], fromTunedModelDisplayName);
+  }
+  if (getValueByPath(fromObject, ["description"]) !== undefined) {
+    throw new Error("description parameter is not supported in Gemini API.");
+  }
+  const fromEpochCount = getValueByPath(fromObject, ["epochCount"]);
+  if (parentObject !== undefined && fromEpochCount != null) {
+    setValueByPath(parentObject, ["tuningTask", "hyperparameters", "epochCount"], fromEpochCount);
+  }
+  const fromLearningRateMultiplier = getValueByPath(fromObject, [
+    "learningRateMultiplier"
+  ]);
+  if (fromLearningRateMultiplier != null) {
+    setValueByPath(toObject, ["tuningTask", "hyperparameters", "learningRateMultiplier"], fromLearningRateMultiplier);
+  }
+  if (getValueByPath(fromObject, ["exportLastCheckpointOnly"]) !== undefined) {
+    throw new Error("exportLastCheckpointOnly parameter is not supported in Gemini API.");
+  }
+  if (getValueByPath(fromObject, ["preTunedModelCheckpointId"]) !== undefined) {
+    throw new Error("preTunedModelCheckpointId parameter is not supported in Gemini API.");
+  }
+  if (getValueByPath(fromObject, ["adapterSize"]) !== undefined) {
+    throw new Error("adapterSize parameter is not supported in Gemini API.");
+  }
+  const fromBatchSize = getValueByPath(fromObject, ["batchSize"]);
+  if (parentObject !== undefined && fromBatchSize != null) {
+    setValueByPath(parentObject, ["tuningTask", "hyperparameters", "batchSize"], fromBatchSize);
+  }
+  const fromLearningRate = getValueByPath(fromObject, ["learningRate"]);
+  if (parentObject !== undefined && fromLearningRate != null) {
+    setValueByPath(parentObject, ["tuningTask", "hyperparameters", "learningRate"], fromLearningRate);
+  }
+  if (getValueByPath(fromObject, ["labels"]) !== undefined) {
+    throw new Error("labels parameter is not supported in Gemini API.");
+  }
+  return toObject;
+}
+function createTuningJobConfigToVertex(fromObject, parentObject) {
+  const toObject = {};
+  const fromValidationDataset = getValueByPath(fromObject, [
+    "validationDataset"
+  ]);
+  if (parentObject !== undefined && fromValidationDataset != null) {
+    setValueByPath(parentObject, ["supervisedTuningSpec"], tuningValidationDatasetToVertex(fromValidationDataset, toObject));
+  }
+  const fromTunedModelDisplayName = getValueByPath(fromObject, [
+    "tunedModelDisplayName"
+  ]);
+  if (parentObject !== undefined && fromTunedModelDisplayName != null) {
+    setValueByPath(parentObject, ["tunedModelDisplayName"], fromTunedModelDisplayName);
+  }
+  const fromDescription = getValueByPath(fromObject, ["description"]);
+  if (parentObject !== undefined && fromDescription != null) {
+    setValueByPath(parentObject, ["description"], fromDescription);
+  }
+  const fromEpochCount = getValueByPath(fromObject, ["epochCount"]);
+  if (parentObject !== undefined && fromEpochCount != null) {
+    setValueByPath(parentObject, ["supervisedTuningSpec", "hyperParameters", "epochCount"], fromEpochCount);
+  }
+  const fromLearningRateMultiplier = getValueByPath(fromObject, [
+    "learningRateMultiplier"
+  ]);
+  if (parentObject !== undefined && fromLearningRateMultiplier != null) {
+    setValueByPath(parentObject, ["supervisedTuningSpec", "hyperParameters", "learningRateMultiplier"], fromLearningRateMultiplier);
+  }
+  const fromExportLastCheckpointOnly = getValueByPath(fromObject, [
+    "exportLastCheckpointOnly"
+  ]);
+  if (parentObject !== undefined && fromExportLastCheckpointOnly != null) {
+    setValueByPath(parentObject, ["supervisedTuningSpec", "exportLastCheckpointOnly"], fromExportLastCheckpointOnly);
+  }
+  const fromAdapterSize = getValueByPath(fromObject, ["adapterSize"]);
+  if (parentObject !== undefined && fromAdapterSize != null) {
+    setValueByPath(parentObject, ["supervisedTuningSpec", "hyperParameters", "adapterSize"], fromAdapterSize);
+  }
+  if (getValueByPath(fromObject, ["batchSize"]) !== undefined) {
+    throw new Error("batchSize parameter is not supported in Vertex AI.");
+  }
+  if (getValueByPath(fromObject, ["learningRate"]) !== undefined) {
+    throw new Error("learningRate parameter is not supported in Vertex AI.");
+  }
+  const fromLabels = getValueByPath(fromObject, ["labels"]);
+  if (parentObject !== undefined && fromLabels != null) {
+    setValueByPath(parentObject, ["labels"], fromLabels);
+  }
+  return toObject;
+}
+function createTuningJobParametersPrivateToMldev(fromObject) {
+  const toObject = {};
+  const fromBaseModel = getValueByPath(fromObject, ["baseModel"]);
+  if (fromBaseModel != null) {
+    setValueByPath(toObject, ["baseModel"], fromBaseModel);
+  }
+  const fromPreTunedModel = getValueByPath(fromObject, [
+    "preTunedModel"
+  ]);
+  if (fromPreTunedModel != null) {
+    setValueByPath(toObject, ["preTunedModel"], fromPreTunedModel);
+  }
+  const fromTrainingDataset = getValueByPath(fromObject, [
+    "trainingDataset"
+  ]);
+  if (fromTrainingDataset != null) {
+    setValueByPath(toObject, ["tuningTask", "trainingData"], tuningDatasetToMldev(fromTrainingDataset));
+  }
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    createTuningJobConfigToMldev(fromConfig, toObject);
+  }
+  return toObject;
+}
+function createTuningJobParametersPrivateToVertex(fromObject) {
+  const toObject = {};
+  const fromBaseModel = getValueByPath(fromObject, ["baseModel"]);
+  if (fromBaseModel != null) {
+    setValueByPath(toObject, ["baseModel"], fromBaseModel);
+  }
+  const fromPreTunedModel = getValueByPath(fromObject, [
+    "preTunedModel"
+  ]);
+  if (fromPreTunedModel != null) {
+    setValueByPath(toObject, ["preTunedModel"], fromPreTunedModel);
+  }
+  const fromTrainingDataset = getValueByPath(fromObject, [
+    "trainingDataset"
+  ]);
+  if (fromTrainingDataset != null) {
+    setValueByPath(toObject, ["supervisedTuningSpec", "trainingDatasetUri"], tuningDatasetToVertex(fromTrainingDataset, toObject));
+  }
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    createTuningJobConfigToVertex(fromConfig, toObject);
+  }
+  return toObject;
+}
+function getTuningJobParametersToMldev(fromObject) {
+  const toObject = {};
+  const fromName = getValueByPath(fromObject, ["name"]);
+  if (fromName != null) {
+    setValueByPath(toObject, ["_url", "name"], fromName);
+  }
+  return toObject;
+}
+function getTuningJobParametersToVertex(fromObject) {
+  const toObject = {};
+  const fromName = getValueByPath(fromObject, ["name"]);
+  if (fromName != null) {
+    setValueByPath(toObject, ["_url", "name"], fromName);
+  }
+  return toObject;
+}
+function listTuningJobsConfigToMldev(fromObject, parentObject) {
+  const toObject = {};
+  const fromPageSize = getValueByPath(fromObject, ["pageSize"]);
+  if (parentObject !== undefined && fromPageSize != null) {
+    setValueByPath(parentObject, ["_query", "pageSize"], fromPageSize);
+  }
+  const fromPageToken = getValueByPath(fromObject, ["pageToken"]);
+  if (parentObject !== undefined && fromPageToken != null) {
+    setValueByPath(parentObject, ["_query", "pageToken"], fromPageToken);
+  }
+  const fromFilter = getValueByPath(fromObject, ["filter"]);
+  if (parentObject !== undefined && fromFilter != null) {
+    setValueByPath(parentObject, ["_query", "filter"], fromFilter);
+  }
+  return toObject;
+}
+function listTuningJobsConfigToVertex(fromObject, parentObject) {
+  const toObject = {};
+  const fromPageSize = getValueByPath(fromObject, ["pageSize"]);
+  if (parentObject !== undefined && fromPageSize != null) {
+    setValueByPath(parentObject, ["_query", "pageSize"], fromPageSize);
+  }
+  const fromPageToken = getValueByPath(fromObject, ["pageToken"]);
+  if (parentObject !== undefined && fromPageToken != null) {
+    setValueByPath(parentObject, ["_query", "pageToken"], fromPageToken);
+  }
+  const fromFilter = getValueByPath(fromObject, ["filter"]);
+  if (parentObject !== undefined && fromFilter != null) {
+    setValueByPath(parentObject, ["_query", "filter"], fromFilter);
+  }
+  return toObject;
+}
+function listTuningJobsParametersToMldev(fromObject) {
+  const toObject = {};
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    listTuningJobsConfigToMldev(fromConfig, toObject);
+  }
+  return toObject;
+}
+function listTuningJobsParametersToVertex(fromObject) {
+  const toObject = {};
+  const fromConfig = getValueByPath(fromObject, ["config"]);
+  if (fromConfig != null) {
+    listTuningJobsConfigToVertex(fromConfig, toObject);
+  }
+  return toObject;
+}
+function listTuningJobsResponseFromMldev(fromObject) {
+  const toObject = {};
+  const fromSdkHttpResponse = getValueByPath(fromObject, [
+    "sdkHttpResponse"
+  ]);
+  if (fromSdkHttpResponse != null) {
+    setValueByPath(toObject, ["sdkHttpResponse"], fromSdkHttpResponse);
+  }
+  const fromNextPageToken = getValueByPath(fromObject, [
+    "nextPageToken"
+  ]);
+  if (fromNextPageToken != null) {
+    setValueByPath(toObject, ["nextPageToken"], fromNextPageToken);
+  }
+  const fromTuningJobs = getValueByPath(fromObject, ["tunedModels"]);
+  if (fromTuningJobs != null) {
+    let transformedList = fromTuningJobs;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return tuningJobFromMldev(item);
+      });
+    }
+    setValueByPath(toObject, ["tuningJobs"], transformedList);
+  }
+  return toObject;
+}
+function listTuningJobsResponseFromVertex(fromObject) {
+  const toObject = {};
+  const fromSdkHttpResponse = getValueByPath(fromObject, [
+    "sdkHttpResponse"
+  ]);
+  if (fromSdkHttpResponse != null) {
+    setValueByPath(toObject, ["sdkHttpResponse"], fromSdkHttpResponse);
+  }
+  const fromNextPageToken = getValueByPath(fromObject, [
+    "nextPageToken"
+  ]);
+  if (fromNextPageToken != null) {
+    setValueByPath(toObject, ["nextPageToken"], fromNextPageToken);
+  }
+  const fromTuningJobs = getValueByPath(fromObject, ["tuningJobs"]);
+  if (fromTuningJobs != null) {
+    let transformedList = fromTuningJobs;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return tuningJobFromVertex(item);
+      });
+    }
+    setValueByPath(toObject, ["tuningJobs"], transformedList);
+  }
+  return toObject;
+}
+function tunedModelFromMldev(fromObject) {
+  const toObject = {};
+  const fromModel = getValueByPath(fromObject, ["name"]);
+  if (fromModel != null) {
+    setValueByPath(toObject, ["model"], fromModel);
+  }
+  const fromEndpoint = getValueByPath(fromObject, ["name"]);
+  if (fromEndpoint != null) {
+    setValueByPath(toObject, ["endpoint"], fromEndpoint);
+  }
+  return toObject;
+}
+function tuningDatasetToMldev(fromObject) {
+  const toObject = {};
+  if (getValueByPath(fromObject, ["gcsUri"]) !== undefined) {
+    throw new Error("gcsUri parameter is not supported in Gemini API.");
+  }
+  if (getValueByPath(fromObject, ["vertexDatasetResource"]) !== undefined) {
+    throw new Error("vertexDatasetResource parameter is not supported in Gemini API.");
+  }
+  const fromExamples = getValueByPath(fromObject, ["examples"]);
+  if (fromExamples != null) {
+    let transformedList = fromExamples;
+    if (Array.isArray(transformedList)) {
+      transformedList = transformedList.map((item) => {
+        return item;
+      });
+    }
+    setValueByPath(toObject, ["examples", "examples"], transformedList);
+  }
+  return toObject;
+}
+function tuningDatasetToVertex(fromObject, parentObject) {
+  const toObject = {};
+  const fromGcsUri = getValueByPath(fromObject, ["gcsUri"]);
+  if (parentObject !== undefined && fromGcsUri != null) {
+    setValueByPath(parentObject, ["supervisedTuningSpec", "trainingDatasetUri"], fromGcsUri);
+  }
+  const fromVertexDatasetResource = getValueByPath(fromObject, [
+    "vertexDatasetResource"
+  ]);
+  if (parentObject !== undefined && fromVertexDatasetResource != null) {
+    setValueByPath(parentObject, ["supervisedTuningSpec", "trainingDatasetUri"], fromVertexDatasetResource);
+  }
+  if (getValueByPath(fromObject, ["examples"]) !== undefined) {
+    throw new Error("examples parameter is not supported in Vertex AI.");
+  }
+  return toObject;
+}
+function tuningJobFromMldev(fromObject) {
+  const toObject = {};
+  const fromSdkHttpResponse = getValueByPath(fromObject, [
+    "sdkHttpResponse"
+  ]);
+  if (fromSdkHttpResponse != null) {
+    setValueByPath(toObject, ["sdkHttpResponse"], fromSdkHttpResponse);
+  }
+  const fromName = getValueByPath(fromObject, ["name"]);
+  if (fromName != null) {
+    setValueByPath(toObject, ["name"], fromName);
+  }
+  const fromState = getValueByPath(fromObject, ["state"]);
+  if (fromState != null) {
+    setValueByPath(toObject, ["state"], tTuningJobStatus(fromState));
+  }
+  const fromCreateTime = getValueByPath(fromObject, ["createTime"]);
+  if (fromCreateTime != null) {
+    setValueByPath(toObject, ["createTime"], fromCreateTime);
+  }
+  const fromStartTime = getValueByPath(fromObject, [
+    "tuningTask",
+    "startTime"
+  ]);
+  if (fromStartTime != null) {
+    setValueByPath(toObject, ["startTime"], fromStartTime);
+  }
+  const fromEndTime = getValueByPath(fromObject, [
+    "tuningTask",
+    "completeTime"
+  ]);
+  if (fromEndTime != null) {
+    setValueByPath(toObject, ["endTime"], fromEndTime);
+  }
+  const fromUpdateTime = getValueByPath(fromObject, ["updateTime"]);
+  if (fromUpdateTime != null) {
+    setValueByPath(toObject, ["updateTime"], fromUpdateTime);
+  }
+  const fromDescription = getValueByPath(fromObject, ["description"]);
+  if (fromDescription != null) {
+    setValueByPath(toObject, ["description"], fromDescription);
+  }
+  const fromBaseModel = getValueByPath(fromObject, ["baseModel"]);
+  if (fromBaseModel != null) {
+    setValueByPath(toObject, ["baseModel"], fromBaseModel);
+  }
+  const fromTunedModel = getValueByPath(fromObject, ["_self"]);
+  if (fromTunedModel != null) {
+    setValueByPath(toObject, ["tunedModel"], tunedModelFromMldev(fromTunedModel));
+  }
+  return toObject;
+}
+function tuningJobFromVertex(fromObject) {
+  const toObject = {};
+  const fromSdkHttpResponse = getValueByPath(fromObject, [
+    "sdkHttpResponse"
+  ]);
+  if (fromSdkHttpResponse != null) {
+    setValueByPath(toObject, ["sdkHttpResponse"], fromSdkHttpResponse);
+  }
+  const fromName = getValueByPath(fromObject, ["name"]);
+  if (fromName != null) {
+    setValueByPath(toObject, ["name"], fromName);
+  }
+  const fromState = getValueByPath(fromObject, ["state"]);
+  if (fromState != null) {
+    setValueByPath(toObject, ["state"], tTuningJobStatus(fromState));
+  }
+  const fromCreateTime = getValueByPath(fromObject, ["createTime"]);
+  if (fromCreateTime != null) {
+    setValueByPath(toObject, ["createTime"], fromCreateTime);
+  }
+  const fromStartTime = getValueByPath(fromObject, ["startTime"]);
+  if (fromStartTime != null) {
+    setValueByPath(toObject, ["startTime"], fromStartTime);
+  }
+  const fromEndTime = getValueByPath(fromObject, ["endTime"]);
+  if (fromEndTime != null) {
+    setValueByPath(toObject, ["endTime"], fromEndTime);
+  }
+  const fromUpdateTime = getValueByPath(fromObject, ["updateTime"]);
+  if (fromUpdateTime != null) {
+    setValueByPath(toObject, ["updateTime"], fromUpdateTime);
+  }
+  const fromError = getValueByPath(fromObject, ["error"]);
+  if (fromError != null) {
+    setValueByPath(toObject, ["error"], fromError);
+  }
+  const fromDescription = getValueByPath(fromObject, ["description"]);
+  if (fromDescription != null) {
+    setValueByPath(toObject, ["description"], fromDescription);
+  }
+  const fromBaseModel = getValueByPath(fromObject, ["baseModel"]);
+  if (fromBaseModel != null) {
+    setValueByPath(toObject, ["baseModel"], fromBaseModel);
+  }
+  const fromTunedModel = getValueByPath(fromObject, ["tunedModel"]);
+  if (fromTunedModel != null) {
+    setValueByPath(toObject, ["tunedModel"], fromTunedModel);
+  }
+  const fromPreTunedModel = getValueByPath(fromObject, [
+    "preTunedModel"
+  ]);
+  if (fromPreTunedModel != null) {
+    setValueByPath(toObject, ["preTunedModel"], fromPreTunedModel);
+  }
+  const fromSupervisedTuningSpec = getValueByPath(fromObject, [
+    "supervisedTuningSpec"
+  ]);
+  if (fromSupervisedTuningSpec != null) {
+    setValueByPath(toObject, ["supervisedTuningSpec"], fromSupervisedTuningSpec);
+  }
+  const fromTuningDataStats = getValueByPath(fromObject, [
+    "tuningDataStats"
+  ]);
+  if (fromTuningDataStats != null) {
+    setValueByPath(toObject, ["tuningDataStats"], fromTuningDataStats);
+  }
+  const fromEncryptionSpec = getValueByPath(fromObject, [
+    "encryptionSpec"
+  ]);
+  if (fromEncryptionSpec != null) {
+    setValueByPath(toObject, ["encryptionSpec"], fromEncryptionSpec);
+  }
+  const fromPartnerModelTuningSpec = getValueByPath(fromObject, [
+    "partnerModelTuningSpec"
+  ]);
+  if (fromPartnerModelTuningSpec != null) {
+    setValueByPath(toObject, ["partnerModelTuningSpec"], fromPartnerModelTuningSpec);
+  }
+  const fromCustomBaseModel = getValueByPath(fromObject, [
+    "customBaseModel"
+  ]);
+  if (fromCustomBaseModel != null) {
+    setValueByPath(toObject, ["customBaseModel"], fromCustomBaseModel);
+  }
+  const fromExperiment = getValueByPath(fromObject, ["experiment"]);
+  if (fromExperiment != null) {
+    setValueByPath(toObject, ["experiment"], fromExperiment);
+  }
+  const fromLabels = getValueByPath(fromObject, ["labels"]);
+  if (fromLabels != null) {
+    setValueByPath(toObject, ["labels"], fromLabels);
+  }
+  const fromOutputUri = getValueByPath(fromObject, ["outputUri"]);
+  if (fromOutputUri != null) {
+    setValueByPath(toObject, ["outputUri"], fromOutputUri);
+  }
+  const fromPipelineJob = getValueByPath(fromObject, ["pipelineJob"]);
+  if (fromPipelineJob != null) {
+    setValueByPath(toObject, ["pipelineJob"], fromPipelineJob);
+  }
+  const fromServiceAccount = getValueByPath(fromObject, [
+    "serviceAccount"
+  ]);
+  if (fromServiceAccount != null) {
+    setValueByPath(toObject, ["serviceAccount"], fromServiceAccount);
+  }
+  const fromTunedModelDisplayName = getValueByPath(fromObject, [
+    "tunedModelDisplayName"
+  ]);
+  if (fromTunedModelDisplayName != null) {
+    setValueByPath(toObject, ["tunedModelDisplayName"], fromTunedModelDisplayName);
+  }
+  const fromVeoTuningSpec = getValueByPath(fromObject, [
+    "veoTuningSpec"
+  ]);
+  if (fromVeoTuningSpec != null) {
+    setValueByPath(toObject, ["veoTuningSpec"], fromVeoTuningSpec);
+  }
+  return toObject;
+}
+function tuningOperationFromMldev(fromObject) {
+  const toObject = {};
+  const fromSdkHttpResponse = getValueByPath(fromObject, [
+    "sdkHttpResponse"
+  ]);
+  if (fromSdkHttpResponse != null) {
+    setValueByPath(toObject, ["sdkHttpResponse"], fromSdkHttpResponse);
+  }
+  const fromName = getValueByPath(fromObject, ["name"]);
+  if (fromName != null) {
+    setValueByPath(toObject, ["name"], fromName);
+  }
+  const fromMetadata = getValueByPath(fromObject, ["metadata"]);
+  if (fromMetadata != null) {
+    setValueByPath(toObject, ["metadata"], fromMetadata);
+  }
+  const fromDone = getValueByPath(fromObject, ["done"]);
+  if (fromDone != null) {
+    setValueByPath(toObject, ["done"], fromDone);
+  }
+  const fromError = getValueByPath(fromObject, ["error"]);
+  if (fromError != null) {
+    setValueByPath(toObject, ["error"], fromError);
+  }
+  return toObject;
+}
+function tuningValidationDatasetToVertex(fromObject, parentObject) {
+  const toObject = {};
+  const fromGcsUri = getValueByPath(fromObject, ["gcsUri"]);
+  if (fromGcsUri != null) {
+    setValueByPath(toObject, ["validationDatasetUri"], fromGcsUri);
+  }
+  const fromVertexDatasetResource = getValueByPath(fromObject, [
+    "vertexDatasetResource"
+  ]);
+  if (parentObject !== undefined && fromVertexDatasetResource != null) {
+    setValueByPath(parentObject, ["supervisedTuningSpec", "trainingDatasetUri"], fromVertexDatasetResource);
+  }
+  return toObject;
+}
+
+class Tunings extends BaseModule {
+  constructor(apiClient) {
+    super();
+    this.apiClient = apiClient;
+    this.get = async (params) => {
+      return await this.getInternal(params);
+    };
+    this.list = async (params = {}) => {
+      return new Pager(PagedItem.PAGED_ITEM_TUNING_JOBS, (x) => this.listInternal(x), await this.listInternal(params), params);
+    };
+    this.tune = async (params) => {
+      var _a;
+      if (this.apiClient.isVertexAI()) {
+        if (params.baseModel.startsWith("projects/")) {
+          const preTunedModel = {
+            tunedModelName: params.baseModel
+          };
+          if ((_a = params.config) === null || _a === undefined ? undefined : _a.preTunedModelCheckpointId) {
+            preTunedModel.checkpointId = params.config.preTunedModelCheckpointId;
+          }
+          const paramsPrivate = Object.assign(Object.assign({}, params), { preTunedModel });
+          paramsPrivate.baseModel = undefined;
+          return await this.tuneInternal(paramsPrivate);
+        } else {
+          const paramsPrivate = Object.assign({}, params);
+          return await this.tuneInternal(paramsPrivate);
+        }
+      } else {
+        const paramsPrivate = Object.assign({}, params);
+        const operation = await this.tuneMldevInternal(paramsPrivate);
+        let tunedModelName = "";
+        if (operation["metadata"] !== undefined && operation["metadata"]["tunedModel"] !== undefined) {
+          tunedModelName = operation["metadata"]["tunedModel"];
+        } else if (operation["name"] !== undefined && operation["name"].includes("/operations/")) {
+          tunedModelName = operation["name"].split("/operations/")[0];
+        }
+        const tuningJob = {
+          name: tunedModelName,
+          state: JobState.JOB_STATE_QUEUED
+        };
+        return tuningJob;
+      }
+    };
+  }
+  async getInternal(params) {
+    var _a, _b, _c, _d;
+    let response;
+    let path = "";
+    let queryParams = {};
+    if (this.apiClient.isVertexAI()) {
+      const body = getTuningJobParametersToVertex(params);
+      path = formatMap("{name}", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "GET",
+        httpOptions: (_a = params.config) === null || _a === undefined ? undefined : _a.httpOptions,
+        abortSignal: (_b = params.config) === null || _b === undefined ? undefined : _b.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json().then((jsonResponse) => {
+          const response2 = jsonResponse;
+          response2.sdkHttpResponse = {
+            headers: httpResponse.headers
+          };
+          return response2;
+        });
+      });
+      return response.then((apiResponse) => {
+        const resp = tuningJobFromVertex(apiResponse);
+        return resp;
+      });
+    } else {
+      const body = getTuningJobParametersToMldev(params);
+      path = formatMap("{name}", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "GET",
+        httpOptions: (_c = params.config) === null || _c === undefined ? undefined : _c.httpOptions,
+        abortSignal: (_d = params.config) === null || _d === undefined ? undefined : _d.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json().then((jsonResponse) => {
+          const response2 = jsonResponse;
+          response2.sdkHttpResponse = {
+            headers: httpResponse.headers
+          };
+          return response2;
+        });
+      });
+      return response.then((apiResponse) => {
+        const resp = tuningJobFromMldev(apiResponse);
+        return resp;
+      });
+    }
+  }
+  async listInternal(params) {
+    var _a, _b, _c, _d;
+    let response;
+    let path = "";
+    let queryParams = {};
+    if (this.apiClient.isVertexAI()) {
+      const body = listTuningJobsParametersToVertex(params);
+      path = formatMap("tuningJobs", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "GET",
+        httpOptions: (_a = params.config) === null || _a === undefined ? undefined : _a.httpOptions,
+        abortSignal: (_b = params.config) === null || _b === undefined ? undefined : _b.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json().then((jsonResponse) => {
+          const response2 = jsonResponse;
+          response2.sdkHttpResponse = {
+            headers: httpResponse.headers
+          };
+          return response2;
+        });
+      });
+      return response.then((apiResponse) => {
+        const resp = listTuningJobsResponseFromVertex(apiResponse);
+        const typedResp = new ListTuningJobsResponse;
+        Object.assign(typedResp, resp);
+        return typedResp;
+      });
+    } else {
+      const body = listTuningJobsParametersToMldev(params);
+      path = formatMap("tunedModels", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "GET",
+        httpOptions: (_c = params.config) === null || _c === undefined ? undefined : _c.httpOptions,
+        abortSignal: (_d = params.config) === null || _d === undefined ? undefined : _d.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json().then((jsonResponse) => {
+          const response2 = jsonResponse;
+          response2.sdkHttpResponse = {
+            headers: httpResponse.headers
+          };
+          return response2;
+        });
+      });
+      return response.then((apiResponse) => {
+        const resp = listTuningJobsResponseFromMldev(apiResponse);
+        const typedResp = new ListTuningJobsResponse;
+        Object.assign(typedResp, resp);
+        return typedResp;
+      });
+    }
+  }
+  async cancel(params) {
+    var _a, _b, _c, _d;
+    let path = "";
+    let queryParams = {};
+    if (this.apiClient.isVertexAI()) {
+      const body = cancelTuningJobParametersToVertex(params);
+      path = formatMap("{name}:cancel", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      await this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "POST",
+        httpOptions: (_a = params.config) === null || _a === undefined ? undefined : _a.httpOptions,
+        abortSignal: (_b = params.config) === null || _b === undefined ? undefined : _b.abortSignal
+      });
+    } else {
+      const body = cancelTuningJobParametersToMldev(params);
+      path = formatMap("{name}:cancel", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      await this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "POST",
+        httpOptions: (_c = params.config) === null || _c === undefined ? undefined : _c.httpOptions,
+        abortSignal: (_d = params.config) === null || _d === undefined ? undefined : _d.abortSignal
+      });
+    }
+  }
+  async tuneInternal(params) {
+    var _a, _b;
+    let response;
+    let path = "";
+    let queryParams = {};
+    if (this.apiClient.isVertexAI()) {
+      const body = createTuningJobParametersPrivateToVertex(params);
+      path = formatMap("tuningJobs", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "POST",
+        httpOptions: (_a = params.config) === null || _a === undefined ? undefined : _a.httpOptions,
+        abortSignal: (_b = params.config) === null || _b === undefined ? undefined : _b.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json().then((jsonResponse) => {
+          const response2 = jsonResponse;
+          response2.sdkHttpResponse = {
+            headers: httpResponse.headers
+          };
+          return response2;
+        });
+      });
+      return response.then((apiResponse) => {
+        const resp = tuningJobFromVertex(apiResponse);
+        return resp;
+      });
+    } else {
+      throw new Error("This method is only supported by the Vertex AI.");
+    }
+  }
+  async tuneMldevInternal(params) {
+    var _a, _b;
+    let response;
+    let path = "";
+    let queryParams = {};
+    if (this.apiClient.isVertexAI()) {
+      throw new Error("This method is only supported by the Gemini Developer API.");
+    } else {
+      const body = createTuningJobParametersPrivateToMldev(params);
+      path = formatMap("tunedModels", body["_url"]);
+      queryParams = body["_query"];
+      delete body["_url"];
+      delete body["_query"];
+      response = this.apiClient.request({
+        path,
+        queryParams,
+        body: JSON.stringify(body),
+        httpMethod: "POST",
+        httpOptions: (_a = params.config) === null || _a === undefined ? undefined : _a.httpOptions,
+        abortSignal: (_b = params.config) === null || _b === undefined ? undefined : _b.abortSignal
+      }).then((httpResponse) => {
+        return httpResponse.json().then((jsonResponse) => {
+          const response2 = jsonResponse;
+          response2.sdkHttpResponse = {
+            headers: httpResponse.headers
+          };
+          return response2;
+        });
+      });
+      return response.then((apiResponse) => {
+        const resp = tuningOperationFromMldev(apiResponse);
+        return resp;
+      });
+    }
+  }
+}
+var MAX_CHUNK_SIZE = 1024 * 1024 * 8;
+var MAX_RETRY_COUNT = 3;
+var INITIAL_RETRY_DELAY_MS = 1000;
+var DELAY_MULTIPLIER = 2;
+var X_GOOG_UPLOAD_STATUS_HEADER_FIELD = "x-goog-upload-status";
+async function uploadBlob(file, uploadUrl, apiClient) {
+  var _a, _b, _c;
+  let fileSize = 0;
+  let offset = 0;
+  let response = new HttpResponse(new Response);
+  let uploadCommand = "upload";
+  fileSize = file.size;
+  while (offset < fileSize) {
+    const chunkSize = Math.min(MAX_CHUNK_SIZE, fileSize - offset);
+    const chunk = file.slice(offset, offset + chunkSize);
+    if (offset + chunkSize >= fileSize) {
+      uploadCommand += ", finalize";
+    }
+    let retryCount = 0;
+    let currentDelayMs = INITIAL_RETRY_DELAY_MS;
+    while (retryCount < MAX_RETRY_COUNT) {
+      response = await apiClient.request({
+        path: "",
+        body: chunk,
+        httpMethod: "POST",
+        httpOptions: {
+          apiVersion: "",
+          baseUrl: uploadUrl,
+          headers: {
+            "X-Goog-Upload-Command": uploadCommand,
+            "X-Goog-Upload-Offset": String(offset),
+            "Content-Length": String(chunkSize)
+          }
+        }
+      });
+      if ((_a = response === null || response === undefined ? undefined : response.headers) === null || _a === undefined ? undefined : _a[X_GOOG_UPLOAD_STATUS_HEADER_FIELD]) {
+        break;
+      }
+      retryCount++;
+      await sleep(currentDelayMs);
+      currentDelayMs = currentDelayMs * DELAY_MULTIPLIER;
+    }
+    offset += chunkSize;
+    if (((_b = response === null || response === undefined ? undefined : response.headers) === null || _b === undefined ? undefined : _b[X_GOOG_UPLOAD_STATUS_HEADER_FIELD]) !== "active") {
+      break;
+    }
+    if (fileSize <= offset) {
+      throw new Error("All content has been uploaded, but the upload status is not finalized.");
+    }
+  }
+  const responseJson = await (response === null || response === undefined ? undefined : response.json());
+  if (((_c = response === null || response === undefined ? undefined : response.headers) === null || _c === undefined ? undefined : _c[X_GOOG_UPLOAD_STATUS_HEADER_FIELD]) !== "final") {
+    throw new Error("Failed to upload file: Upload status is not finalized.");
+  }
+  return responseJson["file"];
+}
+async function getBlobStat(file) {
+  const fileStat = { size: file.size, type: file.type };
+  return fileStat;
+}
+function sleep(ms) {
+  return new Promise((resolvePromise) => setTimeout(resolvePromise, ms));
+}
+
+class NodeUploader {
+  async stat(file) {
+    const fileStat = { size: 0, type: undefined };
+    if (typeof file === "string") {
+      const originalStat = await fs.stat(file);
+      fileStat.size = originalStat.size;
+      fileStat.type = this.inferMimeType(file);
+      return fileStat;
+    } else {
+      return await getBlobStat(file);
+    }
+  }
+  async upload(file, uploadUrl, apiClient) {
+    if (typeof file === "string") {
+      return await this.uploadFileFromPath(file, uploadUrl, apiClient);
+    } else {
+      return uploadBlob(file, uploadUrl, apiClient);
+    }
+  }
+  inferMimeType(filePath) {
+    const fileExtension = filePath.slice(filePath.lastIndexOf(".") + 1);
+    const mimeTypes = {
+      aac: "audio/aac",
+      abw: "application/x-abiword",
+      arc: "application/x-freearc",
+      avi: "video/x-msvideo",
+      azw: "application/vnd.amazon.ebook",
+      bin: "application/octet-stream",
+      bmp: "image/bmp",
+      bz: "application/x-bzip",
+      bz2: "application/x-bzip2",
+      csh: "application/x-csh",
+      css: "text/css",
+      csv: "text/csv",
+      doc: "application/msword",
+      docx: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      eot: "application/vnd.ms-fontobject",
+      epub: "application/epub+zip",
+      gz: "application/gzip",
+      gif: "image/gif",
+      htm: "text/html",
+      html: "text/html",
+      ico: "image/vnd.microsoft.icon",
+      ics: "text/calendar",
+      jar: "application/java-archive",
+      jpeg: "image/jpeg",
+      jpg: "image/jpeg",
+      js: "text/javascript",
+      json: "application/json",
+      jsonld: "application/ld+json",
+      kml: "application/vnd.google-earth.kml+xml",
+      kmz: "application/vnd.google-earth.kmz+xml",
+      mjs: "text/javascript",
+      mp3: "audio/mpeg",
+      mp4: "video/mp4",
+      mpeg: "video/mpeg",
+      mpkg: "application/vnd.apple.installer+xml",
+      odt: "application/vnd.oasis.opendocument.text",
+      oga: "audio/ogg",
+      ogv: "video/ogg",
+      ogx: "application/ogg",
+      opus: "audio/opus",
+      otf: "font/otf",
+      png: "image/png",
+      pdf: "application/pdf",
+      php: "application/x-httpd-php",
+      ppt: "application/vnd.ms-powerpoint",
+      pptx: "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+      rar: "application/vnd.rar",
+      rtf: "application/rtf",
+      sh: "application/x-sh",
+      svg: "image/svg+xml",
+      swf: "application/x-shockwave-flash",
+      tar: "application/x-tar",
+      tif: "image/tiff",
+      tiff: "image/tiff",
+      ts: "video/mp2t",
+      ttf: "font/ttf",
+      txt: "text/plain",
+      vsd: "application/vnd.visio",
+      wav: "audio/wav",
+      weba: "audio/webm",
+      webm: "video/webm",
+      webp: "image/webp",
+      woff: "font/woff",
+      woff2: "font/woff2",
+      xhtml: "application/xhtml+xml",
+      xls: "application/vnd.ms-excel",
+      xlsx: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      xml: "application/xml",
+      xul: "application/vnd.mozilla.xul+xml",
+      zip: "application/zip",
+      "3gp": "video/3gpp",
+      "3g2": "video/3gpp2",
+      "7z": "application/x-7z-compressed"
+    };
+    const mimeType = mimeTypes[fileExtension.toLowerCase()];
+    return mimeType;
+  }
+  async uploadFileFromPath(file, uploadUrl, apiClient) {
+    var _a, _b, _c;
+    let fileSize = 0;
+    let offset = 0;
+    let response = new HttpResponse(new Response);
+    let uploadCommand = "upload";
+    let fileHandle;
+    try {
+      fileHandle = await fs.open(file, "r");
+      if (!fileHandle) {
+        throw new Error(`Failed to open file`);
+      }
+      fileSize = (await fileHandle.stat()).size;
+      while (offset < fileSize) {
+        const chunkSize = Math.min(MAX_CHUNK_SIZE, fileSize - offset);
+        if (offset + chunkSize >= fileSize) {
+          uploadCommand += ", finalize";
+        }
+        const buffer = new Uint8Array(chunkSize);
+        const { bytesRead } = await fileHandle.read(buffer, 0, chunkSize, offset);
+        if (bytesRead !== chunkSize) {
+          throw new Error(`Failed to read ${chunkSize} bytes from file at offset ${offset}. bytes actually read: ${bytesRead}`);
+        }
+        const chunk = new Blob([buffer]);
+        let retryCount = 0;
+        let currentDelayMs = INITIAL_RETRY_DELAY_MS;
+        while (retryCount < MAX_RETRY_COUNT) {
+          response = await apiClient.request({
+            path: "",
+            body: chunk,
+            httpMethod: "POST",
+            httpOptions: {
+              apiVersion: "",
+              baseUrl: uploadUrl,
+              headers: {
+                "X-Goog-Upload-Command": uploadCommand,
+                "X-Goog-Upload-Offset": String(offset),
+                "Content-Length": String(bytesRead)
+              }
+            }
+          });
+          if ((_a = response === null || response === undefined ? undefined : response.headers) === null || _a === undefined ? undefined : _a[X_GOOG_UPLOAD_STATUS_HEADER_FIELD]) {
+            break;
+          }
+          retryCount++;
+          await sleep(currentDelayMs);
+          currentDelayMs = currentDelayMs * DELAY_MULTIPLIER;
+        }
+        offset += bytesRead;
+        if (((_b = response === null || response === undefined ? undefined : response.headers) === null || _b === undefined ? undefined : _b[X_GOOG_UPLOAD_STATUS_HEADER_FIELD]) !== "active") {
+          break;
+        }
+        if (fileSize <= offset) {
+          throw new Error("All content has been uploaded, but the upload status is not finalized.");
+        }
+      }
+      const responseJson = await (response === null || response === undefined ? undefined : response.json());
+      if (((_c = response === null || response === undefined ? undefined : response.headers) === null || _c === undefined ? undefined : _c[X_GOOG_UPLOAD_STATUS_HEADER_FIELD]) !== "final") {
+        throw new Error("Failed to upload file: Upload status is not finalized.");
+      }
+      return responseJson["file"];
+    } finally {
+      if (fileHandle) {
+        await fileHandle.close();
+      }
+    }
+  }
+}
+var LANGUAGE_LABEL_PREFIX = "gl-node/";
+
+class GoogleGenAI {
+  constructor(options) {
+    var _a, _b, _c, _d, _e, _f;
+    if ((options.project || options.location) && options.apiKey) {
+      throw new Error("Project/location and API key are mutually exclusive in the client initializer.");
+    }
+    this.vertexai = (_b = (_a = options.vertexai) !== null && _a !== undefined ? _a : getBooleanEnv("GOOGLE_GENAI_USE_VERTEXAI")) !== null && _b !== undefined ? _b : false;
+    const envApiKey = getApiKeyFromEnv();
+    const envProject = getEnv("GOOGLE_CLOUD_PROJECT");
+    const envLocation = getEnv("GOOGLE_CLOUD_LOCATION");
+    this.apiKey = (_c = options.apiKey) !== null && _c !== undefined ? _c : envApiKey;
+    this.project = (_d = options.project) !== null && _d !== undefined ? _d : envProject;
+    this.location = (_e = options.location) !== null && _e !== undefined ? _e : envLocation;
+    if (options.vertexai) {
+      if ((_f = options.googleAuthOptions) === null || _f === undefined ? undefined : _f.credentials) {
+        console.debug("The user provided Google Cloud credentials will take precedence" + " over the API key from the environment variable.");
+        this.apiKey = undefined;
+      }
+      if ((envProject || envLocation) && options.apiKey) {
+        console.debug("The user provided Vertex AI API key will take precedence over" + " the project/location from the environment variables.");
+        this.project = undefined;
+        this.location = undefined;
+      } else if ((options.project || options.location) && envApiKey) {
+        console.debug("The user provided project/location will take precedence over" + " the API key from the environment variables.");
+        this.apiKey = undefined;
+      } else if ((envProject || envLocation) && envApiKey) {
+        console.debug("The project/location from the environment variables will take" + " precedence over the API key from the environment variables.");
+        this.apiKey = undefined;
+      }
+    }
+    const baseUrl = getBaseUrl(options.httpOptions, options.vertexai, getEnv("GOOGLE_VERTEX_BASE_URL"), getEnv("GOOGLE_GEMINI_BASE_URL"));
+    if (baseUrl) {
+      if (options.httpOptions) {
+        options.httpOptions.baseUrl = baseUrl;
+      } else {
+        options.httpOptions = { baseUrl };
+      }
+    }
+    this.apiVersion = options.apiVersion;
+    const auth = new NodeAuth({
+      apiKey: this.apiKey,
+      googleAuthOptions: options.googleAuthOptions
+    });
+    this.apiClient = new ApiClient({
+      auth,
+      project: this.project,
+      location: this.location,
+      apiVersion: this.apiVersion,
+      apiKey: this.apiKey,
+      vertexai: this.vertexai,
+      httpOptions: options.httpOptions,
+      userAgentExtra: LANGUAGE_LABEL_PREFIX + process.version,
+      uploader: new NodeUploader,
+      downloader: new NodeDownloader
+    });
+    this.models = new Models(this.apiClient);
+    this.live = new Live(this.apiClient, auth, new NodeWebSocketFactory);
+    this.batches = new Batches(this.apiClient);
+    this.chats = new Chats(this.models, this.apiClient);
+    this.caches = new Caches(this.apiClient);
+    this.files = new Files(this.apiClient);
+    this.operations = new Operations(this.apiClient);
+    this.authTokens = new Tokens(this.apiClient);
+    this.tunings = new Tunings(this.apiClient);
+  }
+}
+function getEnv(env) {
+  var _a, _b, _c;
+  return (_c = (_b = (_a = process === null || process === undefined ? undefined : process.env) === null || _a === undefined ? undefined : _a[env]) === null || _b === undefined ? undefined : _b.trim()) !== null && _c !== undefined ? _c : undefined;
+}
+function getBooleanEnv(env) {
+  return stringToBoolean(getEnv(env));
+}
+function stringToBoolean(str) {
+  if (str === undefined) {
+    return false;
+  }
+  return str.toLowerCase() === "true";
+}
+function getApiKeyFromEnv() {
+  const envGoogleApiKey = getEnv("GOOGLE_API_KEY");
+  const envGeminiApiKey = getEnv("GEMINI_API_KEY");
+  if (envGoogleApiKey && envGeminiApiKey) {
+    console.warn("Both GOOGLE_API_KEY and GEMINI_API_KEY are set. Using GOOGLE_API_KEY.");
+  }
+  return envGoogleApiKey || envGeminiApiKey || undefined;
+}
+
+// src/i18n/translation.ts
+import path from "path";
+var ai = new GoogleGenAI({});
+function createSchemaFromObject(obj) {
+  const keys = Object.keys(obj);
+  const properties = {};
+  keys.forEach((key) => {
+    properties[key] = { type: Type.STRING };
+  });
+  return {
+    type: Type.OBJECT,
+    properties,
+    required: keys
+  };
+}
+function validateResponseKeys(source, translated) {
+  const sourceKeys = Object.keys(source).sort();
+  const translatedKeys = Object.keys(translated).sort();
+  if (sourceKeys.length !== translatedKeys.length) {
+    return false;
+  }
+  return JSON.stringify(sourceKeys) === JSON.stringify(translatedKeys);
+}
+function createSystemPrompt(sourceLang, targetLang) {
+  return `
+    You are a JSON translation service.
+    You will be given a JSON object. Your task is to:
+    
+    1.  Translate all string values in the JSON object from "${sourceLang}" to the target language: "${targetLang}".
+    2.  Keep all JSON keys exactly the same.
+    3.  Your output MUST be ONLY the translated, valid JSON object that matches the provided schema.
+  `.trim();
+}
+async function translateJson(sourceJson, sourceLang, targetLang, schema, retry = true) {
+  try {
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash",
+      contents: [
+        {
+          role: "model",
+          parts: [
+            { text: createSystemPrompt(sourceLang, targetLang) }
+          ]
+        },
+        {
+          role: "user",
+          parts: [{ text: sourceJson }]
+        }
+      ],
+      config: {
+        responseMimeType: "application/json",
+        responseSchema: schema,
+        temperature: 0,
+        thinkingConfig: {
+          thinkingBudget: 1000
+        }
+      }
+    });
+    if (!response || !response.text) {
+      throw new Error(`Failed to generate content from API`);
+    }
+    return JSON.parse(response.text);
+  } catch (error) {
+    console.error(`API Error during translation to ${targetLang}:`, error);
+    if (retry) {
+      console.log(`Retrying translation for ${targetLang}`);
+      await Bun.sleep(3000);
+      return translateJson(sourceJson, sourceLang, targetLang, schema, false);
+    }
+    throw new Error(`Failed to generate content from API`);
+  }
+}
+async function translate(forceTranslate = true) {
+  if (!forceTranslate && await hasTranslations()) {
+    console.log("Using existing translations.");
+    return;
+  }
+  const locale = config_default.defaultLocale;
+  const sourceContent = await getTranslations(config_default.defaultLocale);
+  if (!sourceContent) {
+    process.exit(1);
+  }
+  const sourceLang = locale;
+  const targetLangs = config_default.locales.filter((lang) => lang !== sourceLang);
+  const sourceJsonString = JSON.stringify(sourceContent, null, 2);
+  const responseSchema = createSchemaFromObject(sourceContent);
+  console.log(`Translating from: ${sourceLang}`);
+  console.log(`Target languages: ${targetLangs.join(", ")}`);
+  console.log(`Output directory: ${config_default.localesDir}`);
+  await Promise.all(targetLangs.map(async (targetLang) => {
+    console.log(`Translating to ${targetLang}...`);
+    try {
+      const translation = await translateJson(sourceJsonString, sourceLang, targetLang, responseSchema);
+      if (!validateResponseKeys(sourceContent, translation)) {
+        console.error(`Error validating response for ${targetLang}. The keys do not match the source file.`);
+        console.error("Source Keys:", Object.keys(sourceContent).sort());
+        console.error("Received Keys:", Object.keys(translation).sort());
+        process.exit(1);
+      }
+      const outFile = getLocaleFile(targetLang);
+      await outFile.write(JSON.stringify(translation, null, 2));
+      console.log(`\u2705 Successfully wrote ${outFile.name}`);
+    } catch (error) {
+      console.error(`\u274C Failed to translate to ${targetLang}:`, error);
+      process.exit(1);
+    }
+  }));
+}
+function getLocaleFile(locale) {
+  return Bun.file(path.join(config_default.localesDir, `${locale}.json`));
+}
+async function hasTranslations() {
+  return Promise.all(config_default.locales.map((locale) => getLocaleFile(locale).exists())).then((exists) => exists.every(Boolean));
+}
+async function getTranslations(locale) {
+  const file = getLocaleFile(locale);
+  if (!await file.exists()) {
+    console.error(`Locale content not found for locale "${locale}" at ${file.name}.`);
+    return null;
+  }
+  return file.json();
+}
 
 // src/render.ts
 var import_autoprefixer = __toESM(require_autoprefixer(), 1);
-var import_cssnano = __toESM(require_src32(), 1);
-import path from "path";
+var import_cssnano = __toESM(require_src37(), 1);
+import path2 from "path";
 
 // node_modules/postcss/lib/postcss.mjs
 var import_postcss = __toESM(require_postcss(), 1);
@@ -109855,7 +131544,7 @@ ${e.stack}</pre>
 
 // src/render.ts
 async function loadPageModule(baseDir, relativePath) {
-  const modulePath = path.join(baseDir, relativePath);
+  const modulePath = path2.join(baseDir, relativePath);
   const moduleFile = Bun.file(modulePath);
   if (!await moduleFile.exists()) {
     throw new Error(`Page module not found at ${modulePath}. Cannot render page.`);
@@ -109867,7 +131556,7 @@ function determinePageSpecificCssPaths(pageRelativePath) {
   const paths = [];
   if (pageRelativePath.endsWith(".tsx")) {
     const pageCssFileName = pageRelativePath.replace(/\.tsx$/, ".css");
-    const specificPageCssPath = path.join(config_default.stylesDir, "pages", pageCssFileName);
+    const specificPageCssPath = path2.join(config_default.stylesDir, "pages", pageCssFileName);
     paths.push(specificPageCssPath);
   }
   return paths;
@@ -109875,17 +131564,17 @@ function determinePageSpecificCssPaths(pageRelativePath) {
 function determineOutputFilePath(pageRelativePath, locale) {
   const buildDir = config_default.outDir;
   const defaultLocale = config_default.defaultLocale;
-  const pageName = path.basename(pageRelativePath).replace(/\.(tsx|ts)$/, "");
-  const dirName = path.dirname(pageRelativePath);
+  const pageName = path2.basename(pageRelativePath).replace(/\.(tsx|ts)$/, "");
+  const dirName = path2.dirname(pageRelativePath);
   let outputSubDir = dirName === "." ? "" : dirName;
   if (pageName !== "index") {
-    outputSubDir = path.join(outputSubDir, pageName);
+    outputSubDir = path2.join(outputSubDir, pageName);
   }
-  let finalOutputDir = path.join(buildDir, outputSubDir);
+  let finalOutputDir = path2.join(buildDir, outputSubDir);
   if (locale !== defaultLocale) {
-    finalOutputDir = path.join(buildDir, locale, outputSubDir);
+    finalOutputDir = path2.join(buildDir, locale, outputSubDir);
   }
-  return path.join(finalOutputDir, "index.html");
+  return path2.join(finalOutputDir, "index.html");
 }
 async function processCSS(cssFilePaths = []) {
   let combinedCss = "";
@@ -109930,7 +131619,10 @@ async function renderPage(pageRelativePath, locale, isDevMode) {
     console.error(error);
     throw error;
   }
-  const translations = getTranslations(locale);
+  const translations = await getTranslations(locale);
+  if (!translations) {
+    throw new Error(`Could not find translations for locale ${locale}`);
+  }
   const { metadata, script, linkedData } = await extractPageExports(pageModule, translations);
   const pageSpecificCssPaths = determinePageSpecificCssPaths(pageRelativePath);
   const inlinedCSS = await processCSS(pageSpecificCssPaths);
@@ -109950,41 +131642,41 @@ async function renderPage(pageRelativePath, locale, isDevMode) {
   return html;
 }
 async function buildPage(locale, pageFilePath) {
-  const pageRelativePath = path.relative(config_default.pagesDir, pageFilePath);
+  const pageRelativePath = path2.relative(config_default.pagesDir, pageFilePath);
   const outputPath = determineOutputFilePath(pageRelativePath, locale);
   const html = await renderPage(pageRelativePath, locale, false);
   await Bun.write(outputPath, html);
 }
 
 // src/utils.ts
-import fs from "fs/promises";
+import fs2 from "fs/promises";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
-import path2 from "path";
+import path3 from "path";
 var __dirname2 = dirname(fileURLToPath(import.meta.url));
 async function processPublicDirectory() {
   const publicDir = config_default.publicDir;
   const buildDir = config_default.outDir;
   try {
-    await fs.access(publicDir);
+    await fs2.access(publicDir);
   } catch {
     console.warn(`Public directory not found at ${publicDir}. Skipping asset processing.`);
     return;
   }
   const walk = async (dir) => {
-    const entries = await fs.readdir(dir, { withFileTypes: true });
+    const entries = await fs2.readdir(dir, { withFileTypes: true });
     for (const entry of entries) {
-      const srcPath = path2.join(dir, entry.name);
-      const destPath = path2.join(buildDir, path2.relative(publicDir, srcPath));
+      const srcPath = path3.join(dir, entry.name);
+      const destPath = path3.join(buildDir, path3.relative(publicDir, srcPath));
       if (entry.isDirectory()) {
-        await fs.mkdir(destPath, { recursive: true });
+        await fs2.mkdir(destPath, { recursive: true });
         await walk(srcPath);
       } else {
         if (/\.(js|ts|tsx|mjs)$/.test(srcPath)) {
-          console.log(`  - Bundling: ${path2.relative(publicDir, srcPath)}`);
+          console.log(`  - Bundling: ${path3.relative(publicDir, srcPath)}`);
           const result = await Bun.build({
             entrypoints: [srcPath],
-            outdir: path2.dirname(destPath),
+            outdir: path3.dirname(destPath),
             target: "browser",
             splitting: true,
             minify: true,
@@ -110024,7 +131716,7 @@ async function processPublicDirectory() {
             }
           }
         } else {
-          await fs.copyFile(srcPath, destPath);
+          await fs2.copyFile(srcPath, destPath);
         }
       }
     }
@@ -110033,9 +131725,9 @@ async function processPublicDirectory() {
   await walk(publicDir);
 }
 async function getAllTsxFiles(dirPath, fileList = []) {
-  const entries = await fs.readdir(dirPath, { withFileTypes: true });
+  const entries = await fs2.readdir(dirPath, { withFileTypes: true });
   for (const entry of entries) {
-    const filePath = path2.join(dirPath, entry.name);
+    const filePath = path3.join(dirPath, entry.name);
     if (entry.isDirectory()) {
       await getAllTsxFiles(filePath, fileList);
     } else if (filePath.endsWith(".tsx")) {
@@ -110047,13 +131739,13 @@ async function getAllTsxFiles(dirPath, fileList = []) {
 async function findHtmlFiles(directory) {
   const htmlFiles = [];
   async function walkDir(currentDir) {
-    const entries = await fs.readdir(currentDir, { withFileTypes: true });
+    const entries = await fs2.readdir(currentDir, { withFileTypes: true });
     for (const entry of entries) {
-      const fullPath = path2.join(currentDir, entry.name);
+      const fullPath = path3.join(currentDir, entry.name);
       if (entry.isDirectory()) {
         await walkDir(fullPath);
       } else if (entry.isFile() && entry.name.endsWith(".html")) {
-        const relativeDirPath = path2.relative(directory, currentDir);
+        const relativeDirPath = path3.relative(directory, currentDir);
         htmlFiles.push(relativeDirPath === "" ? "index" : relativeDirPath);
       }
     }
@@ -110091,9 +131783,9 @@ async function prepareBuildDirectory() {
   const buildDir = config_default.outDir;
   console.log(`\uD83D\uDDD1\uFE0F Cleaning build directory: ${buildDir}`);
   if (await Bun.file(buildDir).exists()) {
-    await fs2.rm(buildDir, { recursive: true });
+    await fs3.rm(buildDir, { recursive: true });
   }
-  await fs2.mkdir(buildDir, { recursive: true });
+  await fs3.mkdir(buildDir, { recursive: true });
 }
 async function buildLocalizedPages() {
   const pages = await getAllTsxFiles(config_default.pagesDir);
@@ -110116,29 +131808,25 @@ async function performPostBuildActions() {
   console.log("\u2705 Public assets processed.");
   console.log("\uD83D\uDDFA\uFE0F Generating sitemap...");
   const sitemapXml = await generateSitemap();
-  await Bun.write(path3.join(config_default.outDir, "sitemap.xml"), sitemapXml);
+  await Bun.write(path4.join(config_default.outDir, "sitemap.xml"), sitemapXml);
   console.log("\u2705 Sitemap generated.");
   await registry_default.processImages();
 }
-async function buildSite() {
+async function buildSite(forceTranslate) {
   const startTime = performance.now();
   console.log("\uD83D\uDE80 Starting build...");
   await prepareBuildDirectory();
-  if (config_default.locales.length === 0) {
-    console.error("\u274C No locales found. Build aborted.");
-    process.exit(1);
-  }
+  await translate(forceTranslate);
   await buildLocalizedPages();
   await performPostBuildActions();
-  const endTime = performance.now();
-  const duration = ((endTime - startTime) / 1000).toFixed(2);
+  const duration = ((performance.now() - startTime) / 1000).toFixed(2);
   console.log(`\u23F1\uFE0F Total build time: ${duration}s`);
   console.log("\uD83C\uDF89 Build complete!");
 }
 
 // src/dev.ts
 import { cpSync, existsSync, mkdirSync, promises, watch } from "fs";
-import path4 from "path";
+import path5 from "path";
 
 // src/response.ts
 function html(body, init) {
@@ -110200,11 +131888,11 @@ async function tryServeFile(fullPath) {
     return null;
   }
   try {
-    const stat = await promises.stat(fullPath);
-    if (stat.isFile()) {
+    const stat2 = await promises.stat(fullPath);
+    if (stat2.isFile()) {
       return new Response(file);
     }
-    if (stat.isDirectory() && fullPath.endsWith("index.html")) {
+    if (stat2.isDirectory() && fullPath.endsWith("index.html")) {
       return new Response(file);
     }
   } catch (e) {
@@ -110234,11 +131922,11 @@ function parsePageRequest(publicPath, locales, defaultLocale) {
   };
 }
 function findPageModule(pagePath) {
-  const directPagePath = path4.join(config_default.pagesDir, `${pagePath}.tsx`);
+  const directPagePath = path5.join(config_default.pagesDir, `${pagePath}.tsx`);
   if (existsSync(directPagePath)) {
     return directPagePath;
   }
-  const indexPagePath = path4.join(config_default.pagesDir, pagePath, "index.tsx");
+  const indexPagePath = path5.join(config_default.pagesDir, pagePath, "index.tsx");
   if (existsSync(indexPagePath)) {
     return indexPagePath;
   }
@@ -110246,7 +131934,7 @@ function findPageModule(pagePath) {
 }
 async function renderPageResponse(pageModulePath, locale) {
   try {
-    const html2 = await renderPage(path4.relative(config_default.pagesDir, pageModulePath), locale, true);
+    const html2 = await renderPage(path5.relative(config_default.pagesDir, pageModulePath), locale, true);
     return html(html2);
   } catch (error) {
     return html(renderError(error), {
@@ -110257,7 +131945,7 @@ async function renderPageResponse(pageModulePath, locale) {
 async function handleRequest(req) {
   const url = new URL(req.url);
   const requestPath = url.pathname.substring(1);
-  const publicFileResponse = await tryServeFile(path4.join(config_default.outDir, requestPath));
+  const publicFileResponse = await tryServeFile(path5.join(config_default.outDir, requestPath));
   if (publicFileResponse) {
     return publicFileResponse;
   }
@@ -110293,15 +131981,15 @@ function broadcastReload(sseClients) {
 }
 function startFileWatcher(sseClients) {
   const localesDir = config_default.localesDir;
-  const configJsPath = path4.join(config_default.projectRoot, "config.js");
-  const configTsPath = path4.join(config_default.projectRoot, "config.ts");
+  const configJsPath = path5.join(config_default.projectRoot, "config.js");
+  const configTsPath = path5.join(config_default.projectRoot, "config.ts");
   const configPath = existsSync(configJsPath) ? configJsPath : configTsPath;
   function watchHandler(eventType, filename) {
     if (filename) {
       console.log(`File changed: ${filename}. Type: ${eventType}`);
       reloadCache();
-      const fullPath = path4.resolve(filename);
-      if (fullPath.startsWith(localesDir) || fullPath === path4.resolve(configPath)) {
+      const fullPath = path5.resolve(filename);
+      if (fullPath.startsWith(localesDir) || fullPath === path5.resolve(configPath)) {
         console.log("Config updated, re-fetching locales on server...");
       }
       broadcastReload(sseClients);
@@ -110378,7 +132066,12 @@ async function runCli() {
       break;
     case "build":
       console.log("Running build...");
-      await buildSite();
+      const forceTranslate = args[1] === "--force-translate";
+      await buildSite(forceTranslate);
+      break;
+    case "translate":
+      console.log("Running translation...");
+      await translate();
       break;
     default:
       console.error(`Unknown command: ${command}`);
@@ -110388,5 +132081,5 @@ async function runCli() {
 }
 runCli();
 
-//# debugId=FCBEB27063A0DBD264756E2164756E21
+//# debugId=C239CCA43025BF2264756E2164756E21
 //# sourceMappingURL=cli.js.map

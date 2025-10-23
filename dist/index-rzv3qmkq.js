@@ -1,15 +1,14 @@
 // @bun
 import {
-  __toESM,
-  config_default,
   require_jsx_runtime,
   require_react
-} from "./index-gnp5a539.js";
+} from "./index-qj5yn1j4.js";
+import {
+  __toESM
+} from "./index-c3pew69r.js";
 
-// src/i18n.tsx
+// src/i18n/context.tsx
 var import_react = __toESM(require_react(), 1);
-import fs from "fs";
-import path from "path";
 var jsx_runtime = __toESM(require_jsx_runtime(), 1);
 var DEFAULT_CONTEXT = {
   t: {}
@@ -28,17 +27,8 @@ function LanguageProvider({ t, children }) {
     children
   });
 }
-function getTranslations(locale) {
-  const localesDir = config_default.localesDir;
-  const contentPath = path.join(localesDir, `${locale}.json`);
-  if (!fs.existsSync(contentPath)) {
-    console.error(`Locale content not found for locale "${locale}" at ${contentPath}.`);
-    return {};
-  }
-  return JSON.parse(fs.readFileSync(contentPath, "utf-8"));
-}
 
-export { LanguageContext, useLanguage, LanguageProvider, getTranslations };
+export { useLanguage, LanguageProvider };
 
-//# debugId=06B0D8AF6D5167B764756E2164756E21
-//# sourceMappingURL=index-8nt7n0d7.js.map
+//# debugId=6DE2EDA6CCF3457C64756E2164756E21
+//# sourceMappingURL=index-rzv3qmkq.js.map

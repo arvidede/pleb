@@ -1,13 +1,14 @@
 // @bun
 import {
-  LanguageContext,
   LanguageProvider,
   useLanguage
-} from "./index-8nt7n0d7.js";
+} from "./index-rzv3qmkq.js";
 import {
-  __toESM,
   require_react
-} from "./index-gnp5a539.js";
+} from "./index-qj5yn1j4.js";
+import {
+  __toESM
+} from "./index-c3pew69r.js";
 
 // src/index.ts
 var import_react = __toESM(require_react(), 1);
@@ -16,9 +17,8 @@ var export_React = import_react.default;
 export {
   useLanguage,
   export_React as React,
-  LanguageProvider,
-  LanguageContext
+  LanguageProvider
 };
 
-//# debugId=66251B2A3447604564756E2164756E21
+//# debugId=501910ACCF0204AA64756E2164756E21
 //# sourceMappingURL=index.js.map

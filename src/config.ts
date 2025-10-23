@@ -61,7 +61,7 @@ async function loadConfig() {
         projectRoot: userProjectRoot,
         port: 3000,
         outDir: "./out",
-        buildDir: "/_pleb",
+        buildDir: "/.pleb",
         imgDir: "/images",
         appDir: "./app",
         pagesDir: "/pages",

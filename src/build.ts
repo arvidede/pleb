@@ -1,6 +1,7 @@
 import fs from "fs/promises"
 import path from "path"
 import config from "./config"
+import { translate } from "./i18n/translation"
 import imageRegistry from "./image/registry"
 import { buildPage } from "./render"
 import {
@@ -56,24 +57,20 @@ export async function performPostBuildActions(): Promise<void> {
     await imageRegistry.processImages()
 }
 
-export async function buildSite(): Promise<void> {
+export async function buildSite(forceTranslate: boolean): Promise<void> {
     const startTime = performance.now()
 
     console.log("🚀 Starting build...")
 
     await prepareBuildDirectory()
 
-    if (config.locales.length === 0) {
-        console.error("❌ No locales found. Build aborted.")
-        process.exit(1)
-    }
+    await translate(forceTranslate)
 
     await buildLocalizedPages()
 
     await performPostBuildActions()
 
-    const endTime = performance.now()
-    const duration = ((endTime - startTime) / 1000).toFixed(2)
+    const duration = ((performance.now() - startTime) / 1000).toFixed(2)
     console.log(`⏱️ Total build time: ${duration}s`)
     console.log("🎉 Build complete!")
 }

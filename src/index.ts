@@ -1,5 +1,5 @@
 export { default as React } from "react"
-export { LanguageContext, LanguageProvider, useLanguage } from "./i18n"
+export { LanguageProvider, useLanguage } from "./i18n/context"
 export {
     LinkedData,
     LocaleInfo,

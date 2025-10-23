@@ -7,26 +7,27 @@ It really is utter crap, barely useful. You should be using [astro](https://astr
 ## Table of Contents
 
 - [Getting Started](#getting-started)
-    - [Prerequisites](#prerequisites)
-    - [1. Project Setup](#1-project-setup)
-    - [2. Create Basic Project Structure](#2-create-basic-project-structure)
-    - [3. Configure Your Site (`config.js`)](#3-configure-your-site-configjs)
-    - [4. Create a Default Locale File](#4-create-a-default-locale-file)
-    - [5. Create an HTML Template](#5-create-an-html-template)
-    - [6. Create Your First Page](#6-create-your-first-page)
-    - [7. Add Scripts to `package.json`](#7-add-scripts-to-packagejson)
-    - [8. TypeScript Configuration (`tsconfig.json`)](#8-typescript-configuration-tsconfigjson)
-    - [9. Running the Development Server](#9-running-the-development-server)
-    - [10. Building for Production](#10-building-for-production)
+    1. [Prerequisites](#prerequisites)
+    2. [Project Setup](#1-project-setup)
+    3. [Create Basic Project Structure](#2-create-basic-project-structure)
+    4. [Configure Your Site (`config.ts`)](#3-configure-your-site-configjs)
+    5. [Create a Default Locale File](#4-create-a-default-locale-file)
+    6. [Create an HTML Template](#5-create-an-html-template)
+    7. [Create Your First Page](#6-create-your-first-page)
+    8. [Add Scripts to `package.json`](#7-add-scripts-to-packagejson)
+    9. [TypeScript Configuration (`tsconfig.json`)](#8-typescript-configuration-tsconfigjson)
+    10. [Running the Development Server](#9-running-the-development-server)
+    11. [Building for Production](#10-building-for-production)
 - [Features](#features)
 - [Project Structure](#project-structure)
 - [Configuration](#configuration)
 - [Creating Pages](#creating-pages)
 - [Styling](#styling)
 - [Internationalization (i18n)](#internationalization-i18n)
+- [Automatic Translation](#automatic-translation)
+- [Image Processing](#image-processing)
 - [Providing Translation Type Overrides](#providing-translation-type-overrides)
 - [HTML Template](#html-template)
-- [Usage (Development and Build)](#usage-development-and-build)
 - [Public Assets](#public-assets)
 
 ## Getting Started
@@ -38,7 +39,7 @@ This guide will walk you through the basic steps to get a static site up and run
 - Bun installed (v1.x or higher recommended).
 - Familiarity with React and TypeScript.
 
-### 1. Project Setup
+### Project Setup
 
 If you're starting a new project with Bun, create a new directory and initialize it:
 
@@ -54,50 +55,52 @@ Install the pleb library:
 bun add pleb
 ```
 
-You'll also need React, ReactDOM, and their types, plus TypeScript:
+You'll also need types for bun, React and TypeScript:
 
 ```bash
-bun add react react-dom
-bun add -d @types/react @types/react-dom typescript
+bun add -d bun-types @types/react typescript
 ```
 
-### 2. Create Basic Project Structure
+### Create Basic Project Structure
 
 Refer to the "Project Structure" section for a typical layout. At a minimum, you'll need:
 
 ```
 /my-static-site
 ├── app/
-│   ├── pages/
-│   │   └── index.tsx
-│   ├── locales/
-│   │   └── en.json
-│   └── template.html
-├── config.js
+│   ├── pages/
+│   │   └── index.tsx
+│   ├── locales/
+│   │   └── en.json
+│   └── template.html
+├── config.ts
 ├── package.json
 └── tsconfig.json
 ```
 
-### 3. Configure Your Site (`config.js`)
+### Configure Your Site (`config.ts`)
 
-Create a `config.js` file in your project root. This file tells the library where to find your source files and how to build your site.
+Create a `config.ts` file in your project root. This file tells the library where to find your source files and how to build your site.
 
-```javascript
-// /my-static-site/config.js
-/**
- *  @type {import('pleb').UserConfig}
- */
+```typescript
+// /my-static-site/config.ts
+import type { UserConfig } from 'pleb'
+
 const config = {
     port: 3000,
     outDir: "./out",
-    defaultLocale: "sv",
+    defaultLocale: "en",
+    // Add other locales to build pages for.
+    // Also used by the automatic translation feature.
+    locales: ["en", "sv", "de"],
     cssFilePath: "./app/styles/global.css",
-}
+    baseUrl: "https://domain.com",
+} satisifes UserConfig
 
 export default config
 ```
 
-### 4. Create a Default Locale File
+### Create a Default Locale File
 
 Create `app/locales/en.json`:
 
@@ -109,55 +112,43 @@ Create `app/locales/en.json`:
 }
 ```
 
-### 5. Create an HTML Template
+### Create an HTML Template
 
 Create `app/template.html`:
 
 ```html
 <!DOCTYPE html>
-<html lang="{{locale}}">
+<html>
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>{{title}}</title>
-        <meta name="description" content="{{description}}" />
-        {{metaTags}}
-        <style>
-            {{css}}
-        </style>
-        {{scriptsBefore}}
     </head>
-    <body>
-        <div id="root">{{pageContent}}</div>
-        {{scriptsAfter}}
-    </body>
+    <body></body>
 </html>
 ```
 
-### 6. Create Your First Page
+### Create Your First Page
 
 Create `app/pages/index.tsx`:
 
 ```typescript jsx
 // app/pages/index.tsx
 import React from 'react';
-
 import { PageProps, Metadata, Translations } from 'pleb';
 
-
 export const generateMetadata = (content: Translations): Metadata => {
-    return {
-        title: content.homePageTitle || "Home",
-        description: "Welcome to the homepage.",
-    };
+    return {
+        title: content.homePageTitle || "Home",
+        description: "Welcome to the homepage.",
+    };
 };
 
 const HomePage: React.FC<PageProps> = ({ content }) => {
-    return (
-        <div>
-            <h1>{content.hello || 'Hello, world!'}</h1>
-        </div>
-    );
+    return (
+        <div>
+            <h1>{content.hello || 'Hello, world!'}</h1>
+        </div>
+    );
 };
 
 export default HomePage;
@@ -165,20 +156,21 @@ export default HomePage;
 
 **Note:** The import path for `PageProps`, `Metadata`, `Translations`, and other exports assumes that the `pleb` package is configured to make these available directly (e.g., via its main entry point and `package.json` exports/types fields). If you encounter issues, double-check the `pleb` package's documentation or its structure in `node_modules`.
 
-### 7. Add Scripts to `package.json`
+### Add Scripts to `package.json`
 
 ```json
 // package.json (scripts section)
 "scripts": {
-  "dev": "pleb dev",
-  "build": "pleb build"
-  // If you want to serve your 'outDir' (e.g., 'out') after building, you can use a simple server like 'serve':
-  // "serve": "serve out"
-  // You might need to install it first: bun add -d serve
+  "dev": "pleb dev",
+  "build": "pleb build",
+  "translate": "pleb translate"
+  // If you want to serve your 'outDir' (e.g., 'out') after building, you can use a simple server like 'serve':
+  // "serve": "serve out"
+  // You might need to install it first: bun add -d serve
 },
 ```
 
-### 8. TypeScript Configuration (`tsconfig.json`)
+### TypeScript Configuration (`tsconfig.json`)
 
 Create a basic `tsconfig.json` in your project root:
 
@@ -200,12 +192,12 @@ Create a basic `tsconfig.json` in your project root:
             "*": ["node_modules/*"]
         }
     },
-    "include": ["app/**/*", "config.js"],
+    "include": ["app/**/*", "config.ts"],
     "exclude": ["node_modules", "out"]
 }
 ```
 
-### 9. Running the Development Server
+### Running the Development Server
 
 Once the setup is complete and your `package.json` scripts are configured correctly:
 
@@ -215,7 +207,7 @@ bun run dev
 
 This should start the development server (e.g., on `http://localhost:3000`).
 
-### 10. Building for Production
+### Building for Production
 
 To build your static site:
 
@@ -223,7 +215,7 @@ To build your static site:
 bun run build
 ```
 
-This will generate the static files in the directory specified by `outDir` in your `config.js` (e.g., `/my-static-site/out`).
+This will generate the static files in the directory specified by `outDir` in your `config.ts` (e.g., `/my-static-site/out`).
 
 This "Getting Started" section provides a foundational guide. Refer to the rest of this README for more detailed information on features, configuration, and advanced usage.
 
@@ -233,10 +225,12 @@ This "Getting Started" section provides a foundational guide. Refer to the rest 
 - **Server-Side Rendering (SSR):** Pages are rendered to static HTML.
 - **File-based Routing:** Pages are created based on the file structure in the `pages` directory.
 - **Internationalization (i18n):** Support for multiple locales using JSON translation files.
+- **Automatic Translation:** Machine-translates your default locale file into other languages using the Google Generateive AI API.
+- **Responsive Image Processing:** Automatically generates optimized, responsive images using an `Image` component and `sharp`.
 - **CSS Handling:**
-    - Global stylesheet.
-    - Page-specific CSS for `.tsx` components (co-located or in `styles/pages`).
-    - PostCSS processing with `autoprefixer` and `cssnano`.
+      - Global stylesheet.
+      - Page-specific CSS for `.tsx` components (co-located or in `styles/pages`).
+      - PostCSS processing with `autoprefixer` and `cssnano`.
 - **Metadata Generation:** Define `title`, `description`, and other meta tags per page.
 - **Customizable HTML Template:** Use your own `template.html` file.
 - **Script Injection:** Add custom scripts before or after the main page content.
@@ -249,29 +243,29 @@ A typical project using this library might look like this:
 
 ```
 /projectRoot
-├── app/                    # (Convention, based on UserConfig.appDir)
-│   ├── pages/              # Your page components
-│   │   ├── index.tsx
-│   │   └── about.tsx
-│   ├── locales/            # Translation files
-│   │   ├── en.json
-│   │   └── sv.json
-│   ├── styles/             # CSS files
-│   │   ├── global.css      # Main global stylesheet
-│   │   └── pages/          # Page-specific styles (optional structure)
-│   │       └── about.css   # e.g., for about.tsx
-│   ├── public/             # Static assets (copied to output directory)
-│   │   └── images/
-│   │       └── logo.png
-│   └── template.html       # Main HTML template for all pages
-├── config.js
+├── app/                    # (Convention, based on UserConfig.appDir)
+│   ├── pages/              # Your page components
+│   │   ├── index.tsx
+│   │   └── about.tsx
+│   ├── locales/            # Translation files
+│   │   ├── en.json
+│   │   └── sv.json
+│   ├── styles/             # CSS files
+│   │   ├── global.css      # Main global stylesheet
+│   │   └── pages/          # Page-specific styles (optional structure)
+│   │       └── about.css   # e.g., for about.tsx
+│   ├── public/             # Static assets (copied to output directory)
+│   │   └── images/
+│   │       └── logo.png
+│   └── template.html       # Main HTML template for all pages
+├── config.ts
 ├── package.json
 └── tsconfig.json
 ```
 
 ## Configuration
 
-The library is configured through a `UserConfig` object in `/projectRoot/config.js`:
+The library is configured through a `UserConfig` object in `/projectRoot/config.ts`:
 
 - `projectRoot`: The root directory of your project.
 - `port`: Port for the development server.
@@ -284,97 +278,214 @@ The library is configured through a `UserConfig` object in `/projectRoot/config.
 - `templatePath`: Path to the main HTML template file (e.g., `app/template.html`).
 - `cssFilePath`: Path to the global CSS file (e.g., `app/styles/global.css`).
 - `defaultLocale`: The default language for your site (e.g., `"en"`).
+- `locales`: An array of locale strings (e.g., `["en", "sv", "de"]`) to build pages for. Required for automatic translation.
 - `baseUrl`: The base URL of your site (e.g., `"https://example.com"`).
 
 ## Creating Pages
 
-Pages are React components written in `.tsx` (for JSX) or `.ts`.
+Pages are React components written in jsx (`.tsx`).
 
-1.  **Location:** Place your page files in the directory specified by `config.pagesDir`.
+1.  **Location:** Place your page files in the directory specified by `config.pagesDir`.
 
-    - `pages/index.tsx` maps to `/`
-    - `pages/about.tsx` maps to `/about/`
-    - `pages/blog/my-post.tsx` maps to `/blog/my-post/`
+- `pages/index.tsx` maps to `/`
+- `pages/about.tsx` maps to `/about/`
+- `pages/blog/my-post.tsx` maps to `/blog/my-post/`
 
-2.  **Structure of a Page Component:**
+    2.  **Structure of a Page Component:**
 
-    ```typescript jsx
-    // Example: app/pages/about.tsx
-    import React from 'react';
-    import { PageProps, Metadata, Script, Translations } from '../path/to/static/src/types'; // Adjust path as needed
+```typescript jsx
+// Example: app/pages/about.tsx
+import React from 'react';
+import { PageProps, Metadata, Script, Translations } from 'pleb';
 
-    // Optional: Define metadata for the page
-    export const generateMetadata = (content: Translations): Metadata => {
-        return {
-            title: content.aboutPageTitle || "About Us",
-            description: content.aboutPageDescription || "Learn more about our company.",
-            og: {
-                title: "Custom OG Title for About Page"
-            }
-        };
-    };
+// Optional: Define metadata for the page
+export const generateMetadata = (content: Translations): Metadata => {
+    return {
+        title: content.aboutPageTitle || "About Us",
+        description: content.aboutPageDescription || "Learn more about our company.",
+        og: {
+            title: "Custom OG Title for About Page"
+        }
+    };
+};
 
-    // Optional: Define scripts to be injected
-    export const script: Script = {
-        before: [
-            // { textContent: "console.log('Script before body for About page');" }
-        ],
-        after: [
-            { src: "/assets/js/about-specific.js", async: true }
-        ]
-    };
+// Optional: Define scripts to be injected
+export const script: Script = {
+    before: [],
+    after: [
+        { src: "/assets/js/about-specific.js", async: true }
+    ]
+};
 
-    // The default export is the page component
-    const AboutPage: React.FC<PageProps> = ({ content }) => {
-        return (
-            <div>
-                <h1>{content.aboutTitle || 'About Us'}</h1>
-                <p>{content.aboutIntro || 'This is the about page.'}</p>
-            </div>
-        );
-    };
+// The default export is the page component
+const AboutPage: React.FC<PageProps> = ({ content }) => {
+    return (
+        <div>
+            <h1>{content.aboutTitle || 'About Us'}</h1>
+            <p>{content.aboutIntro || 'This is the about page.'}</p>
+        </div>
+    );
+};
 
-    export default AboutPage;
-    ```
+export default AboutPage;
+```
 
-3.  **Page Props (`PageProps`):**
+3.  **Page Props (`PageProps`):**
 
-    - `content`: An object containing translations for the current locale. Keys are strings from your locale JSON files.
+```typescript
+interface PageProps {
+    // An object containing translations for the current locale. Keys are strings from your locale JSON files.
+    content: Translations
+}
+```
 
-4.  **`generateMetadata` (Optional Export):**
+4.  **`generateMetadata` (Optional Export):**
 
-    - A function that takes the `content` (translations) object.
-    - Returns a `Metadata` object (`{ title: string, description: string, og?: {...}, twitter?: {...} }`).
-    - Used to set `<title>`, `<meta name="description">`, and other meta tags in the page's `<head>`.
+- A function that takes the `content` (translations) object.
+- Returns a `Metadata` object (`{ title: string, description: string, og?: {...} }`).
+- Used to set `<title>`, `<meta name="description">`, and other meta tags in the page's `<head>`.
 
-5.  **`script` (Optional Export):**
-    - An object of type `Script` with optional `before` and `after` arrays.
-    - Each array can contain `ScriptTag` objects to define scripts to be injected.
-        - `before`: Injected at the end of the `<head>`.
-        - `after`: Injected at the end of the `<body>`.
-    - `ScriptTag` properties: `src`, `type`, `async`, `defer`, `textContent`, and other custom attributes.
+    5.  **`script` (Optional Export):**
+
+- An object of type `Script` with optional `before` and `after` arrays.
+- Each array can contain `ScriptTag` objects to define scripts to be injected.
+    - `before`: Injected at the end of the `<head>`.
+    - `after`: Injected at the end of the `<body>`.
+- `ScriptTag` properties: `src`, `type`, `async`, `defer`, `textContent`, and other custom attributes.
 
 ## Styling
 
 - **Global CSS:** Defined by `config.cssFilePath`. This file's content is processed and inlined into every page.
 - **Page-Specific CSS:** For `.tsx` pages, you can create a corresponding `.css` file.
-    - If your page is `app/pages/foo/bar.tsx`, the library will look for `app/styles/pages/foo/bar.css`.
-    - This CSS will be processed and inlined along with the global CSS, specific to that page.
+      - If your page is `app/pages/foo/bar.tsx`, the library will look for `app/styles/pages/foo/bar.css`.
+      - This CSS will be processed and inlined along with the global CSS, specific to that page.
 
 ## Internationalization (i18n)
 
-1.  **Locale Files:** Store translation files as JSON in the directory specified by `config.localesDir`.
+1. **Locale Files:** Store translation files as JSON in the directory specified by `config.localesDir`.
     - Example: `app/locales/en.json`, `app/locales/sv.json`
-    - ```json
-      // app/locales/en.json
-      {
-          "welcomeMessage": "Hello and Welcome!",
-          "aboutPageTitle": "About Our Company"
-      }
-      ```
-2.  **Default Locale:** Set `config.defaultLocale`. Pages in the default locale are typically served from the root path (e.g., `/about/`), while other locales are prefixed (e.g., `/sv/about/`).
-3.  **Accessing Translations:** Use the `content` prop passed to your page components.
-    - `<h1>{content.welcomeMessage}</h1>`
+        ```json
+        // app/locales/en.json
+        {
+            "welcomeMessage": "Hello and Welcome!",
+            "aboutPageTitle": "About Our Company"
+        }
+        ```
+
+2. **Default Locale** <br/>
+   Set `config.defaultLocale`. Pages in the default locale are typically served from the root path (e.g., `/about/`), while other locales are prefixed (e.g., `/sv/about/`).
+
+3. **Accessing Translations** <br/>
+   Use the `content` prop passed to your page components.
+       - `<h1>{content.welcomeMessage}</h1>`
+
+## Automatic Translation
+
+Because manually translating JSON files is a soul-crushing waste of your precious time, `pleb` can do it for you. It uses the Google Generateive AI API to translate your `defaultLocale` file into all other locales specified in your config.
+
+**How it Works:**
+
+1.  It reads the source content from your default locale file (e.g., `app/locales/en.json`).
+2.  It translates the text values into each language listed in `config.locales` (excluding the default one, obviously).
+3.  It writes the newly translated files into `config.localesDir` (e.g., `app/locales/sv.json`, `app/locales/de.json`).
+
+**Setup & Usage:**
+
+1.  **Update your `config.ts`** to include all the locales you want to support.
+
+    ```typescript
+    // config.ts
+    const config = {
+        // ...
+        defaultLocale: "en",
+        locales: ["en", "sv", "de", "fr"],
+    }
+    ```
+
+2.  **Set your Google API Key.** You need to create an environment variable named `GOOGLE_API_KEY`. Get a key from the [Google AI Studio](https://aistudio.google.com/api-keys).
+
+    You can set it in your terminal before running the build:
+
+    ```bash
+    export GOOGLE_API_KEY="your-super-secret-key"
+    bun run build
+    ```
+
+The translation process runs automatically as part of the `build` command.
+
+**Disclaimer:** This uses machine translation. The results will likely range from slightly awkward to completely nonsensical. It's a "feature" for development speed, not a substitute for a professional translator. You have been warned.
+
+## Image Processing
+
+Tired of manually resizing images like it's 2005? `pleb` begrudgingly offers automatic image processing using `sharp`. This lets you use a simple `Image` component in your code, which gets transformed into a fully responsive `<picture>` tag with multiple sizes and WebP formats during the build.
+
+**How it Works:**
+
+1.  You place your high-resolution source images in the `appDir` (e.g., `app/images/`).
+2.  In your `.tsx` page, you import and use the `Image` component.
+3.  During the `build` process, `pleb` finds the source image, generates several smaller JPEG versions and corresponding WebP versions, and places them in the output directory (`out/images/`).
+4.  The final HTML will contain a `<picture>` element that allows the browser to select the most appropriate image file, saving bandwidth and improving load times.
+
+**Usage:**
+
+Simply import the `Image` component from `pleb/image` and use it like a standard `<img>` tag. The `src` path must be relative to the `appDir`.
+
+```typescript jsx
+// app/pages/index.tsx
+import React from 'react';
+import Image from 'pleb/image';
+import { PageProps } from 'pleb';
+
+const HomePage: React.FC<PageProps> = ({ content }) => {
+    return (
+        <div>
+            <h1>{content.hello || 'Hello, world!'}</h1>
+            <p>Check out this incredibly responsive image:</p>
+            <Image
+                src="/images/hero.jpg"
+                alt="A beautiful landscape that will now load efficiently."
+                width={1200}
+                height={800}
+                loading="lazy"
+            />
+        </div>
+    );
+};
+
+export default HomePage;
+```
+
+The generated HTML will look something like this:
+
+```html
+<picture>
+    <source
+        type="image/webp"
+        srcset="
+            /images/hero-480w.webp   480w,
+            /images/hero-800w.webp   800w,
+            /images/hero-1200w.webp 1200w
+        "
+    />
+    <source
+        type="image/jpeg"
+        srcset="
+            /images/hero-480w.jpg   480w,
+            /images/hero-800w.jpg   800w,
+            /images/hero-1200w.jpg 1200w
+        "
+    />
+    <img
+        src="/images/hero-1200w.jpg"
+        alt="A beautiful landscape that will now load efficiently."
+        width="1200"
+        height="800"
+        loading="lazy"
+    />
+</picture>
+```
+
+This adds a bit of heft to the build process, but hey, at least your users on slow connections won't curse your name for loading a 5MB hero image.
 
 ## Providing Translation Type Overrides
 
@@ -404,54 +515,43 @@ By doing this, TypeScript will provide auto-completion and type checking for you
 
 ## HTML Template
 
-Customize the base HTML structure by providing a template file at `config.templatePath`. The template should include placeholders that the library will replace:
-
-- `{{locale}}`: The current page's locale code (e.g., "en").
-- `{{title}}`: The page title from metadata.
-- `{{description}}`: The page description from metadata.
-- `{{metaTags}}`: For additional meta tags generated from metadata (like OG, Twitter).
-- `{{css}}`: Inlined CSS (global + page-specific).
-- `{{pageContent}}`: The server-rendered HTML of your React page component.
-- `{{scriptsBefore}}`: Scripts to be injected at the end of `<head>`.
-- `{{scriptsAfter}}`: Scripts to be injected at the end of `<body>`.
+Customize the base HTML structure by providing a template file at `config.templatePath`.
 
 Example `template.html`:
 
 ```html
 <!DOCTYPE html>
-<html lang="{{locale}}">
+<html>
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>{{title}}</title>
-        <meta name="description" content="{{description}}" />
-        {{metaTags}}
-        <style>
-            {{css}}
-        </style>
-        {{scriptsBefore}}
+        <meta name="theme-color" content="var(--background)" />
+        <meta
+            name="apple-mobile-web-app-status-bar-style"
+            content="black-translucent"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/img/favicon-32x32.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/img/favicon-16x16.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/img/apple-touch-icon.png"
+        />
+        <link rel="manifest" href="/site.webmanifest" />
     </head>
-    <body>
-        <div id="root">{{pageContent}}</div>
-        {{scriptsAfter}}
-    </body>
+    <body></body>
 </html>
 ```
-
-## Usage (Development and Build)
-
-- **Development Server:**
-
-    - Started with `bun run dev`.
-    - Bun's development server compiles TypeScript/JSX files on the fly and serves pages, typically with live reloading capabilities.
-
-- **Building for Production:**
-    - Typically started with a command like `pnpm run build` or `yarn build`.
-    - This command should invoke a function (e.g., `runBuild` from `cli.ts`) that:
-        1.  (Potentially) Compiles your page components from `app/pages/**/*.tsx` (and `.ts`) to JavaScript files in a temporary build directory (e.g., a `compiledPagesDir`).
-        2.  Outputs the static HTML files, CSS, and public assets to the `config.outDir` directory.
-
-_(Please refer to your project's specific `package.json` scripts or CLI documentation for the exact commands.)_
 
 ## Public Assets
 

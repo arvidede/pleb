@@ -2,9 +2,8 @@
 import {
   __commonJS,
   __require,
-  __toESM,
-  config_default
-} from "./index-gnp5a539.js";
+  __toESM
+} from "./index-c3pew69r.js";
 
 // node_modules/sharp/lib/is.js
 var require_is = __commonJS((exports, module) => {
@@ -113,15 +112,15 @@ var require_filesystem = __commonJS((exports, module) => {
   var LDD_PATH = "/usr/bin/ldd";
   var SELF_PATH = "/proc/self/exe";
   var MAX_LENGTH = 2048;
-  var readFileSync = (path2) => {
-    const fd = fs.openSync(path2, "r");
+  var readFileSync = (path3) => {
+    const fd = fs.openSync(path3, "r");
     const buffer = Buffer.alloc(MAX_LENGTH);
     const bytesRead = fs.readSync(fd, buffer, 0, MAX_LENGTH, 0);
     fs.close(fd, () => {});
     return buffer.subarray(0, bytesRead);
   };
-  var readFile = (path2) => new Promise((resolve, reject) => {
-    fs.open(path2, "r", (err, fd) => {
+  var readFile = (path3) => new Promise((resolve, reject) => {
+    fs.open(path3, "r", (err, fd) => {
       if (err) {
         reject(err);
       } else {
@@ -233,11 +232,11 @@ var require_detect_libc = __commonJS((exports, module) => {
     }
     return null;
   };
-  var familyFromInterpreterPath = (path2) => {
-    if (path2) {
-      if (path2.includes("/ld-musl-")) {
+  var familyFromInterpreterPath = (path3) => {
+    if (path3) {
+      if (path3.includes("/ld-musl-")) {
         return MUSL;
-      } else if (path2.includes("/ld-linux-")) {
+      } else if (path3.includes("/ld-linux-")) {
         return GLIBC;
       }
     }
@@ -282,8 +281,8 @@ var require_detect_libc = __commonJS((exports, module) => {
     cachedFamilyInterpreter = null;
     try {
       const selfContent = await readFile(SELF_PATH);
-      const path2 = interpreterPath(selfContent);
-      cachedFamilyInterpreter = familyFromInterpreterPath(path2);
+      const path3 = interpreterPath(selfContent);
+      cachedFamilyInterpreter = familyFromInterpreterPath(path3);
     } catch (e) {}
     return cachedFamilyInterpreter;
   };
@@ -294,8 +293,8 @@ var require_detect_libc = __commonJS((exports, module) => {
     cachedFamilyInterpreter = null;
     try {
       const selfContent = readFileSync(SELF_PATH);
-      const path2 = interpreterPath(selfContent);
-      cachedFamilyInterpreter = familyFromInterpreterPath(path2);
+      const path3 = interpreterPath(selfContent);
+      cachedFamilyInterpreter = familyFromInterpreterPath(path3);
     } catch (e) {}
     return cachedFamilyInterpreter;
   };
@@ -1749,8 +1748,8 @@ var require_libvips = __commonJS((exports, module) => {
   var semverGreaterThanOrEqualTo = require_gte();
   var semverSatisfies = require_satisfies();
   var detectLibc = require_detect_libc();
-  var { config, engines, optionalDependencies } = require_package();
-  var minimumLibvipsVersionLabelled = process.env.npm_package_config_libvips || config.libvips;
+  var { config: config2, engines, optionalDependencies } = require_package();
+  var minimumLibvipsVersionLabelled = process.env.npm_package_config_libvips || config2.libvips;
   var minimumLibvipsVersion = semverCoerce(minimumLibvipsVersionLabelled).version;
   var prebuiltPlatforms = [
     "darwin-arm64",
@@ -1923,18 +1922,18 @@ var require_sharp = __commonJS((exports, module) => {
     `@img/sharp-${runtimePlatform}/sharp.node`,
     "@img/sharp-wasm32/sharp.node"
   ];
-  var path2;
+  var path3;
   var sharp;
   var errors = [];
-  for (path2 of paths) {
+  for (path3 of paths) {
     try {
-      sharp = __require(path2);
+      sharp = __require(path3);
       break;
     } catch (err) {
       errors.push(err);
     }
   }
-  if (sharp && path2.startsWith("@img/sharp-linux-x64") && !sharp._isUsingX64V2()) {
+  if (sharp && path3.startsWith("@img/sharp-linux-x64") && !sharp._isUsingX64V2()) {
     const err = new Error("Prebuilt binaries for linux-x64 require v2 microarchitecture");
     err.code = "Unsupported CPU";
     errors.push(err);
@@ -1964,9 +1963,9 @@ var require_sharp = __commonJS((exports, module) => {
     }
     if (isLinux && /(symbol not found|CXXABI_)/i.test(messages)) {
       try {
-        const { config } = __require(`@img/sharp-libvips-${runtimePlatform}/package`);
+        const { config: config2 } = __require(`@img/sharp-libvips-${runtimePlatform}/package`);
         const libcFound = `${familySync()} ${versionSync()}`;
-        const libcRequires = `${config.musl ? "musl" : "glibc"} ${config.musl || config.glibc}`;
+        const libcRequires = `${config2.musl ? "musl" : "glibc"} ${config2.musl || config2.glibc}`;
         help.push("- Update your OS:", `    Found ${libcFound}`, `    Requires ${libcRequires}`);
       } catch (errEngines) {}
     }
@@ -4773,15 +4772,15 @@ var require_color = __commonJS((exports, module) => {
     };
   }
   function wrapConversion(toModel, graph) {
-    const path2 = [graph[toModel].parent, toModel];
+    const path3 = [graph[toModel].parent, toModel];
     let fn = conversions_default[graph[toModel].parent][toModel];
     let cur = graph[toModel].parent;
     while (graph[cur].parent) {
-      path2.unshift(graph[cur].parent);
+      path3.unshift(graph[cur].parent);
       fn = link(conversions_default[graph[cur].parent][cur], fn);
       cur = graph[cur].parent;
     }
-    fn.conversion = path2;
+    fn.conversion = path3;
     return fn;
   }
   function route(fromModel) {
@@ -5374,7 +5373,7 @@ var require_channel = __commonJS((exports, module) => {
 
 // node_modules/sharp/lib/output.js
 var require_output = __commonJS((exports, module) => {
-  var path2 = __require("path");
+  var path3 = __require("path");
   var is = require_is();
   var sharp = require_sharp();
   var formats = new Map([
@@ -5405,9 +5404,9 @@ var require_output = __commonJS((exports, module) => {
     let err;
     if (!is.string(fileOut)) {
       err = new Error("Missing output file path");
-    } else if (is.string(this.options.input.file) && path2.resolve(this.options.input.file) === path2.resolve(fileOut)) {
+    } else if (is.string(this.options.input.file) && path3.resolve(this.options.input.file) === path3.resolve(fileOut)) {
       err = new Error("Cannot use same file for input and output");
-    } else if (jp2Regex.test(path2.extname(fileOut)) && !this.constructor.format.jp2k.output.file) {
+    } else if (jp2Regex.test(path3.extname(fileOut)) && !this.constructor.format.jp2k.output.file) {
       err = errJp2Save();
     }
     if (err) {
@@ -6364,18 +6363,97 @@ var require_lib = __commonJS((exports, module) => {
   module.exports = Sharp;
 });
 
-// src/image/utils.ts
+// src/config.ts
 import path from "path";
+async function getUserConfig(projectRoot) {
+  const possibleFilenames = ["config.ts", "config.js"];
+  for (const filename of possibleFilenames) {
+    const configPath = path.join(projectRoot, filename);
+    const configFile = Bun.file(configPath);
+    if (await configFile.exists()) {
+      console.log(`Loading configuration from ${configPath}`);
+      try {
+        const configModule = await import(configPath);
+        if (configModule.default) {
+          return configModule.default;
+        }
+        console.error(`\u274C Error: Configuration file "${filename}" was found but does not have a default export.`);
+        process.exit(1);
+      } catch (error) {
+        console.error(`\u274C Error loading "${filename}":`, error instanceof Error ? error.message : error);
+        process.exit(1);
+      }
+    }
+  }
+  console.warn("\u26A0\uFE0F No config file (config.ts or config.js) found. Using default configuration.");
+  return {};
+}
+function verifyLocaleConfig(config) {
+  if (!config.defaultLocale) {
+    console.error(`\u274C Missing defaultLocale in config"`);
+    process.exit(1);
+  }
+  if (!config.locales || !config.locales.length) {
+    console.error(`\u274C Missing locales in config"`);
+    process.exit(1);
+  }
+  if (!config.locales.includes(config.defaultLocale)) {
+    console.error(`\u274C Default locale not in locales"`);
+    process.exit(1);
+  }
+}
+async function loadConfig() {
+  const userProjectRoot = process.cwd();
+  const userConfig = await getUserConfig(userProjectRoot);
+  const defaultConfig = {
+    projectRoot: userProjectRoot,
+    port: 3000,
+    outDir: "./out",
+    buildDir: "/.pleb",
+    imgDir: "/images",
+    appDir: "./app",
+    pagesDir: "/pages",
+    localesDir: "/locales",
+    publicDir: "/public",
+    templatePath: "/template.html",
+    stylesDir: "/styles",
+    cssFilePath: "/main.css",
+    defaultLocale: "en",
+    locales: ["en"],
+    baseUrl: "http://localhost:3000"
+  };
+  const mergedConfig = {
+    ...defaultConfig,
+    ...userConfig,
+    projectRoot: userProjectRoot
+  };
+  mergedConfig.appDir = path.resolve(userProjectRoot, mergedConfig.appDir);
+  mergedConfig.outDir = path.relative(userProjectRoot, mergedConfig.outDir);
+  mergedConfig.imgDir = path.join(mergedConfig.buildDir, mergedConfig.imgDir);
+  mergedConfig.pagesDir = path.join(mergedConfig.appDir, mergedConfig.pagesDir);
+  mergedConfig.localesDir = path.join(mergedConfig.appDir, mergedConfig.localesDir);
+  mergedConfig.stylesDir = path.join(mergedConfig.appDir, mergedConfig.stylesDir);
+  mergedConfig.publicDir = path.join(mergedConfig.appDir, mergedConfig.publicDir);
+  mergedConfig.templatePath = path.join(mergedConfig.appDir, mergedConfig.templatePath);
+  mergedConfig.cssFilePath = path.join(mergedConfig.stylesDir, mergedConfig.cssFilePath);
+  verifyLocaleConfig(mergedConfig);
+  return mergedConfig;
+}
+var config = await loadConfig();
+var config_default = config;
+
+// src/image/utils.ts
+import path2 from "path";
 var SIZES = [360, 768, 1280, 1920];
 function getFileName(src, size, format) {
-  const name = path.basename(src, path.extname(src));
+  const name = path2.basename(src, path2.extname(src));
   return `${name}-${size}w.${format}`;
 }
 
 // src/image/registry.ts
 var import_sharp = __toESM(require_lib(), 1);
 import { existsSync, mkdirSync } from "fs";
-import path2 from "path";
+import path3 from "path";
 var SUPPORTED_EXTENSIONS = new Set([
   ".jpg",
   ".jpeg",
@@ -6386,7 +6464,7 @@ var SUPPORTED_EXTENSIONS = new Set([
   ".tiff"
 ]);
 function extensionIsSupported(src) {
-  return SUPPORTED_EXTENSIONS.has(path2.extname(src).toLowerCase());
+  return SUPPORTED_EXTENSIONS.has(path3.extname(src).toLowerCase());
 }
 var WEBP_QUALITY = 50;
 var JPEG_QUALITY = 50;
@@ -6397,7 +6475,7 @@ class ImageRegistry {
   processing;
   constructor() {
     this.queue = new Set;
-    this.outDir = path2.join(config_default.outDir, config_default.imgDir);
+    this.outDir = path3.join(config_default.outDir, config_default.imgDir);
     this.processing = new Set;
     this.setupOutDir();
   }
@@ -6413,31 +6491,31 @@ class ImageRegistry {
     return this.queue.size > 0;
   }
   add(src) {
-    if (this.processing.has(src) || this.queue.has(src) || !extensionIsSupported(src) || this.exists(src)) {
+    if (this.processing.has(src) || this.queue.has(src) || this.imageProcessed(src) || !extensionIsSupported(src)) {
       return;
     }
     this.queue.add(src);
   }
-  getName(src, size, format) {
-    return path2.join(this.outDir, getFileName(src, size, format));
+  getFilePath(src, size, format) {
+    return path3.join(this.outDir, getFileName(src, size, format));
   }
-  exists(src) {
+  imageProcessed(src) {
     const width = SIZES[0];
-    const webpPath = this.getName(src, width, "webp");
-    const jpegPath = this.getName(src, width, "jpg");
+    const webpPath = this.getFilePath(src, width, "webp" /* Webp */);
+    const jpegPath = this.getFilePath(src, width, "jpg" /* Jpg */);
     return existsSync(webpPath) && existsSync(jpegPath);
   }
   async processImage(src) {
-    if (this.exists(src)) {
+    if (this.imageProcessed(src)) {
       this.queue.delete(src);
       return;
     }
-    const imagePath = path2.join(config_default.appDir, src);
+    const imagePath = path3.join(config_default.appDir, src);
     const image = import_sharp.default(imagePath);
     const processingTasks = [];
     for (const width of SIZES) {
-      const webpTask = image.clone().resize({ width }).webp({ quality: WEBP_QUALITY }).toFile(this.getName(src, width, "webp"));
-      const jpegTask = image.clone().resize({ width }).jpeg({ quality: JPEG_QUALITY }).toFile(this.getName(src, width, "jpg"));
+      const webpTask = image.clone().resize({ width }).webp({ quality: WEBP_QUALITY }).toFile(this.getFilePath(src, width, "webp" /* Webp */));
+      const jpegTask = image.clone().resize({ width }).jpeg({ quality: JPEG_QUALITY }).toFile(this.getFilePath(src, width, "jpg" /* Jpg */));
       processingTasks.push(webpTask, jpegTask);
     }
     await Promise.all(processingTasks);
@@ -6467,7 +6545,7 @@ class ImageRegistry {
 var imageRegistry = new ImageRegistry;
 var registry_default = imageRegistry;
 
-export { SIZES, getFileName, registry_default };
+export { config_default, SIZES, getFileName, registry_default };
 
-//# debugId=ABC96EA2CF91E63A64756E2164756E21
-//# sourceMappingURL=index-75bwv6rr.js.map
+//# debugId=C7D00B02E6CD8D5E64756E2164756E21
+//# sourceMappingURL=index-nrxsvcc9.js.map
