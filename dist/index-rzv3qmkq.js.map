@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "sources": ["../src/i18n/context.tsx"],
+  "sourcesContent": [
+    "import { createContext, useContext } from \"react\"\nimport {\n    LanguageContextType,\n    LanguageProviderProps,\n    Translations,\n} from \"../types\"\n\nconst DEFAULT_CONTEXT: LanguageContextType = {\n    t: {} as Translations,\n}\n\nexport const LanguageContext =\n    createContext<LanguageContextType>(DEFAULT_CONTEXT)\n\nexport function useLanguage() {\n    const context = useContext(LanguageContext)\n    if (context === DEFAULT_CONTEXT) {\n        console.warn(\n            \"useLanguage hook used outside of LanguageProvider. Translations may not be available.\",\n        )\n    }\n    return context\n}\n\nexport function LanguageProvider({ t, children }: LanguageProviderProps) {\n    return (\n        <LanguageContext.Provider value={{ t }}>\n            {children}\n        </LanguageContext.Provider>\n    )\n}\n"
+  ],
+  "mappings": ";;;;;;;;;;AAAA;AAAA;AAOA,IAAM,kBAAuC;AAAA,EACzC,GAAG,CAAC;AACR;AAEO,IAAM,kBACT,2BAAmC,eAAe;AAE/C,SAAS,WAAW,GAAG;AAAA,EAC1B,MAAM,UAAU,wBAAW,eAAe;AAAA,EAC1C,IAAI,YAAY,iBAAiB;AAAA,IAC7B,QAAQ,KACJ,uFACJ;AAAA,EACJ;AAAA,EACA,OAAO;AAAA;AAGJ,SAAS,gBAAgB,GAAG,GAAG,YAAmC;AAAA,EACrE,uBACI,gBAEE,gBAAgB,UAFlB;AAAA,IAA0B,OAAO,EAAE,EAAE;AAAA,IAArC;AAAA,GAEE;AAAA;",
+  "debugId": "6DE2EDA6CCF3457C64756E2164756E21",
+  "names": []
+}
