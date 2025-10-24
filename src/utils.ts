@@ -60,7 +60,7 @@ export async function processPublicDirectory(): Promise<void> {
                                                 const resolvedPath =
                                                     require.resolve(args.path)
                                                 return { path: resolvedPath }
-                                            } catch (e) {
+                                            } catch {
                                                 console.error(
                                                     `Could not resolve aliased module: ${args.path}`,
                                                 )

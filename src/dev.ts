@@ -79,7 +79,7 @@ function parsePageRequest(
     locales: string[],
     defaultLocale: string,
 ): { pagePath: string; locale: string } {
-    let pagePath = publicPath.replace(".html", "")
+    const pagePath = publicPath.replace(".html", "")
 
     if (pagePath === "" || pagePath === "/") {
         return {

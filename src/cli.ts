@@ -18,12 +18,13 @@ async function runCli() {
 
             await startDevServer()
             break
-        case "build":
+        case "build": {
             console.log("Running build...")
             const forceTranslate = args[1] === "--force-translate"
 
             await buildSite(forceTranslate)
             break
+        }
         case "translate":
             console.log("Running translation...")
             await translate()

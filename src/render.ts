@@ -158,7 +158,7 @@ export async function renderPage(
         translations,
     )
 
-    let html = await populateHtmlTemplate({
+    return populateHtmlTemplate({
         locale,
         title: metadata.title,
         description: metadata.description,
@@ -170,8 +170,6 @@ export async function renderPage(
         linkedData,
         dev: isDevMode,
     })
-
-    return html
 }
 
 export async function buildPage(
