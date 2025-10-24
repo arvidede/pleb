@@ -1,5 +1,5 @@
 import React from "react";
-import { LinkedData, Metadata, PageProps, Script, Translations } from "./types";
+import { LinkedData, Metadata, PageProps, Script, Translations } from "./types.js"
 export declare function loadHtmlTemplate(templatePath: string): Promise<string>;
 export declare function renderReactComponentToString(PageComponent: React.ComponentType<PageProps>, translations: Translations): string;
 export interface HtmlTemplateData {

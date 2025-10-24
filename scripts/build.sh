@@ -24,4 +24,8 @@ NODE_ENV=production bun build ./src/client/index.ts \
 echo "Generating type declarations..."
 tsc --emitDeclarationOnly --project tsconfig.json
 
+
+echo "Fixing declaration file imports for NodeNext resolution..."
+bun run ./scripts/dts.ts
+
 echo "Done!"

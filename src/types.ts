@@ -36,6 +36,7 @@ export interface Metadata {
         image?: string
     }
     twitter?: {
+        site?: string
         card?: string
         title?: string
         description?: string

@@ -1,4 +1,4 @@
-import { LinkedData, Metadata, PageProps, Script, Translations } from "./types";
+import { LinkedData, Metadata, PageProps, Script, Translations } from "./types.js"
 interface PageModule {
     default: React.ComponentType<PageProps>;
     generateMetadata?: (content: Translations) => Metadata;

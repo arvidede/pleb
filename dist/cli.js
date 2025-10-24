@@ -140708,6 +140708,10 @@ function renderMetadata(html, metadata) {
       content: metadata.og?.image
     },
     {
+      name: "twitter:site",
+      content: metadata.twitter?.site || metadata.og?.url
+    },
+    {
       name: "twitter:title",
       content: metadata.twitter?.title || metadata.title
     },
@@ -140723,7 +140727,7 @@ function renderMetadata(html, metadata) {
       name: "twitter:image",
       content: metadata.twitter?.image
     }
-  ];
+  ].filter((tag) => tag.content);
   for (const tagDefinition of tagDefinitions) {
     html = insertInHead(html, createMetaTag(tagDefinition));
   }
@@ -140863,7 +140867,7 @@ async function renderPage(pageRelativePath, locale, isDevMode) {
   const pageSpecificCssPaths = determinePageSpecificCssPaths(pageRelativePath);
   const inlinedCSS = await processCSS(pageSpecificCssPaths);
   const pageContentHtml = renderReactComponentToString(pageModule.default, translations);
-  let html = await populateHtmlTemplate({
+  return populateHtmlTemplate({
     locale,
     title: metadata.title,
     description: metadata.description,
@@ -140875,7 +140879,6 @@ async function renderPage(pageRelativePath, locale, isDevMode) {
     linkedData,
     dev: isDevMode
   });
-  return html;
 }
 async function buildPage(locale, pageFilePath) {
   const pageRelativePath = path5.relative(config_default.pagesDir, pageFilePath);
@@ -140928,7 +140931,7 @@ async function processPublicDirectory() {
                     try {
                       const resolvedPath = __require.resolve(args.path);
                       return { path: resolvedPath };
-                    } catch (e) {
+                    } catch {
                       console.error(`Could not resolve aliased module: ${args.path}`);
                       return null;
                     }
@@ -141137,7 +141140,7 @@ async function tryServeFile(fullPath) {
   return null;
 }
 function parsePageRequest(publicPath, locales, defaultLocale) {
-  let pagePath = publicPath.replace(".html", "");
+  const pagePath = publicPath.replace(".html", "");
   if (pagePath === "" || pagePath === "/") {
     return {
       pagePath: "index",
@@ -141300,11 +141303,12 @@ async function runCli() {
       console.log("Starting development server...");
       await startDevServer();
       break;
-    case "build":
+    case "build": {
       console.log("Running build...");
       const forceTranslate = args[1] === "--force-translate";
       await buildSite(forceTranslate);
       break;
+    }
     case "translate":
       console.log("Running translation...");
       await translate();
@@ -141317,5 +141321,5 @@ async function runCli() {
 }
 runCli();
 
-//# debugId=B8EC7E1CD08DC51664756E2164756E21
+//# debugId=18FDE47820EF33A364756E2164756E21
 //# sourceMappingURL=cli.js.map

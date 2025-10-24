@@ -268,6 +268,10 @@ function renderMetadata(html: string, metadata: Metadata): string {
             content: metadata.og?.image,
         },
         {
+            name: "twitter:site",
+            content: metadata.twitter?.site || metadata.og?.url,
+        },
+        {
             name: "twitter:title",
             content: metadata.twitter?.title || metadata.title,
         },
@@ -283,7 +287,7 @@ function renderMetadata(html: string, metadata: Metadata): string {
             name: "twitter:image",
             content: metadata.twitter?.image,
         },
-    ]
+    ].filter((tag) => tag.content)
 
     for (const tagDefinition of tagDefinitions) {
         html = insertInHead(html, createMetaTag(tagDefinition))
